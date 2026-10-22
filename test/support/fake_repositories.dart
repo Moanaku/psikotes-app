@@ -182,13 +182,30 @@ class FakeCaptureRepository implements CaptureRepository {
 }
 
 /// Sesi dan jawaban di memori untuk `SessionController` di widget test.
+/// Meniru repository Drift: satu jawaban per (sesi, posisi), skor saat
+/// selesai, dan `since` dari yang terbaru.
 class FakeSessionRepository implements SessionRepository, AnswerRepository {
   final Map<int, SessionRecord> sessions = {};
-  final Map<int, Map<int, AnswerRecord>> answers = {};
+  final List<AnswerRecord> _log = [];
   int _next = 1;
+
+  /// Jawaban lama di luar sesi yang tercatat di sini, selalu dikembalikan
+  /// `since` (riwayat 30 hari untuk menguji perencana). Dari yang terbaru.
+  List<AnswerRecord> history = [];
 
   /// Bila diisi, `start` melempar ini (menguji kegagalan menulis).
   Object? failStartWith;
+
+  /// Bila diisi, `since` melempar ini (menguji kondisi galat).
+  Object? failSinceWith;
+
+  /// Bila diisi, `byId` melempar ini.
+  Object? failByIdWith;
+
+  Map<int, AnswerRecord> answersOf(int sessionId) => {
+        for (final a in _log)
+          if (a.sessionId == sessionId) a.posisi: a,
+      };
 
   @override
   Future<int> start(NewSession s) async {
@@ -207,8 +224,9 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
 
   @override
   Future<int> recordAnswer(AnswerRecord a) async {
-    (answers[a.sessionId] ??= {})[a.posisi] = a;
-    return 1;
+    _log.removeWhere((x) => x.sessionId == a.sessionId && x.posisi == a.posisi);
+    _log.add(a);
+    return _log.length;
   }
 
   @override
@@ -233,18 +251,68 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
   }
 
   @override
-  Future<double> finish(int sessionId, DateTime now) async => 0;
+  Future<double> finish(int sessionId, DateTime now) async {
+    final s = sessions[sessionId]!;
+    final benar = answersOf(sessionId).values.where((a) => a.benar).length;
+    final total = s.plan.items.isEmpty ? 1 : s.plan.items.length;
+    final skor = (benar * 100.0 / total).clamp(0.0, 100.0);
+    sessions[sessionId] = SessionRecord(
+      id: s.id,
+      profileId: s.profileId,
+      mode: s.mode,
+      plan: s.plan,
+      mulai: s.mulai,
+      selesai: now,
+      posisi: s.posisi,
+      skor: skor,
+    );
+    return skor;
+  }
 
   @override
-  Future<SessionSnapshot?> unfinished({int? profileId}) async => null;
+  Future<SessionSnapshot?> unfinished({int? profileId}) async {
+    SessionRecord? latest;
+    for (final s in sessions.values) {
+      if (s.selesai != null) continue;
+      if (profileId != null && s.profileId != profileId) continue;
+      if (latest == null || s.id > latest.id) latest = s;
+    }
+    if (latest == null) return null;
+    return SessionSnapshot(
+      session: latest,
+      answers: answersOf(latest.id).values.toList(),
+    );
+  }
 
   @override
-  Future<SessionRecord?> byId(int id) async => sessions[id];
+  Future<SessionRecord?> byId(int id) async {
+    if (failByIdWith != null) throw failByIdWith!;
+    return sessions[id];
+  }
+
+  @override
+  Future<SessionRecord?> latestFinished(int profileId, SessionMode mode) async {
+    SessionRecord? latest;
+    for (final s in sessions.values) {
+      if (s.selesai == null || s.profileId != profileId || s.mode != mode) {
+        continue;
+      }
+      if (latest == null || s.selesai!.isAfter(latest.selesai!)) latest = s;
+    }
+    return latest;
+  }
 
   @override
   Future<List<AnswerRecord>> forSession(int sessionId) async =>
-      (answers[sessionId] ?? {}).values.toList();
+      answersOf(sessionId).values.toList();
 
   @override
-  Future<List<AnswerRecord>> since(DateTime since) async => const [];
+  Future<List<AnswerRecord>> since(DateTime since) async {
+    if (failSinceWith != null) throw failSinceWith!;
+    final recent = [
+      for (final a in _log)
+        if (!sessions[a.sessionId]!.mulai.isBefore(since)) a,
+    ].reversed;
+    return [...recent, ...history];
+  }
 }

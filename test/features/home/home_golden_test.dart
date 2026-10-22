@@ -7,7 +7,6 @@ import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/core/theme/app_tokens.dart';
 import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
-import 'package:simulator_psikotes_it/domain/services/planning_placeholders.dart';
 import 'package:simulator_psikotes_it/features/home/home_screen.dart';
 
 import '../../core/golden_helper.dart' show goldenTest;
@@ -92,8 +91,8 @@ void main() {
         tester,
         brightness: Brightness.dark,
         overrides: home(extra: [
-          dailyPlannerProvider.overrideWithValue(
-              FlakyPlanner(const PlaceholderDailyPlanner({}))),
+          dailyPlannerProvider
+              .overrideWithValue(FlakyPlanner(emptyHistoryPlanner({}))),
         ]),
       );
       expect(tester.takeException(), isNull);
@@ -138,7 +137,7 @@ void main() {
         tester,
         overrides: home(extra: [
           dailyPlannerProvider
-              .overrideWithValue(FlakyPlanner(const PlaceholderDailyPlanner({
+              .overrideWithValue(FlakyPlanner(emptyHistoryPlanner({
             QuestionType.numSeq,
           }))),
         ]),

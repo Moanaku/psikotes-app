@@ -50,6 +50,9 @@ abstract class SessionRepository {
   /// sesi profil itu.
   Future<SessionSnapshot?> unfinished({int? profileId});
   Future<SessionRecord?> byId(int id);
+
+  /// Sesi [mode] terbaru milik [profileId] yang sudah selesai, atau null.
+  Future<SessionRecord?> latestFinished(int profileId, SessionMode mode);
 }
 
 abstract class AnswerRepository {

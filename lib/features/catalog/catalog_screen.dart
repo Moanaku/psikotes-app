@@ -57,7 +57,8 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
       _startError = null;
     });
     try {
-      final plan = build();
+      final plan = build(await recentSeenKeys(ref));
+      if (!mounted) return;
       if (plan == null) {
         setState(() {
           _starting = false;
@@ -139,9 +140,10 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                           : () => _launch(
                                 profile: active,
                                 mode: SessionMode.latihan,
-                                build: () => SessionPlanBuilder.practice(
+                                build: (avoid) => SessionPlanBuilder.practice(
                                   type,
                                   now: clock.now(),
+                                  avoid: avoid,
                                 ),
                               ),
                     ),
@@ -161,10 +163,11 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
           onStart: (p) => _launch(
             profile: p,
             mode: SessionMode.simulasi,
-            build: () => SessionPlanBuilder.simulation(
+            build: (avoid) => SessionPlanBuilder.simulation(
               p.blueprint,
               now: clock.now(),
               available: available,
+              avoid: avoid,
             )?.plan,
           ),
         ),
@@ -173,8 +176,9 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
   }
 }
 
-/// Menyusun rencana sesi; null bila tidak ada yang bisa disusun.
-typedef SessionPlanFactory = SessionPlan? Function();
+/// Menyusun rencana sesi dengan menghindari soal 30 hari terakhir ([avoid]);
+/// null bila tidak ada yang bisa disusun.
+typedef SessionPlanFactory = SessionPlan? Function(Set<String> avoid);
 
 class _Group extends StatelessWidget {
   const _Group({

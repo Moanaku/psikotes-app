@@ -10,7 +10,6 @@ import 'package:simulator_psikotes_it/core/widgets/score_bar.dart';
 import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
-import 'package:simulator_psikotes_it/domain/services/planning_placeholders.dart';
 
 import '../../support/fake_clock.dart';
 import '../../support/fake_repositories.dart';
@@ -53,7 +52,7 @@ void main() {
       expect(find.text('Latihan hari ini'), findsOneWidget);
       expect(find.text('Sekitar 15 menit'), findsOneWidget);
       expect(find.text('Campuran sesuai bobot profil'), findsOneWidget);
-      expect(find.text('15 soal'), findsOneWidget);
+      expect(find.text('21 soal'), findsOneWidget);
       expect(find.text('Mulai latihan hari ini'), findsOneWidget);
 
       for (final t in [
@@ -202,7 +201,7 @@ void main() {
 
     testWidgets('galat: sebab dan Coba lagi, tanpa teks exception',
         (tester) async {
-      final planner = FlakyPlanner(const PlaceholderDailyPlanner({
+      final planner = FlakyPlanner(emptyHistoryPlanner({
         QuestionType.numSeq,
       }));
       await openHome(
@@ -262,7 +261,7 @@ void main() {
       final s = sessions.sessions[1]!;
       expect(s.mode, SessionMode.latihan);
       expect(s.profileId, 1);
-      expect(s.plan.items.length, 15);
+      expect(s.plan.items.length, 21);
       expect(s.plan.subtes, isEmpty, reason: 'latihan tanpa timer');
       expect(s.deadline, isNull);
       expect(s.mulai, appNow);

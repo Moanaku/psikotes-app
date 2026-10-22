@@ -20,6 +20,7 @@ import '../../core/widgets/status_tag.dart';
 import '../../domain/models/catalog.dart';
 import '../../domain/models/codes.dart';
 import '../../domain/services/daily_planner.dart';
+import '../../domain/services/profile_templates.dart';
 import '../session/session_launcher.dart';
 import 'home_provider.dart';
 
@@ -362,6 +363,11 @@ class _BlockRow extends StatelessWidget {
       PlanBlockKind.mixed => (
           AppIcons.layers,
           'Campuran sesuai bobot profil',
+        ),
+      PlanBlockKind.simulation => (
+          AppIcons.clock,
+          'Simulasi subtes ${ProfileTemplates.categoryName(block.kategori ?? '')}, '
+              '${block.minutes} menit',
         ),
     };
     return ConstrainedBox(

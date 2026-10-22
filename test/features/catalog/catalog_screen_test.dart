@@ -11,7 +11,9 @@ import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
 import 'package:simulator_psikotes_it/domain/models/catalog.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/profile.dart';
+import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
+import 'package:simulator_psikotes_it/domain/services/session_plan_builder.dart';
 import 'package:simulator_psikotes_it/features/catalog/catalog_entries.dart';
 
 import '../../support/fake_repositories.dart';
@@ -185,6 +187,36 @@ void main() {
           s.plan.items.every((i) => i.difficulty == Difficulty.medium), isTrue);
       expect(s.plan.subtes, isEmpty);
       expect(s.deadline, isNull);
+    });
+
+    testWidgets('soal yang muncul 30 hari terakhir tidak dipakai lagi',
+        (tester) async {
+      final first =
+          SessionPlanBuilder.practice(QuestionType.figMtx, now: appNow);
+      final sessions = FakeSessionRepository()
+        ..history = [
+          for (final i in first.items)
+            AnswerRecord(
+              sessionId: 99,
+              posisi: 0,
+              tipe: i.type.code,
+              kategori: 'figural',
+              seed: i.seed,
+              kesulitan: i.difficulty,
+              genVersi: i.genVersi,
+              opsiDipilih: 0,
+              benar: true,
+              durasiMs: 30000,
+              label: SpeedLabel.benarCepat,
+            ),
+        ];
+      await openCatalog(tester, sessions: sessions);
+      await tester.tap(find.text('Matriks 3x3'));
+      await tester.pumpAndSettle();
+      final seeds = {for (final i in sessions.sessions[1]!.plan.items) i.seed};
+      expect(seeds.length, 10);
+      expect(
+          seeds.intersection({for (final i in first.items) i.seed}), isEmpty);
     });
 
     testWidgets('gagal menulis: pesan dan tetap di katalog', (tester) async {

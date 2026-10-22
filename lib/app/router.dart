@@ -6,6 +6,7 @@ import '../core/widgets/placeholder_screen.dart';
 import '../domain/providers.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/onboarding/diagnostic_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
 import 'routes.dart';
@@ -44,7 +45,10 @@ final routerProvider = Provider<GoRouter>((ref) {
           editId: int.tryParse(state.uri.queryParameters['ubah'] ?? ''),
         ),
       ),
-      _r(Routes.onboardingDiagnostik, 'S03', 'Diagnostik'),
+      GoRoute(
+        path: Routes.onboardingDiagnostik,
+        builder: (context, state) => const DiagnosticScreen(),
+      ),
       // Empat tab dengan bottom nav (S04, S05, S15, S11).
       ShellRoute(
         builder: (context, state, child) =>

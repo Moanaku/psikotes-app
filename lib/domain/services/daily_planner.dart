@@ -4,12 +4,19 @@ import '../models/profile.dart';
 import '../models/session.dart';
 
 /// Bagian rencana latihan harian (docs/03-data-model.md, "Rencana latihan
-/// harian"): kelemahan terbesar, kartu buku kesalahan jatuh tempo, atau
-/// campuran sesuai bobot profil.
-enum PlanBlockKind { weakest, due, mixed }
+/// harian"): kelemahan terbesar, kartu buku kesalahan jatuh tempo, campuran
+/// sesuai bobot profil, atau satu subtes simulasi di akhir bila tanggal tes
+/// kurang dari 7 hari.
+enum PlanBlockKind { weakest, due, mixed, simulation }
 
 class PlanBlock {
-  const PlanBlock({required this.kind, required this.count, this.type});
+  const PlanBlock({
+    required this.kind,
+    required this.count,
+    this.type,
+    this.kategori,
+    this.minutes,
+  });
 
   final PlanBlockKind kind;
 
@@ -18,6 +25,12 @@ class PlanBlock {
 
   /// Tipe soal untuk [PlanBlockKind.weakest]; null untuk yang lain.
   final QuestionType? type;
+
+  /// Kategori subtes untuk [PlanBlockKind.simulation]; null untuk yang lain.
+  final String? kategori;
+
+  /// Batas waktu subtes untuk [PlanBlockKind.simulation]; null untuk yang lain.
+  final int? minutes;
 }
 
 /// Rencana latihan hari ini: soal yang akan dikerjakan dan ringkasannya untuk
@@ -52,14 +65,13 @@ class WeaknessEntry {
   final int answered;
 }
 
-/// Menyusun rencana latihan harian. Implementasi nyata di T13; sebelum itu
-/// `PlaceholderDailyPlanner` memakai bobot profil tanpa riwayat.
+/// Menyusun rencana latihan harian (`DefaultDailyPlanner`).
 abstract interface class DailyPlanner {
   /// [now] dari `Clock`; seed soal diturunkan darinya, bukan dari jam sistem.
   Future<DailyPlan> plan(TestProfile profile, DateTime now);
 }
 
-/// Skor kelemahan per tipe (docs/03-data-model.md). Implementasi nyata di T13.
+/// Skor kelemahan per tipe (docs/03-data-model.md), `HistoryWeaknessModel`.
 abstract interface class WeaknessModel {
   /// Tipe dengan kelemahan terbesar, dari yang terlemah. Kosong bila belum ada
   /// riwayat jawaban sama sekali.

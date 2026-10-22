@@ -4,9 +4,12 @@ import 'package:simulator_psikotes_it/app/tab_shell.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/notebook.dart';
 import 'package:simulator_psikotes_it/domain/models/profile.dart';
+import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/services/daily_planner.dart';
+import 'package:simulator_psikotes_it/domain/services/default_daily_planner.dart';
 import 'package:simulator_psikotes_it/domain/services/profile_templates.dart';
 
+import 'fake_repositories.dart';
 import 'pump_app.dart';
 
 /// Profil aktif untuk test beranda dan katalog.
@@ -79,6 +82,14 @@ const threeWeaknesses = FixedWeaknessModel([
   WeaknessEntry(type: QuestionType.logSyl, accuracy: 0.6, answered: 14),
 ]);
 
+/// Perencana nyata di atas riwayat dan buku kesalahan kosong.
+DailyPlanner emptyHistoryPlanner(Set<QuestionType> available) =>
+    DefaultDailyPlanner(
+      answers: FakeSessionRepository(),
+      mistakes: FakeMistakeRepository(),
+      available: available,
+    );
+
 /// Perencana yang gagal membaca data, lalu bisa dibetulkan.
 class FlakyPlanner implements DailyPlanner {
   FlakyPlanner(this.inner);
@@ -96,3 +107,68 @@ class FlakyPlanner implements DailyPlanner {
 /// Layar tab di dalam kerangka tab untuk golden dan tema gelap, tanpa router.
 Widget tabScreen(String location, Widget screen) =>
     TabShell(location: location, child: screen);
+
+/// Jawaban untuk butir rencana [item] di posisi [posisi].
+AnswerRecord answerFor(
+  PlanItem item,
+  int posisi, {
+  int sessionId = 1,
+  bool benar = true,
+  int? opsiDipilih = 0,
+  int ms = 30000,
+}) =>
+    AnswerRecord(
+      sessionId: sessionId,
+      posisi: posisi,
+      tipe: item.type.code,
+      kategori: item.type.category.code,
+      seed: item.seed,
+      kesulitan: item.difficulty,
+      genVersi: item.genVersi,
+      opsiDipilih: opsiDipilih,
+      benar: benar,
+      durasiMs: ms,
+      label: opsiDipilih == null
+          ? SpeedLabel.salahLambat
+          : benar
+              ? SpeedLabel.benarCepat
+              : SpeedLabel.salahCepat,
+    );
+
+/// Menaruh sesi di repository palsu: [answered] soal pertama dijawab (benar
+/// bila [correct] menyetujui posisinya), dan sesi ditutup bila [finished].
+Future<int> seedSession(
+  FakeSessionRepository repo, {
+  required SessionMode mode,
+  required SessionPlan plan,
+  int profileId = 1,
+  int? answered,
+  bool Function(int posisi)? correct,
+  int posisi = 0,
+  bool finished = false,
+  DateTime? mulai,
+}) async {
+  final id = await repo.start(NewSession(
+    profileId: profileId,
+    mode: mode,
+    plan: plan,
+    mulai: mulai ?? appNow,
+  ));
+  final n = answered ?? (finished ? plan.items.length : 0);
+  for (var i = 0; i < n; i++) {
+    await repo.recordAnswer(answerFor(
+      plan.items[i],
+      i,
+      sessionId: id,
+      benar: correct?.call(i) ?? true,
+    ));
+  }
+  await repo.updateProgress(id, posisi);
+  if (finished) {
+    await repo.finish(
+      id,
+      (mulai ?? appNow).add(const Duration(minutes: 10)),
+    );
+  }
+  return id;
+}

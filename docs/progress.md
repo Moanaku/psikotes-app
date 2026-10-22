@@ -17,7 +17,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T10 Kerangka sesi
 - [x] T11 Onboarding: S01, S02 dan profil Umum
 - [x] T12 Beranda dan katalog: S04, S05
-- [ ] T13 Diagnostik dan rencana latihan harian
+- [x] T13 Diagnostik dan rencana latihan harian
 - [ ] T14 Layar sesi: S06, S07
 - [ ] T15 Hasil dan pembahasan: S08, S09
 - [ ] T16 Buku kesalahan dengan SM-2: S10

@@ -39,6 +39,10 @@ class PlanItem {
 }
 
 class SubtestPlan {
+  /// Nama subtes bagi soal campuran lintas kategori, mis. bagian latihan
+  /// rencana harian yang diikuti satu subtes bertimer.
+  static const String mixedLabel = 'campuran';
+
   const SubtestPlan({
     required this.kategori,
     required this.jumlah,
