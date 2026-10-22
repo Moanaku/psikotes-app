@@ -98,6 +98,21 @@ abstract final class AppSizes {
   static const double listRowMinHeight = 56;
   static const double screenMargin = 16;
   static const double iconBase = 24;
+  static const double iconInText = 20;
+  static const double iconInTag = 16;
+
+  // Ukuran komponen inti (docs/04-sistem-desain.md, "Komponen inti").
+  static const double topBarHeight = 56;
+  static const double navPillWidth = 56;
+  static const double navPillHeight = 32;
+  static const double chipHeight = 44;
+  static const double segmentHeight = 40;
+  static const double bubble = 32;
+  static const double tagHeight = 24;
+  static const double barHeight = 8;
+  static const double radioOuter = 24;
+  static const double radioDot = 12;
+  static const double optionLetter = 32;
 }
 
 /// Satu durasi dan satu kurva untuk semua transisi.
@@ -149,4 +164,8 @@ class AppTokens extends ThemeExtension<AppTokens> {
 
 extension AppTokensContext on BuildContext {
   AppTokens get tokens => Theme.of(this).extension<AppTokens>()!;
+
+  /// 150 ms, atau nol bila pengguna mematikan animasi.
+  Duration get motion =>
+      MediaQuery.disableAnimationsOf(this) ? Duration.zero : AppMotion.duration;
 }

@@ -24,6 +24,19 @@ abstract final class AppTheme {
       outlineVariant: c.outlineVariant,
       surfaceContainer: c.surfaceContainer,
       surfaceContainerHigh: c.surfaceContainerHigh,
+      surfaceContainerLowest: c.surfaceContainer,
+      surfaceContainerLow: c.surfaceContainer,
+      surfaceContainerHighest: c.surfaceContainerHigh,
+      surfaceTint: c.surface,
+      shadow: c.surface,
+      inverseSurface: c.ink,
+      onInverseSurface: c.surfaceContainer,
+      primaryContainer: c.accent,
+      onPrimaryContainer: c.onAccent,
+      secondaryContainer: c.accent,
+      onSecondaryContainer: c.onAccent,
+      errorContainer: c.badContainer,
+      onErrorContainer: c.bad,
     );
 
     final text = TextTheme(
@@ -39,7 +52,7 @@ abstract final class AppTheme {
       bodyLarge: AppType.body(c.ink),
       bodyMedium: AppType.body(c.ink),
       bodySmall: AppType.label(c.inkMuted),
-      labelLarge: AppType.label(c.ink),
+      labelLarge: AppType.label(c.ink).copyWith(fontWeight: FontWeight.w600),
       labelMedium: AppType.label(c.ink),
       labelSmall: AppType.caption(c.inkMuted),
     );
@@ -57,6 +70,58 @@ abstract final class AppTheme {
       textTheme: text,
       fontFamily: AppType.family,
       extensions: [AppTokens(colors: c)],
+      iconTheme: IconThemeData(color: c.ink, size: AppSizes.iconBase),
+      materialTapTargetSize: MaterialTapTargetSize.padded,
+      visualDensity: VisualDensity.standard,
+      splashFactory: InkRipple.splashFactory,
+      splashColor: c.surfaceContainerHigh,
+      highlightColor: c.surfaceContainerHigh,
+      hoverColor: c.surfaceContainerHigh,
+      shadowColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: c.ink,
+        selectionColor: c.accent,
+        selectionHandleColor: c.ink,
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: c.ink,
+        linearTrackColor: c.surfaceContainerHigh,
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected) ? c.ink : c.surfaceContainer,
+        ),
+        checkColor: WidgetStatePropertyAll(c.surfaceContainer),
+        side: BorderSide(color: c.outline, width: 2),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.sm),
+        ),
+      ),
+      switchTheme: SwitchThemeData(
+        trackColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected)
+              ? c.accent
+              : c.surfaceContainerHigh,
+        ),
+        trackOutlineColor: WidgetStateProperty.resolveWith(
+          (s) => s.contains(WidgetState.selected) ? c.ink : c.outline,
+        ),
+        thumbColor: WidgetStatePropertyAll(c.ink),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: c.ink,
+        contentTextStyle: AppType.body(c.surfaceContainer),
+        behavior: SnackBarBehavior.floating,
+        elevation: 0,
+        shape: shape,
+      ),
+      appBarTheme: AppBarTheme(
+        backgroundColor: c.surface,
+        foregroundColor: c.ink,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        titleTextStyle: AppType.title(c.ink),
+      ),
       dividerTheme: DividerThemeData(
         color: c.outlineVariant,
         thickness: 1,
@@ -67,6 +132,7 @@ abstract final class AppTheme {
           backgroundColor: c.ink,
           foregroundColor: c.surfaceContainer,
           minimumSize: minSize,
+          elevation: 0,
           shape: shape,
           textStyle: AppType.body(c.surfaceContainer)
               .copyWith(fontWeight: FontWeight.w600),
@@ -77,6 +143,7 @@ abstract final class AppTheme {
           backgroundColor: c.surfaceContainer,
           foregroundColor: c.ink,
           minimumSize: minSize,
+          elevation: 0,
           shape: shape,
           side: BorderSide(color: c.outline),
           textStyle: AppType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
@@ -86,6 +153,7 @@ abstract final class AppTheme {
         style: TextButton.styleFrom(
           foregroundColor: c.ink,
           minimumSize: minSize,
+          elevation: 0,
           shape: shape,
           textStyle: AppType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
         ),
@@ -110,8 +178,19 @@ abstract final class AppTheme {
           borderRadius: BorderRadius.circular(AppRadius.md),
           borderSide: BorderSide(color: c.ink, width: 2),
         ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          borderSide: BorderSide(color: c.bad, width: 2),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          borderSide: BorderSide(color: c.bad, width: 2),
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(AppRadius.md),
+          borderSide: BorderSide(color: c.outlineVariant),
+        ),
       ),
-      splashFactory: InkRipple.splashFactory,
     );
   }
 }

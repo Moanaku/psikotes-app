@@ -17,6 +17,7 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed .
       - run: flutter analyze
       - run: bash tool/check_tokens.sh
+      - run: bash tool/check_tokens_test.sh
       - run: flutter test
 
   engine:

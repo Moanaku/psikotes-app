@@ -123,25 +123,25 @@ Dibangun sebelum layar (tugas T02). Layar hanya merakit komponen ini. Membuat ko
 |---|---|
 | `AppButton` | Tiga varian. Utama: latar `ink`, teks `surfaceContainer`. Sekunder: latar `surfaceContainerHigh`, teks `ink`. Garis: latar `surfaceContainer`, batas `outline` 1. Tinggi 48, radius 8, teks `body` 600. Satu aksi utama per layar |
 | `AppIconButton` | 48 x 48, ikon 24, radius 8, wajib label semantik |
-| `AppTopBar` | Tinggi 56. Kembali (48) di kiri, judul `title`, aksi di kanan |
+| `AppTopBar` | Tinggi minimal 56, bertambah bila judul panjang atau font besar. Kembali (48) di kiri, judul `title`, aksi di kanan. Dipasang di badan layar, bukan `Scaffold.appBar` (yang memaksa tinggi tetap) |
 | `AppBottomNav` | Empat tab: Beranda, Psikotes, Wawancara, Statistik. Tab aktif: ikon di dalam pil 56 x 32 berlatar `accent`, label `ink` tebal. Tab tidak aktif: `inkMuted` |
 | `ListRow` | Min 56, garis bawah `outlineVariant`, ikon opsional di kiri, `body` 600 untuk judul, `label` `inkMuted` untuk keterangan, chevron di kanan bila bisa dibuka. Bukan kartu |
 | `ChoiceRow` | Baris radio untuk pilihan tunggal (role di S01). Terpilih: latar `accent` sampai tepi layar, titik radio `ink`, keterangan `ink` |
-| `OptionTile` | Opsi soal. Batas `outline` 1, latar `surfaceContainer`, radius 8. Terpilih: latar `accent`, batas `ink` 2, huruf opsi berlatar `ink` |
-| `AppChip` | Tinggi 44, bulat penuh, batas `outline`. Terpilih: latar `accent`, batas `ink`, teks tebal |
-| `SegmentedControl` | Latar `surfaceContainerHigh`, isi 4, tombol 40, radius 8. Terpilih: latar `accent` |
-| `NumberBubble` | 32, bulat. Terjawab: latar `ink`, teks terang. Sekarang: latar `accent`, batas `ink` 2. Belum: batas `outline`, teks `inkMuted` |
+| `OptionTile` | Opsi soal. Batas `outline` 1, latar `surfaceContainer`, radius 8. Terpilih: latar `accent`, batas `ink` 2, huruf opsi berlatar `ink`. Isi berupa teks atau widget (gambar figural, dengan `semanticLabel`). Batas digambar sebagai lapisan depan, jadi tata letak tidak bergeser saat dipilih |
+| `AppChip` | Tinggi 44, bulat penuh, batas `outline`. Terpilih: latar `accent`, batas `ink` 2, teks tebal. Area sentuh 48 |
+| `SegmentedControl` | Latar `surfaceContainerHigh`, isi 4, tombol 40, radius 8 (tombol terpilih radius 4). Terpilih: latar `accent`. Area sentuh tiap segmen 48 |
+| `NumberBubble` | 32, bulat. Terjawab: latar `ink`, teks terang. Sekarang: latar `accent`, batas `ink` 2. Belum: batas `outline`, teks `inkMuted`. Bila bisa diketuk, area sentuh 48 |
 | `ScoreBar` | Tinggi 8, trek `surfaceContainerHigh`, isi `ink`. Kelemahan terbesar: isi `accent` dengan batas `ink`. Nilai selalu ditulis sebagai teks di sampingnya |
 | `StatusTag` | Tinggi 24, radius 4, `label`. Netral: batas `outline`. Perlu perhatian: latar `accent`. Kuat: `okContainer` dengan ikon centang |
 | `NoteBox` | Info tambahan: ikon kiri, `label`, latar `surfaceContainer`, batas `outline` 1, radius 8. Tanpa garis tebal di sisi |
 | `AppTextField` | Label di atas (`label` 600), tinggi 48, batas `outline`, latar `surfaceContainer`, teks 16. Fokus: kontur `ink` 2 |
 | `StatRow` | Tiga kolom dipisah garis vertikal `outlineVariant`; angka `headline`, keterangan `label` `inkMuted` |
-| `QuadrantGrid` | 2 x 2 untuk cepat atau lambat dan benar atau salah. Benar di `okContainer`, salah di `badContainer`, tiap sel punya ikon dan teks |
+| `QuadrantGrid` | 2 x 2 untuk cepat atau lambat dan benar atau salah. Benar di `okContainer`, salah di `badContainer`, tiap sel punya ikon dan teks. Angka di atas, judul sel di bawahnya, agar angka sejajar walau judul turun baris |
 | `ChatBubble` | Pewawancara: `surfaceContainer`, batas `outlineVariant`, radius 12 dengan sudut kiri bawah 4. Pengguna: latar `ink`, teks terang, sudut kanan bawah 4 |
-| `EmptyView` | Judul `title`, satu kalimat penjelasan, satu tombol aksi |
+| `EmptyView` | Judul `title`, satu kalimat penjelasan, satu tombol aksi (boleh tanpa tombol bila tidak ada yang bisa dilakukan, mis. "Tidak ada kartu jatuh tempo hari ini") |
 | `SkeletonList` | Baris abu `surfaceContainerHigh` berbentuk baris daftar asli. Bukan spinner di tengah layar |
 | `ErrorView` | Apa yang gagal, apa yang bisa dilakukan, tombol "Coba lagi" di tempatnya. Tidak pernah menampilkan teks exception |
-| `OfflineView` | Dibedakan dari galat biasa. Menyebut fitur apa yang tetap jalan tanpa internet |
+| `OfflineView` | Dibedakan dari galat biasa. Judul "Tidak ada internet", apa yang tidak jalan, lalu `NoteBox` berikon centang yang menyebut fitur apa yang tetap jalan tanpa internet, dan tombol opsional |
 
 ## Empat kondisi
 
