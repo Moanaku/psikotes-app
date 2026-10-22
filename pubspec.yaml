@@ -28,17 +28,18 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
-  # T02 menambahkan font dan aset:
-  # fonts:
-  #   - family: InstrumentSans
-  #     fonts:
-  #       - asset: assets/fonts/InstrumentSans-Regular.ttf
-  #       - asset: assets/fonts/InstrumentSans-Medium.ttf
-  #         weight: 500
-  #       - asset: assets/fonts/InstrumentSans-SemiBold.ttf
-  #         weight: 600
-  #       - asset: assets/fonts/InstrumentSans-Bold.ttf
-  #         weight: 700
+  fonts:
+    - family: InstrumentSans
+      fonts:
+        - asset: assets/fonts/InstrumentSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/InstrumentSans-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/InstrumentSans-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/InstrumentSans-Bold.ttf
+          weight: 700
+  # Aset lain ditambahkan di tugas yang memakainya:
   # assets:
   #   - assets/verbal_bank.json        (T07)
   #   - assets/knowledge_bank.json     (T26)

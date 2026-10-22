@@ -27,7 +27,8 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 |---|---|
 | Blueprint dan PRD | Siap |
 | Desain 20 layar | Siap (wawancara UI saja) |
-| Kerangka repo | Siap, belum pernah dikompilasi (tugas T01 yang memverifikasi) |
+| Kerangka repo | Terverifikasi: analyze, test, dan test engine (VM dan Chrome) hijau (T01) |
+| Tema dan komponen inti | Selesai: font, tema terang, 20 komponen, golden test, `check_tokens` diperkuat (T02) |
 | Kode fitur | Belum mulai |
 | Daftar tes nyata yang sudah dijalani | Terbuka, menunggu dari pemilik |
 | Penyedia LLM wawancara | Terbuka, diputuskan sebelum v1.3 |

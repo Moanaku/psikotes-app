@@ -12,7 +12,8 @@ class PsikotesApp extends StatelessWidget {
       title: 'Simulator Psikotes IT',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.light(),
-      themeMode: ThemeMode.light, // T21 mengaktifkan tema gelap dan pengaturan tema.
+      themeMode:
+          ThemeMode.light, // T21 mengaktifkan tema gelap dan pengaturan tema.
       routerConfig: appRouter,
     );
   }
