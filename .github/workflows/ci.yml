@@ -24,6 +24,8 @@ jobs:
       - run: bash tool/check_tokens.sh
       - run: bash tool/check_tokens_test.sh
       - run: flutter test
+      - name: Build web (folder platform ada sejak T10)
+        run: flutter build web
 
   engine:
     runs-on: ubuntu-latest

@@ -172,6 +172,8 @@ Pengalihan awal: jika belum ada profil aktif, `/` mengarah ke `/onboarding/role`
 - Repository diekspos sebagai provider; layar tidak menyentuh Drift langsung.
 - `SessionController` (Notifier) memegang sesi berjalan: daftar soal, indeks, jawaban, sisa waktu. Setiap jawaban langsung ditulis ke database agar sesi bisa dilanjutkan.
 - Waktu sisa dihitung dari `deadline` mutlak yang disimpan, bukan dari penghitung yang berkurang, supaya benar setelah app ditutup paksa.
+- Domain tidak membaca jam sistem langsung: semua waktu lewat `Clock` (`clockProvider`; `SystemClock` di app, jam palsu di test). `WallClockGuard` mendeteksi perubahan jam perangkat dan `SessionController` menggeser deadline sebesar lompatannya (ADR-14, A46). Layar sesi meneruskan siklus hidup app ke `onPaused` dan `onResumed`.
+- Provider repository dideklarasikan di `lib/domain/providers.dart` dengan tipe antarmuka dan diisi `dataProviderOverrides` dari `lib/data/providers.dart` di `ProviderScope` akar dan di test (A47).
 
 ## Penanganan galat dan kondisi
 

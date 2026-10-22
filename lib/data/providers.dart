@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../domain/repositories/repositories.dart';
+import '../domain/providers.dart';
 import 'db/app_database.dart';
 import 'db/connection.dart';
 import 'repositories/capture_repository.dart';
@@ -16,30 +16,28 @@ final appDatabaseProvider = Provider<AppDatabase>((ref) {
   return db;
 });
 
-final profileRepositoryProvider = Provider<ProfileRepository>(
-  (ref) => DriftProfileRepository(ref.watch(appDatabaseProvider)),
-);
-
-final sessionRepositoryProvider = Provider<SessionRepository>(
-  (ref) => DriftSessionRepository(ref.watch(appDatabaseProvider)),
-);
-
-final answerRepositoryProvider = Provider<AnswerRepository>(
-  (ref) => DriftAnswerRepository(ref.watch(appDatabaseProvider)),
-);
-
-final mistakeRepositoryProvider = Provider<MistakeRepository>(
-  (ref) => DriftMistakeRepository(ref.watch(appDatabaseProvider)),
-);
-
-final captureRepositoryProvider = Provider<CaptureRepository>(
-  (ref) => DriftCaptureRepository(ref.watch(appDatabaseProvider)),
-);
-
-final companyLogRepositoryProvider = Provider<CompanyLogRepository>(
-  (ref) => DriftCompanyLogRepository(ref.watch(appDatabaseProvider)),
-);
-
-final settingsRepositoryProvider = Provider<SettingsRepository>(
-  (ref) => DriftSettingsRepository(ref.watch(appDatabaseProvider)),
-);
+/// Mengisi provider repository domain (lib/domain/providers.dart) dengan
+/// implementasi Drift. Dipasang di `ProviderScope` akar dan di test.
+final List<Override> dataProviderOverrides = [
+  profileRepositoryProvider.overrideWith(
+    (ref) => DriftProfileRepository(ref.watch(appDatabaseProvider)),
+  ),
+  sessionRepositoryProvider.overrideWith(
+    (ref) => DriftSessionRepository(ref.watch(appDatabaseProvider)),
+  ),
+  answerRepositoryProvider.overrideWith(
+    (ref) => DriftAnswerRepository(ref.watch(appDatabaseProvider)),
+  ),
+  mistakeRepositoryProvider.overrideWith(
+    (ref) => DriftMistakeRepository(ref.watch(appDatabaseProvider)),
+  ),
+  captureRepositoryProvider.overrideWith(
+    (ref) => DriftCaptureRepository(ref.watch(appDatabaseProvider)),
+  ),
+  companyLogRepositoryProvider.overrideWith(
+    (ref) => DriftCompanyLogRepository(ref.watch(appDatabaseProvider)),
+  ),
+  settingsRepositoryProvider.overrideWith(
+    (ref) => DriftSettingsRepository(ref.watch(appDatabaseProvider)),
+  ),
+];
