@@ -53,11 +53,19 @@ final class SweepReport {
   int slowestMicros = 0;
   int slowestSeed = -1;
 
+  /// Jumlah waktu dan banyak soal yang diukur (setelah pemanasan).
+  int totalMicros = 0;
+  int timedCount = 0;
+
+  double get averageMicros => timedCount == 0 ? 0 : totalMicros / timedCount;
+
   double get retryPercent => questions == 0 ? 0 : 100 * retried / questions;
 
   String get summary => '${difficulty.code}: $questions soal, '
       '${retryPercent.toStringAsFixed(2)}% butuh percobaan ulang, '
-      'terlama ${(slowestMicros / 1000).toStringAsFixed(2)} ms';
+      'rata-rata ${(averageMicros / 1000).toStringAsFixed(3)} ms, '
+      'terlama ${(slowestMicros / 1000).toStringAsFixed(2)} ms '
+      '(seed $slowestSeed)';
 }
 
 final class PropertyHarness {
@@ -200,6 +208,8 @@ final class PropertyHarness {
           // Ukur ulang sekali agar jeda GC tidak dihitung sebagai lambat.
           micros = _timeOnce(seed, difficulty);
         }
+        report.totalMicros += micros;
+        report.timedCount++;
         if (micros > report.slowestMicros) {
           report.slowestMicros = micros;
           report.slowestSeed = seed;

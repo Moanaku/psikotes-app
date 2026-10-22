@@ -18,6 +18,13 @@ Hal-hal yang ditulis sebagai asumsi agar pekerjaan tidak berhenti. Setiap butir 
 | A10 | `QuestionType` memuat semua kode katalog kecuali KB-*, karena butir pengetahuan punya ID sendiri dan bukan soal pilihan ganda | `models.dart`, T25 | T25 |
 | A11 | Teks opsi dibandingkan tanpa spasi berlebih dan tanpa beda huruf besar saat memeriksa opsi kembar | `models.dart` (`visualKey`) | Generator verbal atau IT yang butuh beda huruf besar mengusulkan perubahan |
 | A12 | `estimatedSeconds` dibatasi 1 sampai 600 detik | `models.dart` | Generator yang butuh lebih lama mengusulkan perubahan |
+| A13 | FIG-MTX: opsi 7 sampai 8 = kunci + satu salinan sel lain + 5 sampai 6 pengecoh yang melanggar tepat satu aturan. "5 sampai 7 kandidat ditambah satu salinan" tidak muat dalam batas 8 opsi bila 7, jadi diambil 5 sampai 6 (biasanya 6) | `fig_mtx.dart` (`maxSingleViolations`), T04 | Pemilik setuju, atau batas opsi dinaikkan |
+| A14 | FIG-MTX: ciri yang tidak diatur dibuat tetap di semua sel dan dihitung sebagai aturan tersirat; pengecoh boleh melanggar aturan tersirat. Tanpa ini easy (1 aturan) tidak punya cukup pengecoh | `fig_mtx.dart`, T04 | Pemilik setuju |
+| A15 | FIG-MTX: aturan distribusi hanya di hard; hard = 3 aturan, atau 2 aturan dengan sedikitnya satu distribusi (peluang sama). Easy dan medium memakai konstan per baris, naik per kolom (jumlah, ukuran), rotasi bertahap 90 derajat, penjumlahan dan pengurangan bentuk | `fig_mtx.dart` (`pickRules`), T04 | Pemilik setuju |
+| A16 | FIG-MTX: penjumlahan bentuk memakai himpunan bentuk yang saling lepas (gabungan sama dengan xor); pengurangan memakai bentuk kolom 2 sebagai bagian dari kolom 1. Tiap bentuk muncul sekali, sehingga aturan ini juga mengatur jumlah. Sel tidak pernah kosong (A9 tidak dipakai) | `fig_mtx.dart`, T04 | Pemilik setuju |
+| A17 | FIG-MTX: aturan rotasi bertabrakan dengan aturan bentuk, karena rotasi hanya terlihat pada satu bentuk tetap yang tidak simetris (segitiga atau segi lima). Bila bentuk berubah antar sel, rotasi 0 | `fig_mtx.dart` (`MtxRule.collidesWith`), T04 | T08 |
+| A18 | FIG-MTX: solver tidak membaca tag; ia menyimpulkan aturan dari 8 sel (konstan, distribusi multiset, deret aritmetika, rotasi siklik, operasi himpunan, tambah dan kurang jumlah, per baris dan per kolom). Generator menolak matriks bila ada tafsiran yang meramalkan nilai lain, termasuk nilai yang tidak bisa digambar. Isian dianggap bertingkat (kosong, arsir, penuh) | `fig_mtx_solver.dart`, T04 | Pemilik setuju |
+| A19 | FIG-MTX: "pembahasan menyebut aturan per baris dan kolom" ditafsirkan: tiap aturan disebut dengan arah bacanya ("Baris:" atau "Kolom:") dan contoh nilainya, lalu ciri yang tetap, lalu jawaban | `fig_mtx.dart`, T04 | Pemilik setuju |
 
 ## Pertanyaan terbuka
 
