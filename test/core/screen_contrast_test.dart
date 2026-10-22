@@ -577,6 +577,82 @@ final Map<String, List<Pair>> screens = {
     ('kunci: ok di okContainer', (c) => c.ok, (c) => c.okContainer, text),
     ('kunci: ink di okContainer', (c) => c.ink, (c) => c.okContainer, text),
   ],
+  'S11 Statistik': [
+    ('judul dan angka: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'keterangan angka dan sumbu: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'segmen terpilih: ink di accent',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      text
+    ),
+    (
+      'segmen biasa: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+    (
+      'nilai titik grafik: ink di surface',
+      (c) => c.ink,
+      (c) => c.surface,
+      text
+    ),
+    ('garis grafik: ink di surface', (c) => c.ink, (c) => c.surface, border),
+    (
+      'kontur titik terakhir: ink di surface (isi accent)',
+      (c) => c.ink,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'titik biasa: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      border
+    ),
+    (
+      'bilah kategori: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      border
+    ),
+    (
+      'kontur kategori terlemah: ink di trek (isi accent)',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      border
+    ),
+    (
+      'teks tren: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'tombol ekspor: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas tombol ekspor: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'catatan: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+  ],
 };
 
 void main() {

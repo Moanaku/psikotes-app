@@ -155,6 +155,18 @@ class DriftSessionRepository implements SessionRepository {
   }
 
   @override
+  Future<List<SessionRecord>> finishedSessions() async {
+    final rows = await (_db.select(_db.sessionTable)
+          ..where((t) => t.selesai.isNotNull())
+          ..orderBy([
+            (t) => OrderingTerm.asc(t.selesai),
+            (t) => OrderingTerm.asc(t.id)
+          ]))
+        .get();
+    return rows.map(_session).toList();
+  }
+
+  @override
   Future<SessionRecord?> latestFinished(
     int profileId,
     SessionMode mode, {
@@ -212,6 +224,20 @@ class DriftAnswerRepository implements AnswerRepository {
       ..where(_db.sessionTable.mulai
           .isBiggerOrEqualValue(since.millisecondsSinceEpoch))
       ..orderBy([OrderingTerm.desc(_db.answerTable.id)]);
+    final rows = await query.get();
+    return rows.map((r) => _answer(r.readTable(_db.answerTable))).toList();
+  }
+
+  @override
+  Future<List<AnswerRecord>> forFinishedSessions() async {
+    final query = _db.select(_db.answerTable).join([
+      innerJoin(
+        _db.sessionTable,
+        _db.sessionTable.id.equalsExp(_db.answerTable.sessionId),
+      ),
+    ])
+      ..where(_db.sessionTable.selesai.isNotNull())
+      ..orderBy([OrderingTerm.asc(_db.answerTable.id)]);
     final rows = await query.get();
     return rows.map((r) => _answer(r.readTable(_db.answerTable))).toList();
   }

@@ -270,6 +270,31 @@ void main() {
       expect(since.map((a) => a.seed), [3, 2]); // terbaru dulu
     });
 
+    test('statistik: hanya sesi selesai, urut waktu selesai; jawabannya ikut',
+        () async {
+      final profileId = await DriftProfileRepository(db).save(profile());
+      final sessions = DriftSessionRepository(db);
+      Future<int> start(int dayOffset) => sessions.start(NewSession(
+          profileId: profileId,
+          mode: SessionMode.simulasi,
+          plan: plan(),
+          mulai: t0.add(Duration(days: dayOffset))));
+      final a = await start(0);
+      final b = await start(1);
+      final open = await start(2);
+      await sessions.recordAnswer(answer(a, seed: 1));
+      await sessions.recordAnswer(answer(b, seed: 2));
+      await sessions.recordAnswer(answer(open, seed: 3));
+      // b selesai lebih dulu daripada a.
+      await sessions.finish(b, t0.add(const Duration(days: 1, hours: 1)));
+      await sessions.finish(a, t0.add(const Duration(days: 3)));
+
+      expect((await sessions.finishedSessions()).map((s) => s.id), [b, a]);
+      final answers = await DriftAnswerRepository(db).forFinishedSessions();
+      expect(answers.map((x) => x.seed), [1, 2],
+          reason: 'seed 3: belum selesai');
+    });
+
     test('latestEngineAnswer: jawaban terbaru untuk (tipe, seed), atau null',
         () async {
       final profileId = await DriftProfileRepository(db).save(profile());

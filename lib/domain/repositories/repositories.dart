@@ -51,6 +51,9 @@ abstract class SessionRepository {
   Future<SessionSnapshot?> unfinished({int? profileId});
   Future<SessionRecord?> byId(int id);
 
+  /// Semua sesi yang sudah selesai, dari yang paling lama selesai (statistik).
+  Future<List<SessionRecord>> finishedSessions();
+
   /// Sesi [mode] terbaru milik [profileId] yang sudah selesai, atau null.
   /// Dengan [before], hanya yang selesai sebelum waktu itu.
   Future<SessionRecord?> latestFinished(
@@ -65,6 +68,9 @@ abstract class AnswerRepository {
 
   /// Jawaban sejak [since], dari yang terbaru.
   Future<List<AnswerRecord>> since(DateTime since);
+
+  /// Semua jawaban dari sesi yang sudah selesai (statistik), urut id.
+  Future<List<AnswerRecord>> forFinishedSessions();
 
   /// Jawaban engine terbaru untuk soal ([tipe], [seed]), atau null bila tidak
   /// ada. Kartu buku kesalahan hanya menyimpan tipe dan seed; kesulitan dan

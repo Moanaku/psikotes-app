@@ -312,6 +312,12 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
   /// Bila diisi, `byId` melempar ini.
   Object? failByIdWith;
 
+  /// Bila diisi, `finishedSessions` dan `forFinishedSessions` melempar ini.
+  Object? failFinishedWith;
+
+  /// Bila diisi, `finishedSessions` menunggu sampai selesai (kondisi memuat).
+  Completer<void>? finishedGate;
+
   Map<int, AnswerRecord> answersOf(int sessionId) => {
         for (final a in _log)
           if (a.sessionId == sessionId) a.posisi: a,
@@ -398,6 +404,25 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
   Future<SessionRecord?> byId(int id) async {
     if (failByIdWith != null) throw failByIdWith!;
     return sessions[id];
+  }
+
+  @override
+  Future<List<SessionRecord>> finishedSessions() async {
+    if (failFinishedWith != null) throw failFinishedWith!;
+    await finishedGate?.future;
+    return [
+      for (final s in sessions.values)
+        if (s.selesai != null) s,
+    ]..sort((a, b) => a.selesai!.compareTo(b.selesai!));
+  }
+
+  @override
+  Future<List<AnswerRecord>> forFinishedSessions() async {
+    if (failFinishedWith != null) throw failFinishedWith!;
+    return [
+      for (final a in _log)
+        if (sessions[a.sessionId]?.selesai != null) a,
+    ];
   }
 
   @override

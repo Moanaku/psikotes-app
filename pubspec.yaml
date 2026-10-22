@@ -10,12 +10,13 @@ environment:
 # Versi paket adalah titik awal dan belum pernah dikompilasi (tugas T01 memverifikasi).
 # Paket lain ditambahkan di tugas yang memakainya:
 #   T09 drift, drift_flutter (dev: drift_dev, build_runner)  [sudah ditambahkan]
-#   T17 fl_chart, share_plus
+#   T17 fl_chart, share_plus  [sudah ditambahkan]
 #   T18 image_picker, path_provider
 #   T19 flutter_secure_storage, file_picker
 dependencies:
   drift: ^2.31.0
   drift_flutter: ^0.2.8
+  fl_chart: ^1.3.0
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.6.1
@@ -24,6 +25,7 @@ dependencies:
     path: packages/question_engine
   # Domain memakai Notifier dari riverpod tanpa package:flutter (T10).
   riverpod: ^2.6.1
+  share_plus: ^12.0.2
 
 dev_dependencies:
   flutter_test:
