@@ -27,3 +27,6 @@ key.properties
 # Bank soal mentah dan keluaran skrip
 /tool/pregenerate/out/
 /tool/pregenerate/raw/
+
+# Paket library: lock file tidak di-commit
+packages/*/pubspec.lock

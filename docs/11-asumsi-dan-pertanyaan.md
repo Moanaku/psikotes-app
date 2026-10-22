@@ -13,6 +13,11 @@ Hal-hal yang ditulis sebagai asumsi agar pekerjaan tidak berhenti. Setiap butir 
 | A5 | Papan desain memakai angka contoh (profil kecenderungan, bilah progres, titik grafik) | Desain | Diganti data nyata saat implementasi |
 | A6 | Ambang lolos kontras tema gelap sudah dihitung, tetapi belum diperiksa per layar | `04-sistem-desain.md`, T21 | T21 |
 | A7 | Versi paket di `pubspec.yaml` adalah titik awal dan belum pernah dikompilasi | T01 | T01 |
+| A8 | Simetri rotasi bentuk: lingkaran, persegi, dan palang tampak sama di semua rotasi; belah ketupat (lebih tinggi daripada lebar) sama setelah 180 derajat; segitiga dan segi lima berbeda di keempat rotasi. Arsiran digambar dengan sudut tetap di layar. Dua opsi yang hanya berbeda pada rotasi tak terlihat dianggap kembar | `figure_spec.dart` (`Shape.rotationPeriod`), T04, T08 | Renderer T08 menggambar sesuai aturan ini, atau aturannya diubah bersama |
+| A9 | Satu gambar `single` berisi 0 sampai 4 objek; 0 boleh untuk sel hasil pengurangan bentuk | `figure_spec.dart`, T04 | T04 menaikkan batas jika aturan penjumlahan butuh lebih |
+| A10 | `QuestionType` memuat semua kode katalog kecuali KB-*, karena butir pengetahuan punya ID sendiri dan bukan soal pilihan ganda | `models.dart`, T25 | T25 |
+| A11 | Teks opsi dibandingkan tanpa spasi berlebih dan tanpa beda huruf besar saat memeriksa opsi kembar | `models.dart` (`visualKey`) | Generator verbal atau IT yang butuh beda huruf besar mengusulkan perubahan |
+| A12 | `estimatedSeconds` dibatasi 1 sampai 600 detik | `models.dart` | Generator yang butuh lebih lama mengusulkan perubahan |
 
 ## Pertanyaan terbuka
 
