@@ -18,7 +18,7 @@ void main() {
           const NoteBox(icon: AppIcons.bulb, text: longSentence),
         ], gap: 12);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'note_box');
     });
@@ -54,7 +54,7 @@ void main() {
           ),
         ]);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'app_text_field');
     });

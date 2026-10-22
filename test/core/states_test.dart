@@ -32,7 +32,7 @@ void main() {
           ],
         );
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'empty_view');
     });
@@ -60,7 +60,7 @@ void main() {
   });
 
   group('SkeletonList', () {
-    testWidgets('golden tanpa dan dengan ikon', (tester) async {
+    goldenTest('golden tanpa dan dengan ikon', (tester) async {
       await pumpScene(
         tester,
         const Column(
@@ -93,7 +93,7 @@ void main() {
           onRetry: () {},
         );
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, view());
       await expectGolden(tester, 'error_view');
     });
@@ -128,7 +128,7 @@ void main() {
           onAction: () {},
         );
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, view());
       await expectGolden(tester, 'offline_view');
     });

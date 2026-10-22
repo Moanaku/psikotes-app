@@ -39,7 +39,7 @@ void main() {
           ],
         );
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'app_top_bar');
     });
@@ -66,7 +66,7 @@ void main() {
   });
 
   group('AppBottomNav', () {
-    testWidgets('golden tab pertama dan ketiga aktif', (tester) async {
+    goldenTest('golden tab pertama dan ketiga aktif', (tester) async {
       await pumpScene(
         tester,
         Column(

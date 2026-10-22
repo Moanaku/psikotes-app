@@ -25,7 +25,7 @@ void main() {
           ]),
         ]);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'number_bubble');
       expect(
@@ -64,7 +64,7 @@ void main() {
           const ScoreBar(label: longLabel, value: 1, valueLabel: '100%'),
         ]);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'score_bar');
     });
@@ -103,7 +103,7 @@ void main() {
           const StatusTag(label: longLabel, kind: StatusTagKind.strong),
         ], gap: 8);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'status_tag');
     });
@@ -144,7 +144,7 @@ void main() {
           ]),
         ], gap: 24);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'stat_row');
     });
@@ -176,7 +176,7 @@ void main() {
           ]),
         ]);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'quadrant_grid');
     });

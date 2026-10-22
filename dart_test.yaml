@@ -1,0 +1,4 @@
+tags:
+  # Golden test. Acuannya dibuat di Linux dengan Flutter yang dipin di .github/workflows/ci.yml
+  # (ADR-13). Di Windows dilewati: flutter test --exclude-tags golden.
+  golden:

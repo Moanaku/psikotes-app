@@ -11,6 +11,10 @@ const longSentence =
     'Backup dibuat oleh versi aplikasi yang lebih baru, perbarui aplikasi '
     'lalu coba lagi dari menu pengaturan.';
 
+/// Test golden bertag `golden` (lihat dart_test.yaml dan ADR-13).
+void goldenTest(String description, Future<void> Function(WidgetTester) body) =>
+    testWidgets(description, body, tags: ['golden']);
+
 /// Memasang [child] pada tema terang di lebar [width] dp, skala 1:1.
 Future<void> pumpScene(
   WidgetTester tester,

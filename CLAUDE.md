@@ -6,7 +6,7 @@ Proyek: Simulator Psikotes IT, app Flutter offline-first untuk berlatih psikotes
 
 1. Baca `docs/README.md` (daftar isi dan status).
 2. Tugas yang sedang dikerjakan ada di `docs/07-rencana-tugas.md`; kemajuan di `docs/progress.md`.
-3. Fitur memakai ID F01 sampai F18, layar S01 sampai S20, keputusan ADR-01 sampai ADR-12. Pakai ID yang sama di commit, test, dan issue.
+3. Fitur memakai ID F01 sampai F18, layar S01 sampai S20, keputusan ADR-01 sampai ADR-13. Pakai ID yang sama di commit, test, dan issue.
 
 ## Aturan keras
 
@@ -46,7 +46,8 @@ Sebelum menyatakan UI selesai, jalankan checklist di akhir `docs/04-sistem-desai
 - Satu tugas, satu cabang `fitur/Txx-nama`, satu pull request kecil. Pesan commit: `Txx Fyy: ringkasan`.
 - Atribusi: jangan menambahkan `Co-Authored-By`, "Generated with", tautan sesi, atau nama alat AI apa pun ke pesan commit, deskripsi pull request, issue, README, atau berkas lain yang tampil di GitHub. Seluruh riwayat atas nama pemilik repo. `.claude/settings.json` sudah mematikan atribusi otomatis; jangan diubah.
 - Tulis test bersama kodenya. Bug engine yang ditemukan jadi test baru dulu, baru diperbaiki.
-- Perintah rutin: `flutter analyze`, `flutter test`, `cd packages/question_engine && dart test -p vm,chrome`, `bash tool/check_tokens.sh`.
+- Perintah rutin: `flutter analyze`, `flutter test`, `cd packages/question_engine && dart test -p vm,chrome`, `bash tool/check_tokens.sh`, `bash tool/check_tokens_test.sh`.
+- Golden test (ADR-13): acuannya Linux dengan Flutter yang dipin di `.github/workflows/ci.yml`. Di Windows pakai `flutter test --exclude-tags golden`. Membuat ulang golden: `bash tool/update_goldens.sh` (lewat WSL); memeriksa: `bash tool/update_goldens.sh --verify`. Tinjau selisih PNG sebelum commit; jangan memperbarui golden hanya agar CI hijau.
 - Jika dokumen tidak jelas atau saling bertentangan, tulis pertanyaan di `docs/progress.md` dan berhenti di bagian itu; jangan menebak. Asumsi yang sudah ada tercatat di `docs/11-asumsi-dan-pertanyaan.md`.
 - Keputusan penting baru: tambahkan ADR di `docs/adr/` dan baris di `docs/09-keputusan.md`.
 - Gunakan model sesuai baris **Model** di tugas. Naikkan ke model yang lebih kuat hanya bila tes gagal berulang dan akarnya logika.

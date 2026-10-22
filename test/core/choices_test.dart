@@ -17,7 +17,7 @@ void main() {
               letter: 'D', label: longSentence, selected: true, onTap: () {}),
         ], gap: 8);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'option_tile');
     });
@@ -71,7 +71,7 @@ void main() {
           AppChip(label: longLabel, selected: false, onTap: () {}),
         ]);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'app_chip');
     });
@@ -118,7 +118,7 @@ void main() {
           ),
         ], gap: 12);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'segmented_control');
     });

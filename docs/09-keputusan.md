@@ -1,9 +1,10 @@
 # 09. Decision log
 
-Dua belas keputusan sudah diambil. Tambahkan baris baru di atas setiap ada keputusan penting dan satu berkas di `adr/` memakai templat di `adr/ADR-template.md`. Baris ini bahan menjawab pertanyaan "kenapa" saat wawancara.
+Tiga belas keputusan sudah diambil. Tambahkan baris baru di atas setiap ada keputusan penting dan satu berkas di `adr/` memakai templat di `adr/ADR-template.md`. Baris ini bahan menjawab pertanyaan "kenapa" saat wawancara.
 
 | No | Keputusan | Alasan | Alternatif yang ditolak |
 |---|---|---|---|
+| [ADR-13](adr/ADR-13.md) | Golden test mengacu pada Linux dengan versi Flutter yang dipin; Windows melewati tag `golden` | CI di Linux; render glyph Windows dan Linux berbeda 1 sampai 10% piksel walau versi Flutter sama | Menaikkan ambang; golden per OS; golden tanpa tag |
 | [ADR-12](adr/ADR-12.md) | Konten pre-generate dibuat dengan Claude lewat langganan; wawancara memakai key Gemini atau Groq milik pengguna | Langganan Claude Pro tidak menyertakan API key, API ditagih terpisah; langganan cukup untuk menyusun bank soal dan bank pengetahuan sebelum rilis | Claude API saat runtime (berbayar) |
 | [ADR-11](adr/ADR-11.md) | Wawancara (F15, F18) dikerjakan paling akhir | Psikotes diuji dan dipakai dulu; wawancara paling bergantung pada layanan luar dan paling berisiko | Wawancara di v1.2 |
 | [ADR-10](adr/ADR-10.md) | Mode Umum tanpa role dan Bank Pengetahuan Role (F17) | Pelamar bisa mulai tanpa memilih role; pertanyaan role dari dasar sampai lanjut melengkapi psikotes | Pertanyaan role hanya lewat wawancara |

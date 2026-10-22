@@ -37,7 +37,7 @@ void main() {
           ],
         );
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'list_row');
     });
@@ -89,7 +89,7 @@ void main() {
           ],
         );
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'choice_row');
     });

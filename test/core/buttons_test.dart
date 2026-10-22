@@ -31,7 +31,7 @@ void main() {
           AppButton(label: longLabel, onPressed: () {}),
         ], gap: 12);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'app_button');
     });
@@ -86,7 +86,7 @@ void main() {
           ]),
         ]);
 
-    testWidgets('golden', (tester) async {
+    goldenTest('golden', (tester) async {
       await pumpScene(tester, all());
       await expectGolden(tester, 'app_icon_button');
     });
