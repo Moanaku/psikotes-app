@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:simulator_psikotes_it/app/app.dart';
+
+import 'support/pump_app.dart';
 
 void main() {
   testWidgets('app menyala dan menampilkan layar awal', (tester) async {
-    await tester.pumpWidget(const ProviderScope(child: PsikotesApp()));
-    await tester.pumpAndSettle();
+    await pumpApp(tester);
     expect(find.byType(MaterialApp), findsOneWidget);
     expect(find.byType(Scaffold), findsWidgets);
+    // Belum ada profil: layar awal adalah S01.
+    expect(find.text('Kamu melamar sebagai apa?'), findsOneWidget);
   });
 }

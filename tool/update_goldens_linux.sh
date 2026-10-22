@@ -2,7 +2,7 @@
 # Bagian Linux dari tool/update_goldens.sh. Jangan dipanggil langsung kecuali di Linux.
 # Menyalin repo ke ~/.cache (cepat, tidak menyentuh .dart_tool Windows), memasang Flutter
 # versi pin dari ci.yml bila belum ada, menjalankan test golden dengan --update-goldens,
-# lalu menyalin PNG kembali ke repo.
+# lalu menyalin PNG kembali ke repo (semua folder goldens di bawah test/).
 set -eu
 repo="$1"
 shift
@@ -49,19 +49,22 @@ head -1 "$cache/version.txt"
 work="$cache/repo"
 rm -rf "$work"
 mkdir -p "$work"
-exclude_goldens=--exclude=test/core/goldens
+exclude_goldens=--exclude=goldens
 [ "$verify" -eq 1 ] && exclude_goldens=--exclude=.git
 (cd "$repo" && tar --exclude=.git --exclude=.dart_tool --exclude=build --exclude=.idea \
   $exclude_goldens -cf - .) | tar -xf - -C "$work"
 cd "$work"
 flutter pub get >/dev/null
 if [ "$verify" -eq 1 ]; then
-  flutter test test/core --tags golden "$@"
+  flutter test --tags golden "$@"
   echo "Golden cocok (Flutter $version, Linux)."
   exit 0
 fi
-flutter test test/core --tags golden --update-goldens "$@"
+flutter test --tags golden --update-goldens "$@"
 
-mkdir -p "$repo/test/core/goldens"
-cp -f test/core/goldens/*.png "$repo/test/core/goldens/"
-echo "Golden diperbarui di test/core/goldens (Flutter $version, Linux)."
+# Folder golden ada di samping test-nya (test/core/goldens, test/features/*/goldens, ...).
+find test -type d -name goldens | while read -r dir; do
+  mkdir -p "$repo/$dir"
+  cp -f "$dir"/*.png "$repo/$dir/"
+  echo "Golden diperbarui di $dir (Flutter $version, Linux)."
+done

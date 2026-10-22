@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:question_engine/question_engine.dart';
 import 'package:riverpod/riverpod.dart';
 
+import 'models/profile.dart';
 import 'models/session.dart';
 import 'repositories/repositories.dart';
 import 'services/clock.dart';
@@ -86,3 +87,19 @@ final companyLogRepositoryProvider = Provider<CompanyLogRepository>(
 final settingsRepositoryProvider = Provider<SettingsRepository>(
   (ref) => _unbound('settingsRepositoryProvider'),
 );
+
+/// Semua profil, diperbarui setiap ada perubahan.
+final profilesProvider = StreamProvider<List<TestProfile>>(
+  (ref) => ref.watch(profileRepositoryProvider).watchAll(),
+);
+
+/// Profil aktif; null bila belum ada profil (onboarding). Selama memuat atau
+/// galat, nilainya bukan data.
+final activeProfileProvider = Provider<AsyncValue<TestProfile?>>((ref) {
+  return ref.watch(profilesProvider).whenData((all) {
+    for (final p in all) {
+      if (p.aktif) return p;
+    }
+    return null;
+  });
+});

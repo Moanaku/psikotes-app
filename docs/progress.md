@@ -15,7 +15,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T08 Renderer figural dan golden test
 - [x] T09 Database Drift dan repository
 - [x] T10 Kerangka sesi
-- [ ] T11 Onboarding: S01, S02 dan profil Umum
+- [x] T11 Onboarding: S01, S02 dan profil Umum
 - [ ] T12 Beranda dan katalog: S04, S05
 - [ ] T13 Diagnostik dan rencana latihan harian
 - [ ] T14 Layar sesi: S06, S07

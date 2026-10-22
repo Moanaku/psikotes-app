@@ -35,6 +35,7 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 | Renderer figural | Selesai (T08): `FigureView` menggambar semua jenis `FigureSpec`; 16 golden (360 dan 412 dp) dibuat di Linux; `describeFigure` untuk pembaca layar |
 | Database dan repository | Selesai (T09): 7 tabel Drift v1 dengan indeks, migrasi v1 dan test migrasi, repository profil, sesi, jawaban, buku kesalahan (SM-2), Capture, catatan tes, pengaturan; 33 test dengan SQLite memori. Belum dijalankan di perangkat Android atau browser (lihat A44) |
 | Kerangka sesi | Selesai (T10): `SessionController` (Notifier) dan `Scoring` di domain, waktu dari deadline mutlak dengan penjaga perubahan jam (`Clock`, `WallClockGuard`), pelanjutan setelah proses mati; 61 test domain dengan jam palsu. Folder `android/` dan `web/` dibuat; `flutter build web` berhasil (A44) |
+| Onboarding dan profil | Selesai (T11): S01 pilih role, S02 profil tes target (format, subtes, bobot, tanggal, nama; mode ubah), template QA, Mobile Dev, IT BA, Umum, CCAT-style, Bank-style, Kustom, validasi, guard rute ke onboarding; 5 golden (terang dan gelap). Isian CV menunggu v1.3 (A49) |
 | Skrip bank verbal | Selesai (T07): `tool/pregenerate/` (pass 1, pass 2, bundel, validator, tes). Bank 300 soal belum dibuat; menunggu dijalankan pemilik |
 | Kode fitur | Belum mulai |
 | Daftar tes nyata yang sudah dijalani | Terbuka, menunggu dari pemilik |

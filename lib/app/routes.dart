@@ -2,6 +2,7 @@
 abstract final class Routes {
   static const onboardingRole = '/onboarding/role'; // S01
   static const onboardingProfil = '/onboarding/profil'; // S02
+  static const onboardingPrefix = '/onboarding';
   static const onboardingDiagnostik = '/onboarding/diagnostik'; // S03
   static const beranda = '/'; // S04
   static const psikotes = '/psikotes'; // S05
@@ -20,4 +21,7 @@ abstract final class Routes {
   static const pengaturan = '/pengaturan'; // S18
   static const pengetahuan = '/pengetahuan'; // S19 (v1.1)
   static const pengetahuanSesi = '/pengetahuan/sesi/:id'; // S20 (v1.1)
+
+  /// S02 dalam mode ubah profil (dibuka dari S18).
+  static String profilUbah(int id) => '$onboardingProfil?ubah=$id';
 }
