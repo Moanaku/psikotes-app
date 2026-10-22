@@ -146,8 +146,8 @@ final class FigureObject {
 
 /// Akar semua gambar. `kind` di JSON menentukan subkelas.
 ///
-/// T03 memuat `single` dan `matrix3x3` dari dokumen. Jenis lain (deret untuk
-/// FIG-SEQ, kisi sel untuk FIG-MIR) ditambahkan oleh tugas generatornya.
+/// `single` dan `matrix3x3` dari dokumen; `sequence` (FIG-SEQ) dan `grid`
+/// (FIG-MIR) ditambahkan oleh T05, `table` (NUM-WORD) oleh T06.
 sealed class FigureSpec {
   const FigureSpec();
 
@@ -166,6 +166,9 @@ sealed class FigureSpec {
     return switch (kind) {
       SingleFigure.kindCode => SingleFigure._fromMap(m),
       MatrixFigure.kindCode => MatrixFigure._fromMap(m),
+      SequenceFigure.kindCode => SequenceFigure._fromMap(m),
+      GridFigure.kindCode => GridFigure._fromMap(m),
+      TableFigure.kindCode => TableFigure._fromMap(m),
       _ => throw FormatException('kind gambar tidak dikenal: $kind'),
     };
   }
@@ -273,4 +276,235 @@ final class MatrixFigure extends FigureSpec {
               c == null ? null : SingleFigure.fromJson(c),
           ],
       ]);
+}
+
+/// Deret gambar (FIG-SEQ): 3 sampai 4 gambar terlihat, lalu tepat satu sel
+/// kosong (null) di ujung yang harus dijawab.
+final class SequenceFigure extends FigureSpec {
+  static const String kindCode = 'sequence';
+  static const int minItems = 4;
+  static const int maxItems = 5;
+
+  SequenceFigure(Iterable<SingleFigure?> items)
+      : items = List.unmodifiable(items);
+
+  /// Gambar terlihat berurutan, lalu null.
+  final List<SingleFigure?> items;
+
+  @override
+  String get kind => kindCode;
+
+  @override
+  SequenceFigure canonical() =>
+      SequenceFigure([for (final i in items) i?.canonical()]);
+
+  @override
+  List<String> validate(String path) {
+    final issues = <String>[];
+    if (items.length < minItems || items.length > maxItems) {
+      issues.add('$path.items berjumlah ${items.length}, '
+          'harus $minItems..$maxItems');
+    }
+    if (items.isEmpty || items.last != null) {
+      issues.add('$path.items harus berakhir dengan sel kosong');
+    }
+    for (var i = 0; i < items.length; i++) {
+      final item = items[i];
+      if (item == null) {
+        if (i != items.length - 1) issues.add('$path.items[$i] kosong');
+      } else {
+        issues.addAll(item.validate('$path.items[$i]'));
+      }
+    }
+    return issues;
+  }
+
+  @override
+  Map<String, Object?> toJson() => {
+        'kind': kind,
+        'items': [for (final i in items) i?.toJson()],
+      };
+
+  static SequenceFigure _fromMap(Map<String, Object?> m) => SequenceFigure([
+        for (final i in readList(m, 'items'))
+          i == null ? null : SingleFigure.fromJson(i),
+      ]);
+}
+
+/// Bentuk dari sel berisi pada kisi 4x4 (FIG-MIR). `cells[baris][kolom]`.
+///
+/// Dua kisi dianggap sama bila bentuknya sama setelah digeser ke pojok kiri
+/// atas ([canonical]), karena yang dinilai adalah bentuknya, bukan letaknya.
+final class GridFigure extends FigureSpec {
+  static const String kindCode = 'grid';
+  static const int size = 4;
+  static const int minFilled = 1;
+
+  GridFigure(Iterable<Iterable<bool>> cells)
+      : cells = List.unmodifiable([
+          for (final row in cells) List<bool>.unmodifiable(row),
+        ]);
+
+  factory GridFigure.fromPoints(Iterable<(int, int)> points) {
+    final filled = points.toSet();
+    return GridFigure([
+      for (var r = 0; r < size; r++)
+        [for (var c = 0; c < size; c++) filled.contains((r, c))],
+    ]);
+  }
+
+  final List<List<bool>> cells;
+
+  /// Sel berisi sebagai (baris, kolom), terurut baris lalu kolom.
+  List<(int, int)> get points => [
+        for (var r = 0; r < cells.length; r++)
+          for (var c = 0; c < cells[r].length; c++)
+            if (cells[r][c]) (r, c),
+      ];
+
+  int get filledCount => points.length;
+
+  /// Cermin kiri-kanan (sumbu vertikal) dalam kotak 4x4.
+  GridFigure mirrorLeftRight() =>
+      GridFigure.fromPoints([for (final (r, c) in points) (r, size - 1 - c)]);
+
+  /// Cermin atas-bawah (sumbu horizontal) dalam kotak 4x4.
+  GridFigure mirrorTopBottom() =>
+      GridFigure.fromPoints([for (final (r, c) in points) (size - 1 - r, c)]);
+
+  /// Putar searah jarum jam sebanyak [quarterTurns] kali 90 derajat.
+  GridFigure rotate(int quarterTurns) {
+    var out = points;
+    for (var i = 0; i < quarterTurns % 4; i++) {
+      out = [for (final (r, c) in out) (c, size - 1 - r)];
+    }
+    return GridFigure.fromPoints(out);
+  }
+
+  /// Geser ke pojok kiri atas.
+  @override
+  GridFigure canonical() {
+    final pts = points;
+    if (pts.isEmpty) return this;
+    var minR = size;
+    var minC = size;
+    for (final (r, c) in pts) {
+      if (r < minR) minR = r;
+      if (c < minC) minC = c;
+    }
+    return GridFigure.fromPoints(
+        [for (final (r, c) in pts) (r - minR, c - minC)]);
+  }
+
+  /// Satu baris per kisi, "#" berisi dan "." kosong. Untuk pembahasan.
+  String rowText(int r) => cells[r].map((b) => b ? '#' : '.').join();
+
+  @override
+  String get kind => kindCode;
+
+  @override
+  List<String> validate(String path) {
+    final issues = <String>[];
+    if (cells.length != size || cells.any((r) => r.length != size)) {
+      issues.add('$path.cells bukan ${size}x$size');
+    } else if (filledCount < minFilled) {
+      issues.add('$path.cells kosong');
+    }
+    return issues;
+  }
+
+  @override
+  Map<String, Object?> toJson() => {
+        'kind': kind,
+        'cells': [
+          for (final row in cells) [for (final c in row) c ? 1 : 0],
+        ],
+      };
+
+  static GridFigure _fromMap(Map<String, Object?> m) => GridFigure([
+        for (final row in readList(m, 'cells'))
+          [
+            for (final c in asJsonList(row, 'baris cells'))
+              c == 1
+                  ? true
+                  : c == 0
+                      ? false
+                      : throw const FormatException('sel kisi bukan 0 atau 1'),
+          ],
+      ]);
+}
+
+/// Tabel data kecil (NUM-WORD): baris pertama judul kolom, kolom pertama
+/// label baris. Semua sel berupa teks tampilan; isinya data soal yang dibaca
+/// solver.
+final class TableFigure extends FigureSpec {
+  static const String kindCode = 'table';
+  static const int minColumns = 2;
+  static const int maxColumns = 4;
+  static const int minRows = 2;
+  static const int maxRows = 8;
+
+  TableFigure(
+      {required Iterable<String> headers,
+      required Iterable<Iterable<String>> rows})
+      : headers = List.unmodifiable(headers),
+        rows = List.unmodifiable([
+          for (final r in rows) List<String>.unmodifiable(r),
+        ]);
+
+  final List<String> headers;
+
+  /// `rows[baris][kolom]`; kolom 0 adalah label baris.
+  final List<List<String>> rows;
+
+  @override
+  String get kind => kindCode;
+
+  @override
+  TableFigure canonical() => this;
+
+  @override
+  List<String> validate(String path) {
+    final issues = <String>[];
+    if (headers.length < minColumns || headers.length > maxColumns) {
+      issues.add('$path.headers berjumlah ${headers.length}, '
+          'harus $minColumns..$maxColumns');
+    }
+    if (rows.length < minRows || rows.length > maxRows) {
+      issues.add('$path.rows berjumlah ${rows.length}, '
+          'harus $minRows..$maxRows');
+    }
+    for (final h in headers) {
+      if (h.trim().isEmpty) issues.add('$path.headers berisi judul kosong');
+    }
+    for (var r = 0; r < rows.length; r++) {
+      if (rows[r].length != headers.length) {
+        issues.add('$path.rows[$r] berisi ${rows[r].length} sel, '
+            'judul ${headers.length}');
+      }
+      for (final c in rows[r]) {
+        if (c.trim().isEmpty) issues.add('$path.rows[$r] berisi sel kosong');
+      }
+    }
+    return issues;
+  }
+
+  @override
+  Map<String, Object?> toJson() => {
+        'kind': kind,
+        'headers': headers,
+        'rows': rows,
+      };
+
+  static List<String> _strings(Object? json, String what) => [
+        for (final v in asJsonList(json, what))
+          v is String ? v : throw FormatException('$what berisi bukan string'),
+      ];
+
+  static TableFigure _fromMap(Map<String, Object?> m) => TableFigure(
+        headers: _strings(m['headers'], 'headers'),
+        rows: [
+          for (final r in readList(m, 'rows')) _strings(r, 'baris tabel'),
+        ],
+      );
 }
