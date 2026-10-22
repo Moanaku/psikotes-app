@@ -22,6 +22,8 @@ dependencies:
   go_router: ^14.6.2
   question_engine:
     path: packages/question_engine
+  # Domain memakai Notifier dari riverpod tanpa package:flutter (T10).
+  riverpod: ^2.6.1
 
 dev_dependencies:
   flutter_test:

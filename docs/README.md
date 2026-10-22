@@ -14,7 +14,7 @@ Paket ini adalah satu-satunya sumber kebenaran untuk membangun app. Blueprint aw
 | [06-bank-konten.md](06-bank-konten.md) | Developer | Katalog tipe soal, skema JSON, spek generator, pembuatan bank |
 | [07-rencana-tugas.md](07-rencana-tugas.md) | Claude Code | Tugas per fitur dengan prompt siap tempel dan rekomendasi model |
 | [08-rencana-tes.md](08-rencana-tes.md) | QA | Level tes, invarian engine, checklist manual, pelacakan bug |
-| [09-keputusan.md](09-keputusan.md) | Semua | 12 ADR |
+| [09-keputusan.md](09-keputusan.md) | Semua | 14 ADR |
 | [10-laporan-hasil.md](10-laporan-hasil.md) | Semua | Tabel metrik sebelum dan sesudah, kerangka README, bullet CV |
 | [11-asumsi-dan-pertanyaan.md](11-asumsi-dan-pertanyaan.md) | Semua | Asumsi yang perlu dikonfirmasi dan pertanyaan terbuka |
 | [progress.md](progress.md) | Semua | Kotak centang T01 sampai T32 |
@@ -34,6 +34,7 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 | Generator numerik dan logika | NUM-SEQ, NUM-ARI, NUM-WORD, LOG-SYL selesai (T06): pecahan eksak, pemeriksa model himpunan, terdaftar di registry; 10.000 seed per kesulitan lolos |
 | Renderer figural | Selesai (T08): `FigureView` menggambar semua jenis `FigureSpec`; 16 golden (360 dan 412 dp) dibuat di Linux; `describeFigure` untuk pembaca layar |
 | Database dan repository | Selesai (T09): 7 tabel Drift v1 dengan indeks, migrasi v1 dan test migrasi, repository profil, sesi, jawaban, buku kesalahan (SM-2), Capture, catatan tes, pengaturan; 33 test dengan SQLite memori. Belum dijalankan di perangkat Android atau browser (lihat A44) |
+| Kerangka sesi | Selesai (T10): `SessionController` (Notifier) dan `Scoring` di domain, waktu dari deadline mutlak dengan penjaga perubahan jam (`Clock`, `WallClockGuard`), pelanjutan setelah proses mati; 61 test domain dengan jam palsu. Folder `android/` dan `web/` dibuat; `flutter build web` berhasil (A44) |
 | Skrip bank verbal | Selesai (T07): `tool/pregenerate/` (pass 1, pass 2, bundel, validator, tes). Bank 300 soal belum dibuat; menunggu dijalankan pemilik |
 | Kode fitur | Belum mulai |
 | Daftar tes nyata yang sudah dijalani | Terbuka, menunggu dari pemilik |
