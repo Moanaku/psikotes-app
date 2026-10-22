@@ -22,6 +22,9 @@ abstract final class Routes {
   static const pengetahuan = '/pengetahuan'; // S19 (v1.1)
   static const pengetahuanSesi = '/pengetahuan/sesi/:id'; // S20 (v1.1)
 
+  /// S06 atau S07 untuk sesi [id].
+  static String sesiPath(int id) => '/sesi/$id';
+
   /// S02 dalam mode ubah profil (dibuka dari S18).
   static String profilUbah(int id) => '$onboardingProfil?ubah=$id';
 }

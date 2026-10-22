@@ -92,6 +92,127 @@ final Map<String, List<Pair>> screens = {
       text
     ),
   ],
+  'S04 Beranda': [
+    (
+      'judul dan nama profil: ink di surface',
+      (c) => c.ink,
+      (c) => c.surface,
+      text
+    ),
+    (
+      '"Profil aktif" dan "hari lagi": inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'panel: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'panel: "Sekitar 15 menit" inkMuted di surfaceContainer',
+      (c) => c.inkMuted,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas panel: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+    (
+      'tombol garis: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    ('nilai bilah: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'isi bilah ink di trek surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      border
+    ),
+    (
+      'baris pintasan: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    ('tag v1.1: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'bottom nav tidak aktif: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'bottom nav aktif: onAccent di accent (ikon)',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      border
+    ),
+    (
+      'bottom nav aktif: ink di surface (label)',
+      (c) => c.ink,
+      (c) => c.surface,
+      text
+    ),
+  ],
+  'S05 Katalog psikotes': [
+    (
+      'segmen terpilih: ink di accent',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      text
+    ),
+    (
+      'segmen biasa: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+    ('judul kelompok: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'alasan nonaktif: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'tag Segera dan v1.1: ink di surface',
+      (c) => c.ink,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'batas tag: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'panel simulasi: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'catatan: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+  ],
 };
 
 void main() {

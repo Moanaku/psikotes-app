@@ -8,10 +8,13 @@ import 'dart:async';
 import 'package:question_engine/question_engine.dart';
 import 'package:riverpod/riverpod.dart';
 
+import 'models/notebook.dart';
 import 'models/profile.dart';
 import 'models/session.dart';
 import 'repositories/repositories.dart';
 import 'services/clock.dart';
+import 'services/daily_planner.dart';
+import 'services/planning_placeholders.dart';
 
 /// Membuat penanda waktu berkala; test menggantinya dengan penanda manual.
 typedef TickerFactory = Timer Function(
@@ -103,3 +106,34 @@ final activeProfileProvider = Provider<AsyncValue<TestProfile?>>((ref) {
     return null;
   });
 });
+
+/// Tipe soal yang bisa dikerjakan sekarang: yang punya generator terdaftar.
+/// Bank verbal (T07) dan modul v1.1 menambahkan tipenya lewat provider ini.
+final availableTypesProvider = Provider<Set<QuestionType>>(
+  (ref) => GeneratorRegistry.types.toSet(),
+);
+
+/// Sampai T13: rencana dari bobot profil tanpa riwayat.
+final dailyPlannerProvider = Provider<DailyPlanner>(
+  (ref) => PlaceholderDailyPlanner(ref.watch(availableTypesProvider)),
+);
+
+/// Sampai T13: belum ada model kelemahan, jadi tidak ada data kelemahan.
+final weaknessModelProvider = Provider<WeaknessModel>(
+  (ref) => const PlaceholderWeaknessModel(),
+);
+
+/// Kartu buku kesalahan yang jatuh tempo sampai sekarang (jam dari `Clock`).
+final dueCardsProvider = StreamProvider.autoDispose<List<MistakeCard>>(
+  (ref) => ref
+      .watch(mistakeRepositoryProvider)
+      .watchDue(ref.watch(clockProvider).now()),
+);
+
+/// Jumlah soal Capture di bank pribadi.
+final captureCountProvider = StreamProvider.autoDispose<int>(
+  (ref) => ref
+      .watch(captureRepositoryProvider)
+      .watchAll()
+      .map((items) => items.length),
+);

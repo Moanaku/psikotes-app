@@ -16,7 +16,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T09 Database Drift dan repository
 - [x] T10 Kerangka sesi
 - [x] T11 Onboarding: S01, S02 dan profil Umum
-- [ ] T12 Beranda dan katalog: S04, S05
+- [x] T12 Beranda dan katalog: S04, S05
 - [ ] T13 Diagnostik dan rencana latihan harian
 - [ ] T14 Layar sesi: S06, S07
 - [ ] T15 Hasil dan pembahasan: S08, S09
@@ -46,3 +46,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [ ] T30 Antarmuka AiCoach, sanitasi CV, kartu template
 - [ ] T31 Coach LLM (Gemini atau Groq), penilai, dan evaluasi
 - [ ] T32 Suara di wawancara
+
+## Pertanyaan terbuka
+
+- **S05, segmen Latihan atau Simulasi (T12).** `05-spek-layar.md` menyebut kontrol segmen tetapi tidak menjelaskan apa yang berubah. Sementara: Latihan menampilkan katalog tipe soal; Simulasi menampilkan ringkasan subtes profil aktif dan panel "Simulasi penuh" (A60). Apakah tafsiran ini benar, atau Simulasi seharusnya memulai simulasi satu subtes dari baris tipe soal?

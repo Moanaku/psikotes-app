@@ -13,17 +13,34 @@ import 'fake_repositories.dart';
 final DateTime appNow = DateTime.utc(2026, 10, 22, 8);
 
 class AppHarness {
-  AppHarness(this.tester, this.container, this.profiles, this.clock);
+  AppHarness(
+    this.tester,
+    this.container,
+    this.profiles,
+    this.clock,
+    this.mistakes,
+    this.captures,
+    this.sessions,
+  );
 
   final WidgetTester tester;
   final ProviderContainer container;
   final FakeProfileRepository profiles;
   final FakeClock clock;
+  final FakeMistakeRepository mistakes;
+  final FakeCaptureRepository captures;
+  final FakeSessionRepository sessions;
 
   GoRouter get router => container.read(routerProvider);
 
-  String get location =>
-      router.routerDelegate.currentConfiguration.uri.toString();
+  /// Lokasi sekarang, termasuk halaman yang dibuka lewat `push`.
+  String get location {
+    final config = router.routerDelegate.currentConfiguration;
+    final last = config.last;
+    return last is ImperativeRouteMatch
+        ? last.matches.uri.toString()
+        : config.uri.toString();
+  }
 
   /// Pindah rute seperti tautan dalam (deep link).
   Future<void> go(String path) async {
@@ -37,6 +54,9 @@ class AppHarness {
 Future<AppHarness> pumpApp(
   WidgetTester tester, {
   FakeProfileRepository? profiles,
+  FakeMistakeRepository? mistakes,
+  FakeCaptureRepository? captures,
+  FakeSessionRepository? sessions,
   FakeClock? clock,
   double width = 360,
   double height = 800,
@@ -51,9 +71,16 @@ Future<AppHarness> pumpApp(
 
   final repo = profiles ?? FakeProfileRepository();
   final fake = clock ?? FakeClock(appNow);
+  final mistakeRepo = mistakes ?? FakeMistakeRepository();
+  final captureRepo = captures ?? FakeCaptureRepository();
+  final sessionRepo = sessions ?? FakeSessionRepository();
   await tester.pumpWidget(ProviderScope(
     overrides: [
       profileRepositoryProvider.overrideWithValue(repo),
+      mistakeRepositoryProvider.overrideWithValue(mistakeRepo),
+      captureRepositoryProvider.overrideWithValue(captureRepo),
+      sessionRepositoryProvider.overrideWithValue(sessionRepo),
+      answerRepositoryProvider.overrideWithValue(sessionRepo),
       clockProvider.overrideWithValue(fake),
       ...overrides,
     ],
@@ -63,7 +90,15 @@ Future<AppHarness> pumpApp(
   final container = ProviderScope.containerOf(
     tester.element(find.byType(PsikotesApp)),
   );
-  return AppHarness(tester, container, repo, fake);
+  return AppHarness(
+    tester,
+    container,
+    repo,
+    fake,
+    mistakeRepo,
+    captureRepo,
+    sessionRepo,
+  );
 }
 
 /// Kolom isian di dalam [AppTextField] bertanda [key].

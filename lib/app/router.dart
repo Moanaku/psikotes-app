@@ -4,9 +4,12 @@ import 'package:go_router/go_router.dart';
 
 import '../core/widgets/placeholder_screen.dart';
 import '../domain/providers.dart';
+import '../features/catalog/catalog_screen.dart';
+import '../features/home/home_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
 import 'routes.dart';
+import 'tab_shell.dart';
 
 /// Rute app. Setiap tugas mengganti PlaceholderScreen dengan layar nyata.
 ///
@@ -42,18 +45,31 @@ final routerProvider = Provider<GoRouter>((ref) {
         ),
       ),
       _r(Routes.onboardingDiagnostik, 'S03', 'Diagnostik'),
-      _r(Routes.beranda, 'S04', 'Beranda'),
-      _r(Routes.psikotes, 'S05', 'Katalog psikotes'),
+      // Empat tab dengan bottom nav (S04, S05, S15, S11).
+      ShellRoute(
+        builder: (context, state, child) =>
+            TabShell(location: state.uri.path, child: child),
+        routes: [
+          GoRoute(
+            path: Routes.beranda,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
+            path: Routes.psikotes,
+            builder: (context, state) => const CatalogScreen(),
+          ),
+          _r(Routes.wawancara, 'S15', 'Setup wawancara'),
+          _r(Routes.statistik, 'S11', 'Statistik'),
+        ],
+      ),
       _r(Routes.sesi, 'S06', 'Sesi soal'),
       _r(Routes.hasil, 'S08', 'Hasil sesi'),
       _r(Routes.pembahasan, 'S09', 'Pembahasan soal'),
       _r(Routes.bukuKesalahan, 'S10', 'Buku kesalahan'),
-      _r(Routes.statistik, 'S11', 'Statistik'),
       _r(Routes.capture, 'S12', 'Capture soal'),
       _r(Routes.captureUbah, 'S12', 'Capture soal'),
       _r(Routes.catatanTes, 'S13', 'Catatan psikotes'),
       _r(Routes.kepribadian, 'S14', 'Sesi kepribadian'),
-      _r(Routes.wawancara, 'S15', 'Setup wawancara'),
       _r(Routes.wawancaraDialog, 'S16', 'Dialog wawancara'),
       _r(Routes.wawancaraLaporan, 'S17', 'Laporan wawancara'),
       _r(Routes.pengaturan, 'S18', 'Pengaturan'),
