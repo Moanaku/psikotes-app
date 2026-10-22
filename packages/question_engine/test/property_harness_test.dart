@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:question_engine/question_engine.dart';
 import 'package:test/test.dart';
 
@@ -50,8 +52,8 @@ void main() {
           h.checkSeed(1, Difficulty.easy), contains('seed sama, soal berbeda'));
     });
 
-    test('invarian 4: kunci selalu di posisi A', () {
-      final report = PropertyHarness(
+    test('invarian 4: kunci selalu di posisi A', () async {
+      final report = await PropertyHarness(
         const KeyAlwaysFirstGenerator(),
         solver,
         seedCount: 300,
@@ -96,8 +98,8 @@ void main() {
       expect(flagged, contains(startsWith('kandidat tidak sah')));
     });
 
-    test('invarian 6: pembuatan lebih dari batas waktu', () {
-      final report = PropertyHarness(
+    test('invarian 6: pembuatan lebih dari batas waktu', () async {
+      final report = await PropertyHarness(
         RawGenerator((s, d, _) {
           final w = Stopwatch()..start();
           while (w.elapsedMilliseconds < 8) {}
@@ -111,8 +113,8 @@ void main() {
       expect(report.violations, contains(contains('ms, batas 2 ms')));
     }, testOn: 'vm');
 
-    test('invarian 7: GenerationFailure tercatat', () {
-      final report = PropertyHarness(
+    test('invarian 7: GenerationFailure tercatat', () async {
+      final report = await PropertyHarness(
         const AlwaysNullGenerator(),
         solver,
         seedCount: 5,
@@ -121,8 +123,8 @@ void main() {
       expect(report.violations.first, contains('GenerationFailure'));
     });
 
-    test('persentase percobaan ulang dihitung', () {
-      final report = PropertyHarness(
+    test('persentase percobaan ulang dihitung', () async {
+      final report = await PropertyHarness(
         const MaxNumberGenerator(),
         solver,
         seedCount: 1000,
@@ -131,6 +133,33 @@ void main() {
       // Sekitar 10% percobaan pertama sengaja gagal pada hard.
       expect(report.retryPercent, inInclusiveRange(5, 15));
       expect(report.summary, contains('% butuh percobaan ulang'));
+    });
+  });
+
+  // Di Chrome semua suite berbagi satu thread. Sweep 10.000 seed yang tidak
+  // pernah menyerahkan giliran menahan pemuatan suite lain lebih dari 30 detik
+  // ("Timed out waiting for browser to load test suite", CI run 16).
+  group('harness menyerahkan giliran ke event loop', () {
+    test('timer lain berjalan sebelum sweep selesai', () async {
+      var fired = false;
+      Timer.run(() => fired = true);
+      final report = await PropertyHarness(
+        const MaxNumberGenerator(),
+        solver,
+        seedCount: PropertyHarness.yieldEvery + 1,
+      ).sweep(Difficulty.easy);
+      expect(report.questions, PropertyHarness.yieldEvery + 1);
+      expect(fired, isTrue);
+    });
+
+    test('hasil sweep tidak bergantung pada yield', () async {
+      final report = await PropertyHarness(
+        const MaxNumberGenerator(),
+        solver,
+        seedCount: 3 * PropertyHarness.yieldEvery,
+      ).sweep(Difficulty.medium);
+      expect(report.violations, isEmpty);
+      expect(report.questions, 3 * PropertyHarness.yieldEvery);
     });
   });
 

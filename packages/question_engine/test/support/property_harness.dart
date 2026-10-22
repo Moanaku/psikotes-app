@@ -81,6 +81,9 @@ final class PropertyHarness {
     this.bounds,
   });
 
+  /// Jumlah seed antara dua penyerahan giliran ke event loop di [sweep].
+  static const int yieldEvery = 100;
+
   final QuestionGenerator generator;
   final QuestionSolver solver;
   final int seedCount;
@@ -158,10 +161,18 @@ final class PropertyHarness {
   }
 
   /// Menjalankan semua invarian pada rentang seed tetap untuk satu kesulitan.
-  SweepReport sweep(Difficulty difficulty) {
+  ///
+  /// Menyerahkan giliran ke event loop tiap [yieldEvery] seed. Di Chrome semua
+  /// suite berbagi satu thread; loop sinkron belasan detik menahan pemuatan
+  /// suite lain melewati batas 30 detik. Jeda terjadi di luar [Stopwatch]
+  /// invarian 6, jadi pengukuran waktu per soal tidak berubah.
+  Future<SweepReport> sweep(Difficulty difficulty) async {
     final report = SweepReport(difficulty);
     final timer = Stopwatch();
     for (var i = 0; i < seedCount; i++) {
+      if (i > 0 && i % yieldEvery == 0) {
+        await Future<void>.delayed(Duration.zero);
+      }
       final seed = firstSeed + i;
       final List<String> violations;
       final Question q;
@@ -258,8 +269,8 @@ final class PropertyHarness {
   void register({Iterable<Difficulty> difficulties = Difficulty.values}) {
     group('invarian ${generator.type.code} v${generator.version}', () {
       for (final d in difficulties) {
-        test('${d.code}: $seedCount seed tetap', () {
-          final report = sweep(d);
+        test('${d.code}: $seedCount seed tetap', () async {
+          final report = await sweep(d);
           // Invarian 7: persentase percobaan ulang dicatat di keluaran test.
           // ignore: avoid_print
           print('${generator.type.code} ${report.summary}');

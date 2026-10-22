@@ -1,3 +1,4 @@
-# Suite property test berat (10.000 seed per tipe dan kesulitan). Terlalu banyak
-# suite sekaligus di Chrome membuat pemuatan suite lain kehabisan waktu.
+# Suite property test berat (10.000 seed per tipe dan kesulitan). Di Chrome
+# semua suite berbagi satu thread, jadi PropertyHarness.sweep menyerahkan
+# giliran tiap 100 seed; tanpa itu pemuatan suite lain kehabisan waktu (30 detik).
 concurrency: 2
