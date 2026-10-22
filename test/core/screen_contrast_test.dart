@@ -516,6 +516,67 @@ final Map<String, List<Pair>> screens = {
     ('tag label waktu: ink di surface', (c) => c.ink, (c) => c.surface, text),
     ('sakelar: inkMuted di surface', (c) => c.inkMuted, (c) => c.surface, text),
   ],
+  'S10 Buku kesalahan': [
+    ('judul dan angka: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'keterangan angka dan sumber: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'tanggal jatuh tempo: ink di surface',
+      (c) => c.ink,
+      (c) => c.surface,
+      text
+    ),
+    ('tag Hari ini: ink di accent', (c) => c.onAccent, (c) => c.accent, text),
+    ('chip terpilih: ink di accent', (c) => c.onAccent, (c) => c.accent, text),
+    (
+      'chip biasa: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas chip: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'titik penguasaan terisi: ink di surface',
+      (c) => c.ink,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'titik penguasaan kosong: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+    (
+      'catatan jadwal: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas catatan: outline di surfaceContainer',
+      (c) => c.outline,
+      (c) => c.surfaceContainer,
+      border
+    ),
+    ('kunci: ok di okContainer', (c) => c.ok, (c) => c.okContainer, text),
+    ('kunci: ink di okContainer', (c) => c.ink, (c) => c.okContainer, text),
+  ],
 };
 
 void main() {

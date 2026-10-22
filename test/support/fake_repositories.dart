@@ -5,6 +5,7 @@ import 'package:simulator_psikotes_it/domain/models/notebook.dart';
 import 'package:simulator_psikotes_it/domain/models/profile.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/repositories/repositories.dart';
+import 'package:simulator_psikotes_it/domain/services/sm2_scheduler.dart';
 
 /// Repository profil di memori tanpa database: aman untuk widget test (tanpa
 /// timer dan I/O nyata). Meniru aturan repository Drift: profil pertama
@@ -115,7 +116,8 @@ class FakeProfileRepository implements ProfileRepository {
 }
 
 /// Buku kesalahan di memori. [cards] diatur test; `watchDue` hanya memuat
-/// kartu aktif yang jatuh tempo, seperti repository Drift. Kartu dikenali
+/// kartu yang jatuh tempo menurut `Sm2Scheduler.isDue`, seperti repository
+/// Drift. Kartu dikenali
 /// seperti di repository Drift: (tipe, seed) untuk soal engine, (sumber,
 /// tipe, refId) untuk lainnya.
 class FakeMistakeRepository implements MistakeRepository {
@@ -125,19 +127,49 @@ class FakeMistakeRepository implements MistakeRepository {
   final List<MistakeCard> cards;
   int _next = 1000;
 
-  /// Bila diisi, `watchDue` mengeluarkan galat ini (menguji kondisi galat).
+  /// Bila diisi, `watchDue` dan `watchAll` mengeluarkan galat ini (menguji
+  /// kondisi galat).
   Object? failWith;
 
-  /// Bila diisi, `findFor`, `upsertFromAnswer`, dan `delete` melempar ini.
+  /// Bila diisi, `findFor`, `upsertFromAnswer`, `applyReview`, dan `delete`
+  /// melempar ini.
   Object? failWritesWith;
+
+  /// Bila diisi, `watchAll` menahan data pertama sampai selesai (kondisi
+  /// memuat).
+  Completer<void>? gate;
+
+  /// Ulangan yang diterapkan lewat `applyReview`: (id kartu, benar).
+  final List<(int, bool)> reviews = [];
+
+  CardSchedule _schedule(MistakeCard c) => CardSchedule(
+        jatuhTempo: c.jatuhTempo,
+        intervalHari: c.intervalHari,
+        streakBenar: c.streakBenar,
+        status: c.status,
+      );
 
   @override
   Stream<List<MistakeCard>> watchDue(DateTime now) {
     if (failWith != null) return Stream.error(failWith!);
-    return Stream.value([
+    final due = [
       for (final c in cards)
-        if (c.status == CardStatus.aktif && !c.jatuhTempo.isAfter(now)) c,
-    ]);
+        if (Sm2Scheduler.isDue(_schedule(c), now)) c,
+    ]..sort((a, b) {
+        final byDate = a.jatuhTempo.compareTo(b.jatuhTempo);
+        return byDate != 0 ? byDate : a.id.compareTo(b.id);
+      });
+    return Stream.value(due);
+  }
+
+  @override
+  Stream<List<MistakeCard>> watchAll() async* {
+    await gate?.future;
+    if (failWith != null) throw failWith!;
+    yield [...cards]..sort((a, b) {
+        final byDate = a.jatuhTempo.compareTo(b.jatuhTempo);
+        return byDate != 0 ? byDate : a.id.compareTo(b.id);
+      });
   }
 
   @override
@@ -202,8 +234,31 @@ class FakeMistakeRepository implements MistakeRepository {
   }
 
   @override
-  Future<MistakeCard> applyReview(int cardId, bool correct, DateTime now) =>
-      throw UnimplementedError();
+  Future<MistakeCard> applyReview(
+    int cardId,
+    bool correct,
+    DateTime now,
+  ) async {
+    if (failWritesWith != null) throw failWritesWith!;
+    final i = cards.indexWhere((c) => c.id == cardId);
+    if (i < 0) throw StateError('kartu $cardId tidak ada');
+    final c = cards[i];
+    final next = Sm2Scheduler.afterReview(_schedule(c), correct, now);
+    reviews.add((cardId, correct));
+    return cards[i] = MistakeCard(
+      id: c.id,
+      tipe: c.tipe,
+      kategori: c.kategori,
+      seed: c.seed,
+      sumber: c.sumber,
+      refId: c.refId,
+      jatuhTempo: next.jatuhTempo,
+      intervalHari: next.intervalHari,
+      streakBenar: next.streakBenar,
+      status: next.status,
+      dibuat: c.dibuat,
+    );
+  }
 }
 
 /// Soal Capture di memori; hanya jumlahnya yang dipakai S04 dan S05.
@@ -374,5 +429,15 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
         if (!sessions[a.sessionId]!.mulai.isBefore(since)) a,
     ].reversed;
     return [...recent, ...history];
+  }
+
+  @override
+  Future<AnswerRecord?> latestEngineAnswer(String tipe, int seed) async {
+    for (final a in [..._log.reversed, ...history]) {
+      if (a.sumber == AnswerSource.engine && a.tipe == tipe && a.seed == seed) {
+        return a;
+      }
+    }
+    return null;
   }
 }

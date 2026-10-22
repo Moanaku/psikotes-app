@@ -60,7 +60,9 @@ class SegmentedControl extends StatelessWidget {
                         child: Text(
                           options[i],
                           textAlign: TextAlign.center,
-                          style: AppType.label(c.ink).copyWith(
+                          style: AppType.label(
+                                  i == selectedIndex ? c.onAccent : c.ink)
+                              .copyWith(
                             fontWeight: i == selectedIndex
                                 ? FontWeight.w700
                                 : FontWeight.w500,

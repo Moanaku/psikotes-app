@@ -134,7 +134,9 @@ Tangga interval: 1, 3, 7 hari. Keluar dari buku setelah 3 jawaban benar berturut
 
 Asumsi A1: pemeriksaan 14 hari ini tafsiran dari "jadwal 1, 3, 7, 14 hari" di blueprint. Pemilik proyek perlu mengonfirmasi atau menghapusnya.
 
-Ulangan soal engine memakai tipe yang sama dengan seed baru. Ulangan soal Capture dan butir pengetahuan memakai butir yang sama.
+Penandaan pemeriksaan 14 hari tanpa kolom baru (A81): kartu `dikuasai` dengan `interval_hari = 14` menunggu pemeriksaan dan ikut ditarik saat `jatuh_tempo` tiba; setelah lulus `interval_hari = 0` dan kartu tidak muncul lagi. "Jatuh tempo hari ini" berarti sebelum tengah malam setempat (A80).
+
+Ulangan soal engine memakai tipe yang sama dengan seed baru. Ulangan soal Capture dan butir pengetahuan memakai butir yang sama. Soal ulangan membawa `cardId` di `rencana_json` dan menjadwal ulang kartunya saat sesi selesai (A79).
 
 ## Rencana latihan harian (F03)
 

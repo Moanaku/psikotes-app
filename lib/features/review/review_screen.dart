@@ -257,7 +257,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: _AnswerBlock(
+                child: ReviewAnswerBlock(
                   ok: benar,
                   title: benar
                       ? 'Benar'
@@ -271,7 +271,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
               ),
               const SizedBox(width: AppSpace.s8),
               Expanded(
-                child: _AnswerBlock(
+                child: ReviewAnswerBlock(
                   ok: true,
                   title: 'Kunci',
                   caption: 'Jawaban benar',
@@ -283,9 +283,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
           ),
         ),
         const SizedBox(height: AppSpace.s24),
-        _Section(title: 'Kenapa', text: q.explanation),
+        ReviewSection(title: 'Kenapa', text: q.explanation),
         const SizedBox(height: AppSpace.s24),
-        _Section(title: 'Pola dan trik', text: questionTypeTrick(item.type)),
+        ReviewSection(
+            title: 'Pola dan trik', text: questionTypeTrick(item.type)),
       ],
       const SizedBox(height: AppSpace.s16),
       Padding(
@@ -378,8 +379,9 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       };
 }
 
-class _Section extends StatelessWidget {
-  const _Section({required this.title, required this.text});
+/// Judul seksi dan isinya di S09 dan pembahasan kartu buku kesalahan.
+class ReviewSection extends StatelessWidget {
+  const ReviewSection({super.key, required this.title, required this.text});
 
   final String title;
   final String text;
@@ -404,8 +406,9 @@ class _Section extends StatelessWidget {
 
 /// Blok "Jawabanmu" atau "Kunci": ikon dan teks bersama warna, isi opsi
 /// berupa teks atau gambar kecil. Perakitan token (A76).
-class _AnswerBlock extends StatelessWidget {
-  const _AnswerBlock({
+class ReviewAnswerBlock extends StatelessWidget {
+  const ReviewAnswerBlock({
+    super.key,
     required this.ok,
     required this.title,
     required this.caption,

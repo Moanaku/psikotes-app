@@ -6,6 +6,7 @@ import '../models/profile.dart';
 import '../models/session.dart';
 import '../repositories/repositories.dart';
 import 'daily_planner.dart';
+import 'mistake_book.dart';
 import 'practice_history.dart';
 import 'profile_validation.dart';
 import 'question_timing.dart';
@@ -112,7 +113,7 @@ class DefaultDailyPlanner implements DailyPlanner {
 
     final history = await PracticeHistory.load(_answers, now);
     final dueCards = [
-      for (final c in await _mistakes.watchDue(now).first)
+      for (final c in await _mistakes.watchDue(DueDay.cutoff(now)).first)
         if (_usable(c)) c,
     ];
 
@@ -129,12 +130,13 @@ class DefaultDailyPlanner implements DailyPlanner {
     final blocks = <PlanBlock>[];
     QuestionType? weakest;
 
-    void add(QuestionType type, [String? subtes]) => items.add(
+    void add(QuestionType type, {String? subtes, int? cardId}) => items.add(
           SessionPlanBuilder.item(
             type,
             seeds.next(type),
             Difficulty.medium,
             subtes: subtes,
+            cardId: cardId,
           ),
         );
 
@@ -163,7 +165,7 @@ class DefaultDailyPlanner implements DailyPlanner {
       }
       if (parts.due > 0) {
         for (final card in dueCards.take(parts.due)) {
-          add(QuestionType.fromCode(card.tipe));
+          add(QuestionType.fromCode(card.tipe), cardId: card.id);
         }
         blocks.add(PlanBlock(kind: PlanBlockKind.due, count: parts.due));
       }
@@ -185,14 +187,7 @@ class DefaultDailyPlanner implements DailyPlanner {
     if (simulation != null && items.isNotEmpty) {
       final practiceCount = items.length;
       for (var i = 0; i < practiceCount; i++) {
-        final old = items[i];
-        items[i] = PlanItem(
-          type: old.type,
-          seed: old.seed,
-          difficulty: old.difficulty,
-          genVersi: old.genVersi,
-          subtes: SubtestPlan.mixedLabel,
-        );
+        items[i] = items[i].withSubtes(SubtestPlan.mixedLabel);
       }
       final types =
           SessionPlanBuilder.categoryTypes(simulation.kategori, _available);

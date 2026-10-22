@@ -154,6 +154,22 @@ void main() {
       await pumpScene(tester, all(), textScale: 2);
       expect(tester.takeException(), isNull);
     });
+
+    testWidgets('dua kolom (S10): kedua angka tampil', (tester) async {
+      await pumpScene(
+        tester,
+        scene([
+          const StatRow(items: [
+            StatItem(value: '4', label: 'jatuh tempo hari ini'),
+            StatItem(value: '12', label: 'sudah dikuasai'),
+          ]),
+        ]),
+        textScale: 2,
+      );
+      expect(find.text('4'), findsOneWidget);
+      expect(find.text('12'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
   });
 
   group('QuadrantGrid', () {

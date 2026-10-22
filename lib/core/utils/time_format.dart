@@ -20,6 +20,27 @@ String spokenDuration(Duration d) {
   return '$m menit $s detik';
 }
 
+const List<String> _months = [
+  'Januari',
+  'Februari',
+  'Maret',
+  'April',
+  'Mei',
+  'Juni',
+  'Juli',
+  'Agustus',
+  'September',
+  'Oktober',
+  'November',
+  'Desember',
+];
+
+/// "25 Oktober" untuk tanggal setempat.
+String formatDay(DateTime d) {
+  final l = d.toLocal();
+  return '${l.day} ${_months[l.month - 1]}';
+}
+
 /// Detik per soal untuk teks "Waktumu 31 dtk": dibulatkan, paling sedikit 1.
 int secondsOf(int milliseconds) =>
     (milliseconds / 1000).round().clamp(1, 1 << 30);

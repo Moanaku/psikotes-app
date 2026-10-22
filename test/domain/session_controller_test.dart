@@ -767,6 +767,134 @@ void main() {
           after.single.jatuhTempo, h.clock.now().add(const Duration(days: 1)));
     });
 
+    group('ulangan kartu (PlanItem.cardId, F07)', () {
+      late DriftMistakeRepository book;
+
+      setUp(() => book = DriftMistakeRepository(h.db));
+
+      /// Kartu soal asal (numSeq, seed 7) yang salah di sesi lain.
+      Future<MistakeCard> origin() async => (await book.upsertFromAnswer(
+            AnswerRecord(
+              sessionId: 0,
+              posisi: 0,
+              tipe: QuestionType.numSeq.code,
+              kategori: 'numerik',
+              seed: 7,
+              kesulitan: Difficulty.easy,
+              genVersi: 1,
+              benar: false,
+              durasiMs: 1000,
+              label: SpeedLabel.salahCepat,
+            ),
+            h.clock.now(),
+          ))!;
+
+      Future<void> repeatOnce(int cardId, {required bool correct}) async {
+        // Soal ulangan: tipe sama, seed baru (99), terhubung ke kartu.
+        final plan = SessionPlan(
+          items: [item(QuestionType.numSeq, 99, 'numerik', cardId: cardId)],
+        );
+        await h.start(SessionMode.latihan, plan);
+        await h.c.select(correct ? h.rightOption() : h.wrongOption());
+        await h.c.submit();
+        await h.c.next();
+        expect(h.s.finished, isTrue);
+        h.c.close();
+      }
+
+      test('benar: kartu naik tangga 3 hari, tanpa kartu baru untuk seed baru',
+          () async {
+        final card = await origin();
+        h.clock.advance(const Duration(days: 1));
+        await repeatOnce(card.id, correct: true);
+
+        final all = await book.watchAll().first;
+        expect(all, hasLength(1), reason: 'seed 99 bukan kartu');
+        expect(all.single.seed, 7);
+        expect((all.single.streakBenar, all.single.intervalHari), (1, 3));
+        expect(
+          all.single.jatuhTempo,
+          h.clock.now().add(const Duration(days: 3)),
+        );
+      });
+
+      test('salah: kartu kembali ke 1 hari, tetap satu kartu', () async {
+        final card = await origin();
+        await book.applyReview(card.id, true, h.clock.now());
+        h.clock.advance(const Duration(days: 3));
+        await repeatOnce(card.id, correct: false);
+
+        final all = await book.watchAll().first;
+        expect(all, hasLength(1));
+        expect((all.single.streakBenar, all.single.intervalHari), (0, 1));
+        expect(
+          all.single.jatuhTempo,
+          h.clock.now().add(const Duration(days: 1)),
+        );
+      });
+
+      test('soal dilewati dihitung salah', () async {
+        final card = await origin();
+        final plan = SessionPlan(
+          items: [item(QuestionType.numSeq, 99, 'numerik', cardId: card.id)],
+        );
+        await h.start(SessionMode.latihan, plan);
+        await h.c.finish();
+        final after = (await book.byId(card.id))!;
+        expect((after.streakBenar, after.intervalHari), (0, 1));
+      });
+
+      test('pemeriksaan 14 hari: benar menutupnya, salah mengaktifkan lagi',
+          () async {
+        final card = await origin();
+        for (var i = 0; i < 3; i++) {
+          await book.applyReview(card.id, true, h.clock.now());
+        }
+        h.clock.advance(const Duration(days: 14));
+        await repeatOnce(card.id, correct: true);
+        var after = (await book.byId(card.id))!;
+        expect(after.status, CardStatus.dikuasai);
+        expect(after.intervalHari, 0);
+        expect(
+            await book.watchDue(h.clock.now().add(mins(1e6))).first, isEmpty);
+
+        // Kartu lain dikuasai lalu gagal di pemeriksaan.
+        final other = (await book.upsertFromAnswer(
+          AnswerRecord(
+            sessionId: 0,
+            posisi: 0,
+            tipe: QuestionType.numSeq.code,
+            kategori: 'numerik',
+            seed: 8,
+            kesulitan: Difficulty.easy,
+            genVersi: 1,
+            benar: false,
+            durasiMs: 1000,
+            label: SpeedLabel.salahCepat,
+          ),
+          h.clock.now(),
+        ))!;
+        for (var i = 0; i < 3; i++) {
+          await book.applyReview(other.id, true, h.clock.now());
+        }
+        h.clock.advance(const Duration(days: 14));
+        await repeatOnce(other.id, correct: false);
+        after = (await book.byId(other.id))!;
+        expect(after.status, CardStatus.aktif);
+        expect((after.streakBenar, after.intervalHari), (0, 1));
+      });
+
+      test('kartu sudah dihapus lalu salah: soal baru menjadi kartu baru',
+          () async {
+        final card = await origin();
+        await book.delete(card.id);
+        await repeatOnce(card.id, correct: false);
+        final all = await book.watchAll().first;
+        expect(all, hasLength(1));
+        expect(all.single.seed, 99);
+      });
+    });
+
     test('semua benar: tidak ada kartu', () async {
       await h.start(SessionMode.latihan, practicePlan());
       for (var i = 0; i < 3; i++) {

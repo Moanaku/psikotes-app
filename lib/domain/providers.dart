@@ -16,6 +16,7 @@ import 'services/clock.dart';
 import 'services/daily_planner.dart';
 import 'services/default_daily_planner.dart';
 import 'services/diagnostic_planner.dart';
+import 'services/mistake_book.dart';
 import 'services/weakness_model.dart';
 
 /// Membuat penanda waktu berkala; test menggantinya dengan penanda manual.
@@ -141,11 +142,12 @@ final diagnosticPlannerProvider = Provider<DiagnosticPlanner>(
   ),
 );
 
-/// Kartu buku kesalahan yang jatuh tempo sampai sekarang (jam dari `Clock`).
+/// Kartu buku kesalahan yang jatuh tempo hari ini (jam dari `Clock`, batas
+/// hari kalender setempat, A80).
 final dueCardsProvider = StreamProvider.autoDispose<List<MistakeCard>>(
   (ref) => ref
       .watch(mistakeRepositoryProvider)
-      .watchDue(ref.watch(clockProvider).now()),
+      .watchDue(DueDay.cutoff(ref.watch(clockProvider).now())),
 );
 
 /// Jumlah soal Capture di bank pribadi.

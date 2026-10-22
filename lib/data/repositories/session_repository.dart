@@ -215,4 +215,17 @@ class DriftAnswerRepository implements AnswerRepository {
     final rows = await query.get();
     return rows.map((r) => _answer(r.readTable(_db.answerTable))).toList();
   }
+
+  @override
+  Future<AnswerRecord?> latestEngineAnswer(String tipe, int seed) async {
+    final row = await (_db.select(_db.answerTable)
+          ..where((t) =>
+              t.sumber.equals(AnswerSource.engine.code) &
+              t.tipe.equals(tipe) &
+              t.seed.equals(seed))
+          ..orderBy([(t) => OrderingTerm.desc(t.id)])
+          ..limit(1))
+        .getSingleOrNull();
+    return row == null ? null : _answer(row);
+  }
 }

@@ -92,12 +92,14 @@ class Harness {
   }
 }
 
-PlanItem item(QuestionType type, int seed, String subtes) => PlanItem(
+PlanItem item(QuestionType type, int seed, String subtes, {int? cardId}) =>
+    PlanItem(
       type: type,
       seed: seed,
       difficulty: Difficulty.easy,
       genVersi: GeneratorRegistry.generator(type).version,
       subtes: subtes,
+      cardId: cardId,
     );
 
 /// Simulasi tiga subtes: numerik 3 soal 5 menit, logika 2 soal 4 menit,

@@ -269,6 +269,29 @@ void main() {
       final since = await repo.since(t0.add(const Duration(days: 10)));
       expect(since.map((a) => a.seed), [3, 2]); // terbaru dulu
     });
+
+    test('latestEngineAnswer: jawaban terbaru untuk (tipe, seed), atau null',
+        () async {
+      final profileId = await DriftProfileRepository(db).save(profile());
+      final sessions = DriftSessionRepository(db);
+      final s1 = await sessions.start(NewSession(
+          profileId: profileId,
+          mode: SessionMode.latihan,
+          plan: plan(),
+          mulai: t0));
+      final s2 = await sessions.start(NewSession(
+          profileId: profileId,
+          mode: SessionMode.latihan,
+          plan: plan(),
+          mulai: t0));
+      await sessions.recordAnswer(answer(s1, seed: 5));
+      await sessions.recordAnswer(answer(s2, seed: 5, benar: false));
+      final repo = DriftAnswerRepository(db);
+      final found = await repo.latestEngineAnswer(answer(s1).tipe, 5);
+      expect(found!.sessionId, s2);
+      expect(await repo.latestEngineAnswer(answer(s1).tipe, 6), isNull);
+      expect(await repo.latestEngineAnswer('FIG-SEQ', 5), isNull);
+    });
   });
 
   group('MistakeRepository', () {
@@ -401,8 +424,49 @@ void main() {
       }
       expect(card.status, CardStatus.dikuasai);
       expect(card.streakBenar, 3);
-      expect(await repo.watchDue(now.add(const Duration(days: 60))).first,
+      expect(card.intervalHari, 14);
+      expect(card.jatuhTempo, now.add(const Duration(days: 14)));
+
+      // Satu pemeriksaan ulang 14 hari setelah dikuasai (A1), lalu selesai.
+      expect(await repo.watchDue(now.add(const Duration(days: 13))).first,
           isEmpty);
+      final recheck = now.add(const Duration(days: 14));
+      expect((await repo.watchDue(recheck).first).map((x) => x.id), [c.id]);
+      card = await repo.applyReview(c.id, true, recheck);
+      expect(card.status, CardStatus.dikuasai);
+      expect(card.intervalHari, 0);
+      expect(await repo.watchDue(recheck.add(const Duration(days: 400))).first,
+          isEmpty);
+    });
+
+    test('pemeriksaan 14 hari salah: kartu aktif lagi dengan interval 1',
+        () async {
+      final c = (await repo.upsertFromAnswer(
+          answer(sessionId, seed: 11, benar: false), t0))!;
+      for (var i = 0; i < 3; i++) {
+        await repo.applyReview(c.id, true, t0);
+      }
+      final recheck = t0.add(const Duration(days: 14));
+      final card = await repo.applyReview(c.id, false, recheck);
+      expect(card.status, CardStatus.aktif);
+      expect((card.streakBenar, card.intervalHari), (0, 1));
+      expect(card.jatuhTempo, recheck.add(const Duration(days: 1)));
+    });
+
+    test('watchAll memuat semua status, urut jatuh tempo lalu id', () async {
+      final lateCard = (await repo.upsertFromAnswer(
+          answer(sessionId, seed: 1, benar: false),
+          t0.add(const Duration(days: 4))))!;
+      final early = (await repo.upsertFromAnswer(
+          answer(sessionId, seed: 2, benar: false), t0))!;
+      final done = (await repo.upsertFromAnswer(
+          answer(sessionId, seed: 3, benar: false), t0))!;
+      for (var i = 0; i < 4; i++) {
+        await repo.applyReview(done.id, true, t0);
+      }
+      final all = await repo.watchAll().first;
+      expect(all.map((c) => c.id), [early.id, lateCard.id, done.id]);
+      expect(all.last.status, CardStatus.dikuasai);
     });
 
     test(

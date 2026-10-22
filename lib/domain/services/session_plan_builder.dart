@@ -25,6 +25,7 @@ abstract final class SessionPlanBuilder {
     int seed,
     Difficulty difficulty, {
     String? subtes,
+    int? cardId,
   }) =>
       PlanItem(
         type: type,
@@ -32,6 +33,7 @@ abstract final class SessionPlanBuilder {
         difficulty: difficulty,
         genVersi: GeneratorRegistry.generator(type).version,
         subtes: subtes ?? type.category.code,
+        cardId: cardId,
       );
 
   /// Tipe terdaftar di [available] untuk satu kategori, urut menurut katalog.

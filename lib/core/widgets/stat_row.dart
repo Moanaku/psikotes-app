@@ -10,7 +10,7 @@ class StatItem {
   final String label;
 }
 
-/// Tiga kolom dipisah garis vertikal `outlineVariant`. Angka `headline`,
+/// Dua atau tiga kolom dipisah garis vertikal `outlineVariant`. Angka `headline`,
 /// keterangan `label` `inkMuted`; keterangan turun baris bila panjang.
 class StatRow extends StatelessWidget {
   const StatRow({super.key, required this.items});
@@ -19,7 +19,8 @@ class StatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    assert(items.length == 3, 'StatRow selalu tiga kolom.');
+    assert(
+        items.length == 2 || items.length == 3, 'StatRow dua atau tiga kolom.');
     final c = context.tokens.colors;
     return IntrinsicHeight(
       child: Row(

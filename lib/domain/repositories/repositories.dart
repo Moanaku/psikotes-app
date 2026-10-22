@@ -65,11 +65,21 @@ abstract class AnswerRepository {
 
   /// Jawaban sejak [since], dari yang terbaru.
   Future<List<AnswerRecord>> since(DateTime since);
+
+  /// Jawaban engine terbaru untuk soal ([tipe], [seed]), atau null bila tidak
+  /// ada. Kartu buku kesalahan hanya menyimpan tipe dan seed; kesulitan dan
+  /// versi generator soal asalnya dibaca dari sini.
+  Future<AnswerRecord?> latestEngineAnswer(String tipe, int seed);
 }
 
 abstract class MistakeRepository {
-  /// Kartu `aktif` yang jatuh tempo sampai [now], dari yang paling lama.
+  /// Kartu yang jatuh tempo sampai [now], dari yang paling lama: kartu
+  /// `aktif` dan kartu `dikuasai` yang menunggu pemeriksaan ulang 14 hari
+  /// (`Sm2Scheduler.isDue`).
   Stream<List<MistakeCard>> watchDue(DateTime now);
+
+  /// Semua kartu, termasuk yang dikuasai, urut `jatuh_tempo` lalu id.
+  Stream<List<MistakeCard>> watchAll();
   Future<MistakeCard?> byId(int id);
 
   /// Jawaban salah membuat atau memperbarui kartu; jawaban benar tidak
@@ -89,6 +99,10 @@ abstract class MistakeRepository {
 
   /// Menghapus kartu (sakelar "Masuk buku kesalahan" dimatikan).
   Future<void> delete(int cardId);
+
+  /// Menerapkan satu ulangan ke kartu lewat `Sm2Scheduler.afterReview` dan
+  /// mengembalikan kartu yang sudah diperbarui. Melempar StateError bila kartu
+  /// tidak ada.
   Future<MistakeCard> applyReview(int cardId, bool correct, DateTime now);
 }
 

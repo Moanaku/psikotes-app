@@ -6,6 +6,8 @@ import '../core/widgets/placeholder_screen.dart';
 import '../domain/providers.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/mistakes/mistake_book_screen.dart';
+import '../features/mistakes/mistake_card_screen.dart';
 import '../features/onboarding/diagnostic_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
@@ -88,7 +90,16 @@ final routerProvider = Provider<GoRouter>((ref) {
           number: int.tryParse(state.pathParameters['n'] ?? '') ?? 0,
         ),
       ),
-      _r(Routes.bukuKesalahan, 'S10', 'Buku kesalahan'),
+      GoRoute(
+        path: Routes.bukuKesalahan,
+        builder: (context, state) => const MistakeBookScreen(),
+      ),
+      GoRoute(
+        path: Routes.kartuKesalahan,
+        builder: (context, state) => MistakeCardScreen(
+          cardId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
+        ),
+      ),
       _r(Routes.capture, 'S12', 'Capture soal'),
       _r(Routes.captureUbah, 'S12', 'Capture soal'),
       _r(Routes.catatanTes, 'S13', 'Catatan psikotes'),
