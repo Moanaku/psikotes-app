@@ -11,9 +11,9 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T04 Generator FIG-MTX, solver, property test
 - [x] T05 Generator FIG-MIR, FIG-SEQ, FIG-ODD
 - [x] T06 Generator numerik dan logika
-- [ ] T07 Skrip pre-generate dan bank verbal 300 soal
-- [ ] T08 Renderer figural dan golden test
-- [ ] T09 Database Drift dan repository
+- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip dan validator selesai; pembuatan 300 soal dan pemeriksaan 10% oleh pemilik belum dijalankan, lihat `tool/pregenerate/README.md`)
+- [x] T08 Renderer figural dan golden test
+- [x] T09 Database Drift dan repository
 - [ ] T10 Kerangka sesi
 - [ ] T11 Onboarding: S01, S02 dan profil Umum
 - [ ] T12 Beranda dan katalog: S04, S05

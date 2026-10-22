@@ -1,6 +1,7 @@
 /// Mesin soal psikotes IT. Dart murni; dilarang mengimpor Flutter atau dart:io.
 library;
 
+export 'src/figure_description.dart';
 export 'src/figure_spec.dart';
 export 'src/fraction.dart';
 export 'src/generator.dart';

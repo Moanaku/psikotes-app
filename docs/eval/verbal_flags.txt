@@ -1,0 +1,2 @@
+# ID soal verbal yang meragukan, satu per baris (contoh: VRB-SYN-0012).
+# Bundel membuang soal ini sampai diperiksa. Komentar diawali #.

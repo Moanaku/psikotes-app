@@ -49,19 +49,20 @@ Indeks: `(profile_id, mulai)`, `(selesai)`.
 |---|---|---|
 | id | INTEGER PK | |
 | session_id | INTEGER FK | |
+| posisi | INTEGER | indeks soal di rencana sesi; satu jawaban per `(session_id, posisi)`, menjawab ulang menggantikan |
 | tipe | TEXT | kode tipe soal, mis. `FIG-MTX` |
 | kategori | TEXT | |
 | seed | INTEGER | |
 | kesulitan | TEXT | `easy`, `medium`, `hard` |
 | gen_versi | INTEGER | versi generator saat soal dibuat; dipakai agar pembahasan membuat ulang soal yang sama persis |
 | sumber | TEXT | `engine`, `capture`, `bank`, `pengetahuan` |
-| ref_id | INTEGER NULL | id captured_question atau butir bank bila bukan engine |
+| ref_id | INTEGER NULL | wajib bila bukan engine: id captured_question, atau nomor butir bank (`VRB-SYN-0042` = tipe `VRB-SYN`, ref_id 42) |
 | opsi_dipilih | INTEGER NULL | NULL berarti dilewati |
 | benar | INTEGER | 0 atau 1 |
 | durasi_ms | INTEGER | |
 | label | TEXT | `benar_cepat`, `benar_lambat`, `salah_cepat`, `salah_lambat` |
 
-Indeks: `(session_id)`, `(tipe, id)` untuk statistik, `(kategori, id)`.
+Indeks: `(session_id, posisi)` unik, `(tipe, id)` untuk statistik, `(kategori, id)`.
 
 ### mistake_card
 | Kolom | Tipe | Catatan |
@@ -71,7 +72,7 @@ Indeks: `(session_id)`, `(tipe, id)` untuk statistik, `(kategori, id)`.
 | kategori | TEXT | |
 | seed | INTEGER NULL | seed asal; ulangan memakai seed baru |
 | sumber | TEXT | sama seperti answer.sumber |
-| ref_id | INTEGER NULL | untuk Capture dan butir pengetahuan |
+| ref_id | INTEGER NULL | untuk Capture dan butir bank atau pengetahuan (wajib bila bukan engine); kartu dikenali dari `(sumber, tipe, ref_id)`, soal engine dari `(tipe, seed)` |
 | jatuh_tempo | INTEGER | |
 | interval_hari | INTEGER | |
 | streak_benar | INTEGER | 0 sampai 3 |
