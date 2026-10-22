@@ -113,7 +113,7 @@ Satu kurva: `Curves.easeOut`. Satu durasi: 150 ms untuk perubahan state (pilih o
 
 Satu keluarga, satu gaya: garis (outlined), tebal 2, sudut membulat, ukuran dasar 24 (20 di dalam teks, 16 di dalam tag). Dipasang sebagai SVG di `assets/icons/` atau lewat set ikon outlined yang konsisten. Tidak ada emoji dan tidak ada ikon terisi. Ikon tanpa teks wajib punya `Semantics(label: ...)`.
 
-Ikon yang dipakai: home, grid, chat, chart, sliders, close, back, next, down, clock, check, camera, book, note, plus, minus, download, upload, lock, eye, target, layers, image, key, bulb, mic, send.
+Ikon yang dipakai: home, grid, chat, chart, sliders, close, back, next, down, clock, check, camera, book, note, plus, minus, download, upload, lock, eye, target, layers, image, key, bulb, mic, send, alert (peringatan, dipakai di pesan galat isian).
 
 ## Komponen inti
 

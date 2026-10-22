@@ -77,6 +77,16 @@ void main() {
       expect(tester.takeException(), isNull);
     });
 
+    testWidgets('pesan galat ditemani ikon berlabel', (tester) async {
+      await pumpScene(
+        tester,
+        const AppTextField(
+            label: 'Jumlah soal', errorText: 'Isi angka 1 sampai 200.'),
+      );
+      expect(find.byIcon(AppIcons.alert), findsOneWidget);
+      expect(find.bySemanticsLabel(RegExp('^Galat')), findsOneWidget);
+    });
+
     testWidgets('mengetik memanggil onChanged', (tester) async {
       String? value;
       await pumpScene(

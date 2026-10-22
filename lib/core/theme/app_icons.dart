@@ -30,4 +30,5 @@ abstract final class AppIcons {
   static const IconData bulb = Icons.lightbulb_outline;
   static const IconData mic = Icons.mic_none_outlined;
   static const IconData send = Icons.send_outlined;
+  static const IconData alert = Icons.error_outline;
 }

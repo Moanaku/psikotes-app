@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../theme/app_icons.dart';
 import '../theme/app_tokens.dart';
 
 /// Isian dengan label di atas (`label` 600), tinggi 48, batas `outline`.
@@ -81,7 +82,19 @@ class AppTextField extends StatelessWidget {
           const SizedBox(height: AppSpace.s4),
           Semantics(
             liveRegion: true,
-            child: Text(errorText!, style: AppType.label(c.bad)),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  AppIcons.alert,
+                  size: AppSizes.iconInText,
+                  color: c.bad,
+                  semanticLabel: 'Galat',
+                ),
+                const SizedBox(width: AppSpace.s4),
+                Expanded(child: Text(errorText!, style: AppType.label(c.bad))),
+              ],
+            ),
           ),
         ] else if (helper != null) ...[
           const SizedBox(height: AppSpace.s4),
