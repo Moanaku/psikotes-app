@@ -1,0 +1,45 @@
+name: simulator_psikotes_it
+description: App latihan psikotes kerja IT, offline-first. Soal dibuat ulang setiap sesi.
+publish_to: none
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.5.0
+  flutter: ">=3.24.0"
+
+# Versi paket adalah titik awal dan belum pernah dikompilasi (tugas T01 memverifikasi).
+# Paket lain ditambahkan di tugas yang memakainya:
+#   T09 drift, drift_flutter (dev: drift_dev, build_runner)
+#   T17 fl_chart, share_plus
+#   T18 image_picker, path_provider
+#   T19 flutter_secure_storage, file_picker
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_riverpod: ^2.6.1
+  go_router: ^14.6.2
+  question_engine:
+    path: packages/question_engine
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  # T02 menambahkan font dan aset:
+  # fonts:
+  #   - family: InstrumentSans
+  #     fonts:
+  #       - asset: assets/fonts/InstrumentSans-Regular.ttf
+  #       - asset: assets/fonts/InstrumentSans-Medium.ttf
+  #         weight: 500
+  #       - asset: assets/fonts/InstrumentSans-SemiBold.ttf
+  #         weight: 600
+  #       - asset: assets/fonts/InstrumentSans-Bold.ttf
+  #         weight: 700
+  # assets:
+  #   - assets/verbal_bank.json        (T07)
+  #   - assets/knowledge_bank.json     (T26)
+  #   - assets/personality_pool.json   (T22)

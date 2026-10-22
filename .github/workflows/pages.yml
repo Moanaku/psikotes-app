@@ -1,0 +1,30 @@
+name: pages
+# Menerbitkan build web ke GitHub Pages saat tag rilis dibuat (v*). Dinonaktifkan sampai T20.
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    if: ${{ false }} # aktifkan di T20
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+      - uses: actions/deploy-pages@v4

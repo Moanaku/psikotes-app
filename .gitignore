@@ -1,0 +1,29 @@
+# Flutter dan Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+*.g.dart
+*.freezed.dart
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Data lokal dan rahasia: tidak boleh masuk repo
+/local_data/
+/capture/
+*.sqlite
+*.db
+.env
+.env.*
+*.keystore
+key.properties
+
+# Bank soal mentah dan keluaran skrip
+/tool/pregenerate/out/
+/tool/pregenerate/raw/
