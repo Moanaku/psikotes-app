@@ -7,7 +7,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 
 - [x] T01 Verifikasi kerangka repo dan CI
 - [x] T02 Tema, token, dan komponen inti
-- [ ] T03 Engine: Rng, model, antarmuka generator
+- [x] T03 Engine: Rng, model, antarmuka generator
 - [ ] T04 Generator FIG-MTX, solver, property test
 - [ ] T05 Generator FIG-MIR, FIG-SEQ, FIG-ODD
 - [ ] T06 Generator numerik dan logika
