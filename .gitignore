@@ -30,3 +30,6 @@ key.properties
 
 # Paket library: lock file tidak di-commit
 packages/*/pubspec.lock
+
+# Python
+__pycache__/
