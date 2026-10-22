@@ -9,6 +9,7 @@ import '../features/home/home_screen.dart';
 import '../features/onboarding/diagnostic_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
+import '../features/session/session_screen.dart';
 import 'routes.dart';
 import 'tab_shell.dart';
 
@@ -66,7 +67,12 @@ final routerProvider = Provider<GoRouter>((ref) {
           _r(Routes.statistik, 'S11', 'Statistik'),
         ],
       ),
-      _r(Routes.sesi, 'S06', 'Sesi soal'),
+      GoRoute(
+        path: Routes.sesi,
+        builder: (context, state) => SessionScreen(
+          sessionId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
+        ),
+      ),
       _r(Routes.hasil, 'S08', 'Hasil sesi'),
       _r(Routes.pembahasan, 'S09', 'Pembahasan soal'),
       _r(Routes.bukuKesalahan, 'S10', 'Buku kesalahan'),

@@ -167,66 +167,95 @@ class SessionController extends Notifier<SessionState?> {
   Future<bool> resume({int? profileId}) => _serial(() async {
         final snapshot = await _sessions.unfinished(profileId: profileId);
         if (snapshot == null) return false;
-        _stopTicker();
-        final s = snapshot.session;
-        final subtests = SubtestRange.of(s.plan);
-        final rules = SessionRules.of(s.mode);
-        _guard.markInterrupted();
-        final now = _guard.read().now;
-        final posisi = s.posisi.clamp(0, s.plan.items.length - 1);
-        final k = subtests.indexWhere((x) => x.contains(posisi));
-        final duration = subtests[k].duration;
-
-        var deadline = s.deadline;
-        var timerEnabled = true;
-        var dirty = false;
-        if (duration == null) {
-          // Subtes tanpa batas: deadline lama tidak berlaku.
-          dirty = deadline != null;
-          deadline = null;
-        } else if (deadline == null) {
-          if (rules.timerCanBeDisabled) {
-            // Latihan yang timernya dimatikan pengguna.
-            timerEnabled = false;
-          } else {
-            deadline = now.add(duration);
-            dirty = true;
-          }
-        } else if (deadline.difference(now) > duration) {
-          // Jam dimundurkan saat app tertutup: sisa waktu tidak boleh lebih
-          // dari durasi subtes.
-          deadline = now.add(duration);
-          dirty = true;
-        }
-
-        final r = _Run(
-          sessionId: s.id,
-          profileId: s.profileId,
-          mode: s.mode,
-          plan: s.plan,
-          subtests: subtests,
-          subtestIndex: k,
-          posisi: posisi,
-          answers: {for (final a in snapshot.answers) a.posisi: a},
-          dwell: {
-            for (final a in snapshot.answers)
-              a.posisi: Duration(milliseconds: a.durasiMs),
-          },
-          medians: await _loadMedians(now, s.id),
-          deadline: deadline,
-          timerEnabled: timerEnabled,
-          lastNow: now,
-        )..shownAt = now;
-        if (dirty || posisi != s.posisi) {
-          await _sessions.updateProgress(r.sessionId, posisi,
-              deadline: deadline, clearDeadline: deadline == null);
-        }
-        _r = r;
-        _loadQuestion(r);
-        await _settle(r, now);
-        _emit();
-        if (!r.finished) _startTicker();
+        await _resumeFrom(snapshot);
         return true;
+      });
+
+  /// Membuka sesi [sessionId] untuk layar sesi. Sesi yang sudah berjalan di
+  /// controller dipakai apa adanya; sesi lain dimuat dari database dan
+  /// dilanjutkan seperti [resume].
+  Future<SessionOpen> open(int sessionId) => _serial(() async {
+        final live = _r;
+        if (live != null && live.sessionId == sessionId) {
+          return live.finished ? SessionOpen.finished : SessionOpen.opened;
+        }
+        final session = await _sessions.byId(sessionId);
+        if (session == null) return SessionOpen.notFound;
+        if (session.selesai != null) return SessionOpen.finished;
+        final answers = await _answerHistory.forSession(sessionId);
+        await _resumeFrom(SessionSnapshot(session: session, answers: answers));
+        return SessionOpen.opened;
+      });
+
+  Future<void> _resumeFrom(SessionSnapshot snapshot) async {
+    _stopTicker();
+    final s = snapshot.session;
+    final subtests = SubtestRange.of(s.plan);
+    final rules = SessionRules.of(s.mode);
+    _guard.markInterrupted();
+    final now = _guard.read().now;
+    final posisi = s.posisi.clamp(0, s.plan.items.length - 1);
+    final k = subtests.indexWhere((x) => x.contains(posisi));
+    final duration = subtests[k].duration;
+
+    var deadline = s.deadline;
+    var timerEnabled = true;
+    var dirty = false;
+    if (duration == null) {
+      // Subtes tanpa batas: deadline lama tidak berlaku.
+      dirty = deadline != null;
+      deadline = null;
+    } else if (deadline == null) {
+      if (rules.timerCanBeDisabled) {
+        // Latihan yang timernya dimatikan pengguna.
+        timerEnabled = false;
+      } else {
+        deadline = now.add(duration);
+        dirty = true;
+      }
+    } else if (deadline.difference(now) > duration) {
+      // Jam dimundurkan saat app tertutup: sisa waktu tidak boleh lebih
+      // dari durasi subtes.
+      deadline = now.add(duration);
+      dirty = true;
+    }
+
+    final r = _Run(
+      sessionId: s.id,
+      profileId: s.profileId,
+      mode: s.mode,
+      plan: s.plan,
+      subtests: subtests,
+      subtestIndex: k,
+      posisi: posisi,
+      answers: {for (final a in snapshot.answers) a.posisi: a},
+      dwell: {
+        for (final a in snapshot.answers)
+          a.posisi: Duration(milliseconds: a.durasiMs),
+      },
+      medians: await _loadMedians(now, s.id),
+      deadline: deadline,
+      timerEnabled: timerEnabled,
+      lastNow: now,
+    )..shownAt = now;
+    if (dirty || posisi != s.posisi) {
+      await _sessions.updateProgress(r.sessionId, posisi,
+          deadline: deadline, clearDeadline: deadline == null);
+    }
+    _r = r;
+    _loadQuestion(r);
+    await _settle(r, now);
+    _emit();
+    if (!r.finished) _startTicker();
+  }
+
+  /// Membuat ulang soal yang gagal dibuat (S06, tombol "Ulangi"). False bila
+  /// soalnya tetap tidak bisa dibuat.
+  Future<bool> retryQuestion() => _action((r, now) async {
+        if (r.question != null) return false;
+        r.questions.remove(r.posisi);
+        _loadQuestion(r);
+        return r.question != null;
       });
 
   /// Simulasi: memilih opsi langsung menyimpan jawaban (bisa diganti selama
@@ -366,8 +395,11 @@ class SessionController extends Notifier<SessionState?> {
   }
 
   /// Meninggalkan layar sesi. Sesi yang belum selesai tetap tersimpan dan
-  /// bisa dilanjutkan dengan [resume].
-  void close() {
+  /// bisa dilanjutkan dengan [resume]. Dengan [sessionId], hanya menutup bila
+  /// itu sesi yang sedang berjalan (layar lama tidak menutup sesi baru).
+  void close({int? sessionId}) {
+    final r = _r;
+    if (sessionId != null && r != null && r.sessionId != sessionId) return;
     _stopTicker();
     _r = null;
     _emit();

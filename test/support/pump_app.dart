@@ -1,14 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:simulator_psikotes_it/app/app.dart';
 import 'package:simulator_psikotes_it/app/router.dart';
+import 'package:simulator_psikotes_it/app/routes.dart';
 import 'package:simulator_psikotes_it/core/theme/app_theme.dart';
+import 'package:simulator_psikotes_it/domain/models/codes.dart';
+import 'package:simulator_psikotes_it/domain/models/session.dart';
+import 'package:simulator_psikotes_it/domain/models/session_state.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
+import 'package:simulator_psikotes_it/domain/services/session_controller.dart';
 
 import 'fake_clock.dart';
 import 'fake_repositories.dart';
+import 'manual_ticker.dart';
 
 final DateTime appNow = DateTime.utc(2026, 10, 22, 8);
 
@@ -21,6 +29,7 @@ class AppHarness {
     this.mistakes,
     this.captures,
     this.sessions,
+    this.ticker,
   );
 
   final WidgetTester tester;
@@ -30,6 +39,7 @@ class AppHarness {
   final FakeMistakeRepository mistakes;
   final FakeCaptureRepository captures;
   final FakeSessionRepository sessions;
+  final ManualTicker ticker;
 
   GoRouter get router => container.read(routerProvider);
 
@@ -40,6 +50,36 @@ class AppHarness {
     return last is ImperativeRouteMatch
         ? last.matches.uri.toString()
         : config.uri.toString();
+  }
+
+  SessionController get session =>
+      container.read(sessionControllerProvider.notifier);
+  SessionState? get sessionState => container.read(sessionControllerProvider);
+
+  /// Memulai sesi lewat controller (seperti `launchSession`) dan mengembalikan
+  /// id-nya, tanpa membuka layarnya.
+  Future<int> startSession(
+    SessionMode mode,
+    SessionPlan plan, {
+    int profileId = 1,
+  }) async {
+    await session.start(profileId: profileId, mode: mode, plan: plan);
+    await tester.pump();
+    return sessionState!.sessionId;
+  }
+
+  /// Membuka layar sesi seperti dari beranda: `push`, tanpa mengganti tumpukan.
+  Future<void> openSession(int id) async {
+    unawaited(router.push(Routes.sesiPath(id)));
+    await tester.pumpAndSettle();
+  }
+
+  /// Satu detik berlalu: jam maju dan penanda waktu berdetak.
+  Future<void> tickSeconds(int seconds) async {
+    clock.advance(Duration(seconds: seconds));
+    ticker.active?.fire();
+    await tester.pump();
+    await tester.pump();
   }
 
   /// Pindah rute seperti tautan dalam (deep link).
@@ -58,6 +98,7 @@ Future<AppHarness> pumpApp(
   FakeCaptureRepository? captures,
   FakeSessionRepository? sessions,
   FakeClock? clock,
+  ManualTicker? ticker,
   double width = 360,
   double height = 800,
   double textScale = 1,
@@ -74,6 +115,7 @@ Future<AppHarness> pumpApp(
   final mistakeRepo = mistakes ?? FakeMistakeRepository();
   final captureRepo = captures ?? FakeCaptureRepository();
   final sessionRepo = sessions ?? FakeSessionRepository();
+  final manual = ticker ?? ManualTicker();
   await tester.pumpWidget(ProviderScope(
     overrides: [
       profileRepositoryProvider.overrideWithValue(repo),
@@ -82,6 +124,7 @@ Future<AppHarness> pumpApp(
       sessionRepositoryProvider.overrideWithValue(sessionRepo),
       answerRepositoryProvider.overrideWithValue(sessionRepo),
       clockProvider.overrideWithValue(fake),
+      tickerFactoryProvider.overrideWithValue(manual.factory),
       ...overrides,
     ],
     child: const PsikotesApp(),
@@ -98,6 +141,7 @@ Future<AppHarness> pumpApp(
     mistakeRepo,
     captureRepo,
     sessionRepo,
+    manual,
   );
 }
 

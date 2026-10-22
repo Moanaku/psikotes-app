@@ -36,6 +36,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   bool _starting = false;
   bool _startFailed = false;
 
+  /// Membuka sesi, lalu menghitung ulang beranda saat kembali: sesi bisa
+  /// ditutup di tengah jalan ("Lanjutkan nanti").
+  Future<void> _openSession(int id) async {
+    await context.push(Routes.sesiPath(id));
+    if (mounted) ref.invalidate(homeProvider);
+  }
+
   Future<void> _start(HomeData data) async {
     if (_starting) return;
     setState(() {
@@ -51,7 +58,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       );
       if (!mounted) return;
       setState(() => _starting = false);
-      unawaited(context.push(Routes.sesiPath(id)));
+      unawaited(_openSession(id));
     } catch (_) {
       if (mounted) {
         setState(() {
@@ -96,6 +103,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               header: header,
               children: [
                 _ProfileRow(data: data),
+                if (data.resume != null)
+                  _ResumeRow(
+                    resume: data.resume!,
+                    onTap: () =>
+                        unawaited(_openSession(data.resume!.sessionId)),
+                  ),
                 const SizedBox(height: AppSpace.s16),
                 _TodayPanel(
                   data: data,
@@ -247,6 +260,29 @@ class _ProfileRow extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Sesi yang terputus: satu baris di bawah profil, bukan panel (A70).
+class _ResumeRow extends StatelessWidget {
+  const _ResumeRow({required this.resume, required this.onTap});
+
+  final ResumeInfo resume;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final what = switch (resume.mode) {
+      SessionMode.latihan => 'latihan',
+      SessionMode.simulasi => 'simulasi',
+      SessionMode.diagnostik => 'diagnostik',
+    };
+    return ListRow(
+      leading: AppIcons.clock,
+      title: 'Lanjutkan $what',
+      subtitle: 'Soal ${resume.position} dari ${resume.total}',
+      onTap: onTap,
     );
   }
 }

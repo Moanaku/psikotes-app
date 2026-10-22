@@ -200,6 +200,7 @@ abstract final class ProfileTemplates {
         'kepribadian' => 'Kepribadian',
         'it' => 'Modul IT',
         'pengetahuan' => 'Pengetahuan role',
+        'campuran' => 'Campuran',
         _ => kategori,
       };
 

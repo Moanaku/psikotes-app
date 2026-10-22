@@ -75,7 +75,11 @@ class DiagnosticData {
 /// selesai.
 final diagnosticProvider =
     FutureProvider.autoDispose<DiagnosticData?>((ref) async {
-  ref.watch(sessionControllerProvider.select((s) => s?.finished ?? false));
+  // Berubah saat sesi dimulai, ditutup, atau selesai: sesi yang terputus dan
+  // riwayat jawaban ikut berubah.
+  ref.watch(
+    sessionControllerProvider.select((s) => (s?.sessionId, s?.finished)),
+  );
   final profiles = await ref.watch(profilesProvider.future);
   TestProfile? profile;
   for (final p in profiles) {

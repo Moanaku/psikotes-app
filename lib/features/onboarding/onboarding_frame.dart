@@ -11,6 +11,7 @@ class OnboardingFrame extends StatelessWidget {
     required this.header,
     required this.children,
     required this.footer,
+    this.scrollController,
   });
 
   final Widget header;
@@ -19,6 +20,9 @@ class OnboardingFrame extends StatelessWidget {
   /// pilihan bisa penuh sampai tepi layar.
   final List<Widget> children;
   final Widget footer;
+
+  /// Untuk menggulir badan kembali ke atas (layar sesi saat soal berganti).
+  final ScrollController? scrollController;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +34,7 @@ class OnboardingFrame extends StatelessWidget {
             header,
             Expanded(
               child: SingleChildScrollView(
+                controller: scrollController,
                 padding: const EdgeInsets.only(bottom: AppSpace.s16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

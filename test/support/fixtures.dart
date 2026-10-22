@@ -147,12 +147,14 @@ Future<int> seedSession(
   int posisi = 0,
   bool finished = false,
   DateTime? mulai,
+  DateTime? deadline,
 }) async {
   final id = await repo.start(NewSession(
     profileId: profileId,
     mode: mode,
     plan: plan,
     mulai: mulai ?? appNow,
+    deadline: deadline,
   ));
   final n = answered ?? (finished ? plan.items.length : 0);
   for (var i = 0; i < n; i++) {
@@ -172,3 +174,48 @@ Future<int> seedSession(
   }
   return id;
 }
+
+PlanItem planItem(QuestionType type, int seed, String subtes) => PlanItem(
+      type: type,
+      seed: seed,
+      difficulty: Difficulty.easy,
+      genVersi: GeneratorRegistry.generator(type).version,
+      subtes: subtes,
+    );
+
+/// Latihan tanpa timer: dua soal Hitungan cepat (opsi teks) dan satu Matriks
+/// 3x3 (opsi bergambar).
+SessionPlan latihanPlan() => SessionPlan(
+      items: [
+        planItem(QuestionType.numAri, 40, 'numerik'),
+        planItem(QuestionType.numAri, 41, 'numerik'),
+        planItem(QuestionType.figMtx, 50, 'figural'),
+      ],
+    );
+
+/// Latihan yang subtesnya bertimer [menit] menit: numerik 2 soal, figural 1.
+SessionPlan timedLatihanPlan({int menit = 5}) => SessionPlan(
+      items: latihanPlan().items,
+      subtes: [
+        SubtestPlan(kategori: 'numerik', jumlah: 2, menit: menit),
+        SubtestPlan(kategori: 'figural', jumlah: 1, menit: menit),
+      ],
+    );
+
+/// Simulasi tiga subtes: numerik 3 soal 5 menit, logika 2 soal 4 menit,
+/// figural 2 soal 3 menit.
+SessionPlan simulasiPlan() => SessionPlan(
+      items: [
+        for (var i = 0; i < 3; i++)
+          planItem(QuestionType.numSeq, 10 + i, 'numerik'),
+        for (var i = 0; i < 2; i++)
+          planItem(QuestionType.logSyl, 20 + i, 'logika'),
+        for (var i = 0; i < 2; i++)
+          planItem(QuestionType.figOdd, 30 + i, 'figural'),
+      ],
+      subtes: const [
+        SubtestPlan(kategori: 'numerik', jumlah: 3, menit: 5),
+        SubtestPlan(kategori: 'logika', jumlah: 2, menit: 4),
+        SubtestPlan(kategori: 'figural', jumlah: 2, menit: 3),
+      ],
+    );

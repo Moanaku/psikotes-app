@@ -247,7 +247,7 @@ void main() {
   });
 
   group('memulai latihan', () {
-    testWidgets('satu ketukan membuat sesi latihan dan membuka S06',
+    testWidgets('satu ketukan membuat sesi latihan dan membuka layar sesi',
         (tester) async {
       final sessions = FakeSessionRepository();
       final app = await openHome(tester, tanggal: nov5, sessions: sessions);
@@ -255,7 +255,7 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(app.location, '/sesi/1');
-      expect(find.text('S06'), findsOneWidget);
+      expect(find.text('Mode Latihan, soal 1 dari 21'), findsOneWidget);
       expect(find.byType(AppBottomNav), findsNothing,
           reason: 'sesi layar penuh tanpa bottom nav');
       final s = sessions.sessions[1]!;

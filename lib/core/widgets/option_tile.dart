@@ -80,7 +80,8 @@ class OptionTile extends StatelessWidget {
                 child: child ??
                     Text(
                       label!,
-                      style: AppType.body(c.ink).copyWith(
+                      style:
+                          AppType.body(selected ? c.onAccent : c.ink).copyWith(
                         fontWeight: selected ? FontWeight.w600 : null,
                       ),
                     ),
