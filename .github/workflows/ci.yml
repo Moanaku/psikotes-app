@@ -14,8 +14,12 @@ jobs:
           flutter-version: 3.35.4
           channel: stable
           cache: true
+      - name: SQLite untuk test database (pustaka sistem)
+        run: sudo apt-get update && sudo apt-get install -y libsqlite3-dev
       - run: flutter pub get
       - run: dart format --output=none --set-exit-if-changed .
+      - name: Kode Drift (berkas .g.dart tidak di-commit)
+        run: dart run build_runner build
       - run: flutter analyze
       - run: bash tool/check_tokens.sh
       - run: bash tool/check_tokens_test.sh
