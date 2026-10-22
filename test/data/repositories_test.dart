@@ -102,6 +102,37 @@ void main() {
     });
   });
 
+  group('SessionRepository.latestFinished', () {
+    test('mode dan profil yang sama, terbaru, dan sebelum waktu tertentu',
+        () async {
+      final repo = DriftSessionRepository(db);
+      final a = await seedSession(db);
+      await repo.finish(a.sessionId, t0.add(const Duration(hours: 1)));
+      final pid = a.profileId;
+      final b = (
+        sessionId: await repo.start(NewSession(
+          profileId: pid,
+          mode: SessionMode.latihan,
+          plan: plan(),
+          mulai: t0,
+        ))
+      );
+      await repo.finish(b.sessionId, t0.add(const Duration(hours: 3)));
+      final mode = (await repo.byId(a.sessionId))!.mode;
+
+      expect((await repo.latestFinished(pid, mode))!.id, b.sessionId);
+      expect(
+        (await repo.latestFinished(pid, mode,
+                before: t0.add(const Duration(hours: 3))))!
+            .id,
+        a.sessionId,
+        reason: 'sebelum selesainya sesi kedua',
+      );
+      expect(await repo.latestFinished(pid, mode, before: t0), isNull);
+      expect(await repo.latestFinished(pid, SessionMode.diagnostik), isNull);
+    });
+  });
+
   group('SessionRepository', () {
     test('sesi belum selesai bisa dilanjutkan dengan rencana dan jawaban',
         () async {
@@ -253,6 +284,35 @@ void main() {
       expect(await repo.upsertFromAnswer(answer(sessionId), t0), isNull);
       expect(
           await repo.watchDue(t0.add(const Duration(days: 30))).first, isEmpty);
+    });
+
+    test('force: jawaban benar menjadi kartu; findFor dan delete (S09)',
+        () async {
+      final right = answer(sessionId, seed: 9);
+      expect(await repo.findFor(right), isNull);
+      final card = (await repo.upsertFromAnswer(right, t0, force: true))!;
+      expect(card.jatuhTempo, t0.add(const Duration(days: 1)));
+      expect((await repo.findFor(right))!.id, card.id);
+      expect(await repo.findFor(answer(sessionId, seed: 10)), isNull,
+          reason: 'seed lain bukan kartu yang sama');
+
+      await repo.delete(card.id);
+      expect(await repo.findFor(right), isNull);
+      expect(await repo.byId(card.id), isNull);
+    });
+
+    test('findFor soal non-engine memakai (sumber, tipe, refId)', () async {
+      final cap = answer(sessionId,
+          benar: false,
+          sumber: AnswerSource.capture,
+          refId: 4,
+          tipe: 'MY-TYPE');
+      await repo.upsertFromAnswer(cap, t0);
+      expect(await repo.findFor(cap), isNotNull);
+      expect(
+          await repo.findFor(answer(sessionId,
+              sumber: AnswerSource.capture, refId: 5, tipe: 'MY-TYPE')),
+          isNull);
     });
 
     test(

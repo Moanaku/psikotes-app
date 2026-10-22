@@ -19,7 +19,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T12 Beranda dan katalog: S04, S05
 - [x] T13 Diagnostik dan rencana latihan harian
 - [x] T14 Layar sesi: S06, S07
-- [ ] T15 Hasil dan pembahasan: S08, S09
+- [x] T15 Hasil dan pembahasan: S08, S09
 - [ ] T16 Buku kesalahan dengan SM-2: S10
 - [ ] T17 Statistik: S11
 - [ ] T18 Capture dan catatan psikotes: S12, S13
@@ -49,4 +49,4 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 
 ## Pertanyaan terbuka
 
-- **S05, segmen Latihan atau Simulasi (T12).** `05-spek-layar.md` menyebut kontrol segmen tetapi tidak menjelaskan apa yang berubah. Sementara: Latihan menampilkan katalog tipe soal; Simulasi menampilkan ringkasan subtes profil aktif dan panel "Simulasi penuh" (A60). Apakah tafsiran ini benar, atau Simulasi seharusnya memulai simulasi satu subtes dari baris tipe soal?
+Tidak ada.

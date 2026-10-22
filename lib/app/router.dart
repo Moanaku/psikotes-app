@@ -9,6 +9,8 @@ import '../features/home/home_screen.dart';
 import '../features/onboarding/diagnostic_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
+import '../features/review/result_screen.dart';
+import '../features/review/review_screen.dart';
 import '../features/session/session_screen.dart';
 import 'routes.dart';
 import 'tab_shell.dart';
@@ -73,8 +75,19 @@ final routerProvider = Provider<GoRouter>((ref) {
           sessionId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
         ),
       ),
-      _r(Routes.hasil, 'S08', 'Hasil sesi'),
-      _r(Routes.pembahasan, 'S09', 'Pembahasan soal'),
+      GoRoute(
+        path: Routes.hasil,
+        builder: (context, state) => ResultScreen(
+          sessionId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
+        ),
+      ),
+      GoRoute(
+        path: Routes.pembahasan,
+        builder: (context, state) => ReviewScreen(
+          sessionId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
+          number: int.tryParse(state.pathParameters['n'] ?? '') ?? 0,
+        ),
+      ),
       _r(Routes.bukuKesalahan, 'S10', 'Buku kesalahan'),
       _r(Routes.capture, 'S12', 'Capture soal'),
       _r(Routes.captureUbah, 'S12', 'Capture soal'),

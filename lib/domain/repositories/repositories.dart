@@ -52,7 +52,12 @@ abstract class SessionRepository {
   Future<SessionRecord?> byId(int id);
 
   /// Sesi [mode] terbaru milik [profileId] yang sudah selesai, atau null.
-  Future<SessionRecord?> latestFinished(int profileId, SessionMode mode);
+  /// Dengan [before], hanya yang selesai sebelum waktu itu.
+  Future<SessionRecord?> latestFinished(
+    int profileId,
+    SessionMode mode, {
+    DateTime? before,
+  });
 }
 
 abstract class AnswerRepository {
@@ -70,8 +75,20 @@ abstract class MistakeRepository {
   /// Jawaban salah membuat atau memperbarui kartu; jawaban benar tidak
   /// mengubah apa pun (mengembalikan null). Soal engine dikenali dari
   /// (tipe, seed); soal lain dari (sumber, tipe, refId), dan `refId` wajib
-  /// (ArgumentError bila kosong).
-  Future<MistakeCard?> upsertFromAnswer(AnswerRecord answer, DateTime now);
+  /// (ArgumentError bila kosong). Dengan [force], jawaban benar pun menjadi
+  /// kartu (sakelar "Masuk buku kesalahan" di S09).
+  Future<MistakeCard?> upsertFromAnswer(
+    AnswerRecord answer,
+    DateTime now, {
+    bool force = false,
+  });
+
+  /// Kartu untuk soal [answer] (dikenali seperti di [upsertFromAnswer]), atau
+  /// null bila soal itu tidak ada di buku kesalahan.
+  Future<MistakeCard?> findFor(AnswerRecord answer);
+
+  /// Menghapus kartu (sakelar "Masuk buku kesalahan" dimatikan).
+  Future<void> delete(int cardId);
   Future<MistakeCard> applyReview(int cardId, bool correct, DateTime now);
 }
 

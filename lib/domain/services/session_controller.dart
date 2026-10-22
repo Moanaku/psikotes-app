@@ -23,6 +23,7 @@ import '../providers.dart';
 import '../repositories/repositories.dart';
 import 'clock.dart';
 import 'scoring.dart';
+import 'speed_labeler.dart';
 
 final sessionControllerProvider =
     NotifierProvider<SessionController, SessionState?>(SessionController.new);
@@ -89,6 +90,7 @@ class SessionController extends Notifier<SessionState?> {
 
   late SessionRepository _sessions;
   late AnswerRepository _answerHistory;
+  late MistakeRepository _mistakes;
   late WallClockGuard _guard;
   late TickerFactory _tickerFactory;
   late QuestionBuilder _buildQuestion;
@@ -102,6 +104,7 @@ class SessionController extends Notifier<SessionState?> {
   SessionState? build() {
     _sessions = ref.watch(sessionRepositoryProvider);
     _answerHistory = ref.watch(answerRepositoryProvider);
+    _mistakes = ref.watch(mistakeRepositoryProvider);
     _guard = WallClockGuard(ref.watch(clockProvider));
     _tickerFactory = ref.watch(tickerFactoryProvider);
     _buildQuestion = ref.watch(questionBuilderProvider);
@@ -521,6 +524,15 @@ class SessionController extends Notifier<SessionState?> {
     for (var p = 0; p < r.plan.items.length; p++) {
       if (!r.answers.containsKey(p)) await _recordSkipped(r, p);
     }
+    // Setiap soal yang tidak benar, termasuk yang dilewati, menjadi kartu
+    // buku kesalahan (jatuh tempo besok). Ditulis sebelum sesi ditutup: bila
+    // gagal, sesi tetap terbuka dan menutupnya lagi aman (kartu diperbarui,
+    // bukan ditambah).
+    for (final a in r.answers.values) {
+      if (a.benar) continue;
+      if (a.sumber != AnswerSource.engine && a.refId == null) continue;
+      await _mistakes.upsertFromAnswer(a, now);
+    }
     r.skor = await _sessions.finish(r.sessionId, now);
     r.finished = true;
     r.deadline = null;
@@ -624,11 +636,9 @@ class SessionController extends Notifier<SessionState?> {
     }
   }
 
-  Future<Map<String, int>> _loadMedians(DateTime now, int sessionId) async {
-    final history = await _answerHistory.since(now.subtract(Scoring.window));
-    return Scoring.correctMedians(
-        history.where((a) => a.sessionId != sessionId));
-  }
+  Future<Map<String, int>> _loadMedians(DateTime now, int sessionId) async =>
+      (await SpeedLabeler(_answerHistory).at(now, excludeSession: sessionId))
+          .medians;
 
   void _startTicker() {
     _stopTicker();

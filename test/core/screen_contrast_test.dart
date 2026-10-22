@@ -411,6 +411,111 @@ final Map<String, List<Pair>> screens = {
       text
     ),
   ],
+  'S08 Hasil sesi': [
+    ('skor dan judul: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'keterangan sesi: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'kuadran benar: ok di okContainer',
+      (c) => c.ok,
+      (c) => c.okContainer,
+      text
+    ),
+    (
+      'kuadran salah: bad di badContainer',
+      (c) => c.bad,
+      (c) => c.badContainer,
+      text
+    ),
+    (
+      'catatan buku kesalahan: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas catatan: outline di surfaceContainer',
+      (c) => c.outline,
+      (c) => c.surfaceContainer,
+      border
+    ),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+    (
+      'tombol sekunder: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+  ],
+  'S09 Pembahasan': [
+    (
+      'judul dan penjelasan: ink di surface',
+      (c) => c.ink,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'keterangan: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'blok jawabanmu salah: bad di badContainer',
+      (c) => c.bad,
+      (c) => c.badContainer,
+      text
+    ),
+    (
+      'blok jawabanmu: ink di badContainer',
+      (c) => c.ink,
+      (c) => c.badContainer,
+      text
+    ),
+    ('blok kunci: ok di okContainer', (c) => c.ok, (c) => c.okContainer, text),
+    (
+      'blok kunci: ink di okContainer',
+      (c) => c.ink,
+      (c) => c.okContainer,
+      text
+    ),
+    (
+      'nomor soal benar: ink di okContainer',
+      (c) => c.ink,
+      (c) => c.okContainer,
+      text
+    ),
+    (
+      'nomor soal salah: ink di badContainer',
+      (c) => c.ink,
+      (c) => c.badContainer,
+      text
+    ),
+    (
+      'batas nomor soal benar: ok di surface',
+      (c) => c.ok,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'batas nomor soal salah: bad di surface',
+      (c) => c.bad,
+      (c) => c.surface,
+      border
+    ),
+    ('tag Ya: ok di okContainer', (c) => c.ok, (c) => c.okContainer, text),
+    ('tag label waktu: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    ('sakelar: inkMuted di surface', (c) => c.inkMuted, (c) => c.surface, text),
+  ],
 };
 
 void main() {

@@ -115,15 +115,21 @@ class FakeProfileRepository implements ProfileRepository {
 }
 
 /// Buku kesalahan di memori. [cards] diatur test; `watchDue` hanya memuat
-/// kartu aktif yang jatuh tempo, seperti repository Drift.
+/// kartu aktif yang jatuh tempo, seperti repository Drift. Kartu dikenali
+/// seperti di repository Drift: (tipe, seed) untuk soal engine, (sumber,
+/// tipe, refId) untuk lainnya.
 class FakeMistakeRepository implements MistakeRepository {
   FakeMistakeRepository([Iterable<MistakeCard> initial = const []])
       : cards = [...initial];
 
   final List<MistakeCard> cards;
+  int _next = 1000;
 
   /// Bila diisi, `watchDue` mengeluarkan galat ini (menguji kondisi galat).
   Object? failWith;
+
+  /// Bila diisi, `findFor`, `upsertFromAnswer`, dan `delete` melempar ini.
+  Object? failWritesWith;
 
   @override
   Stream<List<MistakeCard>> watchDue(DateTime now) {
@@ -142,9 +148,58 @@ class FakeMistakeRepository implements MistakeRepository {
     return null;
   }
 
+  bool _same(MistakeCard c, AnswerRecord a) {
+    if (c.sumber != a.sumber || c.tipe != a.tipe) return false;
+    return a.sumber == AnswerSource.engine
+        ? c.seed == a.seed
+        : c.refId == a.refId;
+  }
+
   @override
-  Future<MistakeCard?> upsertFromAnswer(AnswerRecord answer, DateTime now) =>
-      throw UnimplementedError();
+  Future<MistakeCard?> findFor(AnswerRecord answer) async {
+    if (failWritesWith != null) throw failWritesWith!;
+    for (final c in cards) {
+      if (_same(c, answer)) return c;
+    }
+    return null;
+  }
+
+  @override
+  Future<MistakeCard?> upsertFromAnswer(
+    AnswerRecord answer,
+    DateTime now, {
+    bool force = false,
+  }) async {
+    if (failWritesWith != null) throw failWritesWith!;
+    if (answer.benar && !force) return null;
+    final due = now.add(const Duration(days: 1));
+    final i = cards.indexWhere((c) => _same(c, answer));
+    final card = MistakeCard(
+      id: i >= 0 ? cards[i].id : _next++,
+      tipe: answer.tipe,
+      kategori: answer.kategori,
+      seed: answer.sumber == AnswerSource.engine ? answer.seed : null,
+      sumber: answer.sumber,
+      refId: answer.refId,
+      jatuhTempo: due,
+      intervalHari: 1,
+      streakBenar: 0,
+      status: CardStatus.aktif,
+      dibuat: i >= 0 ? cards[i].dibuat : now,
+    );
+    if (i >= 0) {
+      cards[i] = card;
+    } else {
+      cards.add(card);
+    }
+    return card;
+  }
+
+  @override
+  Future<void> delete(int cardId) async {
+    if (failWritesWith != null) throw failWritesWith!;
+    cards.removeWhere((c) => c.id == cardId);
+  }
 
   @override
   Future<MistakeCard> applyReview(int cardId, bool correct, DateTime now) =>
@@ -291,12 +346,17 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
   }
 
   @override
-  Future<SessionRecord?> latestFinished(int profileId, SessionMode mode) async {
+  Future<SessionRecord?> latestFinished(
+    int profileId,
+    SessionMode mode, {
+    DateTime? before,
+  }) async {
     SessionRecord? latest;
     for (final s in sessions.values) {
       if (s.selesai == null || s.profileId != profileId || s.mode != mode) {
         continue;
       }
+      if (before != null && !s.selesai!.isBefore(before)) continue;
       if (latest == null || s.selesai!.isAfter(latest.selesai!)) latest = s;
     }
     return latest;
