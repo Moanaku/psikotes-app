@@ -9,6 +9,10 @@ import 'generators/figural/fig_mtx_solver.dart';
 import 'generators/figural/fig_odd.dart';
 import 'generators/figural/fig_seq.dart';
 import 'generators/figural/fig_seq_solver.dart';
+import 'generators/logic/log_syl.dart';
+import 'generators/numeric/num_ari.dart';
+import 'generators/numeric/num_seq.dart';
+import 'generators/numeric/num_word.dart';
 import 'models.dart';
 
 final class RegisteredType {
@@ -24,6 +28,10 @@ abstract final class GeneratorRegistry {
     QuestionType.figMir: RegisteredType(FigMirGenerator(), FigMirSolver()),
     QuestionType.figSeq: RegisteredType(FigSeqGenerator(), FigSeqSolver()),
     QuestionType.figOdd: RegisteredType(FigOddGenerator(), FigOddSolver()),
+    QuestionType.numSeq: RegisteredType(NumSeqGenerator(), NumSeqSolver()),
+    QuestionType.numAri: RegisteredType(NumAriGenerator(), NumAriSolver()),
+    QuestionType.numWord: RegisteredType(NumWordGenerator(), NumWordSolver()),
+    QuestionType.logSyl: RegisteredType(LogSylGenerator(), LogSylSolver()),
   };
 
   static List<QuestionType> get types => _entries.keys.toList();

@@ -16,7 +16,7 @@ void main() {
     }
   });
 
-  test('tipe figural v1 terdaftar', () {
+  test('tipe figural, numerik, dan logika v1 terdaftar', () {
     expect(
         GeneratorRegistry.types,
         containsAll([
@@ -24,6 +24,10 @@ void main() {
           QuestionType.figMir,
           QuestionType.figSeq,
           QuestionType.figOdd,
+          QuestionType.numSeq,
+          QuestionType.numAri,
+          QuestionType.numWord,
+          QuestionType.logSyl,
         ]));
   });
 

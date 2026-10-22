@@ -10,7 +10,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T03 Engine: Rng, model, antarmuka generator
 - [x] T04 Generator FIG-MTX, solver, property test
 - [x] T05 Generator FIG-MIR, FIG-SEQ, FIG-ODD
-- [ ] T06 Generator numerik dan logika
+- [x] T06 Generator numerik dan logika
 - [ ] T07 Skrip pre-generate dan bank verbal 300 soal
 - [ ] T08 Renderer figural dan golden test
 - [ ] T09 Database Drift dan repository

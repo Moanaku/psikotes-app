@@ -31,6 +31,7 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 | Tema dan komponen inti | Selesai: font, tema terang, 20 komponen, golden test, `check_tokens` diperkuat (T02) |
 | Fondasi engine | Selesai: `Rng`, model `Question` dan `FigureSpec`, antarmuka generator dan solver, loop percobaan ulang, harness property test (T03) |
 | Generator figural | FIG-MTX (T04), FIG-MIR, FIG-SEQ, FIG-ODD (T05) selesai: generator, solver, pengecoh, pembahasan, registry; 10.000 seed per kesulitan lolos |
+| Generator numerik dan logika | NUM-SEQ, NUM-ARI, NUM-WORD, LOG-SYL selesai (T06): pecahan eksak, pemeriksa model himpunan, terdaftar di registry; 10.000 seed per kesulitan lolos |
 | Kode fitur | Belum mulai |
 | Daftar tes nyata yang sudah dijalani | Terbuka, menunggu dari pemilik |
 | Penyedia LLM wawancara | Terbuka, diputuskan sebelum v1.3 |
