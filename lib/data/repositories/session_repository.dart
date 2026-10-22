@@ -13,6 +13,7 @@ DateTime _utc(int ms) => DateTime.fromMillisecondsSinceEpoch(ms, isUtc: true);
 AnswerRecord _answer(AnswerRow r) => AnswerRecord(
       id: r.id,
       sessionId: r.sessionId,
+      posisi: r.posisi,
       tipe: r.tipe,
       kategori: r.kategori,
       seed: r.seed,
@@ -57,34 +58,50 @@ class DriftSessionRepository implements SessionRepository {
       );
 
   @override
-  Future<int> recordAnswer(AnswerRecord a) => _db.into(_db.answerTable).insert(
-        AnswerTableCompanion.insert(
-          sessionId: a.sessionId,
-          tipe: a.tipe,
-          kategori: a.kategori,
-          seed: a.seed,
-          kesulitan: a.kesulitan.code,
-          genVersi: a.genVersi,
-          sumber: a.sumber.code,
-          refId: Value(a.refId),
-          opsiDipilih: Value(a.opsiDipilih),
-          benar: a.benar,
-          durasiMs: a.durasiMs,
-          label: a.label.code,
-        ),
-      );
+  Future<int> recordAnswer(AnswerRecord a) async {
+    if (a.sumber != AnswerSource.engine && a.refId == null) {
+      throw ArgumentError('jawaban ${a.sumber.code} wajib punya refId');
+    }
+    final row = AnswerTableCompanion.insert(
+      sessionId: a.sessionId,
+      posisi: a.posisi,
+      tipe: a.tipe,
+      kategori: a.kategori,
+      seed: a.seed,
+      kesulitan: a.kesulitan.code,
+      genVersi: a.genVersi,
+      sumber: a.sumber.code,
+      refId: Value(a.refId),
+      opsiDipilih: Value(a.opsiDipilih),
+      benar: a.benar,
+      durasiMs: a.durasiMs,
+      label: a.label.code,
+    );
+    return _db.into(_db.answerTable).insert(
+          row,
+          onConflict: DoUpdate(
+            (_) => row,
+            target: [_db.answerTable.sessionId, _db.answerTable.posisi],
+          ),
+        );
+  }
 
   @override
   Future<void> updateProgress(
     int sessionId,
     int posisi, {
     DateTime? deadline,
+    bool clearDeadline = false,
   }) async {
     final n = await (_db.update(_db.sessionTable)
           ..where((t) => t.id.equals(sessionId)))
         .write(SessionTableCompanion(
       posisi: Value(posisi),
-      deadline: Value(deadline?.millisecondsSinceEpoch),
+      deadline: deadline != null
+          ? Value(deadline.millisecondsSinceEpoch)
+          : clearDeadline
+              ? const Value(null)
+              : const Value.absent(),
     ));
     if (n == 0) throw StateError('sesi $sessionId tidak ada');
   }
@@ -113,9 +130,13 @@ class DriftSessionRepository implements SessionRepository {
       });
 
   @override
-  Future<SessionSnapshot?> unfinished() async {
+  Future<SessionSnapshot?> unfinished({int? profileId}) async {
     final row = await (_db.select(_db.sessionTable)
-          ..where((t) => t.selesai.isNull())
+          ..where((t) =>
+              t.selesai.isNull() &
+              (profileId == null
+                  ? const Constant(true)
+                  : t.profileId.equals(profileId)))
           ..orderBy([
             (t) => OrderingTerm.desc(t.mulai),
             (t) => OrderingTerm.desc(t.id)

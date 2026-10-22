@@ -190,6 +190,11 @@ class Answer extends Table with TableInfo {
       type: DriftSqlType.int,
       requiredDuringInsert: true,
       $customConstraints: 'NOT NULL REFERENCES session(id)');
+  late final GeneratedColumn<int> posisi = GeneratedColumn<int>(
+      'posisi', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      $customConstraints: 'NOT NULL');
   late final GeneratedColumn<String> tipe = GeneratedColumn<String>(
       'tipe', aliasedName, false,
       type: DriftSqlType.string,
@@ -249,6 +254,7 @@ class Answer extends Table with TableInfo {
   List<GeneratedColumn> get $columns => [
         id,
         sessionId,
+        posisi,
         tipe,
         kategori,
         seed,
@@ -575,8 +581,8 @@ class DatabaseAtV1 extends GeneratedDatabase {
       'CREATE INDEX idx_session_profile_mulai ON session (profile_id, mulai)');
   late final Index idxSessionSelesai = Index('idx_session_selesai',
       'CREATE INDEX idx_session_selesai ON session (selesai)');
-  late final Index idxAnswerSession = Index('idx_answer_session',
-      'CREATE INDEX idx_answer_session ON answer (session_id)');
+  late final Index idxAnswerSessionPosisi = Index('idx_answer_session_posisi',
+      'CREATE UNIQUE INDEX idx_answer_session_posisi ON answer (session_id, posisi)');
   late final Index idxAnswerTipeId = Index('idx_answer_tipe_id',
       'CREATE INDEX idx_answer_tipe_id ON answer (tipe, id)');
   late final Index idxAnswerKategoriId = Index('idx_answer_kategori_id',
@@ -597,7 +603,7 @@ class DatabaseAtV1 extends GeneratedDatabase {
         appSetting,
         idxSessionProfileMulai,
         idxSessionSelesai,
-        idxAnswerSession,
+        idxAnswerSessionPosisi,
         idxAnswerTipeId,
         idxAnswerKategoriId,
         idxMistakeStatusDue

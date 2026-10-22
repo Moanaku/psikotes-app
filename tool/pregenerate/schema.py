@@ -11,6 +11,7 @@ from common import DIFFICULTIES, TYPES, norm
 BANK_KEYS = {"id", "type", "difficulty", "stem", "options", "correctIndex",
              "explanation", "needsReview", "passes"}
 ID_RE = re.compile(r"^(VRB-SYN|VRB-ANA)-\d{4}$")
+ANALOGY_RE = re.compile(r"^\s*(.+?)\s*:\s*(.+?)\s*=\s*(.+?)\s*:\s*\.\.\.\s*$")
 OPTION_COUNT = 4  # bank verbal v1 selalu 4 opsi
 
 
@@ -69,6 +70,9 @@ def validate_item(item: dict, *, candidate: bool = False) -> list[str]:
     words = [w for w in (item.get("kata") or []) if isinstance(w, str)]
     if not words:
         words = re.findall(r'"([^"]+)"', stem)
+        analogy = ANALOGY_RE.match(stem)
+        if analogy:
+            words = list(analogy.groups())
     for w in words:
         if norm(w) in keys:
             err(f'kata soal "{w}" muncul sebagai opsi')

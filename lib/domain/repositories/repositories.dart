@@ -18,23 +18,37 @@ abstract class ProfileRepository {
   /// profil `aktif` menonaktifkan yang lain. Mengembalikan id.
   Future<int> save(TestProfile profile);
 
+  /// Mengisi atau menghapus (null) teks CV. `save` pada profil yang sudah ada
+  /// tidak mengubah CV bila `cvTeks`-nya null.
+  Future<void> setCv(int id, String? cvTeks);
+
   /// Tepat satu profil aktif setelah pemanggilan ini.
   Future<void> setActive(int id);
 }
 
 abstract class SessionRepository {
   Future<int> start(NewSession session);
+
+  /// Menyimpan jawaban; satu baris per (sesi, posisi), jawaban ulang
+  /// menggantikan yang lama. Jawaban non-engine wajib punya `refId`.
   Future<int> recordAnswer(AnswerRecord answer);
 
-  /// Menyimpan posisi soal terakhir dan batas waktu subtes yang berjalan.
-  Future<void> updateProgress(int sessionId, int posisi, {DateTime? deadline});
+  /// Menyimpan posisi soal terakhir. [deadline] null membiarkan batas waktu
+  /// yang ada; [clearDeadline] menghapusnya (subtes tanpa batas).
+  Future<void> updateProgress(
+    int sessionId,
+    int posisi, {
+    DateTime? deadline,
+    bool clearDeadline = false,
+  });
 
   /// Menutup sesi dan menghitung skor: jawaban benar dibagi jumlah soal di
   /// rencana (soal yang tak sempat dijawab dihitung salah). Mengembalikan skor.
   Future<double> finish(int sessionId, DateTime now);
 
-  /// Sesi terbaru yang belum selesai, atau null.
-  Future<SessionSnapshot?> unfinished();
+  /// Sesi terbaru yang belum selesai, atau null. Dengan [profileId], hanya
+  /// sesi profil itu.
+  Future<SessionSnapshot?> unfinished({int? profileId});
   Future<SessionRecord?> byId(int id);
 }
 
@@ -51,7 +65,9 @@ abstract class MistakeRepository {
   Future<MistakeCard?> byId(int id);
 
   /// Jawaban salah membuat atau memperbarui kartu; jawaban benar tidak
-  /// mengubah apa pun (mengembalikan null).
+  /// mengubah apa pun (mengembalikan null). Soal engine dikenali dari
+  /// (tipe, seed); soal lain dari (sumber, tipe, refId), dan `refId` wajib
+  /// (ArgumentError bila kosong).
   Future<MistakeCard?> upsertFromAnswer(AnswerRecord answer, DateTime now);
   Future<MistakeCard> applyReview(int cardId, bool correct, DateTime now);
 }

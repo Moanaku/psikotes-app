@@ -400,8 +400,11 @@ class FigurePainter extends CustomPainter {
       ..color = palette.ink;
     canvas.save();
     canvas.clipPath(path);
+    // Garis hanya perlu dari x = kiri - tinggi sampai kanan; fasenya sama
+    // dengan yang berawal dari -(lebar + tinggi), jadi gambar tidak bergeser.
     final reach = b.width + b.height;
-    for (var k = -reach; k <= reach; k += spacing) {
+    final first = -reach + (b.width / spacing).ceil() * spacing;
+    for (var k = first; k <= b.width; k += spacing) {
       final x = b.left + k;
       canvas.drawLine(Offset(x, b.bottom), Offset(x + b.height, b.top), paint);
     }

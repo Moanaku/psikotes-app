@@ -65,24 +65,36 @@ class DriftProfileRepository implements ProfileRepository {
           formatTes: Value(p.formatTes.code),
           tanggalTes: Value(p.tanggalTes?.millisecondsSinceEpoch),
           blueprintJson: Value(jsonEncode(p.blueprint.toJson())),
-          cvTeks: Value(p.cvTeks),
           dibuat: Value(p.dibuat.millisecondsSinceEpoch),
         );
         late int id;
         if (p.id == null) {
           id = await _db.into(_db.testProfileTable).insert(
-                companion.copyWith(aktif: const Value(false)),
+                companion.copyWith(
+                  aktif: const Value(false),
+                  cvTeks: Value(p.cvTeks),
+                ),
               );
         } else {
           id = p.id!;
           final updated = await (_db.update(_db.testProfileTable)
                 ..where((t) => t.id.equals(id)))
-              .write(companion);
+              .write(p.cvTeks == null
+                  ? companion
+                  : companion.copyWith(cvTeks: Value(p.cvTeks)));
           if (updated == 0) throw StateError('profil $id tidak ada');
         }
         if (makeActive) await _setActive(id);
         return id;
       });
+
+  @override
+  Future<void> setCv(int id, String? cvTeks) async {
+    final n = await (_db.update(_db.testProfileTable)
+          ..where((t) => t.id.equals(id)))
+        .write(TestProfileTableCompanion(cvTeks: Value(cvTeks)));
+    if (n == 0) throw StateError('profil $id tidak ada');
+  }
 
   @override
   Future<void> setActive(int id) => _db.transaction(() => _setActive(id));

@@ -11,8 +11,7 @@ import 'generators/figural/figure_text.dart';
 /// diputar 90°". Rotasi disebut hanya bila terlihat (bentuk tidak simetris).
 String describeObject(FigureObject o) {
   final turned = o.canonical().rotation != Rotation.r0;
-  final count = o.count == 1 ? '1' : '${o.count}';
-  return '$count ${shapeName(o.shape)} ${fillName(o.fill)} '
+  return '${o.count} ${shapeName(o.shape)} ${fillName(o.fill)} '
       '${sizeName(o.size)}${turned ? ', diputar ${o.rotation.degrees}°' : ''}';
 }
 

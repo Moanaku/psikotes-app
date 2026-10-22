@@ -138,6 +138,7 @@ class AnswerRecord {
   const AnswerRecord({
     this.id,
     required this.sessionId,
+    required this.posisi,
     required this.tipe,
     required this.kategori,
     required this.seed,
@@ -154,6 +155,10 @@ class AnswerRecord {
   final int? id;
   final int sessionId;
 
+  /// Indeks soal di rencana sesi (0 dan seterusnya). Satu jawaban per
+  /// (sesi, posisi): menjawab ulang soal yang sama menggantikan jawabannya.
+  final int posisi;
+
   /// Kode tipe soal, mis. `FIG-MTX`; untuk Capture boleh tipe buatan pengguna.
   final String tipe;
   final String kategori;
@@ -162,7 +167,8 @@ class AnswerRecord {
   final int genVersi;
   final AnswerSource sumber;
 
-  /// Id captured_question atau butir bank bila bukan engine.
+  /// Wajib bila bukan engine: id captured_question, atau nomor butir bank
+  /// ("VRB-SYN-0042" menjadi tipe `VRB-SYN`, refId 42).
   final int? refId;
 
   /// Null berarti dilewati.

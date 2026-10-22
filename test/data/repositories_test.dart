@@ -8,6 +8,7 @@ import 'package:simulator_psikotes_it/data/repositories/session_repository.dart'
 import 'package:simulator_psikotes_it/data/repositories/settings_repository.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/notebook.dart';
+import 'package:simulator_psikotes_it/domain/models/profile.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/repositories/repositories.dart';
 
@@ -67,6 +68,28 @@ void main() {
       expect(updated.aktif, isTrue);
     });
 
+    test(
+        'save pada profil yang ada tidak menghapus CV; setCv mengisi dan menghapus',
+        () async {
+      final repo = DriftProfileRepository(db);
+      final id = await repo.save(profile());
+      final noCv = TestProfile(
+        id: id,
+        nama: 'Ganti nama',
+        role: ProfileRole.qa,
+        formatTes: TestFormat.ccat,
+        dibuat: t0,
+      );
+      await repo.save(noCv);
+      expect((await repo.byId(id))!.nama, 'Ganti nama');
+      expect((await repo.byId(id))!.cvTeks, 'ringkasan CV');
+      await repo.setCv(id, null);
+      expect((await repo.byId(id))!.cvTeks, isNull);
+      await repo.setCv(id, 'CV baru');
+      expect((await repo.byId(id))!.cvTeks, 'CV baru');
+      expect(() => repo.setCv(99, 'x'), throwsStateError);
+    });
+
     test('watchAll memancarkan perubahan', () async {
       final repo = DriftProfileRepository(db);
       final emissions = <int>[];
@@ -120,6 +143,60 @@ void main() {
     test('sesi tanpa jawaban benar berskor 0, bukan galat', () async {
       final s = await seedSession(db);
       expect(await DriftSessionRepository(db).finish(s.sessionId, t0), 0.0);
+    });
+
+    test(
+        'updateProgress tanpa deadline membiarkan deadline; clearDeadline menghapusnya',
+        () async {
+      final s = await seedSession(db);
+      final repo = DriftSessionRepository(db);
+      final deadline = t0.add(const Duration(minutes: 5));
+      await repo.updateProgress(s.sessionId, 1, deadline: deadline);
+      await repo.updateProgress(s.sessionId, 2);
+      var rec = (await repo.byId(s.sessionId))!;
+      expect(rec.posisi, 2);
+      expect(rec.deadline, deadline);
+      await repo.updateProgress(s.sessionId, 3, clearDeadline: true);
+      rec = (await repo.byId(s.sessionId))!;
+      expect(rec.posisi, 3);
+      expect(rec.deadline, isNull);
+    });
+
+    test('menjawab ulang soal yang sama menggantikan jawaban, bukan menambah',
+        () async {
+      final s = await seedSession(db, items: 2);
+      final repo = DriftSessionRepository(db);
+      await repo
+          .recordAnswer(answer(s.sessionId, posisi: 0, benar: false, pilih: 2));
+      await repo
+          .recordAnswer(answer(s.sessionId, posisi: 0, benar: true, pilih: 1));
+      await repo
+          .recordAnswer(answer(s.sessionId, posisi: 0, benar: true, pilih: 1));
+      final answers = await DriftAnswerRepository(db).forSession(s.sessionId);
+      expect(answers, hasLength(1));
+      expect(answers.single.opsiDipilih, 1);
+      expect(await repo.finish(s.sessionId, t0), 50.0);
+    });
+
+    test('jawaban non-engine tanpa refId ditolak', () async {
+      final s = await seedSession(db);
+      expect(
+        () => DriftSessionRepository(db).recordAnswer(
+            answer(s.sessionId, sumber: AnswerSource.bank, tipe: 'VRB-SYN')),
+        throwsArgumentError,
+      );
+    });
+
+    test('unfinished disaring menurut profil bila diminta', () async {
+      final profiles = DriftProfileRepository(db);
+      final a = await profiles.save(profile(nama: 'A'));
+      final b = await profiles.save(profile(nama: 'B'));
+      final repo = DriftSessionRepository(db);
+      final sa = await repo.start(NewSession(
+          profileId: a, mode: SessionMode.latihan, plan: plan(), mulai: t0));
+      expect((await repo.unfinished(profileId: a))!.session.id, sa);
+      expect(await repo.unfinished(profileId: b), isNull);
+      expect((await repo.unfinished())!.session.id, sa);
     });
 
     test('kunci asing ditegakkan: jawaban untuk sesi yang tidak ada ditolak',
@@ -268,6 +345,32 @@ void main() {
           isEmpty);
     });
 
+    test(
+        'butir bank dikenali dari (sumber, tipe, nomor): tidak berlipat dan tidak tertukar',
+        () async {
+      AnswerRecord bank(String tipe, int nomor) => answer(sessionId,
+          sumber: AnswerSource.bank,
+          tipe: tipe,
+          refId: nomor,
+          benar: false,
+          seed: 0);
+      final a1 = (await repo.upsertFromAnswer(bank('VRB-SYN', 42), t0))!;
+      final a2 = (await repo.upsertFromAnswer(bank('VRB-SYN', 42), t0))!;
+      final other = (await repo.upsertFromAnswer(bank('VRB-ANA', 42), t0))!;
+      expect(a2.id, a1.id);
+      expect(other.id, isNot(a1.id));
+    });
+
+    test(
+        'jawaban salah non-engine tanpa refId ditolak, bukan membuat kartu ganda',
+        () async {
+      final bad = answer(sessionId,
+          sumber: AnswerSource.pengetahuan, tipe: 'KB-QA', benar: false);
+      expect(() => repo.upsertFromAnswer(bad, t0), throwsArgumentError);
+      expect(
+          await repo.watchDue(t0.add(const Duration(days: 2))).first, isEmpty);
+    });
+
     test('kartu yang tidak ada ditolak', () async {
       expect(() => repo.applyReview(77, true, t0), throwsStateError);
     });
@@ -372,7 +475,7 @@ void main() {
         containsAll([
           'idx_session_profile_mulai',
           'idx_session_selesai',
-          'idx_answer_session',
+          'idx_answer_session_posisi',
           'idx_answer_tipe_id',
           'idx_answer_kategori_id',
           'idx_mistake_status_due',

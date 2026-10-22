@@ -132,6 +132,33 @@ class SchemaTest(unittest.TestCase):
         self.assertTrue(any("stem ganda" in e for e in errs))
 
 
+    def test_bank_enforces_analogy_words_without_kata_column(self):
+        item = bundle.to_bank_item(make_item(1, "VRB-ANA", stem="hujan : payung = panas : ..."))
+        item["options"] = ["topi", "Payung", "x", "y"]  # opsi sama dengan kata B
+        errs = validate_item(item)
+        self.assertTrue(any("muncul sebagai opsi" in e for e in errs), errs)
+        item["options"] = ["topi", "mantel", "x", "y"]
+        self.assertEqual(validate_item(item), [])
+
+
+class RunnerTest(unittest.TestCase):
+    def test_cmd_shim_rejects_shell_metacharacters(self):
+        import shutil
+        from unittest import mock
+        import common
+        with mock.patch.object(shutil, "which", return_value="C:/x/claude.cmd"):
+            with self.assertRaises(ValueError):
+                common.claude_runner()("p", 'sistem "berkutip"')
+
+    def test_missing_claude_is_clear_error(self):
+        import shutil
+        from unittest import mock
+        import common
+        with mock.patch.object(shutil, "which", return_value=None):
+            with self.assertRaises(RuntimeError):
+                common.claude_runner()("p", "s")
+
+
 class PipelineTest(unittest.TestCase):
     def setUp(self):
         self._tmp = tempfile.TemporaryDirectory()
@@ -185,6 +212,26 @@ class PipelineTest(unittest.TestCase):
         before = len(seen)
         verify_verbal.run(fake_answerer({}, wrong, amb, seen), self.out, batch=4)
         self.assertEqual(len(seen), before)
+
+    def test_verify_leaves_unanswered_for_retry_instead_of_dropping(self):
+        gen_verbal.run(fake_generator(), per_type=6, batch=6, out=self.out)
+        cands = read_jsonl(self.out / "candidates.jsonl")
+        for c in cands:
+            n = int(c["id"][-4:])
+            c["options"] = [f"benar{n}" if o.startswith("benar") else o for o in c["options"]]
+        (self.out / "candidates.jsonl").write_text(
+            "\n".join(json.dumps(c, ensure_ascii=False) for c in cands) + "\n", encoding="utf-8")
+        inner = fake_answerer({})
+
+        def truncated(prompt: str, system: str) -> str:
+            answers = json.loads(inner(prompt, system))
+            return json.dumps(answers[:-2])  # dua jawaban terakhir hilang
+
+        stats = verify_verbal.run(truncated, self.out, batch=6)
+        self.assertEqual(stats["tidak_dijawab"], 4)
+        self.assertEqual(len(read_jsonl(self.out / "dropped.jsonl")), 0)
+        verify_verbal.run(inner, self.out, batch=6)
+        self.assertEqual(len(read_jsonl(self.out / "verified.jsonl")), 12)
 
     def _write_verified(self, items):
         rows = [dict(i, verify={"agree": True, "alasan": "cocok", "penjawab": ""}) for i in items]

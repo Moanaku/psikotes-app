@@ -39,7 +39,11 @@ class SessionTable extends Table {
 }
 
 @DataClassName('AnswerRow')
-@TableIndex(name: 'idx_answer_session', columns: {#sessionId})
+@TableIndex(
+  name: 'idx_answer_session_posisi',
+  columns: {#sessionId, #posisi},
+  unique: true,
+)
 @TableIndex(name: 'idx_answer_tipe_id', columns: {#tipe, #id})
 @TableIndex(name: 'idx_answer_kategori_id', columns: {#kategori, #id})
 class AnswerTable extends Table {
@@ -48,6 +52,7 @@ class AnswerTable extends Table {
 
   IntColumn get id => integer().autoIncrement()();
   IntColumn get sessionId => integer().references(SessionTable, #id)();
+  IntColumn get posisi => integer()();
   TextColumn get tipe => text()();
   TextColumn get kategori => text()();
   IntColumn get seed => integer()();

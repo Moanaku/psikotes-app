@@ -6,8 +6,8 @@ Hanya pustaka standar Python. Pembuatan dan verifikasi soal memakai `claude -p`
 from __future__ import annotations
 
 import json
-import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -23,6 +23,8 @@ TYPES = ("VRB-SYN", "VRB-ANA")
 DIFFICULTIES = ("easy", "medium", "hard")
 LABELS = "ABCDEFGH"
 
+CMD_UNSAFE = re.compile(r'["%^&|<>]')
+
 # runner(prompt, system) -> teks jawaban model
 Runner = Callable[[str, str], str]
 
@@ -32,8 +34,15 @@ def claude_runner(model: str | None = None, timeout: int = 600, retries: int = 2
     folder sementara supaya CLAUDE.md proyek tidak ikut terbaca."""
 
     def run(prompt: str, system: str) -> str:
+        exe = shutil.which("claude")
+        if exe is None:
+            raise RuntimeError("perintah claude tidak ditemukan di PATH")
+        # Shim .cmd/.bat hanya bisa dijalankan lewat cmd.exe; argumen harus aman.
+        use_shell = exe.lower().endswith((".cmd", ".bat"))
+        if use_shell and CMD_UNSAFE.search(system):
+            raise ValueError('system prompt memuat karakter khusus cmd.exe (" % ^ & | < >)')
         cmd = [
-            "claude", "-p",
+            exe, "-p",
             "--output-format", "text",
             "--tools", "",
             "--no-session-persistence",
@@ -47,7 +56,7 @@ def claude_runner(model: str | None = None, timeout: int = 600, retries: int = 2
                 proc = subprocess.run(
                     cmd, input=prompt, capture_output=True, text=True,
                     encoding="utf-8", timeout=timeout, cwd=cwd,
-                    shell=(os.name == "nt"),
+                    shell=use_shell,
                 )
             if proc.returncode == 0 and proc.stdout.strip():
                 return proc.stdout

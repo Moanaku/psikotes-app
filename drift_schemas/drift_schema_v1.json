@@ -302,6 +302,16 @@
             ]
           },
           {
+            "name": "posisi",
+            "getter_name": "posisi",
+            "moor_type": "int",
+            "nullable": false,
+            "customConstraints": null,
+            "default_dart": null,
+            "default_client_dart": null,
+            "dsl_features": []
+          },
+          {
             "name": "tipe",
             "getter_name": "tipe",
             "moor_type": "string",
@@ -846,12 +856,16 @@
       "type": "index",
       "data": {
         "on": 2,
-        "name": "idx_answer_session",
+        "name": "idx_answer_session_posisi",
         "sql": null,
-        "unique": false,
+        "unique": true,
         "columns": [
           {
             "column": "session_id",
+            "order_by": null
+          },
+          {
+            "column": "posisi",
             "order_by": null
           }
         ]
@@ -951,7 +965,7 @@
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE TABLE IF NOT EXISTS \"answer\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"session_id\" INTEGER NOT NULL REFERENCES session (id), \"tipe\" TEXT NOT NULL, \"kategori\" TEXT NOT NULL, \"seed\" INTEGER NOT NULL, \"kesulitan\" TEXT NOT NULL, \"gen_versi\" INTEGER NOT NULL, \"sumber\" TEXT NOT NULL, \"ref_id\" INTEGER NULL, \"opsi_dipilih\" INTEGER NULL, \"benar\" INTEGER NOT NULL CHECK (\"benar\" IN (0, 1)), \"durasi_ms\" INTEGER NOT NULL, \"label\" TEXT NOT NULL);"
+          "sql": "CREATE TABLE IF NOT EXISTS \"answer\" (\"id\" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, \"session_id\" INTEGER NOT NULL REFERENCES session (id), \"posisi\" INTEGER NOT NULL, \"tipe\" TEXT NOT NULL, \"kategori\" TEXT NOT NULL, \"seed\" INTEGER NOT NULL, \"kesulitan\" TEXT NOT NULL, \"gen_versi\" INTEGER NOT NULL, \"sumber\" TEXT NOT NULL, \"ref_id\" INTEGER NULL, \"opsi_dipilih\" INTEGER NULL, \"benar\" INTEGER NOT NULL CHECK (\"benar\" IN (0, 1)), \"durasi_ms\" INTEGER NOT NULL, \"label\" TEXT NOT NULL);"
         }
       ]
     },
@@ -1010,11 +1024,11 @@
       ]
     },
     {
-      "name": "idx_answer_session",
+      "name": "idx_answer_session_posisi",
       "sql": [
         {
           "dialect": "sqlite",
-          "sql": "CREATE INDEX idx_answer_session ON answer (session_id)"
+          "sql": "CREATE UNIQUE INDEX idx_answer_session_posisi ON answer (session_id, posisi)"
         }
       ]
     },

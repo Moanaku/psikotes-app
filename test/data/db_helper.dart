@@ -58,9 +58,11 @@ AnswerRecord answer(
   String tipe = 'FIG-MTX',
   AnswerSource sumber = AnswerSource.engine,
   int? refId,
+  int? posisi,
 }) =>
     AnswerRecord(
       sessionId: sessionId,
+      posisi: posisi ?? seed,
       tipe: tipe,
       kategori: 'figural',
       seed: seed,

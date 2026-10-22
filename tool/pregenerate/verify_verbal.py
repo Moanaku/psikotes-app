@@ -8,7 +8,9 @@ Membaca <out>/candidates.jsonl, menulis <out>/verified.jsonl (lolos) dan
 <out>/dropped.jsonl (dibuang, lengkap dengan alasannya), dan <out>/verify_report.json.
 Kunci jawaban tidak pernah dikirim ke model; urutan opsi diacak ulang per soal supaya
 bias posisi tidak menolong. Soal dibuang bila jawaban penjawab berbeda dari kunci, atau
-penjawab menyatakan ada lebih dari satu opsi yang bisa dibenarkan.
+penjawab menyatakan ada lebih dari satu opsi yang bisa dibenarkan. Soal yang tidak
+terjawab (jawaban hilang atau tak terbaca) tidak dibuang; dijalankan ulang akan
+mencobanya lagi dan laporan menyebutnya di belum_diperiksa.
 """
 from __future__ import annotations
 
@@ -83,7 +85,8 @@ def run(runner: Runner, out: Path, batch: int = 10) -> dict:
     done = {v["id"] for v in read_jsonl(out / "verified.jsonl")} | \
            {v["id"] for v in read_jsonl(out / "dropped.jsonl")}
     todo = [c for c in cands if c["id"] not in done]
-    stats = {"diperiksa": 0, "lolos": 0, "dibuang": 0, "batch_gagal": 0}
+    stats = {"diperiksa": 0, "lolos": 0, "dibuang": 0, "batch_gagal": 0,
+             "tidak_dijawab": 0}
     for i in range(0, len(todo), batch):
         chunk = todo[i:i + batch]
         print(f"verifikasi {i + 1}-{i + len(chunk)} dari {len(todo)}", flush=True)
@@ -95,13 +98,18 @@ def run(runner: Runner, out: Path, batch: int = 10) -> dict:
             continue  # tidak ditulis; dijalankan ulang akan mencoba lagi
         ok_rows, bad_rows = [], []
         for it in chunk:
-            ok, why = judge(it, results.get(it["id"]))
-            row = dict(it, verify={"agree": ok, "alasan": why,
-                                   "penjawab": (results.get(it["id"]) or {}).get("alasan", "")})
+            res = results.get(it["id"])
+            if res is None or res["answer"] is None:
+                # Jawaban hilang atau tidak terbaca (keluaran terpotong): bukan
+                # bukti soal salah. Dibiarkan tanpa catatan agar dicoba lagi.
+                stats["tidak_dijawab"] += 1
+                continue
+            ok, why = judge(it, res)
+            row = dict(it, verify={"agree": ok, "alasan": why, "penjawab": res["alasan"]})
             (ok_rows if ok else bad_rows).append(row)
         append_jsonl(out / "verified.jsonl", ok_rows)
         append_jsonl(out / "dropped.jsonl", bad_rows)
-        stats["diperiksa"] += len(chunk)
+        stats["diperiksa"] += len(ok_rows) + len(bad_rows)
         stats["lolos"] += len(ok_rows)
         stats["dibuang"] += len(bad_rows)
 

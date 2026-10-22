@@ -49,19 +49,23 @@ class DriftMistakeRepository implements MistakeRepository {
     return row == null ? null : _card(row);
   }
 
-  /// Kartu soal engine dikenali dari (tipe, seed); soal Capture dan butir
-  /// lain dari (sumber, ref_id).
+  /// Kartu soal engine dikenali dari (tipe, seed); soal lain (Capture, bank,
+  /// pengetahuan) dari (sumber, tipe, ref_id). Butir bank ber-ID teks memakai
+  /// tipenya (`VRB-SYN`) dan nomornya sebagai ref_id.
   Expression<bool> _sameQuestion($MistakeCardTableTable t, AnswerRecord a) {
-    final bySource = t.sumber.equals(a.sumber.code);
+    final bySource = t.sumber.equals(a.sumber.code) & t.tipe.equals(a.tipe);
     if (a.sumber == AnswerSource.engine) {
-      return bySource & t.tipe.equals(a.tipe) & t.seed.equals(a.seed);
+      return bySource & t.seed.equals(a.seed);
     }
-    return bySource & t.refId.equals(a.refId ?? -1);
+    return bySource & t.refId.equals(a.refId!);
   }
 
   @override
   Future<MistakeCard?> upsertFromAnswer(AnswerRecord a, DateTime now) async {
     if (a.benar) return null;
+    if (a.sumber != AnswerSource.engine && a.refId == null) {
+      throw ArgumentError('jawaban ${a.sumber.code} wajib punya refId');
+    }
     return _db.transaction(() async {
       final s = Sm2Scheduler.afterWrong(now);
       final existing = await (_db.select(_db.mistakeCardTable)
