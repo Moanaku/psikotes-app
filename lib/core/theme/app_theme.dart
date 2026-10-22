@@ -79,8 +79,7 @@ abstract final class AppTheme {
           minimumSize: minSize,
           shape: shape,
           side: BorderSide(color: c.outline),
-          textStyle:
-              AppType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
+          textStyle: AppType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
         ),
       ),
       textButtonTheme: TextButtonThemeData(
@@ -88,8 +87,7 @@ abstract final class AppTheme {
           foregroundColor: c.ink,
           minimumSize: minSize,
           shape: shape,
-          textStyle:
-              AppType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
+          textStyle: AppType.body(c.ink).copyWith(fontWeight: FontWeight.w600),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

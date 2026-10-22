@@ -1,5 +1,3 @@
-import 'dart:ui' show FontFeature;
-
 import 'package:flutter/material.dart';
 
 /// Token desain. Nilai mengikuti docs/design/tokens.json dan docs/04-sistem-desain.md.

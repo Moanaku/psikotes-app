@@ -16,7 +16,7 @@ jobs:
       - run: flutter pub get
       - run: dart format --output=none --set-exit-if-changed .
       - run: flutter analyze
-      - run: ./tool/check_tokens.sh
+      - run: bash tool/check_tokens.sh
       - run: flutter test
 
   engine:
@@ -29,6 +29,5 @@ jobs:
       - uses: dart-lang/setup-dart@v1
       - run: dart pub get
       - run: dart analyze --fatal-infos
-      - run: dart test -p vm
-      - name: Test lintas platform (Chrome)
-        run: dart test -p chrome test/rng_test.dart
+      - name: Test (VM dan Chrome)
+        run: dart test -p vm,chrome
