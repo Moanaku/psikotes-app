@@ -14,7 +14,9 @@ import 'models/session.dart';
 import 'repositories/repositories.dart';
 import 'services/clock.dart';
 import 'services/daily_planner.dart';
-import 'services/planning_placeholders.dart';
+import 'services/default_daily_planner.dart';
+import 'services/diagnostic_planner.dart';
+import 'services/weakness_model.dart';
 
 /// Membuat penanda waktu berkala; test menggantinya dengan penanda manual.
 typedef TickerFactory = Timer Function(
@@ -113,14 +115,30 @@ final availableTypesProvider = Provider<Set<QuestionType>>(
   (ref) => GeneratorRegistry.types.toSet(),
 );
 
-/// Sampai T13: rencana dari bobot profil tanpa riwayat.
+/// Rencana latihan harian dari riwayat 30 hari, kartu jatuh tempo, dan bobot
+/// profil (T13).
 final dailyPlannerProvider = Provider<DailyPlanner>(
-  (ref) => PlaceholderDailyPlanner(ref.watch(availableTypesProvider)),
+  (ref) => DefaultDailyPlanner(
+    answers: ref.watch(answerRepositoryProvider),
+    mistakes: ref.watch(mistakeRepositoryProvider),
+    available: ref.watch(availableTypesProvider),
+  ),
 );
 
-/// Sampai T13: belum ada model kelemahan, jadi tidak ada data kelemahan.
+/// Kelemahan per tipe dari riwayat 30 hari (T13).
 final weaknessModelProvider = Provider<WeaknessModel>(
-  (ref) => const PlaceholderWeaknessModel(),
+  (ref) => HistoryWeaknessModel(
+    ref.watch(answerRepositoryProvider),
+    ref.watch(availableTypesProvider),
+  ),
+);
+
+/// Sesi diagnostik awal dari kategori aktif profil (T13).
+final diagnosticPlannerProvider = Provider<DiagnosticPlanner>(
+  (ref) => DiagnosticPlanner(
+    answers: ref.watch(answerRepositoryProvider),
+    available: ref.watch(availableTypesProvider),
+  ),
 );
 
 /// Kartu buku kesalahan yang jatuh tempo sampai sekarang (jam dari `Clock`).

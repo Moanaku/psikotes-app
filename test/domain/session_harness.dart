@@ -14,32 +14,10 @@ import 'package:simulator_psikotes_it/domain/services/session_controller.dart';
 
 import '../data/db_helper.dart' as h;
 import '../support/fake_clock.dart';
+import '../support/manual_ticker.dart';
 
 export '../support/fake_clock.dart';
-
-/// Penanda waktu yang hanya berdetak saat [fire] dipanggil.
-class ManualTimer implements Timer {
-  ManualTimer(this._onTick);
-
-  final void Function() _onTick;
-  bool _active = true;
-  int _ticks = 0;
-
-  void fire() {
-    if (!_active) return;
-    _ticks++;
-    _onTick();
-  }
-
-  @override
-  void cancel() => _active = false;
-
-  @override
-  bool get isActive => _active;
-
-  @override
-  int get tick => _ticks;
-}
+export '../support/manual_ticker.dart' show ManualTimer;
 
 /// Satu "perangkat": database dan jam yang bertahan saat proses app mati dan
 /// dibuka lagi ([kill]).

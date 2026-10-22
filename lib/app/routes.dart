@@ -25,6 +25,12 @@ abstract final class Routes {
   /// S06 atau S07 untuk sesi [id].
   static String sesiPath(int id) => '/sesi/$id';
 
+  /// S08 untuk sesi [id].
+  static String hasilPath(int id) => '/hasil/$id';
+
+  /// S09 untuk soal nomor [n] (mulai dari 1) di sesi [id].
+  static String pembahasanPath(int id, int n) => '/hasil/$id/soal/$n';
+
   /// S02 dalam mode ubah profil (dibuka dari S18).
   static String profilUbah(int id) => '$onboardingProfil?ubah=$id';
 }

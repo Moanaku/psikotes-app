@@ -155,6 +155,30 @@ class DriftSessionRepository implements SessionRepository {
   }
 
   @override
+  Future<SessionRecord?> latestFinished(
+    int profileId,
+    SessionMode mode, {
+    DateTime? before,
+  }) async {
+    final row = await (_db.select(_db.sessionTable)
+          ..where((t) =>
+              t.selesai.isNotNull() &
+              t.profileId.equals(profileId) &
+              t.mode.equals(mode.code) &
+              (before == null
+                  ? const Constant(true)
+                  : t.selesai
+                      .isSmallerThanValue(before.millisecondsSinceEpoch)))
+          ..orderBy([
+            (t) => OrderingTerm.desc(t.selesai),
+            (t) => OrderingTerm.desc(t.id)
+          ])
+          ..limit(1))
+        .getSingleOrNull();
+    return row == null ? null : _session(row);
+  }
+
+  @override
   Future<SessionRecord?> byId(int id) async {
     final row = await (_db.select(_db.sessionTable)
           ..where((t) => t.id.equals(id)))

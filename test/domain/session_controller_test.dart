@@ -1,7 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:question_engine/question_engine.dart';
+import 'package:simulator_psikotes_it/data/repositories/mistake_repository.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
+import 'package:simulator_psikotes_it/domain/models/notebook.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
+import 'package:simulator_psikotes_it/domain/models/session_state.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
 import 'package:simulator_psikotes_it/domain/services/scoring.dart';
 
@@ -613,6 +616,166 @@ void main() {
       expect(summary.perKategori['numerik']!.jumlah, 3);
       expect(h.s.finished, isTrue);
       expect(await h.c.finish(), skor, reason: 'selesai dua kali aman');
+    });
+  });
+
+  group('membuka sesi lewat id (layar sesi)', () {
+    test('sesi yang sedang berjalan dipakai apa adanya', () async {
+      await h.start(SessionMode.simulasi, simPlan());
+      final id = h.s.sessionId;
+      await h.c.select(h.rightOption());
+      expect(await h.c.open(id), SessionOpen.opened);
+      expect(h.s.answers[0], isNotNull, reason: 'tidak dimuat ulang');
+    });
+
+    test('proses mati: sesi dimuat dari database dengan posisi dan waktu',
+        () async {
+      await h.start(SessionMode.simulasi, simPlan());
+      final id = h.s.sessionId;
+      await h.c.select(h.rightOption());
+      await h.c.next();
+      h.clock.advance(mins(2));
+
+      h.kill();
+      expect(h.maybe, isNull);
+      expect(await h.c.open(id), SessionOpen.opened);
+      expect(h.s.posisi, 1);
+      expect(h.s.remaining, mins(3));
+      expect(h.s.answers[0]!.benar, isTrue);
+    });
+
+    test('id yang tidak ada: notFound; sesi selesai: finished', () async {
+      expect(await h.c.open(404), SessionOpen.notFound);
+      await h.start(SessionMode.latihan, practicePlan());
+      final id = h.s.sessionId;
+      await h.c.finish();
+      h.kill();
+      expect(await h.c.open(id), SessionOpen.finished);
+      expect(h.maybe, isNull, reason: 'sesi selesai tidak dimuat');
+    });
+
+    test('membuka sesi lain mengganti sesi yang berjalan', () async {
+      await h.start(SessionMode.latihan, practicePlan());
+      final first = h.s.sessionId;
+      h.c.close();
+      await h.start(SessionMode.simulasi, simPlan());
+      final second = h.s.sessionId;
+      expect(await h.c.open(first), SessionOpen.opened);
+      expect(h.s.sessionId, first);
+      expect(h.s.sessionId, isNot(second));
+    });
+
+    test('close(sessionId) hanya menutup sesi yang cocok', () async {
+      await h.start(SessionMode.latihan, practicePlan());
+      final id = h.s.sessionId;
+      h.c.close(sessionId: id + 1);
+      expect(h.maybe, isNotNull, reason: 'layar lama tidak menutup sesi baru');
+      h.c.close(sessionId: id);
+      expect(h.maybe, isNull);
+    });
+  });
+
+  group('soal yang gagal dibuat', () {
+    test('retryQuestion membuat ulang soal bila generator pulih', () async {
+      var failing = true;
+      await h.dispose();
+      h = Harness(builder: (item) {
+        if (failing) throw StateError('gagal');
+        return buildFromRegistry(item);
+      });
+      final flaky = h;
+      await flaky.start(SessionMode.latihan, practicePlan());
+      expect(flaky.s.questionFailed, isTrue);
+      expect(await flaky.c.retryQuestion(), isFalse);
+      expect(flaky.s.questionFailed, isTrue);
+
+      failing = false;
+      expect(await flaky.c.retryQuestion(), isTrue);
+      expect(flaky.s.questionFailed, isFalse);
+      expect(flaky.s.question, isNotNull);
+      expect(await flaky.c.retryQuestion(), isFalse,
+          reason: 'soal sudah ada: tidak ada yang berubah');
+    });
+
+    test('soal gagal bisa dilewati tanpa mengirim jawaban', () async {
+      await h.dispose();
+      h = Harness(builder: (item) => throw StateError('gagal'));
+      final broken = h;
+      await broken.start(SessionMode.latihan, practicePlan());
+      expect(await broken.c.next(), isTrue);
+      expect(broken.s.posisi, 1);
+      expect(broken.s.answers, isEmpty);
+    });
+  });
+
+  group('buku kesalahan saat sesi selesai (F06, F07)', () {
+    Future<List<MistakeCard>> cards() => DriftMistakeRepository(h.db)
+        .watchDue(t0.add(const Duration(days: 400)))
+        .first;
+
+    test('tiap soal salah membuat kartu jatuh tempo besok; benar tidak',
+        () async {
+      await h.start(SessionMode.simulasi, simPlan());
+      await h.c.select(h.rightOption()); // soal 0 benar
+      await h.c.goTo(1);
+      await h.c.select(h.wrongOption()); // soal 1 salah
+      // soal 2 dan sisanya tidak dijawab.
+      h.clock.advance(const Duration(minutes: 10));
+      await h.c.finish();
+
+      final all = await cards();
+      expect(all.length, 6,
+          reason: '1 salah + 5 dilewati; 1 benar tanpa kartu');
+      final items = h.s.plan.items;
+      for (final c in all) {
+        expect(c.status, CardStatus.aktif);
+        expect(c.streakBenar, 0);
+        expect(c.intervalHari, 1);
+        expect(c.sumber, AnswerSource.engine);
+        expect(c.jatuhTempo, h.clock.now().add(const Duration(days: 1)));
+      }
+      expect(
+        all.any((c) => c.tipe == items[0].type.code && c.seed == items[0].seed),
+        isFalse,
+        reason: 'soal yang benar tidak masuk',
+      );
+      expect(
+        all.any((c) => c.tipe == items[1].type.code && c.seed == items[1].seed),
+        isTrue,
+      );
+    });
+
+    test('soal yang sama salah lagi di sesi lain memperbarui kartunya',
+        () async {
+      final plan =
+          SessionPlan(items: [item(QuestionType.numSeq, 7, 'numerik')]);
+      await h.start(SessionMode.latihan, plan);
+      await h.c.select(h.wrongOption());
+      await h.c.submit();
+      await h.c.next();
+      expect((await cards()).length, 1);
+
+      h.clock.advance(const Duration(days: 2));
+      h.c.close();
+      await h.start(SessionMode.latihan, plan);
+      await h.c.select(h.wrongOption());
+      await h.c.submit();
+      await h.c.next();
+      final after = await cards();
+      expect(after.length, 1, reason: 'diperbarui, bukan ditambah');
+      expect(
+          after.single.jatuhTempo, h.clock.now().add(const Duration(days: 1)));
+    });
+
+    test('semua benar: tidak ada kartu', () async {
+      await h.start(SessionMode.latihan, practicePlan());
+      for (var i = 0; i < 3; i++) {
+        await h.c.select(h.rightOption());
+        await h.c.submit();
+        await h.c.next();
+      }
+      expect(h.s.finished, isTrue);
+      expect(await cards(), isEmpty);
     });
   });
 }

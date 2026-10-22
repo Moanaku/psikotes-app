@@ -3,7 +3,6 @@ import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/profile.dart';
 import 'package:simulator_psikotes_it/domain/models/session_state.dart';
-import 'package:simulator_psikotes_it/domain/services/planning_placeholders.dart';
 import 'package:simulator_psikotes_it/domain/services/profile_templates.dart';
 import 'package:simulator_psikotes_it/domain/services/session_plan_builder.dart';
 
@@ -244,38 +243,6 @@ void main() {
       )!;
       expect(
           sim.plan.subtes.map((s) => s.kategori), isNot(contains('kraepelin')));
-    });
-  });
-
-  group('PlaceholderDailyPlanner', () {
-    test('15 menit, 15 soal campuran sesuai bobot profil', () async {
-      final planner = PlaceholderDailyPlanner(registered);
-      final plan = await planner.plan(
-        profile(ProfileRole.umum, TestFormat.ccat),
-        now,
-      );
-      expect(plan.estimatedMinutes, 15);
-      expect(plan.session.items.length, 15);
-      expect(plan.blocks.length, 1);
-      expect(plan.blocks.single.count, 15);
-    });
-
-    test('tanpa soal yang tersedia: rencana kosong tanpa bagian', () async {
-      const planner = PlaceholderDailyPlanner({});
-      final plan = await planner.plan(
-        profile(ProfileRole.umum, TestFormat.ccat),
-        now,
-      );
-      expect(plan.session.items, isEmpty);
-      expect(plan.blocks, isEmpty);
-    });
-
-    test('PlaceholderWeaknessModel: belum ada riwayat', () async {
-      final w = await const PlaceholderWeaknessModel().weakest(
-        profile(ProfileRole.umum, TestFormat.ccat),
-        now,
-      );
-      expect(w, isEmpty);
     });
   });
 }

@@ -119,6 +119,18 @@ class SubtestRange {
   }
 }
 
+/// Hasil membuka sesi lewat id (rute `/sesi/:id`).
+enum SessionOpen {
+  /// Sesi berjalan di controller.
+  opened,
+
+  /// Sesi sudah selesai; layar mengalihkan ke hasilnya.
+  finished,
+
+  /// Tidak ada sesi dengan id itu.
+  notFound,
+}
+
 /// Hasil mengirim jawaban di mode Latihan.
 class AnswerFeedback {
   const AnswerFeedback({

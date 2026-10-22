@@ -61,8 +61,27 @@ class DriftMistakeRepository implements MistakeRepository {
   }
 
   @override
-  Future<MistakeCard?> upsertFromAnswer(AnswerRecord a, DateTime now) async {
-    if (a.benar) return null;
+  Future<MistakeCard?> findFor(AnswerRecord a) async {
+    if (a.sumber != AnswerSource.engine && a.refId == null) return null;
+    final row = await (_db.select(_db.mistakeCardTable)
+          ..where((t) => _sameQuestion(t, a))
+          ..limit(1))
+        .getSingleOrNull();
+    return row == null ? null : _card(row);
+  }
+
+  @override
+  Future<void> delete(int cardId) =>
+      (_db.delete(_db.mistakeCardTable)..where((t) => t.id.equals(cardId)))
+          .go();
+
+  @override
+  Future<MistakeCard?> upsertFromAnswer(
+    AnswerRecord a,
+    DateTime now, {
+    bool force = false,
+  }) async {
+    if (a.benar && !force) return null;
     if (a.sumber != AnswerSource.engine && a.refId == null) {
       throw ArgumentError('jawaban ${a.sumber.code} wajib punya refId');
     }
