@@ -1,10 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../app/routes.dart';
+import '../../core/theme/app_icons.dart';
 import '../../core/theme/app_tokens.dart';
 import '../../core/widgets/app_button.dart';
+import '../../core/widgets/app_icon_button.dart';
 import '../../core/widgets/choice_row.dart';
 import '../../domain/services/profile_templates.dart';
 import 'onboarding_draft.dart';
@@ -41,16 +45,27 @@ class _RoleScreenState extends ConsumerState<RoleScreen> {
     return OnboardingFrame(
       header: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: AppSizes.topBarHeight),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: ScreenPadding(
-            child: Text('Langkah 1 dari 3', style: AppType.label(c.inkMuted)),
-          ),
+        child: Row(
+          children: [
+            // Dibuka dari Pengaturan (profil tambahan): ada tempat kembali.
+            // Pertama kali dipakai, S01 adalah layar awal tanpa tombol kembali.
+            if (Navigator.canPop(context))
+              AppIconButton(
+                icon: AppIcons.back,
+                label: 'Kembali ke pengaturan',
+                onPressed: () => context.pop(),
+              )
+            else
+              const SizedBox(width: AppSpace.s16),
+            Expanded(
+              child: Text('Langkah 1 dari 3', style: AppType.label(c.inkMuted)),
+            ),
+          ],
         ),
       ),
       footer: AppButton(
         label: 'Lanjut',
-        onPressed: () => context.go(Routes.onboardingProfil),
+        onPressed: () => unawaited(context.push(Routes.onboardingProfil)),
       ),
       children: [
         ScreenPadding(

@@ -227,6 +227,37 @@ void main() {
           OnboardingDraft.initial().role);
     });
 
+    testWidgets('wizard profil tambahan: tombol kembali dan Back sistem '
+        'menuju Pengaturan, bukan keluar app', (tester) async {
+      final app = await open(tester, Rig());
+      await tapText(tester, 'Tambah profil tes');
+      expect(app.location, Routes.onboardingRole);
+      expect(find.byTooltip('Kembali ke pengaturan'), findsOneWidget);
+
+      // Tombol kembali di langkah 1.
+      await tester.tap(find.byTooltip('Kembali ke pengaturan'));
+      await tester.pumpAndSettle();
+      expect(app.location, Routes.pengaturan);
+
+      // Back sistem di langkah 1.
+      await tapText(tester, 'Tambah profil tes');
+      expect(await tester.binding.handlePopRoute(), isTrue,
+          reason: 'Back ditangani app, tidak keluar');
+      await tester.pumpAndSettle();
+      expect(app.location, Routes.pengaturan);
+
+      // Langkah 2 kembali ke langkah 1, lalu Back sistem ke Pengaturan.
+      await tapText(tester, 'Tambah profil tes');
+      await tapText(tester, 'Lanjut');
+      expect(app.location, Routes.onboardingProfil);
+      await tester.tap(find.byTooltip('Kembali ke pilihan role'));
+      await tester.pumpAndSettle();
+      expect(app.location, Routes.onboardingRole);
+      expect(await tester.binding.handlePopRoute(), isTrue);
+      await tester.pumpAndSettle();
+      expect(app.location, Routes.pengaturan);
+    });
+
     testWidgets('Ulangi diagnostik membuka S03', (tester) async {
       final app = await open(tester, Rig());
       await tapText(tester, 'Ulangi diagnostik');
