@@ -13,12 +13,14 @@ import 'models/profile.dart';
 import 'models/session.dart';
 import 'repositories/repositories.dart';
 import 'services/capture_questions.dart';
+import 'services/backup.dart';
 import 'services/capture_service.dart';
 import 'services/clock.dart';
 import 'services/daily_planner.dart';
 import 'services/default_daily_planner.dart';
 import 'services/diagnostic_planner.dart';
 import 'services/mistake_book.dart';
+import 'services/secret_store.dart';
 import 'services/weakness_model.dart';
 
 /// Membuat penanda waktu berkala; test menggantinya dengan penanda manual.
@@ -127,6 +129,15 @@ final captureServiceProvider = Provider<CaptureService>(
     ref.watch(captureRepositoryProvider),
     ref.watch(capturePhotoStoreProvider),
   ),
+);
+
+final backupServiceProvider = Provider<BackupService>(
+  (ref) => _unbound('backupServiceProvider'),
+);
+
+/// Key API wawancara: terenkripsi di Android, memori di web (A91).
+final secretStoreProvider = Provider<SecretStore>(
+  (ref) => _unbound('secretStoreProvider'),
 );
 
 final settingsRepositoryProvider = Provider<SettingsRepository>(

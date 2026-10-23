@@ -15,6 +15,7 @@ import '../features/onboarding/diagnostic_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
 import '../features/review/result_screen.dart';
+import '../features/settings/settings_screen.dart';
 import '../features/stats/stats_screen.dart';
 import '../features/review/review_screen.dart';
 import '../features/session/session_screen.dart';
@@ -131,7 +132,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       _r(Routes.kepribadian, 'S14', 'Sesi kepribadian'),
       _r(Routes.wawancaraDialog, 'S16', 'Dialog wawancara'),
       _r(Routes.wawancaraLaporan, 'S17', 'Laporan wawancara'),
-      _r(Routes.pengaturan, 'S18', 'Pengaturan'),
+      GoRoute(
+        path: Routes.pengaturan,
+        builder: (context, state) => const SettingsScreen(),
+      ),
       _r(Routes.pengetahuan, 'S19', 'Bank pengetahuan role'),
       _r(Routes.pengetahuanSesi, 'S20', 'Sesi kartu pengetahuan'),
     ],

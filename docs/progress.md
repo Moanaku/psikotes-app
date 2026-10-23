@@ -23,7 +23,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T16 Buku kesalahan dengan SM-2: S10
 - [x] T17 Statistik: S11
 - [x] T18 Capture dan catatan psikotes: S12, S13
-- [ ] T19 Pengaturan dan backup: S18
+- [x] T19 Pengaturan dan backup: S18
 - [ ] T20 Alur integrasi, build web dan APK, rilis v1.0.0
 
 ## v1.1

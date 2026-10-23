@@ -744,6 +744,64 @@ final Map<String, List<Pair>> screens = {
       text
     ),
   ],
+  'S18 Pengaturan': [
+    ('judul bagian: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'keterangan: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'catatan dan isian: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'petunjuk isian key: placeholder di surfaceContainer',
+      (c) => c.placeholder,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas isian dan tombol garis: outline di surfaceContainer',
+      (c) => c.outline,
+      (c) => c.surfaceContainer,
+      border
+    ),
+    (
+      'segmen dan chip terpilih: onAccent di accent',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      text
+    ),
+    (
+      'segmen tidak terpilih: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+    (
+      'tag Tersimpan: ok di okContainer',
+      (c) => c.ok,
+      (c) => c.okContainer,
+      text
+    ),
+    ('pesan galat key: bad di surface', (c) => c.bad, (c) => c.surface, text),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+    (
+      'tombol sekunder: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+  ],
 };
 
 void main() {

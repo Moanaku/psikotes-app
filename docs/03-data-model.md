@@ -174,7 +174,7 @@ Satu berkas JSON, dibuat dan dibaca oleh `BackupService`:
 }
 ```
 
-Aturan: key API dan teks CV mentah tidak diekspor. Foto Capture tidak ikut (hanya `foto_path`), dan layar ekspor menyebut itu. Impor memvalidasi `format` dan `versi`, berjalan dalam satu transaksi, dan menggabungkan berdasarkan id (jika id sama, baris dengan `dibuat` lebih baru yang dipakai). Versi lebih baru dari yang dikenal ditolak dengan pesan yang menyebut versi app yang dibutuhkan.
+Aturan: key API dan teks CV mentah tidak diekspor. Foto Capture tidak ikut (hanya `foto_path`), dan layar ekspor menyebut itu. Impor memvalidasi `format` dan `versi`, berjalan dalam satu transaksi, dan menggabungkan berdasarkan id (jika id sama, baris dengan `dibuat` lebih baru yang dipakai). Versi lebih baru dari yang dikenal ditolak dengan pesan yang menyebut versi app yang dibutuhkan. Perincian penggabungan, validasi, dan hal yang tidak ikut: A89 dan A90.
 
 ## Migrasi
 
