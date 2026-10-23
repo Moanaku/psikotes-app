@@ -12,8 +12,8 @@ import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_top_bar.dart';
 import '../../core/widgets/empty_view.dart';
 import '../../core/widgets/error_view.dart';
+import '../../core/widgets/list_row.dart';
 import '../../core/widgets/note_box.dart';
-import '../../core/widgets/quadrant_grid.dart';
 import '../../core/widgets/score_bar.dart';
 import '../../core/widgets/skeleton_list.dart';
 import '../../core/widgets/status_tag.dart';
@@ -136,12 +136,17 @@ class ResultScreen extends ConsumerWidget {
         : 'Sesi lalu ${previous.round()}%, durasi ${formatClock(r.duration)}';
     final wrong = r.wrongCount;
 
-    QuadrantCell cell(String title, SpeedLabel l, bool ok, [String? note]) =>
-        QuadrantCell(
-          title: title,
-          count: s.kuadran[l] ?? 0,
-          correct: ok,
-          note: note,
+    Widget row(String title, SpeedLabel l, bool ok, [String? note]) =>
+        MergeSemantics(
+          child: ListRow(
+            leading: ok ? AppIcons.check : AppIcons.close,
+            title: title,
+            subtitle: note,
+            trailing: Text(
+              '${s.kuadran[l] ?? 0}',
+              style: AppType.title(c.ink),
+            ),
+          ),
         );
 
     return [
@@ -211,14 +216,22 @@ class ResultScreen extends ConsumerWidget {
         ),
       ),
       const SizedBox(height: AppSpace.s12),
-      ScreenPadding(
-        child: QuadrantGrid(cells: [
-          cell('Benar dan cepat', SpeedLabel.benarCepat, true),
-          cell('Benar tapi lambat', SpeedLabel.benarLambat, true),
-          cell('Salah dan cepat', SpeedLabel.salahCepat, false, 'Terburu-buru'),
-          cell('Salah dan lambat', SpeedLabel.salahLambat, false,
-              'Belum paham pola'),
-        ]),
+      // Angka skor di atas satu-satunya yang dominan; empat hitungan ini
+      // baris biasa dengan pemisah, bukan kotak seragam.
+      DecoratedBox(
+        decoration: BoxDecoration(
+          border: Border(top: BorderSide(color: c.outlineVariant)),
+        ),
+        child: Column(
+          children: [
+            row('Benar dan cepat', SpeedLabel.benarCepat, true),
+            row('Benar tapi lambat', SpeedLabel.benarLambat, true),
+            row('Salah dan cepat', SpeedLabel.salahCepat, false,
+                'Terburu-buru'),
+            row('Salah dan lambat', SpeedLabel.salahLambat, false,
+                'Belum paham pola'),
+          ],
+        ),
       ),
       const SizedBox(height: AppSpace.s16),
       ScreenPadding(
