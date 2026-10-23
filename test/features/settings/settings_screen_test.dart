@@ -227,7 +227,8 @@ void main() {
           OnboardingDraft.initial().role);
     });
 
-    testWidgets('wizard profil tambahan: tombol kembali dan Back sistem '
+    testWidgets(
+        'wizard profil tambahan: tombol kembali dan Back sistem '
         'menuju Pengaturan, bukan keluar app', (tester) async {
       final app = await open(tester, Rig());
       await tapText(tester, 'Tambah profil tes');
@@ -316,6 +317,34 @@ void main() {
       expect(
           find.textContaining('Backup digabungkan: 5 baris baru, 1 diperbarui'),
           findsOneWidget);
+    });
+
+    testWidgets('nomor bentrok dilaporkan jujur di ringkasan dan hasil',
+        (tester) async {
+      final rig = Rig(pick: '{"isi":"backup"}');
+      rig.backup.summary = BackupSummary(
+        versi: 1,
+        diekspor: DateTime.utc(2026, 10, 20, 9),
+        tabel: const {
+          'test_profile': BackupTableCount(total: 2, added: 2, renumbered: 1),
+          'session': BackupTableCount(total: 4, added: 3, renumbered: 3),
+        },
+      );
+      await open(tester, rig);
+      await tapText(tester, 'Impor backup');
+      expect(
+          find.text('2 baru (1 diberi nomor baru), 0 sudah ada'
+              .replaceAll(', 0 sudah ada', '')),
+          findsOneWidget);
+      expect(find.text('3 baru (3 diberi nomor baru), 1 sudah ada'),
+          findsOneWidget);
+
+      await tapText(tester, 'Gabungkan ke data ini');
+      expect(
+        find.textContaining('Backup digabungkan: 5 baris baru. 4 baris diberi '
+            'nomor baru karena bentrok dengan data di perangkat ini.'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('Batal membuang ringkasan tanpa menulis', (tester) async {
