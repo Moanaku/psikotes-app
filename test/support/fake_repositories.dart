@@ -451,6 +451,9 @@ class MemoryPhotoStore implements CapturePhotoStore {
 /// Meniru repository Drift: satu jawaban per (sesi, posisi), skor saat
 /// selesai, dan `since` dari yang terbaru.
 class FakeSessionRepository implements SessionRepository, AnswerRepository {
+  @override
+  Future<T> atomically<T>(Future<T> Function() body) => body();
+
   final Map<int, SessionRecord> sessions = {};
   final List<AnswerRecord> _log = [];
   int _next = 1;

@@ -22,16 +22,18 @@ export '../support/manual_ticker.dart' show ManualTimer;
 /// Satu "perangkat": database dan jam yang bertahan saat proses app mati dan
 /// dibuka lagi ([kill]).
 class Harness {
-  Harness({QuestionBuilder? builder})
+  Harness({QuestionBuilder? builder, List<Override> Function(AppDatabase db)? overrides})
       : db = h.memoryDb(),
         clock = FakeClock(h.t0),
-        _builder = builder {
+        _builder = builder,
+        _extra = overrides {
     container = _make();
   }
 
   final AppDatabase db;
   final FakeClock clock;
   final QuestionBuilder? _builder;
+  final List<Override> Function(AppDatabase db)? _extra;
   final List<ManualTimer> timers = [];
   late ProviderContainer container;
   int? profileId;
@@ -47,6 +49,7 @@ class Harness {
         }),
         if (_builder != null)
           questionBuilderProvider.overrideWithValue(_builder),
+        ...?_extra?.call(db),
       ]);
 
   SessionController get c => container.read(sessionControllerProvider.notifier);

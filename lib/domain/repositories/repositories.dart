@@ -29,6 +29,12 @@ abstract class ProfileRepository {
 abstract class SessionRepository {
   Future<int> start(NewSession session);
 
+  /// Menjalankan [body] sebagai satu transaksi: bila melempar, semua tulisan
+  /// repositori lain di database yang sama di dalamnya dibatalkan. Dipakai
+  /// penutupan sesi agar ulangan kartu dan penutupan sesi tidak terpisah (A79).
+  Future<T> atomically<T>(Future<T> Function() body);
+
+
   /// Menyimpan jawaban; satu baris per (sesi, posisi), jawaban ulang
   /// menggantikan yang lama. Jawaban non-engine wajib punya `refId`.
   Future<int> recordAnswer(AnswerRecord answer);
