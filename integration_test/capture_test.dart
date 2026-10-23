@@ -45,6 +45,11 @@ void main() {
     expect(questions.single.teks, 'Berapa 2 + 2?');
     expect(questions.single.kunci, 1);
     expect(find.text('Soal hasil Capture: 1'), findsOneWidget);
+    // Konfirmasi simpan tampil di layar asal, lalu hilang sendiri.
+    expect(find.text('Soal disimpan ke bank pribadi'), findsOneWidget);
+    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpAndSettle();
+    expect(find.text('Soal disimpan ke bank pribadi'), findsNothing);
 
     // Kerjakan di sesi latihan dari bank pribadi dan jawab salah.
     await app.tapText('Soal hasil Capture: 1');

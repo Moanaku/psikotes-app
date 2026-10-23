@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:simulator_psikotes_it/core/widgets/number_bubble.dart';
+import 'package:simulator_psikotes_it/features/session/session_widgets.dart';
 import 'package:simulator_psikotes_it/core/widgets/stat_row.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 
@@ -47,6 +48,10 @@ void main() {
       await app.tapButton('Berikutnya');
     }
     for (var subtest = 0; subtest < 3; subtest++) {
+      // Navigator soal satu baris yang digulir mendatar: gulir ke ujung dulu
+      // supaya nomor terakhir subtes terbangun.
+      await tester.drag(find.byType(NumberStrip), const Offset(-5000, 0));
+      await tester.pumpAndSettle();
       await tester.tap(find.byType(NumberBubble).last);
       await tester.pumpAndSettle();
       await app.tapButton('Berikutnya');
@@ -70,11 +75,18 @@ void main() {
     expect(find.text('Hasil sesi'), findsOneWidget);
     expect(find.text('${sessionRow.skor!.round()}%'), findsOneWidget);
     expect(find.text('Umum, CCAT-style'), findsOneWidget);
-    final wrong = total - correct;
+    // Hanya jawaban yang diisi dan salah masuk buku kesalahan; 32 soal yang
+    // tidak dijawab dihitung salah pada skor saja.
+    final wrong =
+        answers.where((a) => a.opsiDipilih != null && !a.benar).length;
+    expect(wrong, 1);
     expect(
       find.textContaining('$wrong soal salah masuk buku kesalahan'),
       findsOneWidget,
     );
+    expect(
+        find.textContaining('Tidak dijawab: ${total - correct - wrong} soal'),
+        findsOneWidget);
     final cards = await app.db.select(app.db.mistakeCardTable).get();
     expect(cards, hasLength(wrong));
 
