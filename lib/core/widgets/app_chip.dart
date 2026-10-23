@@ -56,7 +56,7 @@ class AppChip extends StatelessWidget {
                 heightFactor: 1,
                 child: Text(
                   label,
-                  style: AppType.label(c.ink).copyWith(
+                  style: AppType.label(selected ? c.onAccent : c.ink).copyWith(
                     fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                   ),
                 ),

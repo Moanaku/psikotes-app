@@ -525,10 +525,18 @@ class SessionController extends Notifier<SessionState?> {
       if (!r.answers.containsKey(p)) await _recordSkipped(r, p);
     }
     // Setiap soal yang tidak benar, termasuk yang dilewati, menjadi kartu
-    // buku kesalahan (jatuh tempo besok). Ditulis sebelum sesi ditutup: bila
-    // gagal, sesi tetap terbuka dan menutupnya lagi aman (kartu diperbarui,
-    // bukan ditambah).
+    // buku kesalahan (jatuh tempo besok). Soal ulangan (PlanItem.cardId)
+    // menjadwal ulang kartunya lewat SM-2, benar atau salah, dan tidak
+    // membuat kartu baru untuk seed barunya. Ditulis sebelum sesi ditutup:
+    // bila gagal, sesi tetap terbuka. Kartu soal baru diperbarui bukan
+    // ditambah; ulangan yang sudah terterapkan akan terterapkan dua kali bila
+    // penutupan diulang (A79).
     for (final a in r.answers.values) {
+      final cardId = r.plan.items[a.posisi].cardId;
+      if (cardId != null && await _mistakes.byId(cardId) != null) {
+        await _mistakes.applyReview(cardId, a.benar, now);
+        continue;
+      }
       if (a.benar) continue;
       if (a.sumber != AnswerSource.engine && a.refId == null) continue;
       await _mistakes.upsertFromAnswer(a, now);

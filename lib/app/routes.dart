@@ -10,6 +10,7 @@ abstract final class Routes {
   static const hasil = '/hasil/:id'; // S08
   static const pembahasan = '/hasil/:id/soal/:n'; // S09
   static const bukuKesalahan = '/buku-kesalahan'; // S10
+  static const kartuKesalahan = '/buku-kesalahan/:id'; // pembahasan kartu S10
   static const statistik = '/statistik'; // S11
   static const capture = '/capture'; // S12
   static const captureUbah = '/capture/:id'; // S12
@@ -30,6 +31,9 @@ abstract final class Routes {
 
   /// S09 untuk soal nomor [n] (mulai dari 1) di sesi [id].
   static String pembahasanPath(int id, int n) => '/hasil/$id/soal/$n';
+
+  /// Pembahasan kartu [id] dari baris S10.
+  static String kartuKesalahanPath(int id) => '/buku-kesalahan/$id';
 
   /// S02 dalam mode ubah profil (dibuka dari S18).
   static String profilUbah(int id) => '$onboardingProfil?ubah=$id';

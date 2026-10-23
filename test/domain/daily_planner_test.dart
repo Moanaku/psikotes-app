@@ -156,7 +156,11 @@ void main() {
       for (var i = 0; i < 6; i++) {
         expect(items[11 + i].seed, isNot(cards[i].seed),
             reason: 'ulangan memakai seed baru');
+        expect(items[11 + i].cardId, cards[i].id,
+            reason: 'ulangan menjadwal ulang kartunya saat sesi selesai');
       }
+      expect(items.take(11).every((i) => i.cardId == null), isTrue);
+      expect(items.skip(17).every((i) => i.cardId == null), isTrue);
       expect(items.skip(17).length, 4);
     });
 

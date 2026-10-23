@@ -32,8 +32,20 @@ class DriftMistakeRepository implements MistakeRepository {
   Stream<List<MistakeCard>> watchDue(DateTime now) {
     final q = _db.select(_db.mistakeCardTable)
       ..where((t) =>
-          t.status.equals(CardStatus.aktif.code) &
+          (t.status.equals(CardStatus.aktif.code) |
+              (t.status.equals(CardStatus.dikuasai.code) &
+                  t.intervalHari.equals(Sm2Scheduler.recheckDays))) &
           t.jatuhTempo.isSmallerOrEqualValue(now.millisecondsSinceEpoch))
+      ..orderBy([
+        (t) => OrderingTerm.asc(t.jatuhTempo),
+        (t) => OrderingTerm.asc(t.id)
+      ]);
+    return q.watch().map((rows) => rows.map(_card).toList());
+  }
+
+  @override
+  Stream<List<MistakeCard>> watchAll() {
+    final q = _db.select(_db.mistakeCardTable)
       ..orderBy([
         (t) => OrderingTerm.asc(t.jatuhTempo),
         (t) => OrderingTerm.asc(t.id)

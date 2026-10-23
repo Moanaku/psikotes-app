@@ -11,6 +11,7 @@ class PlanItem {
     required this.difficulty,
     required this.genVersi,
     required this.subtes,
+    this.cardId,
   });
 
   final QuestionType type;
@@ -21,12 +22,27 @@ class PlanItem {
   /// Kategori subtes tempat soal ini berada.
   final String subtes;
 
+  /// Kartu buku kesalahan yang diulang oleh soal ini (seed baru, tipe sama).
+  /// Null untuk soal biasa. Saat sesi selesai, jawaban soal ini menjadwal ulang
+  /// kartu itu, bukan membuat kartu baru.
+  final int? cardId;
+
+  PlanItem withSubtes(String subtes) => PlanItem(
+        type: type,
+        seed: seed,
+        difficulty: difficulty,
+        genVersi: genVersi,
+        subtes: subtes,
+        cardId: cardId,
+      );
+
   Map<String, Object?> toJson() => {
         'type': type.code,
         'seed': seed,
         'difficulty': difficulty.code,
         'genVersi': genVersi,
         'subtes': subtes,
+        if (cardId != null) 'cardId': cardId,
       };
 
   factory PlanItem.fromJson(Map<String, Object?> m) => PlanItem(
@@ -35,6 +51,7 @@ class PlanItem {
         difficulty: Difficulty.fromCode(m['difficulty']! as String),
         genVersi: m['genVersi']! as int,
         subtes: m['subtes']! as String,
+        cardId: m['cardId'] as int?,
       );
 }
 
