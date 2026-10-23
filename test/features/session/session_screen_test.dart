@@ -10,6 +10,7 @@ import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/question_guides.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
+import 'package:simulator_psikotes_it/features/session/session_widgets.dart';
 
 import '../../core/golden_helper.dart' show expectTouchTargets48;
 import '../../support/fake_clock.dart';
@@ -752,6 +753,24 @@ void main() {
         (tester) async {
       await openSession(tester, SessionMode.latihan, latihanPlan());
       expectTouchTargets48(tester);
+    });
+
+    testWidgets('navigator soal punya sel 48 dp di latihan dan simulasi',
+        (tester) async {
+      for (final mode in [SessionMode.latihan, SessionMode.simulasi]) {
+        await openSession(tester, mode,
+            mode == SessionMode.latihan ? latihanPlan() : simulasiPlan());
+        final strip = tester.getRect(find.byType(NumberStrip));
+        expect(strip.height, 48, reason: '$mode');
+        final bubbles = find.byType(NumberBubble);
+        for (var i = 0; i < 3; i++) {
+          final cell = tester.getRect(find
+              .ancestor(of: bubbles.at(i), matching: find.byType(SizedBox))
+              .first);
+          expect(cell.width, greaterThanOrEqualTo(48), reason: '$mode $i');
+          expect(cell.height, greaterThanOrEqualTo(48), reason: '$mode $i');
+        }
+      }
     });
 
     testWidgets('target sentuh minimal 48 dp di simulasi', (tester) async {
