@@ -234,7 +234,8 @@ class ResultScreen extends ConsumerWidget {
         ScreenPadding(
           top: AppSpace.s8,
           child: Text(
-            '${s.tidakDijawab} soal tidak dijawab dan dihitung salah.',
+            'Tidak dijawab: ${s.tidakDijawab} soal. Dihitung salah pada skor, '
+            'tidak masuk buku kesalahan.',
             style: AppType.label(c.inkMuted),
           ),
         ),

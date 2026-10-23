@@ -270,7 +270,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                 title: benar
                     ? 'Benar'
                     : skipped
-                        ? 'Dilewati'
+                        ? 'Tidak dijawab'
                         : 'Salah',
                 caption: 'Jawabanmu',
                 question: q,
@@ -493,7 +493,7 @@ class ReviewAnswerBlock extends StatelessWidget {
             Text(caption, style: AppType.label(c.ink)),
             const SizedBox(height: AppSpace.s4),
             if (o == null)
-              Text('Tidak dijawab', style: AppType.body(c.ink))
+              Text('Tanpa pilihan', style: AppType.body(c.ink))
             else if (fig != null)
               Row(
                 children: [

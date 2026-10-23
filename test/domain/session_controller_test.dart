@@ -713,7 +713,7 @@ void main() {
         .watchDue(t0.add(const Duration(days: 400)))
         .first;
 
-    test('tiap soal salah membuat kartu jatuh tempo besok; benar tidak',
+    test('jawaban salah membuat kartu jatuh tempo besok; benar dan kosong tidak',
         () async {
       await h.start(SessionMode.simulasi, simPlan());
       await h.c.select(h.rightOption()); // soal 0 benar
@@ -721,11 +721,13 @@ void main() {
       await h.c.select(h.wrongOption()); // soal 1 salah
       // soal 2 dan sisanya tidak dijawab.
       h.clock.advance(const Duration(minutes: 10));
-      await h.c.finish();
+      final skor = await h.c.finish();
 
+      expect(skor, closeTo(100 / 7, 1e-9),
+          reason: 'soal kosong tetap dihitung salah pada skor');
       final all = await cards();
-      expect(all.length, 6,
-          reason: '1 salah + 5 dilewati; 1 benar tanpa kartu');
+      expect(all.length, 1,
+          reason: 'hanya 1 jawaban diisi yang salah; 5 kosong tanpa kartu');
       final items = h.s.plan.items;
       for (final c in all) {
         expect(c.status, CardStatus.aktif);
@@ -816,6 +818,23 @@ void main() {
           all.single.jatuhTempo,
           h.clock.now().add(const Duration(days: 3)),
         );
+      });
+
+      test('soal ulangan yang tidak dijawab tidak mengubah kartunya', () async {
+        final card = await origin();
+        h.clock.advance(const Duration(days: 1));
+        final plan = SessionPlan(
+          items: [item(QuestionType.numSeq, 99, 'numerik', cardId: card.id)],
+        );
+        await h.start(SessionMode.latihan, plan);
+        final skor = await h.c.finish();
+        expect(skor, 0, reason: 'tetap salah pada skor');
+
+        final all = await book.watchAll().first;
+        expect(all, hasLength(1));
+        expect((all.single.streakBenar, all.single.intervalHari),
+            (card.streakBenar, card.intervalHari));
+        expect(all.single.jatuhTempo, card.jatuhTempo);
       });
 
       test('salah: kartu kembali ke 1 hari, tetap satu kartu', () async {

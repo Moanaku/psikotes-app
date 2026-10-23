@@ -533,8 +533,10 @@ class SessionController extends Notifier<SessionState?> {
     for (var p = 0; p < r.plan.items.length; p++) {
       if (!r.answers.containsKey(p)) await _recordSkipped(r, p);
     }
-    // Setiap soal yang tidak benar, termasuk yang dilewati, menjadi kartu
-    // buku kesalahan (jatuh tempo besok). Soal ulangan (PlanItem.cardId)
+    // Setiap jawaban yang diisi dan salah menjadi kartu buku kesalahan (jatuh
+    // tempo besok). Soal yang tidak dijawab (waktu habis atau sesi diakhiri)
+    // dihitung salah pada skor, tetapi tidak membuat kartu dan tidak mengubah
+    // kartu ulangan (A63, A77). Soal ulangan (PlanItem.cardId)
     // menjadwal ulang kartunya lewat SM-2, benar atau salah, dan tidak
     // membuat kartu baru untuk seed barunya. Semua kartu dan penutupan sesi
     // ditulis dalam satu transaksi: bila gagal di tengah, tidak ada kartu yang
@@ -542,6 +544,7 @@ class SessionController extends Notifier<SessionState?> {
     // menerapkan ulangan dua kali (A79).
     r.skor = await _sessions.atomically(() async {
       for (final a in r.answers.values) {
+        if (a.opsiDipilih == null) continue;
         final cardId = r.plan.items[a.posisi].cardId;
         if (cardId != null && await _mistakes.byId(cardId) != null) {
           await _mistakes.applyReview(cardId, a.benar, now);

@@ -88,12 +88,16 @@ void main() {
       final id = await seedFinished(sessions, mixed);
       await openResult(tester, sessions, id);
       expect(
-        find.text('2 soal salah masuk buku kesalahan dan dijadwalkan ulang '
+        find.text('1 soal salah masuk buku kesalahan dan dijadwalkan ulang '
             'besok.'),
         findsOneWidget,
+        reason: 'soal tanpa jawaban tidak membuat kartu',
       );
-      expect(find.text('1 soal tidak dijawab dan dihitung salah.'),
-          findsOneWidget);
+      expect(
+        find.text('Tidak dijawab: 1 soal. Dihitung salah pada skor, tidak '
+            'masuk buku kesalahan.'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('semua benar: tanpa kartu baru dan pembahasan mulai soal 1',

@@ -56,6 +56,9 @@ abstract final class WeaknessScoring {
     final benar = <QuestionType, int>{};
     final jumlah = <QuestionType, int>{};
     for (final (type, a) in history.typedAnswers()) {
+      // Soal yang tidak dijawab dihitung salah pada skor sesi, tetapi bukan
+      // bukti lemah di tipe itu (A63).
+      if (a.opsiDipilih == null) continue;
       final n = jumlah[type] ?? 0;
       if (n >= lastAnswers) continue;
       jumlah[type] = n + 1;

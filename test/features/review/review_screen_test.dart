@@ -96,8 +96,9 @@ void main() {
     testWidgets('soal dilewati: tanpa jawaban dan menyebut target',
         (tester) async {
       await openReview(tester, sessions, id, 4);
-      expect(find.text('Dilewati'), findsOneWidget);
-      expect(find.text('Tidak dijawab'), findsOneWidget);
+      expect(find.text('Tidak dijawab'), findsOneWidget,
+          reason: 'judul blok jawabanmu');
+      expect(find.text('Dilewati'), findsNothing);
       expect(find.textContaining('Tidak dijawab, target'), findsOneWidget);
     });
 
