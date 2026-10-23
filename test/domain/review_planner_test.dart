@@ -79,9 +79,25 @@ void main() {
     expect(r.plan.items.single.seed, isNot(7));
   });
 
-  test('kartu Capture, bank, dan pengetahuan memakai butir yang sama', () {
+  test('kartu Capture masuk rencana sebagai butir yang sama', () {
     final due = [
-      other(10, AnswerSource.capture, 'lipat-kertas', 42),
+      other(10, AnswerSource.capture, PlanItem.captureTipe, 42),
+      engine(1, QuestionType.numSeq, 7),
+    ];
+    final r = ReviewPlanner.build(due, now: now, available: available);
+    expect(r.plan.items, hasLength(2));
+    final capture = r.plan.items.first;
+    expect(capture.isCapture, isTrue);
+    expect(capture.refId, 42);
+    expect(capture.cardId, 10);
+    expect(capture.kategoriCode, 'verbal');
+    expect(capture.seed, 0, reason: 'butir yang sama, bukan seed baru');
+    expect(r.plan.items.last.cardId, 1);
+    expect(r.sameItems, isEmpty);
+  });
+
+  test('kartu bank dan pengetahuan tetap di daftar butir yang sama', () {
+    final due = [
       other(11, AnswerSource.bank, 'VRB-SYN', 5),
       other(12, AnswerSource.pengetahuan, 'KB-QA', 3),
       engine(1, QuestionType.numSeq, 7),
@@ -89,7 +105,6 @@ void main() {
     final r = ReviewPlanner.build(due, now: now, available: available);
     expect(r.plan.items, hasLength(1));
     expect(r.sameItems.map((s) => (s.cardId, s.sumber, s.tipe, s.refId)), [
-      (10, AnswerSource.capture, 'lipat-kertas', 42),
       (11, AnswerSource.bank, 'VRB-SYN', 5),
       (12, AnswerSource.pengetahuan, 'KB-QA', 3),
     ]);

@@ -551,7 +551,7 @@ void main() {
     test('versi generator berbeda tidak dibuat ulang diam-diam', () {
       final i = item(QuestionType.figMtx, 1, 'figural');
       final old = PlanItem(
-        type: i.type,
+        type: i.type!,
         seed: i.seed,
         difficulty: i.difficulty,
         genVersi: i.genVersi + 1,
@@ -735,12 +735,12 @@ void main() {
         expect(c.jatuhTempo, h.clock.now().add(const Duration(days: 1)));
       }
       expect(
-        all.any((c) => c.tipe == items[0].type.code && c.seed == items[0].seed),
+        all.any((c) => c.tipe == items[0].tipeCode && c.seed == items[0].seed),
         isFalse,
         reason: 'soal yang benar tidak masuk',
       );
       expect(
-        all.any((c) => c.tipe == items[1].type.code && c.seed == items[1].seed),
+        all.any((c) => c.tipe == items[1].tipeCode && c.seed == items[1].seed),
         isTrue,
       );
     });

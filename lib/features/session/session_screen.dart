@@ -14,13 +14,13 @@ import '../../core/widgets/error_view.dart';
 import '../../core/widgets/note_box.dart';
 import '../../core/widgets/number_bubble.dart';
 import '../../core/widgets/skeleton_list.dart';
-import '../../domain/models/catalog.dart';
 import '../../domain/models/codes.dart';
 import '../../domain/models/question_guides.dart';
 import '../../domain/models/session_state.dart';
 import '../../domain/providers.dart';
 import '../../domain/services/profile_templates.dart';
 import '../../domain/services/session_controller.dart';
+import '../capture/capture_photo_view.dart';
 import '../onboarding/onboarding_frame.dart';
 import 'session_widgets.dart';
 
@@ -205,7 +205,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
     return OnboardingFrame(
       scrollController: _scroll,
       header: AppTopBar(
-        title: questionTypeName(item.type),
+        title: planItemName(item),
         onBack: _requestExit,
         backIcon: AppIcons.close,
         backLabel: 'Tutup sesi',
@@ -261,7 +261,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
             padding: sessionMargin.copyWith(bottom: AppSpace.s16),
             child: NoteBox(
               icon: AppIcons.bulb,
-              text: questionTypeHint(item.type),
+              text: planItemHint(item),
             ),
           ),
         if (q == null)
@@ -272,6 +272,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
             selected: fb != null ? fb.chosen : s.selected,
             onSelect:
                 fb != null ? null : (i) => unawaited(_controller.select(i)),
+            photo: photoForItem(item),
           ),
         if (q != null && fb != null)
           Padding(
@@ -457,6 +458,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
             question: q,
             selected: s.currentAnswer?.opsiDipilih,
             onSelect: (i) => unawaited(_controller.select(i)),
+            photo: photoForItem(s.plan.items[s.posisi]),
           ),
         const SizedBox(height: AppSpace.s16),
         Padding(

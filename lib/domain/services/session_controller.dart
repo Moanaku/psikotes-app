@@ -44,6 +44,7 @@ class _Run {
     required this.deadline,
     required this.timerEnabled,
     required this.lastNow,
+    required this.builder,
   }) : rules = SessionRules.of(mode);
 
   final int sessionId;
@@ -61,6 +62,10 @@ class _Run {
   /// Median durasi jawaban benar per tipe (30 hari) untuk label kecepatan.
   final Map<String, int> medians;
   final Map<int, Question> questions = {};
+
+  /// Pembuat soal untuk rencana ini: soal engine dari generator, soal Capture
+  /// dari isi yang dimuat saat sesi dibuka.
+  final QuestionBuilder builder;
 
   int subtestIndex;
   int posisi;
@@ -94,6 +99,8 @@ class SessionController extends Notifier<SessionState?> {
   late WallClockGuard _guard;
   late TickerFactory _tickerFactory;
   late QuestionBuilder _buildQuestion;
+
+  CaptureRepository _captureRepo() => ref.read(captureRepositoryProvider);
 
   _Run? _r;
   Timer? _ticker;
@@ -158,6 +165,7 @@ class SessionController extends Notifier<SessionState?> {
           deadline: deadline,
           timerEnabled: true,
           lastNow: now,
+          builder: await questionBuilderFor(plan, _captureRepo, _buildQuestion),
         )..shownAt = now;
         _r = r;
         _loadQuestion(r);
@@ -240,6 +248,7 @@ class SessionController extends Notifier<SessionState?> {
       deadline: deadline,
       timerEnabled: timerEnabled,
       lastNow: now,
+      builder: await questionBuilderFor(s.plan, _captureRepo, _buildQuestion),
     )..shownAt = now;
     if (dirty || posisi != s.posisi) {
       await _sessions.updateProgress(r.sessionId, posisi,
@@ -561,11 +570,13 @@ class SessionController extends Notifier<SessionState?> {
     final a = AnswerRecord(
       sessionId: r.sessionId,
       posisi: r.posisi,
-      tipe: item.type.code,
-      kategori: item.type.category.code,
+      tipe: item.tipeCode,
+      kategori: item.kategoriCode,
       seed: item.seed,
       kesulitan: item.difficulty,
       genVersi: item.genVersi,
+      sumber: item.source,
+      refId: item.refId,
       opsiDipilih: chosen,
       benar: benar,
       durasiMs: durasiMs,
@@ -574,7 +585,7 @@ class SessionController extends Notifier<SessionState?> {
         dijawab: true,
         durasiMs: durasiMs,
         ambangMs:
-            Scoring.thresholdMs(r.medians, item.type.code, q.estimatedSeconds),
+            Scoring.thresholdMs(r.medians, item.tipeCode, q.estimatedSeconds),
       ),
     );
     await _sessions.recordAnswer(a);
@@ -588,11 +599,13 @@ class SessionController extends Notifier<SessionState?> {
     final a = AnswerRecord(
       sessionId: r.sessionId,
       posisi: posisi,
-      tipe: item.type.code,
-      kategori: item.type.category.code,
+      tipe: item.tipeCode,
+      kategori: item.kategoriCode,
       seed: item.seed,
       kesulitan: item.difficulty,
       genVersi: item.genVersi,
+      sumber: item.source,
+      refId: item.refId,
       benar: false,
       durasiMs: durasiMs,
       label: Scoring.label(
@@ -621,7 +634,7 @@ class SessionController extends Notifier<SessionState?> {
     Question? q = r.questions[r.posisi];
     if (q == null) {
       try {
-        q = _buildQuestion(item);
+        q = r.builder(item);
         r.questions[r.posisi] = q;
       } catch (_) {
         // Semua percobaan generator gagal, tipe belum terdaftar, atau versi

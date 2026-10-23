@@ -15,6 +15,7 @@ abstract final class Routes {
   static const capture = '/capture'; // S12
   static const captureUbah = '/capture/:id'; // S12
   static const catatanTes = '/catatan-tes'; // S13
+  static const catatanTesBaru = '/catatan-tes/baru'; // formulir S13
   static const kepribadian = '/kepribadian/:id'; // S14 (v1.1)
   static const wawancara = '/wawancara'; // S15 (v1.3)
   static const wawancaraDialog = '/wawancara/:id'; // S16 (v1.3)
@@ -31,6 +32,21 @@ abstract final class Routes {
 
   /// S09 untuk soal nomor [n] (mulai dari 1) di sesi [id].
   static String pembahasanPath(int id, int n) => '/hasil/$id/soal/$n';
+
+  /// S12 untuk soal baru, dihubungkan ke catatan [logId] dan diberi nama tipe
+  /// baru [tipe] bila ada.
+  static String capturePath({int? logId, String? tipe}) {
+    final q = <String, String>{
+      if (logId != null) 'catatan': '$logId',
+      if (tipe != null) 'tipe': tipe,
+    };
+    return q.isEmpty
+        ? capture
+        : Uri(path: capture, queryParameters: q).toString();
+  }
+
+  /// S12 untuk mengubah soal Capture [id].
+  static String captureUbahPath(int id) => '$capture/$id';
 
   /// Pembahasan kartu [id] dari baris S10.
   static String kartuKesalahanPath(int id) => '/buku-kesalahan/$id';

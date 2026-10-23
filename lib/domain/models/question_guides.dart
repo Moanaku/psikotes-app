@@ -1,5 +1,8 @@
 import 'package:question_engine/question_engine.dart';
 
+import 'catalog.dart';
+import 'session.dart';
+
 /// Petunjuk dan trik per tipe soal untuk S06 ("Buka petunjuk") dan S09 ("Pola
 /// dan trik"). `switch` tanpa cabang bawaan: tipe baru di engine membuat kode
 /// ini gagal dikompilasi sampai diberi teks.
@@ -88,3 +91,28 @@ String questionTypeTrick(QuestionType type) => switch (type) {
         'Tidak ada jawaban benar. Jawab sesuai kebiasaanmu sehari-hari dan '
             'jaga konsistensi antar soal.',
     };
+
+/// Nama butir rencana untuk judul layar: tipe engine, atau kategori buatan
+/// pengguna untuk soal Capture.
+String planItemName(PlanItem item) {
+  final type = item.type;
+  return type == null ? item.kategoriCode : questionTypeName(type);
+}
+
+/// Petunjuk butir rencana (S06). Soal Capture tidak punya aturan tipe.
+String planItemHint(PlanItem item) {
+  final type = item.type;
+  return type == null
+      ? 'Baca soal dan semua opsinya sampai habis. Buang opsi yang jelas '
+          'salah, lalu pilih yang paling cocok.'
+      : questionTypeHint(type);
+}
+
+/// "Pola dan trik" butir rencana (S09).
+String planItemTrick(PlanItem item) {
+  final type = item.type;
+  return type == null
+      ? 'Soal ini kamu simpan sendiri. Catat polanya di pembahasan lewat '
+          'Capture supaya mudah dikenali di tes berikutnya.'
+      : questionTypeTrick(type);
+}

@@ -25,11 +25,15 @@ class QuestionBody extends StatelessWidget {
     required this.question,
     required this.selected,
     required this.onSelect,
+    this.photo,
   });
 
   final Question question;
   final int? selected;
   final ValueChanged<int>? onSelect;
+
+  /// Foto soal Capture; tampil di bawah teks soal.
+  final Widget? photo;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +68,10 @@ class QuestionBody extends StatelessWidget {
                     Center(child: FigureView(figure: figure, maxExtent: 320)),
               ),
             ),
+          ],
+          if (photo != null) ...[
+            const SizedBox(height: AppSpace.s12),
+            photo!,
           ],
           const SizedBox(height: AppSpace.s16),
           _Options(

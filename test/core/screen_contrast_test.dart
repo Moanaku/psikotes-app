@@ -653,6 +653,155 @@ final Map<String, List<Pair>> screens = {
       text
     ),
   ],
+  'S12 Capture soal': [
+    ('judul dan label: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'petunjuk: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'teks isian: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'petunjuk isian: placeholder di surfaceContainer',
+      (c) => c.placeholder,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas isian: outline di surfaceContainer',
+      (c) => c.outline,
+      (c) => c.surfaceContainer,
+      border
+    ),
+    (
+      'lingkaran kunci: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    ('pesan galat: bad di surface', (c) => c.bad, (c) => c.surface, text),
+    (
+      'chip terpilih: onAccent di accent',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      text
+    ),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+    (
+      'tombol sekunder: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+    (
+      'catatan privasi: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+  ],
+  'S13 Catatan psikotes': [
+    ('judul: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'keterangan: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'tag tipe baru: onAccent di accent',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      text
+    ),
+    (
+      'batas tag: outline di surface',
+      (c) => c.outline,
+      (c) => c.surface,
+      border
+    ),
+    (
+      'kotak saran: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+  ],
+  'S18 Pengaturan': [
+    ('judul bagian: ink di surface', (c) => c.ink, (c) => c.surface, text),
+    (
+      'keterangan: inkMuted di surface',
+      (c) => c.inkMuted,
+      (c) => c.surface,
+      text
+    ),
+    (
+      'catatan dan isian: ink di surfaceContainer',
+      (c) => c.ink,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'petunjuk isian key: placeholder di surfaceContainer',
+      (c) => c.placeholder,
+      (c) => c.surfaceContainer,
+      text
+    ),
+    (
+      'batas isian dan tombol garis: outline di surfaceContainer',
+      (c) => c.outline,
+      (c) => c.surfaceContainer,
+      border
+    ),
+    (
+      'segmen dan chip terpilih: onAccent di accent',
+      (c) => c.onAccent,
+      (c) => c.accent,
+      text
+    ),
+    (
+      'segmen tidak terpilih: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+    (
+      'tag Tersimpan: ok di okContainer',
+      (c) => c.ok,
+      (c) => c.okContainer,
+      text
+    ),
+    ('pesan galat key: bad di surface', (c) => c.bad, (c) => c.surface, text),
+    (
+      'tombol utama: surfaceContainer di ink',
+      (c) => c.surfaceContainer,
+      (c) => c.ink,
+      text
+    ),
+    (
+      'tombol sekunder: ink di surfaceContainerHigh',
+      (c) => c.ink,
+      (c) => c.surfaceContainerHigh,
+      text
+    ),
+  ],
 };
 
 void main() {

@@ -120,7 +120,7 @@ abstract final class Scoring {
     var tidakDijawab = 0;
     for (var i = 0; i < plan.items.length; i++) {
       final a = byPos[i];
-      final kategori = a?.kategori ?? plan.items[i].type.category.code;
+      final kategori = a?.kategori ?? plan.items[i].kategoriCode;
       jumlahKat[kategori] = (jumlahKat[kategori] ?? 0) + 1;
       if (a == null || a.opsiDipilih == null) tidakDijawab++;
       if (a == null) {

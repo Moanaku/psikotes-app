@@ -66,7 +66,7 @@ void main() {
       for (final type in registered) {
         final plan = SessionPlanBuilder.practice(type, now: now, count: 2);
         for (final i in plan.items) {
-          final q = GeneratorRegistry.generate(i.type, i.seed, i.difficulty);
+          final q = GeneratorRegistry.generate(i.type!, i.seed, i.difficulty);
           expect(q.type, type);
         }
       }

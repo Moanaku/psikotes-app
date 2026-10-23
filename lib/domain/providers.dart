@@ -12,11 +12,15 @@ import 'models/notebook.dart';
 import 'models/profile.dart';
 import 'models/session.dart';
 import 'repositories/repositories.dart';
+import 'services/capture_questions.dart';
+import 'services/backup.dart';
+import 'services/capture_service.dart';
 import 'services/clock.dart';
 import 'services/daily_planner.dart';
 import 'services/default_daily_planner.dart';
 import 'services/diagnostic_planner.dart';
 import 'services/mistake_book.dart';
+import 'services/secret_store.dart';
 import 'services/weakness_model.dart';
 
 /// Membuat penanda waktu berkala; test menggantinya dengan penanda manual.
@@ -41,19 +45,45 @@ class QuestionUnavailable implements Exception {
 
   @override
   String toString() =>
-      'QuestionUnavailable(${item.type.code}, seed ${item.seed}: $reason)';
+      'QuestionUnavailable(${item.tipeCode}, seed ${item.seed}: $reason)';
 }
 
 Question buildFromRegistry(PlanItem item) {
-  if (!GeneratorRegistry.has(item.type)) {
+  final type = item.type;
+  if (type == null) throw QuestionUnavailable(item, 'bukan soal engine');
+  if (!GeneratorRegistry.has(type)) {
     throw QuestionUnavailable(item, 'tipe belum terdaftar');
   }
-  final generator = GeneratorRegistry.generator(item.type);
+  final generator = GeneratorRegistry.generator(type);
   if (generator.version != item.genVersi) {
     throw QuestionUnavailable(
         item, 'versi generator ${generator.version}, soal ${item.genVersi}');
   }
   return generator.generate(item.seed, item.difficulty);
+}
+
+/// Pembuat soal untuk satu rencana: soal engine lewat [engine], soal Capture
+/// dari isi yang dimuat sekali di sini (builder bersifat sinkron). Soal Capture
+/// yang sudah dihapus menjadi [QuestionUnavailable]. [captures] baru dipanggil
+/// bila rencana memuat soal Capture.
+Future<QuestionBuilder> questionBuilderFor(
+  SessionPlan plan,
+  CaptureRepository Function() captures,
+  QuestionBuilder engine,
+) async {
+  final loaded = <int, CapturedQuestion>{};
+  for (final item in plan.items) {
+    final id = item.refId;
+    if (!item.isCapture || id == null || loaded.containsKey(id)) continue;
+    final c = await captures().byId(id);
+    if (c != null) loaded[id] = c;
+  }
+  return (item) {
+    if (!item.isCapture) return engine(item);
+    final c = loaded[item.refId];
+    if (c == null) throw QuestionUnavailable(item, 'soal Capture dihapus');
+    return CaptureQuestions.toQuestion(c);
+  };
 }
 
 final clockProvider = Provider<Clock>((ref) => SystemClock());
@@ -88,6 +118,26 @@ final captureRepositoryProvider = Provider<CaptureRepository>(
 
 final companyLogRepositoryProvider = Provider<CompanyLogRepository>(
   (ref) => _unbound('companyLogRepositoryProvider'),
+);
+
+final capturePhotoStoreProvider = Provider<CapturePhotoStore>(
+  (ref) => _unbound('capturePhotoStoreProvider'),
+);
+
+final captureServiceProvider = Provider<CaptureService>(
+  (ref) => CaptureService(
+    ref.watch(captureRepositoryProvider),
+    ref.watch(capturePhotoStoreProvider),
+  ),
+);
+
+final backupServiceProvider = Provider<BackupService>(
+  (ref) => _unbound('backupServiceProvider'),
+);
+
+/// Key API wawancara: terenkripsi di Android, memori di web (A91).
+final secretStoreProvider = Provider<SecretStore>(
+  (ref) => _unbound('secretStoreProvider'),
 );
 
 final settingsRepositoryProvider = Provider<SettingsRepository>(
@@ -148,6 +198,12 @@ final dueCardsProvider = StreamProvider.autoDispose<List<MistakeCard>>(
   (ref) => ref
       .watch(mistakeRepositoryProvider)
       .watchDue(DueDay.cutoff(ref.watch(clockProvider).now())),
+);
+
+/// Semua soal Capture, diperbarui setiap ada perubahan (terbaru dulu).
+final capturedQuestionsProvider =
+    StreamProvider.autoDispose<List<CapturedQuestion>>(
+  (ref) => ref.watch(captureRepositoryProvider).watchAll(),
 );
 
 /// Jumlah soal Capture di bank pribadi.

@@ -18,6 +18,7 @@ import '../../domain/models/question_guides.dart';
 import '../../domain/providers.dart';
 import '../../domain/services/mistake_book.dart';
 import '../../domain/services/sm2_scheduler.dart';
+import '../capture/capture_photo_view.dart';
 import '../onboarding/onboarding_frame.dart';
 import '../review/review_screen.dart';
 import '../session/session_widgets.dart';
@@ -118,7 +119,14 @@ class MistakeCardScreen extends ConsumerWidget {
           ),
         )
       else ...[
-        QuestionBody(question: q, selected: null, onSelect: null),
+        QuestionBody(
+          question: q,
+          selected: null,
+          onSelect: null,
+          photo: card.sumber == AnswerSource.capture && card.refId != null
+              ? CapturePhotoView(refId: card.refId!)
+              : null,
+        ),
         const SizedBox(height: AppSpace.s16),
         Padding(
           padding: sessionMargin,

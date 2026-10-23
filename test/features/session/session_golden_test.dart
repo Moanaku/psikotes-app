@@ -44,6 +44,7 @@ Future<FakeSessionRepository> pumpSession(
           .overrideWithValue(FakeProfileRepository([activeProfile()])),
       sessionRepositoryProvider.overrideWithValue(sessions),
       answerRepositoryProvider.overrideWithValue(sessions),
+      captureRepositoryProvider.overrideWithValue(FakeCaptureRepository()),
       mistakeRepositoryProvider.overrideWithValue(FakeMistakeRepository()),
       tickerFactoryProvider.overrideWithValue(ManualTicker().factory),
       ...extra,

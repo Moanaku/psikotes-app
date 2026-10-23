@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/notebook.dart';
 import 'package:simulator_psikotes_it/domain/models/profile.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/repositories/repositories.dart';
+import 'package:simulator_psikotes_it/domain/services/capture_service.dart';
 import 'package:simulator_psikotes_it/domain/services/sm2_scheduler.dart';
 
 /// Repository profil di memori tanpa database: aman untuk widget test (tanpa
@@ -261,34 +263,188 @@ class FakeMistakeRepository implements MistakeRepository {
   }
 }
 
-/// Soal Capture di memori; hanya jumlahnya yang dipakai S04 dan S05.
+/// Soal Capture di memori. Meniru repository Drift: `save` memberi id, `delete`
+/// juga menghapus kartu buku kesalahan Capture bila [mistakes] diisi.
 class FakeCaptureRepository implements CaptureRepository {
   FakeCaptureRepository([Iterable<CapturedQuestion> initial = const []])
-      : items = [...initial];
+      : items = [...initial] {
+    for (final q in items) {
+      if (q.id != null && q.id! >= _next) _next = q.id! + 1;
+    }
+  }
 
   final List<CapturedQuestion> items;
+  final StreamController<void> _changes =
+      StreamController.broadcast(sync: true);
+  int _next = 1;
 
   /// Bila diisi, `watchAll` mengeluarkan galat ini.
   Object? failWith;
 
+  /// Bila diisi, `save` melempar ini.
+  Object? saveFailWith;
+
+  /// Bila diisi, `byId` melempar ini.
+  Object? byIdFailWith;
+
   /// Bila diisi, `watchAll` menahan data sampai [Completer] selesai.
   Completer<void>? gate;
 
+  /// Id soal yang dihapus, berurutan.
+  final List<int> deleted = [];
+
   @override
-  Stream<List<CapturedQuestion>> watchAll() async* {
-    await gate?.future;
-    if (failWith != null) throw failWith!;
-    yield List.unmodifiable(items);
+  Stream<List<CapturedQuestion>> watchAll() => Stream.multi((c) async {
+        await gate?.future;
+        if (failWith != null) {
+          c.addError(failWith!);
+          return;
+        }
+        List<CapturedQuestion> sorted() => List.unmodifiable(
+              [...items]..sort((a, b) {
+                  final byDate = b.dibuat.compareTo(a.dibuat);
+                  return byDate != 0
+                      ? byDate
+                      : (b.id ?? 0).compareTo(a.id ?? 0);
+                }),
+            );
+        c.add(sorted());
+        final sub = _changes.stream.listen((_) => c.add(sorted()));
+        c.onCancel = sub.cancel;
+      });
+
+  @override
+  Future<CapturedQuestion?> byId(int id) async {
+    if (byIdFailWith != null) throw byIdFailWith!;
+    for (final q in items) {
+      if (q.id == id) return q;
+    }
+    return null;
   }
 
   @override
-  Future<CapturedQuestion?> byId(int id) async => null;
+  Future<int> save(CapturedQuestion question) async {
+    if (saveFailWith != null) throw saveFailWith!;
+    final issues = question.validate();
+    if (issues.isNotEmpty) throw ArgumentError(issues.join(', '));
+    final id = question.id ?? _next++;
+    final saved = CapturedQuestion(
+      id: id,
+      teks: question.teks,
+      opsi: question.opsi,
+      kunci: question.kunci,
+      pembahasan: question.pembahasan,
+      kategori: question.kategori,
+      fotoPath: question.fotoPath,
+      companyLogId: question.companyLogId,
+      dibuat: question.dibuat,
+    );
+    final i = items.indexWhere((q) => q.id == id);
+    if (i >= 0) {
+      items[i] = saved;
+    } else {
+      items.add(saved);
+    }
+    _changes.add(null);
+    return id;
+  }
 
   @override
-  Future<int> save(CapturedQuestion question) => throw UnimplementedError();
+  Future<void> delete(int id) async {
+    items.removeWhere((q) => q.id == id);
+    deleted.add(id);
+    _changes.add(null);
+  }
+}
+
+/// Catatan tes di memori.
+class FakeCompanyLogRepository implements CompanyLogRepository {
+  FakeCompanyLogRepository([Iterable<CompanyTestLog> initial = const []])
+      : items = [...initial] {
+    for (final l in items) {
+      if (l.id != null && l.id! >= _next) _next = l.id! + 1;
+    }
+  }
+
+  final List<CompanyTestLog> items;
+  final StreamController<void> _changes =
+      StreamController.broadcast(sync: true);
+  int _next = 1;
+
+  Object? failWith;
+  Object? saveFailWith;
+  Completer<void>? gate;
 
   @override
-  Future<void> delete(int id) => throw UnimplementedError();
+  Stream<List<CompanyTestLog>> watchAll() => Stream.multi((c) async {
+        await gate?.future;
+        if (failWith != null) {
+          c.addError(failWith!);
+          return;
+        }
+        List<CompanyTestLog> sorted() => List.unmodifiable(
+              [...items]..sort((a, b) => b.tanggal.compareTo(a.tanggal)),
+            );
+        c.add(sorted());
+        final sub = _changes.stream.listen((_) => c.add(sorted()));
+        c.onCancel = sub.cancel;
+      });
+
+  @override
+  Future<CompanyTestLog?> byId(int id) async {
+    for (final l in items) {
+      if (l.id == id) return l;
+    }
+    return null;
+  }
+
+  @override
+  Future<int> save(CompanyTestLog log) async {
+    if (saveFailWith != null) throw saveFailWith!;
+    final id = log.id ?? _next++;
+    final saved = CompanyTestLog(
+      id: id,
+      perusahaan: log.perusahaan,
+      tanggal: log.tanggal,
+      subtes: log.subtes,
+      tipeBaru: log.tipeBaru,
+      catatan: log.catatan,
+    );
+    final i = items.indexWhere((l) => l.id == id);
+    if (i >= 0) {
+      items[i] = saved;
+    } else {
+      items.add(saved);
+    }
+    _changes.add(null);
+    return id;
+  }
+}
+
+/// Penyimpanan foto di memori.
+class MemoryPhotoStore implements CapturePhotoStore {
+  final Map<String, Uint8List> files = {};
+  int _next = 1;
+
+  /// Bila diisi, `save` melempar ini.
+  PhotoStoreException? failWith;
+
+  @override
+  Future<String> save(Uint8List bytes, {String extension = 'jpg'}) async {
+    if (failWith != null) throw failWith!;
+    if (bytes.length > CapturePhotoStore.maxBytes) {
+      throw const PhotoStoreException(PhotoStoreProblem.tooLarge);
+    }
+    final name = 'foto${_next++}.$extension';
+    files[name] = bytes;
+    return name;
+  }
+
+  @override
+  Future<Uint8List?> read(String name) async => files[name];
+
+  @override
+  Future<void> delete(String name) async => files.remove(name);
 }
 
 /// Sesi dan jawaban di memori untuk `SessionController` di widget test.

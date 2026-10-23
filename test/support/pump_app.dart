@@ -30,6 +30,8 @@ class AppHarness {
     this.captures,
     this.sessions,
     this.ticker,
+    this.logs,
+    this.photos,
   );
 
   final WidgetTester tester;
@@ -40,6 +42,8 @@ class AppHarness {
   final FakeCaptureRepository captures;
   final FakeSessionRepository sessions;
   final ManualTicker ticker;
+  final FakeCompanyLogRepository logs;
+  final MemoryPhotoStore photos;
 
   GoRouter get router => container.read(routerProvider);
 
@@ -97,6 +101,8 @@ Future<AppHarness> pumpApp(
   FakeMistakeRepository? mistakes,
   FakeCaptureRepository? captures,
   FakeSessionRepository? sessions,
+  FakeCompanyLogRepository? logs,
+  MemoryPhotoStore? photos,
   FakeClock? clock,
   ManualTicker? ticker,
   double width = 360,
@@ -115,12 +121,16 @@ Future<AppHarness> pumpApp(
   final mistakeRepo = mistakes ?? FakeMistakeRepository();
   final captureRepo = captures ?? FakeCaptureRepository();
   final sessionRepo = sessions ?? FakeSessionRepository();
+  final logRepo = logs ?? FakeCompanyLogRepository();
+  final photoStore = photos ?? MemoryPhotoStore();
   final manual = ticker ?? ManualTicker();
   await tester.pumpWidget(ProviderScope(
     overrides: [
       profileRepositoryProvider.overrideWithValue(repo),
       mistakeRepositoryProvider.overrideWithValue(mistakeRepo),
       captureRepositoryProvider.overrideWithValue(captureRepo),
+      companyLogRepositoryProvider.overrideWithValue(logRepo),
+      capturePhotoStoreProvider.overrideWithValue(photoStore),
       sessionRepositoryProvider.overrideWithValue(sessionRepo),
       answerRepositoryProvider.overrideWithValue(sessionRepo),
       clockProvider.overrideWithValue(fake),
@@ -142,6 +152,8 @@ Future<AppHarness> pumpApp(
     captureRepo,
     sessionRepo,
     manual,
+    logRepo,
+    photoStore,
   );
 }
 

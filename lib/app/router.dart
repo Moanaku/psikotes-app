@@ -4,6 +4,9 @@ import 'package:go_router/go_router.dart';
 
 import '../core/widgets/placeholder_screen.dart';
 import '../domain/providers.dart';
+import '../features/capture/capture_screen.dart';
+import '../features/capture/company_log_form_screen.dart';
+import '../features/capture/company_log_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/mistakes/mistake_book_screen.dart';
@@ -12,6 +15,7 @@ import '../features/onboarding/diagnostic_screen.dart';
 import '../features/onboarding/profile_screen.dart';
 import '../features/onboarding/role_screen.dart';
 import '../features/review/result_screen.dart';
+import '../features/settings/settings_screen.dart';
 import '../features/stats/stats_screen.dart';
 import '../features/review/review_screen.dart';
 import '../features/session/session_screen.dart';
@@ -104,13 +108,34 @@ final routerProvider = Provider<GoRouter>((ref) {
           cardId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
         ),
       ),
-      _r(Routes.capture, 'S12', 'Capture soal'),
-      _r(Routes.captureUbah, 'S12', 'Capture soal'),
-      _r(Routes.catatanTes, 'S13', 'Catatan psikotes'),
+      GoRoute(
+        path: Routes.capture,
+        builder: (context, state) => CaptureScreen(
+          logId: int.tryParse(state.uri.queryParameters['catatan'] ?? ''),
+          tipe: state.uri.queryParameters['tipe'],
+        ),
+      ),
+      GoRoute(
+        path: Routes.captureUbah,
+        builder: (context, state) => CaptureScreen(
+          editId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
+        ),
+      ),
+      GoRoute(
+        path: Routes.catatanTes,
+        builder: (context, state) => const CompanyLogScreen(),
+      ),
+      GoRoute(
+        path: Routes.catatanTesBaru,
+        builder: (context, state) => const CompanyLogFormScreen(),
+      ),
       _r(Routes.kepribadian, 'S14', 'Sesi kepribadian'),
       _r(Routes.wawancaraDialog, 'S16', 'Dialog wawancara'),
       _r(Routes.wawancaraLaporan, 'S17', 'Laporan wawancara'),
-      _r(Routes.pengaturan, 'S18', 'Pengaturan'),
+      GoRoute(
+        path: Routes.pengaturan,
+        builder: (context, state) => const SettingsScreen(),
+      ),
       _r(Routes.pengetahuan, 'S19', 'Bank pengetahuan role'),
       _r(Routes.pengetahuanSesi, 'S20', 'Sesi kartu pengetahuan'),
     ],

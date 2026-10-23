@@ -104,6 +104,7 @@ class DriftMistakeRepository implements MistakeRepository {
             ..limit(1))
           .getSingleOrNull();
       final fields = MistakeCardTableCompanion(
+        kategori: Value(a.kategori),
         jatuhTempo: Value(s.jatuhTempo.millisecondsSinceEpoch),
         intervalHari: Value(s.intervalHari),
         streakBenar: Value(s.streakBenar),
@@ -115,7 +116,7 @@ class DriftMistakeRepository implements MistakeRepository {
               MistakeCardTableCompanion.insert(
                 tipe: a.tipe,
                 kategori: a.kategori,
-                seed: Value(a.seed),
+                seed: Value(a.sumber == AnswerSource.engine ? a.seed : null),
                 sumber: a.sumber.code,
                 refId: Value(a.refId),
                 jatuhTempo: s.jatuhTempo.millisecondsSinceEpoch,

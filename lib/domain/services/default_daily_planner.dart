@@ -165,7 +165,16 @@ class DefaultDailyPlanner implements DailyPlanner {
       }
       if (parts.due > 0) {
         for (final card in dueCards.take(parts.due)) {
-          add(QuestionType.fromCode(card.tipe), cardId: card.id);
+          if (card.sumber == AnswerSource.capture) {
+            items.add(PlanItem.capture(
+              refId: card.refId!,
+              kategori: card.kategori,
+              subtes: SubtestPlan.mixedLabel,
+              cardId: card.id,
+            ));
+          } else {
+            add(QuestionType.fromCode(card.tipe), cardId: card.id);
+          }
         }
         blocks.add(PlanBlock(kind: PlanBlockKind.due, count: parts.due));
       }
@@ -218,10 +227,11 @@ class DefaultDailyPlanner implements DailyPlanner {
     );
   }
 
-  /// Kartu yang bisa dijadikan soal: soal engine dengan tipe yang terdaftar.
-  /// Kartu Capture, bank, dan pengetahuan menunggu `PlanItem` yang memuat
-  /// sumber dan `ref_id` (A59).
+  /// Kartu yang bisa dijadikan soal: soal engine dengan tipe yang terdaftar,
+  /// atau soal Capture yang punya `ref_id`. Kartu bank dan pengetahuan
+  /// menunggu pemakainya (T07, T25).
   bool _usable(MistakeCard c) {
+    if (c.sumber == AnswerSource.capture) return c.refId != null;
     if (c.sumber != AnswerSource.engine) return false;
     for (final t in _available) {
       if (t.code == c.tipe) return GeneratorRegistry.has(t);

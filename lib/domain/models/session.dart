@@ -2,57 +2,118 @@ import 'package:question_engine/question_engine.dart';
 
 import 'codes.dart';
 
-/// Satu soal dalam rencana sesi. Soal tidak disimpan utuh: engine membuatnya
-/// ulang dari `(type, seed, difficulty, genVersi)`.
+/// Satu soal dalam rencana sesi. Soal engine tidak disimpan utuh: engine
+/// membuatnya ulang dari `(type, seed, difficulty, genVersi)`. Soal Capture
+/// (F09) dirujuk dari `captured_question` lewat [refId]; isinya tetap di
+/// database, bukan di rencana.
 class PlanItem {
   const PlanItem({
-    required this.type,
+    required QuestionType this.type,
     required this.seed,
     required this.difficulty,
     required this.genVersi,
     required this.subtes,
     this.cardId,
-  });
+  })  : source = AnswerSource.engine,
+        refId = null,
+        _kategori = null;
 
-  final QuestionType type;
+  /// Soal dari bank pribadi. [kategori] adalah kategori buatan pengguna
+  /// (`captured_question.kategori`); seed dan versi generator tidak berlaku.
+  const PlanItem.capture({
+    required int this.refId,
+    required String kategori,
+    required this.subtes,
+    this.cardId,
+  })  : type = null,
+        source = AnswerSource.capture,
+        seed = 0,
+        difficulty = Difficulty.medium,
+        genVersi = 0,
+        _kategori = kategori;
+
+  /// Nilai kolom `tipe` untuk semua soal Capture: identitas kartu dan
+  /// jawaban Capture dibaca dari `(sumber, tipe, ref_id)`, jadi tidak ikut
+  /// berubah bila pengguna mengganti kategorinya.
+  static const String captureTipe = 'CAPTURE';
+
+  /// Null untuk soal Capture (kategori buatan pengguna bukan [QuestionType]).
+  final QuestionType? type;
+  final AnswerSource source;
+  final int? refId;
   final int seed;
   final Difficulty difficulty;
   final int genVersi;
+  final String? _kategori;
 
   /// Kategori subtes tempat soal ini berada.
   final String subtes;
 
-  /// Kartu buku kesalahan yang diulang oleh soal ini (seed baru, tipe sama).
-  /// Null untuk soal biasa. Saat sesi selesai, jawaban soal ini menjadwal ulang
-  /// kartu itu, bukan membuat kartu baru.
+  /// Kartu buku kesalahan yang diulang oleh soal ini (seed baru, tipe sama
+  /// untuk soal engine; butir yang sama untuk Capture). Null untuk soal biasa.
+  /// Saat sesi selesai, jawaban soal ini menjadwal ulang kartu itu, bukan
+  /// membuat kartu baru.
   final int? cardId;
 
-  PlanItem withSubtes(String subtes) => PlanItem(
-        type: type,
-        seed: seed,
-        difficulty: difficulty,
-        genVersi: genVersi,
-        subtes: subtes,
-        cardId: cardId,
-      );
+  bool get isCapture => source == AnswerSource.capture;
 
-  Map<String, Object?> toJson() => {
-        'type': type.code,
-        'seed': seed,
-        'difficulty': difficulty.code,
-        'genVersi': genVersi,
-        'subtes': subtes,
-        if (cardId != null) 'cardId': cardId,
-      };
+  /// Kode tipe yang ditulis ke `answer.tipe`.
+  String get tipeCode => type?.code ?? captureTipe;
 
-  factory PlanItem.fromJson(Map<String, Object?> m) => PlanItem(
-        type: QuestionType.fromCode(m['type']! as String),
-        seed: m['seed']! as int,
-        difficulty: Difficulty.fromCode(m['difficulty']! as String),
-        genVersi: m['genVersi']! as int,
+  /// Kategori yang ditulis ke `answer.kategori`.
+  String get kategoriCode => type?.category.code ?? _kategori!;
+
+  PlanItem withSubtes(String subtes) => type == null
+      ? PlanItem.capture(
+          refId: refId!,
+          kategori: _kategori!,
+          subtes: subtes,
+          cardId: cardId,
+        )
+      : PlanItem(
+          type: type!,
+          seed: seed,
+          difficulty: difficulty,
+          genVersi: genVersi,
+          subtes: subtes,
+          cardId: cardId,
+        );
+
+  Map<String, Object?> toJson() => type == null
+      ? {
+          'sumber': AnswerSource.capture.code,
+          'refId': refId,
+          'kategori': _kategori,
+          'subtes': subtes,
+          if (cardId != null) 'cardId': cardId,
+        }
+      : {
+          'type': type!.code,
+          'seed': seed,
+          'difficulty': difficulty.code,
+          'genVersi': genVersi,
+          'subtes': subtes,
+          if (cardId != null) 'cardId': cardId,
+        };
+
+  factory PlanItem.fromJson(Map<String, Object?> m) {
+    if (m['sumber'] == AnswerSource.capture.code) {
+      return PlanItem.capture(
+        refId: m['refId']! as int,
+        kategori: m['kategori']! as String,
         subtes: m['subtes']! as String,
         cardId: m['cardId'] as int?,
       );
+    }
+    return PlanItem(
+      type: QuestionType.fromCode(m['type']! as String),
+      seed: m['seed']! as int,
+      difficulty: Difficulty.fromCode(m['difficulty']! as String),
+      genVersi: m['genVersi']! as int,
+      subtes: m['subtes']! as String,
+      cardId: m['cardId'] as int?,
+    );
+  }
 }
 
 class SubtestPlan {

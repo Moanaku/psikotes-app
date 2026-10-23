@@ -34,7 +34,7 @@ MistakeCard mc(
     MistakeCard(
       id: id,
       tipe: tipe,
-      kategori: 'figural',
+      kategori: source == AnswerSource.capture ? 'lipat kertas' : 'figural',
       seed: source == AnswerSource.engine ? id : null,
       sumber: source,
       refId: source == AnswerSource.engine ? null : id,
@@ -50,6 +50,7 @@ Future<AppHarness> openBook(
   List<MistakeCard> cards, {
   FakeMistakeRepository? repo,
   FakeSessionRepository? sessions,
+  FakeCaptureRepository? captures,
   double textScale = 1,
   List<Override> overrides = const [],
 }) async {
@@ -58,6 +59,7 @@ Future<AppHarness> openBook(
     profiles: FakeProfileRepository([activeProfile()]),
     mistakes: repo ?? FakeMistakeRepository(cards),
     sessions: sessions,
+    captures: captures,
     textScale: textScale,
     overrides: overrides,
   );
@@ -179,7 +181,7 @@ void main() {
       await tester.tap(find.widgetWithText(AppChip, 'Capture'));
       await tester.pumpAndSettle();
       expect(find.byType(ListRow), findsOneWidget);
-      expect(find.text('lipat-kertas'), findsOneWidget);
+      expect(find.text('lipat kertas'), findsOneWidget);
       await tester.tap(find.widgetWithText(AppChip, 'Psikotes'));
       await tester.pumpAndSettle();
       expect(find.byType(ListRow), findsOneWidget);
@@ -253,7 +255,7 @@ void main() {
       expect(session.mode, SessionMode.latihan);
       final items = session.plan.items;
       expect(items.map((i) => i.cardId), [1, 2], reason: 'kartu 3 belum due');
-      expect(items.map((i) => i.type.code), ['FIG-MTX', 'FIG-MTX']);
+      expect(items.map((i) => i.tipeCode), ['FIG-MTX', 'FIG-MTX']);
       expect(items[0].seed, isNot(1));
       expect(items[1].seed, isNot(2));
       expect(session.plan.subtes, isEmpty, reason: 'latihan tanpa timer');
@@ -279,12 +281,32 @@ void main() {
       expect(repo.cards, hasLength(1), reason: 'seed baru bukan kartu baru');
     });
 
-    testWidgets('hanya kartu Capture yang jatuh tempo: pesan, bukan sesi',
+    testWidgets('kartu Capture jatuh tempo: sesi dengan butir yang sama',
         (tester) async {
       final sessions = FakeSessionRepository();
       final app = await openBook(
         tester,
-        [mc(1, source: AnswerSource.capture, tipe: 'lipat-kertas')],
+        [mc(1, source: AnswerSource.capture, tipe: PlanItem.captureTipe)],
+        sessions: sessions,
+        captures: FakeCaptureRepository([captured(1)]),
+      );
+      await tester.tap(find.text('Ulangi yang jatuh tempo'));
+      await tester.pumpAndSettle();
+      expect(app.location, startsWith('/sesi/'));
+      final item = sessions.sessions.values.single.plan.items.single;
+      expect(item.isCapture, isTrue);
+      expect(item.refId, 1);
+      expect(item.cardId, 1);
+      expect(find.text('Soal 1'), findsOneWidget,
+          reason: 'soal Capture tampil di layar sesi');
+    });
+
+    testWidgets('hanya kartu bank yang jatuh tempo: pesan, bukan sesi',
+        (tester) async {
+      final sessions = FakeSessionRepository();
+      final app = await openBook(
+        tester,
+        [mc(1, source: AnswerSource.bank, tipe: 'VRB-SYN')],
         sessions: sessions,
       );
       await tester.tap(find.text('Ulangi yang jatuh tempo'));
@@ -379,9 +401,23 @@ void main() {
       expect(find.text('Kembali ke buku kesalahan'), findsWidgets);
     });
 
-    testWidgets('kartu Capture: pesan, bukan crash', (tester) async {
+    testWidgets('kartu Capture: soal, kunci, dan pembahasan', (tester) async {
+      final app = await openBook(
+        tester,
+        [mc(1, source: AnswerSource.capture, tipe: PlanItem.captureTipe)],
+        captures: FakeCaptureRepository([captured(1)]),
+      );
+      await app.go(Routes.kartuKesalahanPath(1));
+      expect(find.text('Soal 1'), findsOneWidget);
+      expect(find.text('Kunci'), findsOneWidget);
+      expect(find.textContaining('lipat kertas, capture'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    });
+
+    testWidgets('kartu Capture yang soalnya dihapus: pesan, bukan crash',
+        (tester) async {
       final app = await openBook(tester, [
-        mc(1, source: AnswerSource.capture, tipe: 'lipat-kertas'),
+        mc(1, source: AnswerSource.capture, tipe: PlanItem.captureTipe),
       ]);
       await app.go(Routes.kartuKesalahanPath(1));
       expect(find.textContaining('belum bisa dibuka'), findsOneWidget);

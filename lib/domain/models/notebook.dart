@@ -33,7 +33,7 @@ class MistakeCard {
   final DateTime dibuat;
 }
 
-/// Soal tangkapan pengguna (F13). Tetap lokal; foto tidak ikut backup.
+/// Soal tangkapan pengguna (F09). Tetap lokal; foto tidak ikut backup.
 class CapturedQuestion {
   const CapturedQuestion({
     this.id,
@@ -56,17 +56,43 @@ class CapturedQuestion {
   /// Indeks opsi yang benar.
   final int kunci;
   final String? pembahasan;
+
+  /// Kategori buatan pengguna: salah satu kategori app atau tipe baru
+  /// ("lipat kertas").
   final String kategori;
+
+  /// Nama berkas foto di penyimpanan lokal app (bukan jalur lengkap), atau
+  /// null. Foto tidak ikut backup.
   final String? fotoPath;
   final int? companyLogId;
   final DateTime dibuat;
 
-  /// Pelanggaran aturan bentuk; kosong berarti sah.
+  bool get hasPhoto => fotoPath != null && fotoPath!.isNotEmpty;
+
+  /// Pelanggaran aturan bentuk; kosong berarti sah. Teks boleh kosong bila
+  /// ada foto (S12).
   List<String> validate() => [
-        if (teks.trim().isEmpty) 'teks kosong',
+        if (teks.trim().isEmpty && !hasPhoto) 'teks atau foto wajib salah satu',
+        if (kategori.trim().isEmpty) 'kategori kosong',
         if (opsi.length < 2 || opsi.length > 6) 'opsi harus 2 sampai 6',
+        if (opsi.any((o) => o.trim().isEmpty)) 'opsi kosong',
         if (kunci < 0 || kunci >= opsi.length) 'kunci di luar rentang opsi',
       ];
+
+  CapturedQuestion copyWith(
+          {int? companyLogId, bool clearCompanyLog = false}) =>
+      CapturedQuestion(
+        id: id,
+        teks: teks,
+        opsi: opsi,
+        kunci: kunci,
+        pembahasan: pembahasan,
+        kategori: kategori,
+        fotoPath: fotoPath,
+        companyLogId:
+            clearCompanyLog ? null : companyLogId ?? this.companyLogId,
+        dibuat: dibuat,
+      );
 }
 
 class CompanyTestLog {

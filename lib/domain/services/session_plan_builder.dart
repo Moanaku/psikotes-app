@@ -1,5 +1,6 @@
 import 'package:question_engine/question_engine.dart';
 
+import '../models/notebook.dart';
 import '../models/profile.dart';
 import '../models/session.dart';
 import 'seed_allocator.dart';
@@ -35,6 +36,33 @@ abstract final class SessionPlanBuilder {
         subtes: subtes ?? type.category.code,
         cardId: cardId,
       );
+
+  /// Butir rencana untuk soal Capture [q] (harus sudah punya id).
+  static PlanItem captureItem(CapturedQuestion q, {int? cardId}) =>
+      PlanItem.capture(
+        refId: q.id!,
+        kategori: q.kategori,
+        subtes: SubtestPlan.mixedLabel,
+        cardId: cardId,
+      );
+
+  /// Latihan dari bank pribadi tanpa timer (S05, "Soal hasil Capture"): paling
+  /// banyak [count] soal Capture, urutannya diacak dari waktu rencana dibuat.
+  /// Kosong bila bank pribadi kosong.
+  static SessionPlan capture(
+    List<CapturedQuestion> questions, {
+    required DateTime now,
+    int count = practiceCount,
+  }) {
+    final saved = [
+      for (final q in questions)
+        if (q.id != null) q,
+    ];
+    final order = Rng(seedBase(now)).shuffle(saved);
+    return SessionPlan(
+      items: [for (final q in order.take(count)) captureItem(q)],
+    );
+  }
 
   /// Tipe terdaftar di [available] untuk satu kategori, urut menurut katalog.
   static List<QuestionType> categoryTypes(
