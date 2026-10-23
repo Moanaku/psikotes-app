@@ -63,7 +63,9 @@ class SkeletonList extends StatelessWidget {
                     const SizedBox(width: AppSpace.s16),
                   ],
                   Expanded(
+                    // Rata kiri seperti isi baris daftar yang sebenarnya.
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         bar(AppSpace.s16, 0.6),
                         const SizedBox(height: AppSpace.s8),
