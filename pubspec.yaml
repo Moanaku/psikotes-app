@@ -1,7 +1,7 @@
 name: simulator_psikotes_it
 description: App latihan psikotes kerja IT, offline-first. Soal dibuat ulang setiap sesi.
 publish_to: none
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
   sdk: ^3.5.0

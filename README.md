@@ -2,14 +2,15 @@
 
 App Flutter offline-first untuk berlatih psikotes kerja IT. Soal dibuat ulang setiap sesi, termasuk soal bergambar, dan latihan disusun dari role yang dilamar, tes target, dan kelemahan pribadi. Wawancara berbasis CV menyusul di v1.3. Gratis dan semua data tinggal di perangkat.
 
-Status: perencanaan selesai, kode belum dimulai. Lihat [docs/README.md](docs/README.md).
+Status: fitur v1 selesai (T01 sampai T19) dan T20 (integrasi, build, rilis) sebagian; v1.0.0 menunggu checklist manual pemilik. Lihat [docs/README.md](docs/README.md), [CHANGELOG.md](CHANGELOG.md), dan [docs/RILIS-APK.md](docs/RILIS-APK.md).
 
 ## Isi repo
 
 | Folder | Isi |
 |---|---|
 | `docs/` | PRD, arsitektur, data model, sistem desain, spek layar, bank konten, rencana tugas, rencana tes, keputusan |
-| `lib/` | Kerangka app Flutter (tema, rute) |
+| `lib/` | App Flutter (tema, komponen, data, domain, layar) |
+| `integration_test/` | Tiga alur utama (lihat `integration_test/README.md`) |
 | `packages/question_engine/` | Engine soal Dart murni dan tesnya |
 | `tool/` | Skrip pembuat bank soal dan pemeriksa token |
 | `assets/` | Font dan bank soal terbundel |
@@ -20,12 +21,14 @@ Butuh Flutter stabil dan Dart yang menyertainya.
 
 ```
 flutter pub get
+dart run build_runner build
 flutter analyze
-flutter test
+flutter test --exclude-tags golden
+bash tool/run_integration.sh
 cd packages/question_engine && dart pub get && dart test -p vm,chrome
 ```
 
-Kerangka ini belum pernah dikompilasi; tugas T01 di [docs/07-rencana-tugas.md](docs/07-rencana-tugas.md) memverifikasinya.
+Web: `bash tool/prepare_web.sh` lalu `flutter run -d chrome`. APK: `flutter build apk --release` (penandatanganan dan rilis: [docs/RILIS-APK.md](docs/RILIS-APK.md)). Detail perintah rutin ada di `CLAUDE.md`.
 
 ## Catatan hukum
 
