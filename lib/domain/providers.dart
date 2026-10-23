@@ -88,6 +88,28 @@ Future<QuestionBuilder> questionBuilderFor(
 
 final clockProvider = Provider<Clock>((ref) => SystemClock());
 
+/// Hari kalender setempat (tanggal tanpa jam). Provider yang bergantung pada
+/// "hari ini" (rencana beranda, kartu jatuh tempo, S10) membacanya agar
+/// dihitung ulang saat hari berganti. `DayRefresher` memanggil [DayNotifier.refresh]
+/// saat tengah malam dan saat app kembali dari latar belakang (A95).
+final dayProvider = NotifierProvider<DayNotifier, DateTime>(DayNotifier.new);
+
+class DayNotifier extends Notifier<DateTime> {
+  DateTime _today() {
+    final local = ref.read(clockProvider).now().toLocal();
+    return DateTime(local.year, local.month, local.day);
+  }
+
+  @override
+  DateTime build() => _today();
+
+  /// Membaca ulang jam; hanya memberi tahu pembaca bila harinya berganti.
+  void refresh() {
+    final today = _today();
+    if (today != state) state = today;
+  }
+}
+
 final tickerFactoryProvider = Provider<TickerFactory>((ref) => periodicTicker);
 
 final questionBuilderProvider =
@@ -194,11 +216,12 @@ final diagnosticPlannerProvider = Provider<DiagnosticPlanner>(
 
 /// Kartu buku kesalahan yang jatuh tempo hari ini (jam dari `Clock`, batas
 /// hari kalender setempat, A80).
-final dueCardsProvider = StreamProvider.autoDispose<List<MistakeCard>>(
-  (ref) => ref
+final dueCardsProvider = StreamProvider.autoDispose<List<MistakeCard>>((ref) {
+  ref.watch(dayProvider);
+  return ref
       .watch(mistakeRepositoryProvider)
-      .watchDue(DueDay.cutoff(ref.watch(clockProvider).now())),
-);
+      .watchDue(DueDay.cutoff(ref.watch(clockProvider).now()));
+});
 
 /// Semua soal Capture, diperbarui setiap ada perubahan (terbaru dulu).
 final capturedQuestionsProvider =

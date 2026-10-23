@@ -66,6 +66,7 @@ final homeProvider = FutureProvider.autoDispose<HomeData?>((ref) async {
   }
   if (profile == null) return null;
 
+  ref.watch(dayProvider);
   final now = ref.watch(clockProvider).now();
   final plan = await ref.watch(dailyPlannerProvider).plan(profile, now);
   final weaknesses = await ref.watch(weaknessModelProvider).weakest(

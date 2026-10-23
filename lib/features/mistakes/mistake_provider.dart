@@ -23,6 +23,7 @@ final mistakeCardsProvider = StreamProvider.autoDispose<List<MistakeCard>>(
 final mistakeBookProvider = Provider.autoDispose<AsyncValue<MistakeBookView>>(
   (ref) {
     final filter = ref.watch(mistakeFilterProvider);
+    ref.watch(dayProvider);
     final now = ref.watch(clockProvider).now();
     return ref
         .watch(mistakeCardsProvider)
