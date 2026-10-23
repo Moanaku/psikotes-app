@@ -45,6 +45,7 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 | Pengaturan dan backup | Selesai (T19): `BackupService` (ekspor JSON tanpa CV dan key, impor dalam satu transaksi dengan validasi format dan versi, penggabungan menurut id, ringkasan sebelum menggabungkan), S18 (profil, ekspor dan impor, penyedia AI dan key lewat `flutter_secure_storage` di Android atau memori di web, batas sesi, pemilih tema yang menunggu T21, disclaimer). Belum dicoba di Android dan peramban (A90, A91) |
 | Statistik | Selesai (T17): `StatsService` (agregasi mingguan dan bulanan, hari beruntun, ekspor CSV), query sesi dan jawaban selesai, S11 (tiga angka, grafik `fl_chart` dengan satu titik ditangani, per kategori, ekspor CSV lewat `share_plus`, kondisi kosong, memuat, galat). Belum dicoba di Android dan peramban (A84) |
 | Skrip bank verbal | Selesai (T07): `tool/pregenerate/` (pass 1, pass 2, bundel, validator, tes). Bank 300 soal belum dibuat; menunggu dijalankan pemilik |
+| Alur integrasi, build, rilis | Sebagian (T20): tiga integration_test lulus di mesin uji Flutter; `applicationId` `io.github.moanaku.psikotes`; build web dan APK (debug dan rilis) berhasil lokal; workflow `release-apk` dan `pages` (hanya tag atau manual) ditulis tetapi belum pernah jalan di GitHub; CHANGELOG, `RILIS-APK.md`, dan `eval/checklist-v1.0.0.md` ada. Menunggu pemilik: checklist di HP, bank verbal, secret keystore, keputusan Pages, tag `v1.0.0` |
 | Kode fitur | Belum mulai |
 | Daftar tes nyata yang sudah dijalani | Terbuka, menunggu dari pemilik |
 | Penyedia LLM wawancara | Terbuka, diputuskan sebelum v1.3 |
@@ -52,7 +53,7 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 ## Langkah pertama pemilik repo
 
 1. Buat repo kosong di GitHub (tanpa README, tanpa lisensi), lalu `git remote add origin <url>` dan `git push -u origin main`.
-2. Di GitHub: Settings, Pages, Source: GitHub Actions (dipakai mulai T20). Branch protection untuk `main` bersifat opsional.
+2. Di GitHub: Settings, Pages, Source: GitHub Actions (menunggu keputusan repo publik atau paket berbayar; lihat `RILIS-APK.md`). Branch protection untuk `main` bersifat opsional.
 3. Taruh font Instrument Sans (lisensi OFL) di `assets/fonts/` (lihat `assets/fonts/README.md`).
 4. Jalankan tugas T01 dari `07-rencana-tugas.md`.
 5. Jawab Q1 sampai Q6 di `11-asumsi-dan-pertanyaan.md` sebelum tugas yang bergantung padanya.

@@ -1,9 +1,10 @@
 # 09. Decision log
 
-Empat belas keputusan sudah diambil. Tambahkan baris baru di atas setiap ada keputusan penting dan satu berkas di `adr/` memakai templat di `adr/ADR-template.md`. Baris ini bahan menjawab pertanyaan "kenapa" saat wawancara.
+Lima belas keputusan sudah diambil. Tambahkan baris baru di atas setiap ada keputusan penting dan satu berkas di `adr/` memakai templat di `adr/ADR-template.md`. Baris ini bahan menjawab pertanyaan "kenapa" saat wawancara.
 
 | No | Keputusan | Alasan | Alternatif yang ditolak |
 |---|---|---|---|
+| [ADR-15](adr/ADR-15.md) | Rilis dari tag `v*`; integration_test di mesin uji Flutter (`-d flutter-tester`) dengan Drift sungguhan; `sqlite3.wasm` dan `drift_worker.js` dibangun oleh skrip, tidak di-commit; applicationId `io.github.moanaku.psikotes` | CI tanpa perangkat, push biasa tidak pernah menerbitkan, tanpa biner di git, nama paket yang tidak bisa diganti sesudah terpasang | Integration test lewat `flutter drive` di Chrome atau Linux desktop; biner web di repo; Pages otomatis di push |
 | [ADR-14](adr/ADR-14.md) | Waktu sesi dari `deadline` mutlak; perubahan jam perangkat dideteksi dengan membandingkan jam dinding dan jam monoton, lalu deadline digeser | Hanya jam dinding yang berjalan saat app tertutup; penggeseran menjaga sisa waktu saat jam diubah dan setelah proses mati | Penghitung mundur per detik; jam monoton saja; jam dinding tanpa penjaga; waktu dari server |
 | [ADR-13](adr/ADR-13.md) | Golden test mengacu pada Linux dengan versi Flutter yang dipin; Windows melewati tag `golden` | CI di Linux; render glyph Windows dan Linux berbeda 1 sampai 10% piksel walau versi Flutter sama | Menaikkan ambang; golden per OS; golden tanpa tag |
 | [ADR-12](adr/ADR-12.md) | Konten pre-generate dibuat dengan Claude lewat langganan; wawancara memakai key Gemini atau Groq milik pengguna | Langganan Claude Pro tidak menyertakan API key, API ditagih terpisah; langganan cukup untuk menyusun bank soal dan bank pengetahuan sebelum rilis | Claude API saat runtime (berbayar) |

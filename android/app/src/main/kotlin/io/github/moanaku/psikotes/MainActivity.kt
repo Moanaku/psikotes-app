@@ -1,4 +1,4 @@
-package com.example.simulator_psikotes_it
+package io.github.moanaku.psikotes
 
 import io.flutter.embedding.android.FlutterActivity
 

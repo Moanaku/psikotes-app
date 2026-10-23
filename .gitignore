@@ -36,3 +36,8 @@ packages/*/pubspec.lock
 
 # Python
 __pycache__/
+
+# Dibuat oleh tool/prepare_web.sh
+/web/sqlite3.wasm
+/web/drift_worker.js
+/web/drift_worker.js.*

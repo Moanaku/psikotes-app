@@ -24,7 +24,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T17 Statistik: S11
 - [x] T18 Capture dan catatan psikotes: S12, S13
 - [x] T19 Pengaturan dan backup: S18
-- [ ] T20 Alur integrasi, build web dan APK, rilis v1.0.0
+- [ ] T20 Alur integrasi, build web dan APK, rilis v1.0.0 (sebagian, lihat catatan T20 di bawah)
 
 ## v1.1
 
@@ -46,6 +46,18 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [ ] T30 Antarmuka AiCoach, sanitasi CV, kartu template
 - [ ] T31 Coach LLM (Gemini atau Groq), penilai, dan evaluasi
 - [ ] T32 Suara di wawancara
+
+## Catatan T20
+
+Kotak T20 belum dicentang karena "Selesai bila" memuat hal yang hanya bisa dilakukan pemilik. Selesai di cabang `fitur/T20-rilis-v1`:
+
+- [x] `applicationId` dan namespace Android: `io.github.moanaku.psikotes` (`flutter build apk --debug` dan `--release` berhasil lokal; paket terverifikasi dengan `aapt2`).
+- [x] Tiga integration_test (`integration_test/`), lulus lokal dengan `bash tool/run_integration.sh` dan dijalankan di CI.
+- [x] `tool/prepare_web.sh` (sqlite3.wasm dan drift_worker.js, A44); `flutter build web` berhasil lokal; database web terbuka di Chrome 155 (tampil onboarding).
+- [x] Workflow `release-apk` (tag `v*`, tanda tangan dari secret atau kunci debug) dan `pages` (manual atau tag, bukan push biasa); sintaks YAML diperiksa, belum pernah dijalankan di GitHub.
+- [x] `CHANGELOG.md`, `docs/RILIS-APK.md`, `docs/eval/checklist-v1.0.0.md`.
+
+Menunggu pemilik: checklist manual di HP, bank verbal 300 soal, secret keystore, keputusan Pages untuk repo privat, tag `v1.0.0` (perintah di `docs/RILIS-APK.md`), centang T20 setelah APK terlampir di Releases. Belum dicoba: integration_test di HP atau emulator dan di Chrome (`flutter drive`), APK di perangkat, workflow GitHub di luar CI pull request, desain ikon app.
 
 ## Pertanyaan terbuka
 

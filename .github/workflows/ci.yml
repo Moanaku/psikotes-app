@@ -24,7 +24,11 @@ jobs:
       - run: bash tool/check_tokens.sh
       - run: bash tool/check_tokens_test.sh
       - run: flutter test
-      - name: Build web (folder platform ada sejak T10)
+      - name: Integration test (tiga alur utama, mesin uji Flutter tanpa perangkat)
+        run: bash tool/run_integration.sh
+      - name: sqlite3.wasm dan drift_worker.js untuk database web
+        run: bash tool/prepare_web.sh
+      - name: Build web
         run: flutter build web
 
   engine:
