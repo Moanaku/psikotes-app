@@ -11,7 +11,7 @@ environment:
 # Paket lain ditambahkan di tugas yang memakainya:
 #   T09 drift, drift_flutter (dev: drift_dev, build_runner)  [sudah ditambahkan]
 #   T17 fl_chart, share_plus  [sudah ditambahkan]
-#   T18 image_picker, path_provider
+#   T18 image_picker, path_provider, shared_preferences (foto di web)  [sudah ditambahkan]
 #   T19 flutter_secure_storage, file_picker
 dependencies:
   drift: ^2.31.0
@@ -21,11 +21,14 @@ dependencies:
     sdk: flutter
   flutter_riverpod: ^2.6.1
   go_router: ^14.6.2
+  image_picker: ^1.1.2
+  path_provider: ^2.1.5
   question_engine:
     path: packages/question_engine
   # Domain memakai Notifier dari riverpod tanpa package:flutter (T10).
   riverpod: ^2.6.1
   share_plus: ^12.0.2
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:

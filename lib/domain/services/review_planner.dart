@@ -6,9 +6,10 @@ import '../models/session.dart';
 import 'seed_allocator.dart';
 import 'session_plan_builder.dart';
 
-/// Kartu non-engine (Capture, bank, pengetahuan) yang diulang dengan butir
-/// yang sama. Belum bisa masuk `SessionPlan` karena `PlanItem` belum memuat
-/// sumber dan `ref_id` (A59, T18); daftar ini menjaga identitas butirnya.
+/// Kartu bank dan pengetahuan yang diulang dengan butir yang sama. Belum bisa
+/// masuk `SessionPlan` karena belum ada pemakai bank dan pengetahuan (T07,
+/// T25); daftar ini menjaga identitas butirnya. Kartu Capture sudah masuk
+/// rencana lewat `PlanItem.capture` (T18).
 class SameItemReview {
   const SameItemReview({
     required this.cardId,
@@ -33,7 +34,7 @@ class ReviewPlan {
   /// Soal engine dengan seed baru, satu per kartu, urut jatuh tempo.
   final SessionPlan plan;
 
-  /// Kartu yang diulang dengan butir yang sama (bukan soal engine).
+  /// Kartu bank dan pengetahuan yang diulang dengan butir yang sama.
   final List<SameItemReview> sameItems;
 
   /// Kartu soal engine yang tipenya tidak punya generator di app ini.
@@ -41,7 +42,7 @@ class ReviewPlan {
 }
 
 /// Menyusun ulangan dari kartu jatuh tempo (F07): soal engine memakai tipe
-/// yang sama dengan seed baru, soal Capture, bank, dan pengetahuan memakai
+/// yang sama dengan seed baru; soal Capture, bank, dan pengetahuan memakai
 /// butir yang sama.
 abstract final class ReviewPlanner {
   /// Paling banyak kartu dalam satu ulangan (A80).
@@ -61,6 +62,15 @@ abstract final class ReviewPlanner {
     final same = <SameItemReview>[];
     final skipped = <MistakeCard>[];
     for (final card in due.take(maxCards)) {
+      if (card.sumber == AnswerSource.capture && card.refId != null) {
+        items.add(PlanItem.capture(
+          refId: card.refId!,
+          kategori: card.kategori,
+          subtes: SubtestPlan.mixedLabel,
+          cardId: card.id,
+        ));
+        continue;
+      }
       if (card.sumber != AnswerSource.engine) {
         same.add(SameItemReview(
           cardId: card.id,

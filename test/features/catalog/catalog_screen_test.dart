@@ -199,7 +199,7 @@ void main() {
             AnswerRecord(
               sessionId: 99,
               posisi: 0,
-              tipe: i.type.code,
+              tipe: i.tipeCode,
               kategori: 'figural',
               seed: i.seed,
               kesulitan: i.difficulty,
@@ -383,6 +383,67 @@ void main() {
       await show(tester, 'Soal hasil Capture: 3');
       expect(find.text('Soal hasil Capture: 3'), findsOneWidget);
       expect(find.text('Belum ada soal Capture'), findsNothing);
+    });
+
+    testWidgets('baris soal Capture memulai latihan dari bank pribadi',
+        (tester) async {
+      final sessions = FakeSessionRepository();
+      final app = await openCatalog(
+        tester,
+        sessions: sessions,
+        captures: FakeCaptureRepository(
+          [captured(1), captured(2), captured(3)],
+        ),
+      );
+      await show(tester, 'Soal hasil Capture: 3');
+      await tester.tap(find.text('Soal hasil Capture: 3'));
+      await tester.pumpAndSettle();
+      expect(app.location, startsWith('/sesi/'));
+      final plan = sessions.sessions.values.single.plan;
+      expect(plan.items.map((i) => i.refId).toSet(), {1, 2, 3});
+      expect(plan.items.every((i) => i.isCapture), isTrue);
+      expect(sessions.sessions.values.single.mode, SessionMode.latihan);
+      expect(find.textContaining('Soal '), findsWidgets,
+          reason: 'soal Capture tampil di layar sesi');
+    });
+
+    testWidgets('tidak ada tag Segera di baris soal Capture', (tester) async {
+      await openCatalog(
+        tester,
+        captures: FakeCaptureRepository([captured(1)]),
+      );
+      await show(tester, 'Soal hasil Capture: 1');
+      final r = row(tester, 'Soal hasil Capture: 1');
+      expect(r.trailing, isNull);
+      expect(r.onTap, isNotNull);
+    });
+
+    testWidgets('baris tiap soal membuka S12 mode ubah; Tambah soal ke S12',
+        (tester) async {
+      final app = await openCatalog(
+        tester,
+        captures: FakeCaptureRepository([captured(4)]),
+      );
+      await show(tester, 'Tambah soal Capture');
+      await tester.tap(find.text('Tambah soal Capture'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/capture');
+      app.router.pop();
+      await tester.pumpAndSettle();
+
+      await show(tester, 'Soal 4');
+      await tester.tap(find.text('Soal 4'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/capture/4');
+      expect(find.text('Ubah soal Capture'), findsOneWidget);
+    });
+
+    testWidgets('baris Catatan psikotes membuka S13', (tester) async {
+      final app = await openCatalog(tester);
+      await show(tester, 'Catatan psikotes');
+      await tester.tap(find.text('Catatan psikotes'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/catatan-tes');
     });
 
     testWidgets('memuat: skeleton', (tester) async {

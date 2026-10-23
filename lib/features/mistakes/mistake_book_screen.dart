@@ -29,8 +29,10 @@ import '../../domain/services/sm2_scheduler.dart';
 import '../session/session_launcher.dart';
 import 'mistake_provider.dart';
 
-/// Nama kartu di daftar: nama tipe soal, atau kode tipe buatan pengguna.
+/// Nama kartu di daftar: nama tipe soal, atau kategori buatan pengguna untuk
+/// kartu Capture.
 String cardName(MistakeCard card) {
+  if (card.sumber == AnswerSource.capture) return card.kategori;
   try {
     return questionTypeName(QuestionType.fromCode(card.tipe));
   } catch (_) {
@@ -86,7 +88,7 @@ class _MistakeBookScreenState extends ConsumerState<MistakeBookScreen> {
         setState(() {
           _starting = false;
           _startError = 'Kartu yang jatuh tempo belum bisa diulang di sini. '
-              'Soal Capture dan bank belum bisa dikerjakan dari buku '
+              'Soal bank dan pengetahuan belum bisa dikerjakan dari buku '
               'kesalahan.';
         });
         return;

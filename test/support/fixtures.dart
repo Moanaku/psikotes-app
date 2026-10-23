@@ -120,8 +120,8 @@ AnswerRecord answerFor(
     AnswerRecord(
       sessionId: sessionId,
       posisi: posisi,
-      tipe: item.type.code,
-      kategori: item.type.category.code,
+      tipe: item.tipeCode,
+      kategori: item.kategoriCode,
       seed: item.seed,
       kesulitan: item.difficulty,
       genVersi: item.genVersi,

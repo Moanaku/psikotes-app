@@ -55,11 +55,11 @@ void main() {
   test('seed tidak kembar dan menghindari soal 30 hari terakhir', () {
     final first = build(qaCcat)!;
     final avoid = {
-      for (final i in first.plan.items) SeedAllocator.key(i.type, i.seed),
+      for (final i in first.plan.items) SeedAllocator.key(i.type!, i.seed),
     };
     final second = build(qaCcat, avoid: avoid)!;
     final keys = [
-      for (final i in second.plan.items) SeedAllocator.key(i.type, i.seed),
+      for (final i in second.plan.items) SeedAllocator.key(i.type!, i.seed),
     ];
     expect(keys.toSet().length, keys.length);
     expect(keys.toSet().intersection(avoid), isEmpty);
@@ -94,15 +94,15 @@ void main() {
     final first = build(qaCcat)!;
     final repo = FakeSessionRepository()
       ..history = [
-        for (final i in first.plan.items) ans(i.type, seed: i.seed),
+        for (final i in first.plan.items) ans(i.type!, seed: i.seed),
       ];
     final planner = DiagnosticPlanner(answers: repo, available: registered);
     final d = (await planner.plan(activeProfile(), appNow))!;
     final avoid = {
-      for (final i in first.plan.items) SeedAllocator.key(i.type, i.seed),
+      for (final i in first.plan.items) SeedAllocator.key(i.type!, i.seed),
     };
     for (final i in d.plan.items) {
-      expect(avoid, isNot(contains(SeedAllocator.key(i.type, i.seed))));
+      expect(avoid, isNot(contains(SeedAllocator.key(i.type!, i.seed))));
     }
   });
 }

@@ -81,7 +81,7 @@ DefaultDailyPlanner planner({
 Map<QuestionType, int> countByType(Iterable<PlanItem> items) {
   final m = <QuestionType, int>{};
   for (final i in items) {
-    m[i.type] = (m[i.type] ?? 0) + 1;
+    m[i.type!] = (m[i.type!] ?? 0) + 1;
   }
   return m;
 }
@@ -183,17 +183,32 @@ void main() {
       expect(blockCount(plan, PlanBlockKind.weakest), 17);
     });
 
-    test('kartu Capture, bank, dan tipe tak terdaftar tidak dipakai', () async {
+    test('kartu bank dan tipe tak terdaftar tidak dipakai', () async {
       final plan = await planner(
         history: historyWithWeakMatrix(),
         due: [
-          dueCard(1, QuestionType.numAri, sumber: AnswerSource.capture),
           dueCard(2, QuestionType.vrbSyn, sumber: AnswerSource.bank),
           dueCard(3, QuestionType.vrbSyn),
         ],
       ).plan(activeProfile(), appNow);
       expect(blockCount(plan, PlanBlockKind.due), 0);
       expect(plan.session.items.length, 21);
+    });
+
+    test('kartu Capture jadi butir yang sama, terhubung ke kartunya', () async {
+      final plan = await planner(
+        history: historyWithWeakMatrix(),
+        due: [
+          dueCard(1, QuestionType.numAri, sumber: AnswerSource.capture),
+          dueCard(3, QuestionType.numAri),
+        ],
+      ).plan(activeProfile(), appNow);
+      expect(blockCount(plan, PlanBlockKind.due), 2);
+      final capture = plan.session.items.firstWhere((i) => i.isCapture);
+      expect(capture.refId, 1);
+      expect(capture.cardId, 1);
+      expect(capture.tipeCode, PlanItem.captureTipe);
+      expect(plan.session.items.where((i) => i.cardId == 3), hasLength(1));
     });
 
     test('tanpa riwayat dan tanpa kartu: seluruhnya campuran sesuai bobot',
@@ -264,7 +279,7 @@ void main() {
       expect(ranges[1].duration, const Duration(minutes: 3));
       expect(ranges[1].kategori, 'figural');
       for (var i = ranges[1].start; i < ranges[1].end; i++) {
-        expect(plan.session.items[i].type.category.code, 'figural');
+        expect(plan.session.items[i].kategoriCode, 'figural');
       }
     });
 
@@ -304,7 +319,7 @@ void main() {
     test('rencana kedua tidak memakai satu pun soal rencana pertama', () async {
       final first = await planner().plan(activeProfile(), appNow);
       final seen = {
-        for (final i in first.session.items) SeedAllocator.key(i.type, i.seed),
+        for (final i in first.session.items) SeedAllocator.key(i.type!, i.seed),
       };
       expect(seen.length, first.session.items.length);
 
@@ -312,17 +327,18 @@ void main() {
       // pada detik yang sama sehingga calon seed-nya persis sama.
       final history = [
         for (final i in first.session.items)
-          ans(i.type, seed: i.seed, benar: i.seed.isEven),
+          ans(i.type!, seed: i.seed, benar: i.seed.isEven),
       ];
       final second =
           await planner(history: history).plan(activeProfile(), appNow);
       expect(second.session.items, isNotEmpty);
       for (final i in second.session.items) {
-        expect(seen, isNot(contains(SeedAllocator.key(i.type, i.seed))),
-            reason: '${i.type.code} seed ${i.seed}');
+        expect(seen, isNot(contains(SeedAllocator.key(i.type!, i.seed))),
+            reason: '${i.tipeCode} seed ${i.seed}');
       }
       final own = {
-        for (final i in second.session.items) SeedAllocator.key(i.type, i.seed),
+        for (final i in second.session.items)
+          SeedAllocator.key(i.type!, i.seed),
       };
       expect(own.length, second.session.items.length,
           reason: 'tidak kembar di rencana yang sama');

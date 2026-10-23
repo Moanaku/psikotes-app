@@ -70,7 +70,7 @@ Indeks: `(session_id, posisi)` unik, `(tipe, id)` untuk statistik, `(kategori, i
 | id | INTEGER PK | |
 | tipe | TEXT | |
 | kategori | TEXT | |
-| seed | INTEGER NULL | seed asal; ulangan memakai seed baru |
+| seed | INTEGER NULL | seed asal; ulangan memakai seed baru. NULL untuk soal non-engine |
 | sumber | TEXT | sama seperti answer.sumber |
 | ref_id | INTEGER NULL | untuk Capture dan butir bank atau pengetahuan (wajib bila bukan engine); kartu dikenali dari `(sumber, tipe, ref_id)`, soal engine dari `(tipe, seed)` |
 | jatuh_tempo | INTEGER | |
@@ -90,7 +90,7 @@ Indeks: `(status, jatuh_tempo)`.
 | kunci | INTEGER | indeks opsi |
 | pembahasan | TEXT NULL | |
 | kategori | TEXT | boleh tipe baru buatan pengguna |
-| foto_path | TEXT NULL | lokal saja |
+| foto_path | TEXT NULL | nama berkas foto di penyimpanan lokal app (bukan jalur lengkap); lokal saja (A86) |
 | company_log_id | INTEGER NULL FK | |
 | dibuat | INTEGER | |
 

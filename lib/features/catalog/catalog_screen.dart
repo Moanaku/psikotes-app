@@ -18,6 +18,7 @@ import '../../core/widgets/segmented_control.dart';
 import '../../core/widgets/skeleton_list.dart';
 import '../../core/widgets/status_tag.dart';
 import '../../domain/models/codes.dart';
+import '../../domain/models/notebook.dart';
 import '../../domain/models/profile.dart';
 import '../../domain/models/session.dart';
 import '../../domain/providers.dart';
@@ -147,7 +148,18 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                                 ),
                               ),
                     ),
-                  const _PrivateBank(),
+                  _PrivateBank(
+                    onPractice: active == null || _starting
+                        ? null
+                        : (questions) => _launch(
+                              profile: active,
+                              mode: SessionMode.latihan,
+                              build: (_) => SessionPlanBuilder.capture(
+                                questions,
+                                now: clock.now(),
+                              ),
+                            ),
+                  ),
                 ] else
                   _SimulationPreview(
                     profile: profile,
@@ -228,12 +240,16 @@ class _Group extends StatelessWidget {
 
 /// "Bank pribadi": soal hasil Capture. Kosong dibedakan dari galat dan memuat.
 class _PrivateBank extends ConsumerWidget {
-  const _PrivateBank();
+  const _PrivateBank({required this.onPractice});
+
+  /// Memulai latihan dari soal Capture; null bila belum bisa (tanpa profil
+  /// aktif atau sesi sedang dibuat).
+  final void Function(List<CapturedQuestion> questions)? onPractice;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final c = context.tokens.colors;
-    final count = ref.watch(captureCountProvider);
+    final items = ref.watch(capturedQuestionsProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -246,33 +262,67 @@ class _PrivateBank extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: AppSpace.s4),
-        count.when(
+        items.when(
           loading: () => const SkeletonList(
-            rows: 1,
+            rows: 2,
             semanticLabel: 'Memuat soal Capture',
           ),
           error: (_, __) => ErrorView(
             title: 'Soal Capture tidak bisa dibaca',
             message: 'Data Capture di perangkat gagal dibaca. Ketuk coba '
                 'lagi.',
-            onRetry: () => ref.invalidate(captureCountProvider),
+            onRetry: () => ref.invalidate(capturedQuestionsProvider),
           ),
-          data: (n) => n == 0
+          data: (list) => list.isEmpty
               ? EmptyView(
                   title: 'Belum ada soal Capture',
                   message: 'Simpan soal dari tes asli lewat Capture soal.',
                   actionLabel: 'Buka Capture',
                   onAction: () => unawaited(context.push(Routes.capture)),
                 )
-              : ListRow(
-                  title: 'Soal hasil Capture: $n',
-                  subtitle: 'Latihan dari bank pribadi tersedia setelah '
-                      'Capture selesai dibangun.',
-                  trailing: const StatusTag(label: 'Segera'),
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ListRow(
+                      title: 'Soal hasil Capture: ${list.length}',
+                      subtitle: 'Latihan sampai '
+                          '${SessionPlanBuilder.practiceCount} soal dari '
+                          'bank pribadi',
+                      onTap:
+                          onPractice == null ? null : () => onPractice!(list),
+                    ),
+                    ListRow(
+                      title: 'Tambah soal Capture',
+                      leading: AppIcons.plus,
+                      onTap: () => unawaited(context.push(Routes.capture)),
+                    ),
+                    for (final q in list)
+                      ListRow(
+                        title: _snippet(q),
+                        subtitle: ProfileTemplates.categoryName(q.kategori),
+                        leading: q.hasPhoto ? AppIcons.image : null,
+                        onTap: () => unawaited(
+                          context.push(Routes.captureUbahPath(q.id!)),
+                        ),
+                      ),
+                  ],
                 ),
+        ),
+        ListRow(
+          title: 'Catatan psikotes',
+          subtitle: 'Tes asli yang pernah kamu jalani',
+          leading: AppIcons.note,
+          onTap: () => unawaited(context.push(Routes.catatanTes)),
         ),
       ],
     );
+  }
+
+  /// Judul baris: awal teks soal, atau keterangan foto bila tanpa teks.
+  static String _snippet(CapturedQuestion q) {
+    final text = q.teks.trim().replaceAll(RegExp(r'\s+'), ' ');
+    if (text.isEmpty) return 'Soal dari foto';
+    return text.length <= 60 ? text : '${text.substring(0, 60)}...';
   }
 }
 

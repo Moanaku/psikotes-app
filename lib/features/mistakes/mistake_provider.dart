@@ -5,6 +5,7 @@ import '../../domain/models/codes.dart';
 import '../../domain/models/notebook.dart';
 import '../../domain/models/session.dart';
 import '../../domain/providers.dart';
+import '../../domain/services/capture_questions.dart';
 import '../../domain/services/mistake_book.dart';
 
 /// Filter sumber S10; bertahan selama layar terbuka.
@@ -34,13 +35,22 @@ final mistakeBookProvider = Provider.autoDispose<AsyncValue<MistakeBookView>>(
 /// soal tidak bisa dibuat ulang (generator gagal, versi berbeda, atau bukan
 /// soal engine).
 class CardReview {
-  const CardReview({required this.card, required this.type, this.question});
+  const CardReview({
+    required this.card,
+    required this.type,
+    this.question,
+    this.captured,
+  });
 
   final MistakeCard card;
 
   /// Null bila kode tipe kartu tidak dikenal (tipe buatan pengguna).
   final QuestionType? type;
   final Question? question;
+
+  /// Soal Capture asal kartu (foto dan kategori), null untuk soal lain atau
+  /// bila sudah dihapus.
+  final CapturedQuestion? captured;
 }
 
 /// Kartu [id]; null bila tidak ada.
@@ -48,6 +58,18 @@ final cardReviewProvider =
     FutureProvider.autoDispose.family<CardReview?, int>((ref, id) async {
   final card = await ref.watch(mistakeRepositoryProvider).byId(id);
   if (card == null) return null;
+  if (card.sumber == AnswerSource.capture) {
+    final refId = card.refId;
+    final saved = refId == null
+        ? null
+        : await ref.watch(captureRepositoryProvider).byId(refId);
+    return CardReview(
+      card: card,
+      type: null,
+      question: saved == null ? null : CaptureQuestions.toQuestion(saved),
+      captured: saved,
+    );
+  }
   QuestionType? type;
   try {
     type = QuestionType.fromCode(card.tipe);

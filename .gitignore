@@ -17,6 +17,9 @@ build/
 # Data lokal dan rahasia: tidak boleh masuk repo
 /local_data/
 /capture/
+/capture_photos/
+/backup/
+*.backup.json
 *.sqlite
 *.db
 .env

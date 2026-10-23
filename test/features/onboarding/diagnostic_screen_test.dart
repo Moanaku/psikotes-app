@@ -320,6 +320,7 @@ void main() {
               .overrideWithValue(FakeProfileRepository([activeProfile()])),
           sessionRepositoryProvider.overrideWithValue(sessions),
           answerRepositoryProvider.overrideWithValue(sessions),
+          captureRepositoryProvider.overrideWithValue(FakeCaptureRepository()),
           mistakeRepositoryProvider.overrideWithValue(FakeMistakeRepository()),
         ],
       );

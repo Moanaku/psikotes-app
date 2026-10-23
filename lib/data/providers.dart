@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../domain/providers.dart';
 import 'db/app_database.dart';
 import 'db/connection.dart';
+import 'photos/photo_store.dart';
 import 'repositories/capture_repository.dart';
 import 'repositories/mistake_repository.dart';
 import 'repositories/profile_repository.dart';
@@ -34,6 +35,7 @@ final List<Override> dataProviderOverrides = [
   captureRepositoryProvider.overrideWith(
     (ref) => DriftCaptureRepository(ref.watch(appDatabaseProvider)),
   ),
+  capturePhotoStoreProvider.overrideWith((ref) => createPhotoStore()),
   companyLogRepositoryProvider.overrideWith(
     (ref) => DriftCompanyLogRepository(ref.watch(appDatabaseProvider)),
   ),

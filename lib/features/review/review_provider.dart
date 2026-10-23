@@ -92,7 +92,11 @@ final sessionReviewProvider =
     summary: Scoring.summarize(session.plan, answers),
     thresholds: thresholds,
     previousScore: previous?.skor,
-    builder: ref.watch(questionBuilderProvider),
+    builder: await questionBuilderFor(
+      session.plan,
+      () => ref.read(captureRepositoryProvider),
+      ref.watch(questionBuilderProvider),
+    ),
   );
 });
 

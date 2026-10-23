@@ -19,11 +19,11 @@ import '../../core/widgets/list_row.dart';
 import '../../core/widgets/note_box.dart';
 import '../../core/widgets/skeleton_list.dart';
 import '../../core/widgets/status_tag.dart';
-import '../../domain/models/catalog.dart';
 import '../../domain/models/codes.dart';
 import '../../domain/models/question_guides.dart';
 import '../../domain/providers.dart';
 import '../../domain/services/profile_templates.dart';
+import '../capture/capture_photo_view.dart';
 import '../onboarding/onboarding_frame.dart';
 import '../session/session_widgets.dart';
 import 'review_provider.dart';
@@ -204,7 +204,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     final card = ref.watch(reviewCardProvider((widget.sessionId, index)));
     final inBook = card.valueOrNull != null;
     final targetMs = review.thresholds.targetMs(
-      item.type.code,
+      item.tipeCode,
       q?.estimatedSeconds ?? 60,
     );
 
@@ -218,8 +218,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       Padding(
         padding: sessionMargin,
         child: Text(
-          '${ProfileTemplates.categoryName(item.type.category.code)}, '
-          '${questionTypeName(item.type).toLowerCase()}',
+          item.isCapture
+              ? 'Capture, ${item.kategoriCode}'
+              : '${ProfileTemplates.categoryName(item.kategoriCode)}, '
+                  '${planItemName(item).toLowerCase()}',
           style: AppType.label(c.inkMuted),
         ),
       ),
@@ -249,7 +251,11 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
         )
       else ...[
         QuestionBody(
-            question: q, selected: answer?.opsiDipilih, onSelect: null),
+          question: q,
+          selected: answer?.opsiDipilih,
+          onSelect: null,
+          photo: photoForItem(item),
+        ),
         const SizedBox(height: AppSpace.s16),
         Padding(
           padding: sessionMargin,
@@ -285,8 +291,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
         const SizedBox(height: AppSpace.s24),
         ReviewSection(title: 'Kenapa', text: q.explanation),
         const SizedBox(height: AppSpace.s24),
-        ReviewSection(
-            title: 'Pola dan trik', text: questionTypeTrick(item.type)),
+        ReviewSection(title: 'Pola dan trik', text: planItemTrick(item)),
       ],
       const SizedBox(height: AppSpace.s16),
       Padding(

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
+import '../../domain/models/codes.dart';
 import '../../domain/models/notebook.dart';
 import '../../domain/repositories/repositories.dart';
 import '../db/app_database.dart';
@@ -79,10 +80,20 @@ class DriftCaptureRepository implements CaptureRepository {
     return c.id!;
   }
 
+  /// Menghapus soal beserta kartu buku kesalahannya dalam satu transaksi.
+  /// Jawaban lama tetap ada sebagai riwayat; pembahasannya menampilkan bahwa
+  /// soalnya sudah dihapus.
   @override
-  Future<void> delete(int id) =>
-      (_db.delete(_db.capturedQuestionTable)..where((t) => t.id.equals(id)))
-          .go();
+  Future<void> delete(int id) => _db.transaction(() async {
+        await (_db.delete(_db.mistakeCardTable)
+              ..where((t) =>
+                  t.sumber.equals(AnswerSource.capture.code) &
+                  t.refId.equals(id)))
+            .go();
+        await (_db.delete(_db.capturedQuestionTable)
+              ..where((t) => t.id.equals(id)))
+            .go();
+      });
 }
 
 class DriftCompanyLogRepository implements CompanyLogRepository {
