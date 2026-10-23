@@ -2,12 +2,15 @@
 library;
 
 import 'dart:io';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simulator_psikotes_it/data/photos/photo_names.dart';
 import 'package:simulator_psikotes_it/data/photos/photo_store_io.dart';
 import 'package:simulator_psikotes_it/domain/services/capture_service.dart';
+
+import '../support/fake_clock.dart';
 
 void main() {
   late Directory root;
@@ -63,10 +66,36 @@ void main() {
   });
 
   test('nama baru unik dan hanya berisi karakter aman', () {
-    final names = {for (var i = 0; i < 50; i++) PhotoNames.create('jpg')};
+    final clock = FakeClock(DateTime.utc(2026, 10, 23));
+    final names = {
+      for (var i = 0; i < 50; i++) PhotoNames.create('jpg', clock)
+    };
     expect(names, hasLength(50));
-    expect(
-        PhotoNames.create('p/n g'), matches(RegExp(r'^cap_[a-z0-9]+\.png$')));
+    expect(PhotoNames.create('p/n g', clock),
+        matches(RegExp(r'^cap_[a-z0-9]+\.png$')));
+  });
+
+  test('stempel nama berasal dari jam yang disuntikkan', () {
+    final clock = FakeClock(DateTime.utc(2026, 10, 23, 8));
+    final a = PhotoNames.create('jpg', clock, random: Random(1));
+    final same = PhotoNames.create('jpg', clock, random: Random(1));
+    clock.advance(const Duration(seconds: 1));
+    final later = PhotoNames.create('jpg', clock, random: Random(1));
+    expect(same, a, reason: 'jam dan garam sama menghasilkan nama sama');
+    expect(later, isNot(a));
+    final stamp = DateTime.utc(2026, 10, 23, 8)
+        .microsecondsSinceEpoch
+        .toRadixString(36);
+    expect(a, startsWith('cap_$stamp'));
+  });
+
+  test('toko memakai jam yang disuntikkan untuk nama berkas', () async {
+    final clock = FakeClock(DateTime.utc(2026, 1, 2));
+    final named = FileCapturePhotoStore(root: () async => root, clock: clock);
+    final name = await named.save(Uint8List.fromList([1]));
+    final stamp =
+        DateTime.utc(2026, 1, 2).microsecondsSinceEpoch.toRadixString(36);
+    expect(name, startsWith('cap_$stamp'));
   });
 
   test('pesan galat foto tanpa teks exception', () {

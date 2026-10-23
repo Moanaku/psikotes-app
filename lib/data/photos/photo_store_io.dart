@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:path_provider/path_provider.dart';
 
 import '../../domain/services/capture_service.dart';
+import '../../domain/services/clock.dart';
 import 'photo_names.dart';
 
 /// Foto Capture di Android: berkas di folder dokumen app, tidak pernah di
@@ -11,12 +12,14 @@ import 'photo_names.dart';
 CapturePhotoStore createPhotoStore() => FileCapturePhotoStore();
 
 class FileCapturePhotoStore implements CapturePhotoStore {
-  FileCapturePhotoStore({Future<Directory> Function()? root})
-      : _root = root ?? getApplicationDocumentsDirectory;
+  FileCapturePhotoStore({Future<Directory> Function()? root, Clock? clock})
+      : _root = root ?? getApplicationDocumentsDirectory,
+        _clock = clock ?? SystemClock();
 
   static const String folder = 'capture_photos';
 
   final Future<Directory> Function() _root;
+  final Clock _clock;
 
   Future<Directory> _dir() async {
     final base = await _root();
@@ -36,7 +39,7 @@ class FileCapturePhotoStore implements CapturePhotoStore {
     if (bytes.length > CapturePhotoStore.maxBytes) {
       throw const PhotoStoreException(PhotoStoreProblem.tooLarge);
     }
-    final name = PhotoNames.create(extension);
+    final name = PhotoNames.create(extension, _clock);
     try {
       await (await _file(name))!.writeAsBytes(bytes, flush: true);
     } on FileSystemException catch (e) {
