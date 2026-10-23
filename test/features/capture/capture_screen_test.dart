@@ -264,6 +264,94 @@ void main() {
   });
 
   group('simpan', () {
+    testWidgets(
+        'galat juga tampil di dekat tombol simpan dan layar menggulir '
+        'ke isian bermasalah', (tester) async {
+      await open(tester);
+      await tapChip(tester, 'Numerik');
+      await tester.enterText(field('Teks soal'), 'Soal');
+      await tester.enterText(field('Opsi A'), 'a');
+      await tester.enterText(field('Opsi B'), 'b');
+      // Kunci belum dipilih; tombol simpan ada di bawah, galat kunci di tengah.
+      await tester.tap(find.text('Simpan ke bank pribadi'));
+      await tester.pumpAndSettle();
+      expect(find.text('Belum bisa disimpan. Lengkapi kunci jawaban.'),
+          findsOneWidget);
+      expect(
+        find.text('Kunci jawaban belum dipilih. Pilih lingkaran di kiri opsi '
+            'yang benar.'),
+        findsOneWidget,
+      );
+      final screenHeight = tester.view.physicalSize.height;
+      final opsi = tester.getRect(find.text('Opsi jawaban'));
+      expect(opsi.top, greaterThanOrEqualTo(0));
+      expect(opsi.bottom, lessThan(screenHeight),
+          reason: 'bagian opsi/kunci tergulir ke area terlihat');
+    });
+
+    testWidgets('isian pertama yang bermasalah (kategori) digulir ke atas',
+        (tester) async {
+      await open(tester);
+      await tester.enterText(field('Teks soal'), 'Soal');
+      await tester.enterText(field('Opsi A'), 'a');
+      await tester.enterText(field('Opsi B'), 'b');
+      await pickKey(tester, 0);
+      await tester.tap(find.text('Simpan ke bank pribadi'));
+      await tester.pumpAndSettle();
+      expect(
+          find.text('Belum bisa disimpan. Lengkapi kategori.'), findsOneWidget);
+      expect(tester.getRect(find.text('Kategori soal')).top, greaterThan(0));
+    });
+
+    testWidgets(
+        'Back dengan isian belum tersimpan meminta konfirmasi di bilah '
+        'aksi; Tetap mengisi mempertahankan isian', (tester) async {
+      final repo = FakeCaptureRepository();
+      final app = await open(tester, captures: repo);
+      await tester.enterText(field('Teks soal'), 'Setengah jadi');
+      await tester.pump();
+      expect(await tester.binding.handlePopRoute(), isTrue);
+      await tester.pumpAndSettle();
+      expect(app.location, startsWith(Routes.capture), reason: 'belum keluar');
+      expect(
+          find.text('Isianmu belum disimpan. Kalau keluar, isian ini hilang.'),
+          findsOneWidget);
+
+      await tester.tap(find.text('Tetap mengisi'));
+      await tester.pumpAndSettle();
+      expect(find.text('Simpan ke bank pribadi'), findsOneWidget);
+      expect(tester.widget<TextField>(field('Teks soal')).controller!.text,
+          'Setengah jadi');
+
+      // Tombol tutup di kepala sama dengan Back sistem; Buang isian keluar.
+      await tester.tap(find.byTooltip('Kembali'));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Buang isian'));
+      await tester.pumpAndSettle();
+      expect(app.location, Routes.psikotes);
+      expect(repo.items, isEmpty);
+    });
+
+    testWidgets('Back tanpa isian langsung keluar tanpa konfirmasi',
+        (tester) async {
+      final app = await open(tester);
+      expect(await tester.binding.handlePopRoute(), isTrue);
+      await tester.pumpAndSettle();
+      expect(app.location, Routes.psikotes);
+    });
+
+    testWidgets(
+        'berhasil simpan: konfirmasi tampil dan kembali ke layar asal, '
+        'bukan beranda', (tester) async {
+      final repo = FakeCaptureRepository();
+      final app = await open(tester, captures: repo);
+      await fillValid(tester);
+      await save(tester);
+      expect(repo.items, hasLength(1));
+      expect(app.location, Routes.psikotes, reason: 'layar asal: katalog');
+      expect(find.text('Soal disimpan ke bank pribadi'), findsOneWidget);
+    });
+
     testWidgets('soal tersimpan, opsi kosong dibuang, kembali ke S05',
         (tester) async {
       final repo = FakeCaptureRepository();

@@ -96,7 +96,11 @@ String questionTypeTrick(QuestionType type) => switch (type) {
 /// pengguna untuk soal Capture.
 String planItemName(PlanItem item) {
   final type = item.type;
-  return type == null ? item.kategoriCode : questionTypeName(type);
+  if (type != null) return questionTypeName(type);
+  // Soal Capture: kategori atau nama tipe baru yang diketik pengguna; judul
+  // sesi diawali huruf kapital seperti judul lain.
+  final name = item.kategoriCode;
+  return name.isEmpty ? name : '${name[0].toUpperCase()}${name.substring(1)}';
 }
 
 /// Petunjuk butir rencana (S06). Soal Capture tidak punya aturan tipe.

@@ -127,9 +127,16 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
   bool _removePhoto = false;
   int? _logId;
 
+  /// Isian saat formulir dibuka; pembanding untuk "belum tersimpan".
+  late final CaptureDraft _baseline;
+  final GlobalKey _kategoriKey = GlobalKey();
+  final GlobalKey _teksKey = GlobalKey();
+  final GlobalKey _opsiKey = GlobalKey();
+
   bool _submitted = false;
   bool _saving = false;
   bool _confirmDelete = false;
+  bool _confirmLeave = false;
   String? _photoMessage;
   String? _saveMessage;
 
@@ -149,6 +156,7 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
     _kategori = known ? d.kategori : null;
     _useNewType = !known && d.kategori.isNotEmpty;
     _newType = TextEditingController(text: _useNewType ? d.kategori : '');
+    _baseline = _draft();
   }
 
   @override
@@ -176,6 +184,62 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
   void _back() =>
       context.canPop() ? context.pop() : context.go(Routes.psikotes);
 
+  /// Ada isian yang belum tersimpan: berbeda dari saat dibuka, atau foto
+  /// diganti atau dihapus.
+  bool get _dirty {
+    final d = _draft();
+    final b = _baseline;
+    return _newPhoto != null ||
+        _removePhoto ||
+        d.teks != b.teks ||
+        d.kategori != b.kategori ||
+        d.pembahasan != b.pembahasan ||
+        d.kunciSlot != b.kunciSlot ||
+        d.companyLogId != b.companyLogId ||
+        d.opsi.length != b.opsi.length ||
+        !_sameList(d.opsi, b.opsi);
+  }
+
+  static bool _sameList(List<String> a, List<String> b) {
+    for (var i = 0; i < a.length && i < b.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
+
+  /// Tombol tutup dan Back sistem: isian yang belum tersimpan meminta
+  /// konfirmasi di bilah aksi bawah, seperti keluar dari sesi (A71).
+  void _requestBack() {
+    if (_saving) return;
+    if (_dirty) {
+      setState(() {
+        _confirmLeave = true;
+        _confirmDelete = false;
+      });
+    } else {
+      _back();
+    }
+  }
+
+  /// Menggulir ke isian pertama yang bermasalah.
+  void _revealFirstError(CaptureErrors e) {
+    final key = e.kategori != null
+        ? _kategoriKey
+        : e.soal != null
+            ? _teksKey
+            : _opsiKey;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final ctx = key.currentContext;
+      if (!mounted || ctx == null) return;
+      unawaited(Scrollable.ensureVisible(
+        ctx,
+        alignment: 0.1,
+        duration: context.motion,
+        curve: AppMotion.curve,
+      ));
+    });
+  }
+
   Future<void> _pick(PhotoSource source) async {
     try {
       final bytes = await ref.read(photoPickerProvider)(source);
@@ -199,7 +263,11 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
       _saveMessage = null;
     });
     final draft = _draft();
-    if (draft.validate().any) return;
+    final problems = draft.validate();
+    if (problems.any) {
+      _revealFirstError(problems);
+      return;
+    }
     setState(() => _saving = true);
     try {
       await ref.read(captureServiceProvider).save(
@@ -210,6 +278,10 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
             removePhoto: _removePhoto,
           );
       if (!mounted) return;
+      // Konfirmasi tampil di layar asal setelah formulir ditutup.
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Soal disimpan ke bank pribadi')),
+      );
       _back();
     } on PhotoStoreException catch (e) {
       if (!mounted) return;
@@ -258,12 +330,33 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
     final hasPhoto = _newPhoto != null ||
         (!_removePhoto && _foto != null && _foto!.isNotEmpty);
 
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _requestBack();
+      },
+      child: _frame(c, errors, editing, logs, existingPhoto, hasPhoto),
+    );
+  }
+
+  Widget _frame(
+    AppColors c,
+    CaptureErrors errors,
+    bool editing,
+    AsyncValue<List<CompanyTestLog>> logs,
+    AsyncValue<Uint8List?>? existingPhoto,
+    bool hasPhoto,
+  ) {
     return OnboardingFrame(
       header: AppTopBar(
         title: editing ? 'Ubah soal Capture' : 'Capture soal',
-        onBack: _back,
+        onBack: _requestBack,
       ),
-      footer: _confirmDelete ? _deleteFooter(c) : _saveFooter(),
+      footer: _confirmLeave
+          ? _leaveFooter()
+          : _confirmDelete
+              ? _deleteFooter(c)
+              : _saveFooter(errors),
       children: [
         const ScreenPadding(
           top: AppSpace.s8,
@@ -274,9 +367,12 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
           ),
         ),
         // Kategori
-        const ScreenPadding(
+        ScreenPadding(
           top: AppSpace.s24,
-          child: _Label('Kategori soal'),
+          child: KeyedSubtree(
+            key: _kategoriKey,
+            child: const _Label('Kategori soal'),
+          ),
         ),
         ScreenPadding(
           top: AppSpace.s4,
@@ -382,6 +478,7 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
         ScreenPadding(
           top: AppSpace.s24,
           child: AppTextField(
+            key: _teksKey,
             label: 'Teks soal',
             controller: _teks,
             minLines: 3,
@@ -393,7 +490,13 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
           ),
         ),
         // Opsi
-        const ScreenPadding(top: AppSpace.s24, child: _Label('Opsi jawaban')),
+        ScreenPadding(
+          top: AppSpace.s24,
+          child: KeyedSubtree(
+            key: _opsiKey,
+            child: const _Label('Opsi jawaban'),
+          ),
+        ),
         ScreenPadding(
           top: AppSpace.s4,
           child: Text(
@@ -526,9 +629,60 @@ class _CaptureFormState extends ConsumerState<_CaptureForm> {
     );
   }
 
-  Widget _saveFooter() => AppButton(
-        label: 'Simpan ke bank pribadi',
-        onPressed: _saving ? null : () => unawaited(_save()),
+  Widget _saveFooter(CaptureErrors errors) {
+    final button = AppButton(
+      label: 'Simpan ke bank pribadi',
+      onPressed: _saving ? null : () => unawaited(_save()),
+    );
+    if (!_submitted || !errors.any) return button;
+    // Galat ditulis juga di dekat tombol simpan: isian yang bermasalah bisa
+    // jauh di atas layar.
+    final names = [
+      if (errors.kategori != null) 'kategori',
+      if (errors.soal != null) 'teks soal',
+      if (errors.opsi != null) 'opsi jawaban',
+      if (errors.kunci != null) 'kunci jawaban',
+    ];
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Semantics(
+          liveRegion: true,
+          child: NoteBox(
+            icon: AppIcons.alert,
+            text: 'Belum bisa disimpan. Lengkapi ${names.join(', ')}.',
+          ),
+        ),
+        const SizedBox(height: AppSpace.s12),
+        button,
+      ],
+    );
+  }
+
+  Widget _leaveFooter() => Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Semantics(
+            liveRegion: true,
+            child: const NoteBox(
+              icon: AppIcons.alert,
+              text: 'Isianmu belum disimpan. Kalau keluar, isian ini hilang.',
+            ),
+          ),
+          const SizedBox(height: AppSpace.s12),
+          AppButton(
+            label: 'Tetap mengisi',
+            onPressed: () => setState(() => _confirmLeave = false),
+          ),
+          const SizedBox(height: AppSpace.s8),
+          AppButton(
+            label: 'Buang isian',
+            variant: AppButtonVariant.secondary,
+            onPressed: _back,
+          ),
+        ],
       );
 
   Widget _deleteFooter(AppColors c) => Column(
