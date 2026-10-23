@@ -34,7 +34,6 @@ abstract class SessionRepository {
   /// penutupan sesi agar ulangan kartu dan penutupan sesi tidak terpisah (A79).
   Future<T> atomically<T>(Future<T> Function() body);
 
-
   /// Menyimpan jawaban; satu baris per (sesi, posisi), jawaban ulang
   /// menggantikan yang lama. Jawaban non-engine wajib punya `refId`.
   Future<int> recordAnswer(AnswerRecord answer);

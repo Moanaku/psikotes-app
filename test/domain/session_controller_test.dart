@@ -713,7 +713,8 @@ void main() {
         .watchDue(t0.add(const Duration(days: 400)))
         .first;
 
-    test('jawaban salah membuat kartu jatuh tempo besok; benar dan kosong tidak',
+    test(
+        'jawaban salah membuat kartu jatuh tempo besok; benar dan kosong tidak',
         () async {
       await h.start(SessionMode.simulasi, simPlan());
       await h.c.select(h.rightOption()); // soal 0 benar
@@ -852,7 +853,8 @@ void main() {
         );
       });
 
-      test('A79: menutup sesi diulang setelah gagal di tengah tidak menerapkan '
+      test(
+          'A79: menutup sesi diulang setelah gagal di tengah tidak menerapkan '
           'ulangan dua kali', () async {
         // Gagal saat menerapkan kartu kedua, sekali saja.
         late _FailOnceMistakeRepository failing;
@@ -992,7 +994,8 @@ class _FailOnceMistakeRepository extends DriftMistakeRepository {
   int calls = 0;
 
   @override
-  Future<MistakeCard> applyReview(int cardId, bool correct, DateTime now) async {
+  Future<MistakeCard> applyReview(
+      int cardId, bool correct, DateTime now) async {
     calls++;
     if (calls == failOnCall) throw StateError('gagal menulis kartu');
     return super.applyReview(cardId, correct, now);

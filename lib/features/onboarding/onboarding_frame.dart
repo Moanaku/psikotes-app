@@ -56,7 +56,8 @@ class OnboardingFrame extends StatelessWidget {
               ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight: MediaQuery.sizeOf(context).height * _footerMaxShare,
+                  maxHeight:
+                      MediaQuery.sizeOf(context).height * _footerMaxShare,
                 ),
                 child: ListView(
                   shrinkWrap: true,

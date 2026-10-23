@@ -22,7 +22,9 @@ export '../support/manual_ticker.dart' show ManualTimer;
 /// Satu "perangkat": database dan jam yang bertahan saat proses app mati dan
 /// dibuka lagi ([kill]).
 class Harness {
-  Harness({QuestionBuilder? builder, List<Override> Function(AppDatabase db)? overrides})
+  Harness(
+      {QuestionBuilder? builder,
+      List<Override> Function(AppDatabase db)? overrides})
       : db = h.memoryDb(),
         clock = FakeClock(h.t0),
         _builder = builder,
