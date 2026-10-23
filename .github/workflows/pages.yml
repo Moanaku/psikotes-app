@@ -1,5 +1,9 @@
 name: pages
-# Menerbitkan build web ke GitHub Pages saat tag rilis dibuat (v*). Dinonaktifkan sampai T20.
+# Menerbitkan build web ke GitHub Pages. Hanya jalan bila dipicu: manual
+# (Actions, pilih "pages", Run workflow) atau saat tag rilis v* dibuat. Tidak
+# jalan pada push biasa. Repo masih privat dan Pages untuk repo privat butuh
+# paket berbayar, jadi job deploy gagal sampai pemilik memutuskan (docs/RILIS-APK.md,
+# bagian "Menunggu keputusan pemilik"). Job build tetap bisa dijalankan.
 on:
   push:
     tags: ['v*']
@@ -7,24 +11,40 @@ on:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    if: ${{ false }} # aktifkan di T20
+  build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: 3.35.4
           channel: stable
           cache: true
       - run: flutter pub get
+      - name: Kode Drift (berkas .g.dart tidak di-commit)
+        run: dart run build_runner build
+      - name: sqlite3.wasm dan drift_worker.js untuk database web
+        run: bash tool/prepare_web.sh
       - run: flutter build web --release --base-href "/${{ github.event.repository.name }}/"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
-      - uses: actions/deploy-pages@v4
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
