@@ -113,7 +113,7 @@ Aturan umum:
 
 ### S09 Pembahasan soal (F06)
 - **Tujuan:** memahami satu soal.
-- **Elemen:** strip nomor soal (benar atau salah, salah bergaris putus, sekarang berkontur tebal); jenis dan stimulus soal; blok "Salah, Jawabanmu" dan "Kunci"; "Kenapa" dengan penjelasan dan rangkaian selisih; "Pola dan trik"; "Waktumu [dtk], target [dtk]"; sakelar "Masuk buku kesalahan"; "Sebelumnya" dan "Berikutnya".
+- **Elemen:** strip nomor soal (benar atau salah, salah bergaris putus, sekarang berkontur tebal); jenis dan stimulus soal; daftar opsi dengan penanda ikon dan teks "Kunci" pada opsi kunci dan "Jawabanmu" pada opsi yang dipilih (tidak hanya warna); blok "Salah, Jawabanmu" dan "Kunci"; "Kenapa" dengan penjelasan dan rangkaian selisih; "Pola dan trik"; "Waktumu [dtk], target [dtk]"; sakelar "Masuk buku kesalahan"; "Sebelumnya" dan "Berikutnya".
 - **Data:** soal dibuat ulang dari `(tipe, seed, kesulitan)`; pembahasan dari `Question.explanation`.
 - **Aksi:** sakelar menambah atau menghapus kartu buku kesalahan; navigasi antar soal.
 - **Selesai bila:** pembahasan otomatis ada untuk semua tipe soal (diuji di property test: `explanation` tidak kosong).

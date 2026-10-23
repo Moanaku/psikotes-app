@@ -27,11 +27,16 @@ class QuestionBody extends StatelessWidget {
     required this.selected,
     required this.onSelect,
     this.photo,
+    this.keyIndex,
   });
 
   final Question question;
   final int? selected;
   final ValueChanged<int>? onSelect;
+
+  /// Opsi kunci, ditandai "Kunci" di daftar opsi (pembahasan). Dipisah dari
+  /// tanda "Jawabanmu" pada opsi yang dipilih.
+  final int? keyIndex;
 
   /// Foto soal Capture; tampil di bawah teks soal.
   final Widget? photo;
@@ -79,6 +84,7 @@ class QuestionBody extends StatelessWidget {
             question: question,
             selected: selected,
             onSelect: onSelect,
+            keyIndex: keyIndex,
           ),
         ],
       ),
@@ -91,11 +97,13 @@ class _Options extends StatelessWidget {
     required this.question,
     required this.selected,
     required this.onSelect,
+    this.keyIndex,
   });
 
   final Question question;
   final int? selected;
   final ValueChanged<int>? onSelect;
+  final int? keyIndex;
 
   Widget _tile(int i) {
     final o = question.options[i];
@@ -118,6 +126,11 @@ class _Options extends StatelessWidget {
       label: fig == null ? text : null,
       semanticLabel: fig == null ? null : describeFigure(fig),
       selected: selected == i,
+      marks: [
+        if (keyIndex != null && selected == i)
+          (icon: AppIcons.target, label: 'Jawabanmu'),
+        if (keyIndex == i) (icon: AppIcons.key, label: 'Kunci'),
+      ],
       onTap: onSelect == null ? null : () => onSelect!(i),
       child: child,
     );

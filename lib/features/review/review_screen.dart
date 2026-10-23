@@ -257,6 +257,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
           question: q,
           selected: answer?.opsiDipilih,
           onSelect: null,
+          keyIndex: q.correctIndex,
           photo: photoForItem(item),
         ),
         const SizedBox(height: AppSpace.s16),
