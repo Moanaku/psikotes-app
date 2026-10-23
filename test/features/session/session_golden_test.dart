@@ -187,7 +187,8 @@ void main() {
       await pumpSession(tester, SessionMode.simulasi, simulasiPlan(),
           brightness: Brightness.dark);
       expect(tester.takeException(), isNull);
-      expect(colorOf(tester, 'Simulasi QA, CCAT-style'), AppColors.dark.ink);
+      expect(colorOf(tester, 'Simulasi'), AppColors.dark.ink);
+      expect(colorOf(tester, 'QA, CCAT-style'), AppColors.dark.inkMuted);
       expect(colorOf(tester, 'Subtes 1 dari 3, soal 1 dari 3'),
           AppColors.dark.inkMuted);
     });

@@ -83,9 +83,8 @@ void main() {
     final later = PhotoNames.create('jpg', clock, random: Random(1));
     expect(same, a, reason: 'jam dan garam sama menghasilkan nama sama');
     expect(later, isNot(a));
-    final stamp = DateTime.utc(2026, 10, 23, 8)
-        .microsecondsSinceEpoch
-        .toRadixString(36);
+    final stamp =
+        DateTime.utc(2026, 10, 23, 8).microsecondsSinceEpoch.toRadixString(36);
     expect(a, startsWith('cap_$stamp'));
   });
 

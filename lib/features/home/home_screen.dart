@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../app/routes.dart';
 import '../../core/theme/app_icons.dart';
 import '../../core/theme/app_tokens.dart';
+import '../../core/utils/text_scale.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_icon_button.dart';
 import '../../core/widgets/app_top_bar.dart';
@@ -177,6 +178,7 @@ class _ProfileRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.tokens.colors;
     final days = data.daysUntilTest;
+    final large = isLargeText(context);
     Widget? trailing;
     Widget? below;
     if (days != null && days > 0) {
@@ -197,25 +199,15 @@ class _ProfileRow extends StatelessWidget {
       final past = days != null;
       below = Padding(
         padding: const EdgeInsets.only(top: AppSpace.s12),
-        child: Row(
-          children: [
-            Expanded(
-              child: Text(
-                past ? 'Tanggal tes sudah lewat' : 'Tanggal tes belum diisi',
-                style: AppType.label(c.inkMuted),
-              ),
-            ),
-            const SizedBox(width: AppSpace.s8),
-            Flexible(
-              child: AppButton(
-                label: past ? 'Ubah tanggal tes' : 'Isi tanggal tes',
-                variant: AppButtonVariant.outline,
-                expand: false,
-                onPressed: () =>
-                    context.push(Routes.profilUbah(data.profile.id!)),
-              ),
-            ),
-          ],
+        child: _DateHint(
+          text: past ? 'Tanggal tes sudah lewat' : 'Tanggal tes belum diisi',
+          button: AppButton(
+            label: past ? 'Ubah tanggal tes' : 'Isi tanggal tes',
+            variant: AppButtonVariant.outline,
+            expand: !large,
+            onPressed: () => context.push(Routes.profilUbah(data.profile.id!)),
+          ),
+          stacked: large,
         ),
       );
     }
@@ -249,12 +241,16 @@ class _ProfileRow extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (trailing != null) ...[
+                  if (trailing != null && !large) ...[
                     const SizedBox(width: AppSpace.s12),
                     trailing,
                   ],
                 ],
               ),
+              if (trailing != null && large) ...[
+                const SizedBox(height: AppSpace.s8),
+                trailing,
+              ],
               if (below != null) below,
             ],
           ),
@@ -324,27 +320,9 @@ class _TodayPanel extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    Expanded(
-                      child: Semantics(
-                        header: true,
-                        child: Text(
-                          'Latihan hari ini',
-                          style: AppType.title(c.ink),
-                        ),
-                      ),
-                    ),
-                    if (!empty) ...[
-                      const SizedBox(width: AppSpace.s8),
-                      Text(
-                        'Sekitar ${plan.estimatedMinutes} menit',
-                        style: AppType.label(c.inkMuted),
-                      ),
-                    ],
-                  ],
+                _PanelTitle(
+                  title: 'Latihan hari ini',
+                  note: empty ? null : 'Sekitar ${plan.estimatedMinutes} menit',
                 ),
                 const SizedBox(height: AppSpace.s8),
                 if (empty)
@@ -373,6 +351,82 @@ class _TodayPanel extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Judul panel dengan keterangan di kanannya; di skala huruf besar keterangan
+/// turun ke bawah judul.
+class _PanelTitle extends StatelessWidget {
+  const _PanelTitle({required this.title, this.note});
+
+  final String title;
+  final String? note;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.tokens.colors;
+    final heading = Semantics(
+      header: true,
+      child: Text(title, style: AppType.title(c.ink)),
+    );
+    final noteText =
+        note == null ? null : Text(note!, style: AppType.label(c.inkMuted));
+    if (isLargeText(context)) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          heading,
+          if (noteText != null) ...[
+            const SizedBox(height: AppSpace.s4),
+            noteText,
+          ],
+        ],
+      );
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Expanded(child: heading),
+        if (noteText != null) ...[
+          const SizedBox(width: AppSpace.s8),
+          noteText,
+        ],
+      ],
+    );
+  }
+}
+
+/// Keterangan tanggal tes dan tombolnya. Berdampingan di skala normal; di
+/// skala huruf besar tombol turun dan selebar penuh, tinggi menyesuaikan.
+class _DateHint extends StatelessWidget {
+  const _DateHint({
+    required this.text,
+    required this.button,
+    required this.stacked,
+  });
+
+  final String text;
+  final Widget button;
+  final bool stacked;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.tokens.colors;
+    final label = Text(text, style: AppType.label(c.inkMuted));
+    if (stacked) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [label, const SizedBox(height: AppSpace.s8), button],
+      );
+    }
+    return Row(
+      children: [
+        Expanded(child: label),
+        const SizedBox(width: AppSpace.s8),
+        Flexible(child: button),
+      ],
     );
   }
 }

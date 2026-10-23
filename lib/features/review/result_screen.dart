@@ -101,24 +101,17 @@ class ResultScreen extends ConsumerWidget {
             }
             return OnboardingFrame(
               header: header,
-              footer: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(flex: 10, child: skip),
-                    const SizedBox(width: AppSpace.s8),
-                    Expanded(
-                      flex: 13,
-                      child: AppButton(
-                        label: 'Lihat pembahasan',
-                        onPressed: () => unawaited(context.push(
-                          Routes.pembahasanPath(
-                              sessionId, review.firstWrong + 1),
-                        )),
-                      ),
-                    ),
-                  ],
-                ),
+              footer: FooterButtons(
+                flex: const [10, 13],
+                buttons: [
+                  skip,
+                  AppButton(
+                    label: 'Lihat pembahasan',
+                    onPressed: () => unawaited(context.push(
+                      Routes.pembahasanPath(sessionId, review.firstWrong + 1),
+                    )),
+                  ),
+                ],
               ),
               children: _body(context, review),
             );

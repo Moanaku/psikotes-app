@@ -7,12 +7,12 @@ import 'package:go_router/go_router.dart';
 import '../../app/routes.dart';
 import '../../core/theme/app_icons.dart';
 import '../../core/theme/app_tokens.dart';
+import '../../core/utils/text_scale.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_top_bar.dart';
 import '../../core/widgets/empty_view.dart';
 import '../../core/widgets/error_view.dart';
 import '../../core/widgets/note_box.dart';
-import '../../core/widgets/number_bubble.dart';
 import '../../core/widgets/skeleton_list.dart';
 import '../../domain/models/codes.dart';
 import '../../domain/models/question_guides.dart';
@@ -294,31 +294,20 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
     final selected = s.selected;
     final letter =
         q != null && selected != null ? ' ${q.options[selected].id}' : '';
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(
-            flex: 10,
-            child: AppButton(
-              label: _hintOpen ? 'Tutup petunjuk' : 'Buka petunjuk',
-              variant: AppButtonVariant.secondary,
-              onPressed: q == null
-                  ? null
-                  : () => setState(() => _hintOpen = !_hintOpen),
-            ),
-          ),
-          const SizedBox(width: AppSpace.s8),
-          Expanded(
-            flex: 14,
-            child: AppButton(
-              label: 'Kirim jawaban$letter',
-              onPressed:
-                  s.canSubmit ? () => unawaited(_controller.submit()) : null,
-            ),
-          ),
-        ],
-      ),
+    return FooterButtons(
+      flex: const [10, 14],
+      buttons: [
+        AppButton(
+          label: _hintOpen ? 'Tutup petunjuk' : 'Buka petunjuk',
+          variant: AppButtonVariant.secondary,
+          onPressed:
+              q == null ? null : () => setState(() => _hintOpen = !_hintOpen),
+        ),
+        AppButton(
+          label: 'Kirim jawaban$letter',
+          onPressed: s.canSubmit ? () => unawaited(_controller.submit()) : null,
+        ),
+      ],
     );
   }
 
@@ -333,11 +322,7 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
       for (final p in profiles ?? const [])
         if (p.id == s.profileId) p.nama,
     ].firstOrNull;
-    final title = s.mode == SessionMode.diagnostik
-        ? 'Diagnostik'
-        : name == null
-            ? 'Simulasi'
-            : 'Simulasi $name';
+    final title = s.mode == SessionMode.diagnostik ? 'Diagnostik' : 'Simulasi';
     final range = s.subtest;
     final inSubtest = s.posisi - range.start + 1;
     final answeredHere = [
@@ -369,43 +354,41 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
                     unawaited(_controller.next());
                   },
                 )
-              : IntrinsicHeight(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(
-                        flex: 10,
-                        child: AppButton(
-                          label: 'Sebelumnya',
-                          variant: AppButtonVariant.secondary,
-                          onPressed: s.canGoBack
-                              ? () => unawaited(_controller.previous())
-                              : null,
-                        ),
-                      ),
-                      const SizedBox(width: AppSpace.s8),
-                      Expanded(
-                        flex: 13,
-                        child: AppButton(
-                          label: 'Berikutnya',
-                          onPressed: () {
-                            if (s.isLastInSubtest) {
-                              setState(() => _confirmCloseAt = s.posisi);
-                            } else {
-                              unawaited(_controller.next());
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
+              : FooterButtons(
+                  flex: const [10, 13],
+                  buttons: [
+                    AppButton(
+                      label: 'Sebelumnya',
+                      variant: AppButtonVariant.secondary,
+                      onPressed: s.canGoBack
+                          ? () => unawaited(_controller.previous())
+                          : null,
+                    ),
+                    AppButton(
+                      label: 'Berikutnya',
+                      onPressed: () {
+                        if (s.isLastInSubtest) {
+                          setState(() => _confirmCloseAt = s.posisi);
+                        } else {
+                          unawaited(_controller.next());
+                        }
+                      },
+                    ),
+                  ],
                 ),
       children: [
+        if (name != null)
+          Padding(
+            padding: sessionMargin,
+            child: Text(name, style: AppType.label(c.inkMuted)),
+          ),
+        if (name != null) const SizedBox(height: AppSpace.s8),
         Padding(
           padding: sessionMargin,
           child: _SubtestSteps(
             subtests: s.subtests,
             current: s.subtestIndex,
+            showNames: !isLargeText(context),
           ),
         ),
         const SizedBox(height: AppSpace.s12),
@@ -417,27 +400,12 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
             style: AppType.label(c.inkMuted),
           ),
         ),
-        const SizedBox(height: AppSpace.s8),
-        Padding(
-          padding: sessionMargin,
-          child: Semantics(
-            container: true,
-            label: 'Nomor soal, sekarang soal $inSubtest dari ${range.jumlah}',
-            child: Wrap(
-              children: [
-                for (var i = range.start; i < range.end; i++)
-                  NumberBubble(
-                    number: i - range.start + 1,
-                    state: i == s.posisi
-                        ? NumberBubbleState.current
-                        : s.answers[i]?.opsiDipilih != null
-                            ? NumberBubbleState.answered
-                            : NumberBubbleState.unanswered,
-                    onTap: () => unawaited(_controller.goTo(i)),
-                  ),
-              ],
-            ),
-          ),
+        const SizedBox(height: AppSpace.s4),
+        NumberStrip(
+          count: range.jumlah,
+          current: s.posisi - range.start,
+          answered: (i) => s.answers[range.start + i]?.opsiDipilih != null,
+          onTap: (i) => unawaited(_controller.goTo(range.start + i)),
         ),
         if (s.notice != null) ...[
           const SizedBox(height: AppSpace.s8),
@@ -532,10 +500,18 @@ class _QuestionFailed extends StatelessWidget {
 /// Langkah subtes: batang pendek tiap subtes dengan namanya. Selesai: `ink`
 /// dan centang; sekarang: `accent` berbatas `ink`; belum: `outlineVariant`.
 class _SubtestSteps extends StatelessWidget {
-  const _SubtestSteps({required this.subtests, required this.current});
+  const _SubtestSteps({
+    required this.subtests,
+    required this.current,
+    required this.showNames,
+  });
 
   final List<SubtestRange> subtests;
   final int current;
+
+  /// Nama di bawah batang. Dimatikan di skala huruf besar: lebar satu langkah
+  /// tidak cukup dan nama subtes sekarang sudah tertulis di baris keterangan.
+  final bool showNames;
 
   @override
   Widget build(BuildContext context) {
@@ -573,35 +549,37 @@ class _SubtestSteps extends StatelessWidget {
                         width: double.infinity,
                       ),
                     ),
-                    const SizedBox(height: AppSpace.s8),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (r.index < current) ...[
-                          Padding(
-                            padding: const EdgeInsets.only(top: AppSpace.s4),
-                            child: Icon(
-                              AppIcons.check,
-                              size: AppSizes.iconInTag,
-                              color: c.ink,
+                    if (showNames) ...[
+                      const SizedBox(height: AppSpace.s8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (r.index < current) ...[
+                            Padding(
+                              padding: const EdgeInsets.only(top: AppSpace.s4),
+                              child: Icon(
+                                AppIcons.check,
+                                size: AppSizes.iconInTag,
+                                color: c.ink,
+                              ),
+                            ),
+                            const SizedBox(width: AppSpace.s4),
+                          ],
+                          Expanded(
+                            child: Text(
+                              ProfileTemplates.categoryName(r.kategori),
+                              style: AppType.label(
+                                r.index > current ? c.inkMuted : c.ink,
+                              ).copyWith(
+                                fontWeight: r.index == current
+                                    ? FontWeight.w700
+                                    : FontWeight.w500,
+                              ),
                             ),
                           ),
-                          const SizedBox(width: AppSpace.s4),
                         ],
-                        Expanded(
-                          child: Text(
-                            ProfileTemplates.categoryName(r.kategori),
-                            style: AppType.label(
-                              r.index > current ? c.inkMuted : c.ink,
-                            ).copyWith(
-                              fontWeight: r.index == current
-                                  ? FontWeight.w700
-                                  : FontWeight.w500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -691,19 +669,14 @@ class _CloseSubtestPanel extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSpace.s12),
-        Row(
-          children: [
-            Expanded(
-              child: AppButton(
-                label: 'Tetap di subtes',
-                variant: AppButtonVariant.secondary,
-                onPressed: onStay,
-              ),
+        FooterButtons(
+          buttons: [
+            AppButton(
+              label: 'Tetap di subtes',
+              variant: AppButtonVariant.secondary,
+              onPressed: onStay,
             ),
-            const SizedBox(width: AppSpace.s8),
-            Expanded(
-              child: AppButton(label: what, onPressed: onClose),
-            ),
+            AppButton(label: what, onPressed: onClose),
           ],
         ),
       ],

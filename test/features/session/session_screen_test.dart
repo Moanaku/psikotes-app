@@ -230,13 +230,17 @@ void main() {
     testWidgets('judul dengan nama profil, langkah subtes, kisi, dan catatan',
         (tester) async {
       await openSession(tester, SessionMode.simulasi, simulasiPlan());
-      expect(find.text('Simulasi QA, CCAT-style'), findsOneWidget);
+      expect(find.text('Simulasi'), findsOneWidget);
+      expect(find.text('QA, CCAT-style'), findsOneWidget,
+          reason: 'nama profil jadi baris sekunder, bukan judul');
       expect(find.text('05:00'), findsOneWidget);
       for (final k in ['Numerik', 'Logika', 'Figural']) {
         expect(find.text(k), findsOneWidget, reason: k);
       }
       expect(find.text('Subtes 1 dari 3, soal 1 dari 3'), findsOneWidget);
       expect(find.byType(NumberBubble), findsNWidgets(3));
+      expect(find.byType(ListView), findsWidgets,
+          reason: 'navigator soal satu baris yang digulir mendatar');
       expect(
         find.textContaining('Setelah subtes ditutup, kamu tidak bisa kembali '
             'ke sana. Pembahasan muncul setelah simulasi selesai.'),

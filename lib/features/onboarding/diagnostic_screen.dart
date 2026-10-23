@@ -391,15 +391,6 @@ class _Footer extends StatelessWidget {
         onPressed: starting ? null : onStart,
       );
     }
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Expanded(flex: 10, child: secondary),
-          const SizedBox(width: AppSpace.s8),
-          Expanded(flex: 13, child: primary),
-        ],
-      ),
-    );
+    return FooterButtons(flex: const [10, 13], buttons: [secondary, primary]);
   }
 }
