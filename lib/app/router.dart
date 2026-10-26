@@ -9,6 +9,7 @@ import '../features/capture/company_log_form_screen.dart';
 import '../features/capture/company_log_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/interview/interview_screen.dart';
 import '../features/mistakes/mistake_book_screen.dart';
 import '../features/mistakes/mistake_card_screen.dart';
 import '../features/onboarding/diagnostic_screen.dart';
@@ -72,7 +73,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             path: Routes.psikotes,
             builder: (context, state) => const CatalogScreen(),
           ),
-          _r(Routes.wawancara, 'S15', 'Setup wawancara'),
+          GoRoute(
+            path: Routes.wawancara,
+            builder: (context, state) => const InterviewScreen(),
+          ),
           GoRoute(
             path: Routes.statistik,
             builder: (context, state) => const StatsScreen(),
