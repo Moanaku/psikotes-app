@@ -589,4 +589,18 @@ void main() {
       expect(row(tester, 'Deret angka').onTap, isNotNull);
     });
   });
+
+  group('nama tipe berbahasa Indonesia', () {
+    testWidgets('Cermin dan Beda sendiri, bukan nama Inggris', (tester) async {
+      await openCatalog(tester);
+      for (final name in ['Cermin', 'Beda sendiri']) {
+        await show(tester, name);
+        expect(row(tester, name).onTap, isNotNull, reason: name);
+      }
+      expect(find.text('Mirror image'), findsNothing);
+      expect(find.text('Odd one out'), findsNothing);
+      expect(questionTypeName(QuestionType.figMir), 'Cermin');
+      expect(questionTypeName(QuestionType.figOdd), 'Beda sendiri');
+    });
+  });
 }
