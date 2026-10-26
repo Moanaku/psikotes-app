@@ -1,0 +1,5710 @@
+{
+  "versi": 1,
+  "dibuat": "2026-10-26",
+  "jumlah": {
+    "VRB-SYN": 150,
+    "VRB-ANA": 150
+  },
+  "soal": [
+    {
+      "id": "VRB-ANA-0002",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Untung : Rugi = Naik : ...",
+      "options": [
+        "Turun",
+        "Tinggi",
+        "Harga",
+        "Meningkat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Untung berlawanan makna dengan rugi. Lawan kata naik adalah turun.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0003",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kaya : Makmur = Miskin : ...",
+      "options": [
+        "Utang",
+        "Kikir",
+        "Dermawan",
+        "Papa"
+      ],
+      "correctIndex": 3,
+      "explanation": "Kaya dan makmur bersinonim. Sinonim miskin adalah papa.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0005",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pajak : Negara = Gaji : ...",
+      "options": [
+        "Majikan",
+        "Pekerja",
+        "Bonus",
+        "Kantor"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pajak diterima oleh negara. Gaji diterima oleh pekerja, jadi relasinya sesuatu dan penerimanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0006",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kalkulator : Menghitung = Pena : ...",
+      "options": [
+        "Menulis",
+        "Kertas",
+        "Tinta",
+        "Menggambar"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kalkulator berfungsi untuk menghitung. Pena berfungsi untuk menulis.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0007",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Lembar : Buku = Cabang : ...",
+      "options": [
+        "Nasabah",
+        "Bank",
+        "Tabungan",
+        "Kantor"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lembar adalah bagian dari buku. Cabang adalah bagian dari bank.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0008",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Hemat : Boros = Rajin : ...",
+      "options": [
+        "Giat",
+        "Malas",
+        "Gaji",
+        "Kerja"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hemat berlawanan dengan boros. Lawan kata rajin adalah malas.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0009",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Utang : Piutang = Beli : ...",
+      "options": [
+        "Bayar",
+        "Jual",
+        "Harga",
+        "Beban"
+      ],
+      "correctIndex": 1,
+      "explanation": "Utang dan piutang adalah dua sisi dari transaksi yang sama. Beli berpasangan dengan jual.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0010",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pasar : Pedagang = Sekolah : ...",
+      "options": [
+        "Guru",
+        "Buku",
+        "Kelas",
+        "Ujian"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pedagang bekerja di pasar. Guru bekerja di sekolah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0011",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Inflasi : Deflasi = Surplus : ...",
+      "options": [
+        "Kelebihan",
+        "Saldo",
+        "Defisit",
+        "Anggaran"
+      ],
+      "correctIndex": 2,
+      "explanation": "Inflasi (kenaikan harga umum) berlawanan arti dengan deflasi (penurunan harga umum). Surplus (kelebihan) berlawanan arti dengan defisit (kekurangan). Kelebihan adalah sinonim surplus, bukan lawannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0012",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Produsen : Konsumen = Debitur : ...",
+      "options": [
+        "Nasabah",
+        "Peminjam",
+        "Kreditur",
+        "Penabung"
+      ],
+      "correctIndex": 2,
+      "explanation": "Produsen (penghasil) dan konsumen (pemakai) adalah dua pihak yang berlawanan posisi. Debitur (penerima pinjaman) berlawanan posisi dengan kreditur (pemberi pinjaman). Peminjam justru sinonim debitur.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0013",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Tabungan : Simpanan = Investasi : ...",
+      "options": [
+        "Spekulasi",
+        "Dividen",
+        "Penanaman modal",
+        "Pendapatan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tabungan bersinonim dengan simpanan. Investasi bersinonim dengan penanaman modal. Dividen hanyalah hasil dari investasi, bukan padanan katanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0014",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Celengan : Menabung = Brankas : ...",
+      "options": [
+        "Mengedarkan",
+        "Menyimpan",
+        "Membobol",
+        "Menukar"
+      ],
+      "correctIndex": 1,
+      "explanation": "Celengan berfungsi untuk menabung uang. Brankas berfungsi untuk menyimpan barang berharga dan uang. Membobol adalah tindakan terhadap brankas, bukan fungsinya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0015",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Ekspor : Impor = Pemasukan : ...",
+      "options": [
+        "Penghasilan",
+        "Pengeluaran",
+        "Modal",
+        "Pendapatan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ekspor (menjual barang ke luar negeri) berlawanan arti dengan impor (memasukkan barang dari luar negeri). Pemasukan berlawanan arti dengan pengeluaran. Pendapatan dan penghasilan bersinonim dengan pemasukan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0016",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kuartal : Tahun = Jari : ...",
+      "options": [
+        "Kuku",
+        "Sarung",
+        "Tangan",
+        "Cincin"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kuartal adalah bagian dari satu tahun. Jari adalah bagian dari tangan. Kuku adalah bagian dari jari, sehingga relasinya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0017",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kredit : Pinjaman = Hibah : ...",
+      "options": [
+        "Pemberian",
+        "Bunga",
+        "Cicilan",
+        "Jaminan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kredit bersinonim dengan pinjaman. Hibah bersinonim dengan pemberian (pemberian secara cuma-cuma). Cicilan, bunga, dan jaminan berkaitan dengan kredit, bukan padanan hibah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0018",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Murah : Mahal = Langka : ...",
+      "options": [
+        "Unik",
+        "Terbatas",
+        "Berharga",
+        "Melimpah"
+      ],
+      "correctIndex": 3,
+      "explanation": "Murah berlawanan arti dengan mahal. Langka (jarang ada) berlawanan arti dengan melimpah (banyak sekali). Terbatas justru mendekati arti langka.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0019",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Mesin ATM : Menarik tunai = Mesin fotokopi : ...",
+      "options": [
+        "Mengetik",
+        "Menjilid",
+        "Menghapus",
+        "Menggandakan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mesin ATM berfungsi untuk menarik tunai. Mesin fotokopi berfungsi untuk menggandakan dokumen. Menjilid dan mengetik bukan fungsi utama mesin fotokopi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0020",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Harga : Tarif = Biaya : ...",
+      "options": [
+        "Laba",
+        "Ongkos",
+        "Bunga",
+        "Modal"
+      ],
+      "correctIndex": 1,
+      "explanation": "Harga bersinonim dengan tarif (besaran yang harus dibayar). Biaya bersinonim dengan ongkos. Laba, modal, dan bunga memiliki makna yang berbeda dari biaya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0022",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Bisu : Bicara = Tuli : ...",
+      "options": [
+        "Berbisik",
+        "Berteriak",
+        "Telinga",
+        "Mendengar"
+      ],
+      "correctIndex": 3,
+      "explanation": "Orang bisu tidak dapat bicara; orang tuli tidak dapat mendengar. Hubungannya ketidakmampuan-fungsi yang hilang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0023",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Halaman : Koran = Bab : ...",
+      "options": [
+        "Kalimat",
+        "Penulis",
+        "Judul",
+        "Novel"
+      ],
+      "correctIndex": 3,
+      "explanation": "Halaman adalah bagian dari koran; bab adalah bagian dari novel. Hubungannya bagian-keseluruhan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0024",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Lantang : Pelan = Jelas : ...",
+      "options": [
+        "Nyaring",
+        "Samar",
+        "Gamblang",
+        "Terang"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lantang berlawanan dengan pelan; jelas berlawanan dengan samar. Hubungannya antonim.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0025",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Berita : Kabar = Siaran : ...",
+      "options": [
+        "Tayangan",
+        "Sunyi",
+        "Radio",
+        "Pemirsa"
+      ],
+      "correctIndex": 0,
+      "explanation": "Berita bersinonim dengan kabar; siaran bersinonim dengan tayangan. Hubungannya sinonim.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0026",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Mikrofon : Memperkeras suara = Kamera : ...",
+      "options": [
+        "Merekam gambar",
+        "Lensa",
+        "Memutar lagu",
+        "Fotografer"
+      ],
+      "correctIndex": 0,
+      "explanation": "Mikrofon berfungsi memperkeras suara; kamera berfungsi merekam gambar. Hubungannya alat-fungsi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0027",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Layar : Televisi = Roda : ...",
+      "options": [
+        "Mengayuh",
+        "Sepeda",
+        "Berputar",
+        "Jalan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Layar adalah bagian dari televisi; roda adalah bagian dari sepeda. 'Berputar' adalah sifat, bukan keseluruhan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0028",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Benar : Salah = Resmi : ...",
+      "options": [
+        "Formal",
+        "Sah",
+        "Tidak resmi",
+        "Pejabat"
+      ],
+      "correctIndex": 2,
+      "explanation": "Benar berlawanan dengan salah; resmi berlawanan dengan tidak resmi. Hubungannya antonim.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0029",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pidato : Orator = Lukisan : ...",
+      "options": [
+        "Kanvas",
+        "Pameran",
+        "Cat",
+        "Pelukis"
+      ],
+      "correctIndex": 3,
+      "explanation": "Pidato dihasilkan oleh orator; lukisan dihasilkan oleh pelukis. Hubungannya hasil-pembuatnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0030",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pesan : Pengirim = Jawaban : ...",
+      "options": [
+        "Penjawab",
+        "Penanya",
+        "Pembaca",
+        "Pertanyaan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pesan disampaikan oleh pengirim; jawaban disampaikan oleh penjawab. Hubungannya hasil-pembuat. 'Penanya' adalah pihak yang berlawanan peran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0031",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Termometer : Suhu = Stetoskop : ...",
+      "options": [
+        "Telinga",
+        "Dokter",
+        "Detak jantung",
+        "Rumah sakit"
+      ],
+      "correctIndex": 2,
+      "explanation": "Termometer adalah alat untuk mengukur suhu; stetoskop adalah alat untuk mendengarkan detak jantung. Dokter adalah pemakai, bukan hal yang diukur.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0032",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Sehat : Sakit = Kuat : ...",
+      "options": [
+        "Lemah",
+        "Tangguh",
+        "Bugar",
+        "Perkasa"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sehat berlawanan makna dengan sakit; kuat berlawanan makna dengan lemah. Tangguh, perkasa, dan bugar bersinonim dengan kuat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0033",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Raket : Bulu tangkis = Tongkat : ...",
+      "options": [
+        "Lari",
+        "Golf",
+        "Senam",
+        "Renang"
+      ],
+      "correctIndex": 1,
+      "explanation": "Raket adalah alat untuk bermain bulu tangkis; tongkat (stik golf) adalah alat untuk bermain golf. Renang, lari, dan senam tidak memakai tongkat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0034",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Obat : Sembuh = Makanan : ...",
+      "options": [
+        "Lezat",
+        "Lapar",
+        "Dapur",
+        "Kenyang"
+      ],
+      "correctIndex": 3,
+      "explanation": "Obat dikonsumsi agar sembuh; makanan dikonsumsi agar kenyang. Lapar adalah kebalikan tujuan, dapur adalah tempat, lezat adalah sifat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0036",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Gawang : Sepak bola = Ring : ...",
+      "options": [
+        "Voli",
+        "Renang",
+        "Bola basket",
+        "Tenis"
+      ],
+      "correctIndex": 2,
+      "explanation": "Gawang adalah bagian perlengkapan lapangan sepak bola; ring adalah bagian perlengkapan permainan bola basket.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0037",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kacamata : Penglihatan = Alat bantu dengar : ...",
+      "options": [
+        "Pendengaran",
+        "Tuna rungu",
+        "Suara",
+        "Telinga"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kacamata membantu fungsi penglihatan; alat bantu dengar membantu fungsi pendengaran. Telinga adalah organ, bukan fungsi yang dibantu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0038",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Gemuk : Kurus = Tinggi : ...",
+      "options": [
+        "Pendek",
+        "Berat",
+        "Atlet",
+        "Jangkung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gemuk berlawanan dengan kurus; tinggi berlawanan dengan pendek. Jangkung bersinonim dengan tinggi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0041",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Timbangan : Berat = Meteran : ...",
+      "options": [
+        "Harga",
+        "Panjang",
+        "Kain",
+        "Toko"
+      ],
+      "correctIndex": 1,
+      "explanation": "Timbangan adalah alat untuk mengukur berat; meteran adalah alat untuk mengukur panjang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0042",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Murah : Terjangkau = Mahal : ...",
+      "options": [
+        "Berharga tinggi",
+        "Hemat",
+        "Diskon",
+        "Gratis"
+      ],
+      "correctIndex": 0,
+      "explanation": "Murah bersinonim dengan terjangkau (harganya rendah); mahal bersinonim dengan berharga tinggi. Gratis, diskon, dan hemat tidak sepadan dengan mahal.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0043",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Dompet : Uang = Lemari : ...",
+      "options": [
+        "Kayu",
+        "Kamar",
+        "Pakaian",
+        "Kunci"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dompet berfungsi sebagai tempat menyimpan uang; lemari adalah tempat menyimpan pakaian.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0044",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kasir : Toko = Guru : ...",
+      "options": [
+        "Sekolah",
+        "Buku",
+        "Mengajar",
+        "Murid"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kasir bekerja di toko; guru bekerja di sekolah. Murid dan buku bukan tempat kerja, sedangkan mengajar adalah kegiatan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0046",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Rupiah : Mata uang = Mawar : ...",
+      "options": [
+        "Duri",
+        "Taman",
+        "Harum",
+        "Bunga"
+      ],
+      "correctIndex": 3,
+      "explanation": "Rupiah termasuk jenis mata uang; mawar termasuk jenis bunga.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0047",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pembeli : Membeli = Penjual : ...",
+      "options": [
+        "Menawar",
+        "Menjual",
+        "Pasar",
+        "Dagangan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pembeli adalah pelaku kegiatan membeli; penjual adalah pelaku kegiatan menjual.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0048",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Bank : Nasabah = Rumah sakit : ...",
+      "options": [
+        "Pasien",
+        "Dokter",
+        "Obat-obatan",
+        "Gedung"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nasabah adalah pihak yang dilayani bank; pasien adalah pihak yang dilayani rumah sakit. Dokter berperan sebagai pemberi layanan, bukan yang dilayani.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0050",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Radio : Suara = Televisi : ...",
+      "options": [
+        "Saluran",
+        "Antena",
+        "Gambar",
+        "Layar"
+      ],
+      "correctIndex": 2,
+      "explanation": "Radio menyiarkan suara, sedangkan televisi menyiarkan gambar (beserta suara). Layar dan antena adalah bagian perangkat, dan saluran adalah kanal siaran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0051",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Bicara : Diam = Berisik : ...",
+      "options": [
+        "Ramai",
+        "Gaduh",
+        "Tenang",
+        "Nyaring"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bicara berlawanan makna dengan diam (antonim). Lawan kata berisik adalah tenang. Gaduh, ramai, dan nyaring bersinonim atau berdekatan makna dengan berisik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0052",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kabar : Berita = Percakapan : ...",
+      "options": [
+        "Bisikan",
+        "Dialog",
+        "Monolog",
+        "Diskusi"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kabar dan berita bersinonim. Sinonim percakapan adalah dialog. Monolog adalah bicara sendiri sehingga berbeda makna, sedangkan bisikan dan diskusi bukan padanan tepatnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0053",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pena : Menulis = Kamera : ...",
+      "options": [
+        "Menggambar",
+        "Mencetak",
+        "Memotret",
+        "Menonton"
+      ],
+      "correctIndex": 2,
+      "explanation": "Pena adalah alat untuk menulis. Kamera adalah alat untuk memotret. Menonton, menggambar, dan mencetak bukan fungsi utama kamera.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0054",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Jelas : Samar = Lantang : ...",
+      "options": [
+        "Lirih",
+        "Keras",
+        "Tegas",
+        "Jernih"
+      ],
+      "correctIndex": 0,
+      "explanation": "Jelas berlawanan makna dengan samar (antonim). Lawan kata lantang (bersuara keras) adalah lirih. Keras dan tegas bersinonim dengan lantang, dan jernih tidak berlawanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0055",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Huruf : Kata = Kalimat : ...",
+      "options": [
+        "Paragraf",
+        "Tanda baca",
+        "Judul",
+        "Frasa"
+      ],
+      "correctIndex": 0,
+      "explanation": "Huruf membentuk kata (unsur-satuan yang lebih besar). Kalimat membentuk paragraf. Frasa lebih kecil dari kalimat sehingga relasinya terbalik, sedangkan tanda baca dan judul bukan satuan yang dibentuk kalimat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0056",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Kalkulator : Menghitung = Brankas : ...",
+      "options": [
+        "Mencuri",
+        "Menyimpan",
+        "Membuka",
+        "Mencetak"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kalkulator adalah alat yang fungsinya menghitung. Brankas adalah alat yang fungsinya menyimpan barang berharga atau dokumen penting.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0057",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Hujan : Basah = Api : ...",
+      "options": [
+        "Asap",
+        "Padam",
+        "Kayu",
+        "Panas"
+      ],
+      "correctIndex": 3,
+      "explanation": "Hujan menyebabkan keadaan basah, sedangkan api menyebabkan keadaan panas (relasi sebab-sifat yang ditimbulkan). Asap adalah hasil sampingan, padam kebalikan keadaan api, dan kayu adalah bahan bakar, sehingga relasinya berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0058",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Koki : Hidangan = Tukang kayu : ...",
+      "options": [
+        "Gergaji",
+        "Perabot",
+        "Hutan",
+        "Paku"
+      ],
+      "correctIndex": 1,
+      "explanation": "Koki menghasilkan hidangan; tukang kayu menghasilkan perabot. Gergaji dan paku adalah alat dan bahan, sedangkan hutan adalah sumber bahan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0059",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Cangkul : Petani = Stetoskop : ...",
+      "options": [
+        "Dokter",
+        "Klinik",
+        "Pasien",
+        "Penyakit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cangkul adalah alat yang digunakan petani; stetoskop adalah alat yang digunakan dokter. Pasien diperiksa dengan stetoskop, tetapi bukan penggunanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0060",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kantin : Makan = Perpustakaan : ...",
+      "options": [
+        "Membaca",
+        "Buku",
+        "Pustakawan",
+        "Rak"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kantin adalah tempat untuk makan; perpustakaan adalah tempat untuk membaca. Buku, rak, dan pustakawan hanyalah benda atau orang di perpustakaan, bukan kegiatannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0061",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Lembur : Lelah = Begadang : ...",
+      "options": [
+        "Kopi",
+        "Mengantuk",
+        "Tidur",
+        "Malam"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lembur yang berlebihan menyebabkan lelah; begadang menyebabkan mengantuk. Tidur adalah lawan dari kegiatan begadang, bukan akibatnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0062",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Penambang : Batu bara = Nelayan : ...",
+      "options": [
+        "Ikan",
+        "Jaring",
+        "Perahu",
+        "Laut"
+      ],
+      "correctIndex": 0,
+      "explanation": "Penambang memperoleh batu bara dari pekerjaannya; nelayan memperoleh ikan. Jaring dan perahu adalah alat, sedangkan laut adalah tempat kerja.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0063",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Sapu : Petugas kebersihan = Kemudi : ...",
+      "options": [
+        "Sopir",
+        "Mobil",
+        "Jalan",
+        "Kecepatan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sapu digunakan oleh petugas kebersihan; kemudi digunakan oleh sopir. Mobil adalah benda yang dikemudikan, bukan penggunanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0064",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Bengkel : Memperbaiki = Dapur : ...",
+      "options": [
+        "Makanan",
+        "Memasak",
+        "Kompor",
+        "Koki"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bengkel adalah tempat memperbaiki kendaraan; dapur adalah tempat memasak. Koki, kompor, dan makanan bukan kegiatan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0065",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kelalaian : Kecelakaan = Ketekunan : ...",
+      "options": [
+        "Keberhasilan",
+        "Tugas",
+        "Kerja",
+        "Kemalasan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kelalaian dapat menyebabkan kecelakaan; ketekunan dapat menyebabkan keberhasilan. Kemalasan justru berlawanan dengan ketekunan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0066",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Pelukis : Lukisan = Penyanyi : ...",
+      "options": [
+        "Mikrofon",
+        "Penonton",
+        "Panggung",
+        "Lagu"
+      ],
+      "correctIndex": 3,
+      "explanation": "Pelukis menghasilkan lukisan; penyanyi menghasilkan lagu. Panggung adalah tempat, mikrofon adalah alat, dan penonton adalah penikmat hasil.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0067",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Jarum : Penjahit = Pahat : ...",
+      "options": [
+        "Palu",
+        "Pemahat",
+        "Batu",
+        "Patung"
+      ],
+      "correctIndex": 1,
+      "explanation": "Jarum adalah alat yang digunakan penjahit; pahat adalah alat yang digunakan pemahat. Patung adalah hasil kerja, dan batu adalah bahan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0069",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Lebah : madu = Ulat sutra : ...",
+      "options": [
+        "Kain",
+        "Murbei",
+        "Ngengat",
+        "Sutra"
+      ],
+      "correctIndex": 3,
+      "explanation": "Lebah menghasilkan madu, dan ulat sutra menghasilkan sutra. Murbei adalah makanannya, sedangkan kain dibuat manusia dari sutra.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0070",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Teleskop : astronom = Seismograf : ...",
+      "options": [
+        "Gempa",
+        "Lempeng",
+        "Seismolog",
+        "Kertas"
+      ],
+      "correctIndex": 2,
+      "explanation": "Teleskop digunakan oleh astronom, dan seismograf digunakan oleh seismolog. Gempa adalah objek yang dicatat, bukan penggunanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0071",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Gunung : mendaki = Pantai : ...",
+      "options": [
+        "Pesisir",
+        "Ombak",
+        "Pasir",
+        "Berselancar"
+      ],
+      "correctIndex": 3,
+      "explanation": "Gunung adalah tempat orang mendaki, dan pantai adalah tempat orang berselancar. Ombak, pasir, dan pesisir adalah unsur atau sebutan lain tempat itu, bukan kegiatannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0072",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kebakaran hutan : asap = Letusan gunung : ...",
+      "options": [
+        "Abu vulkanik",
+        "Lereng",
+        "Kawah",
+        "Magma"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kebakaran hutan menimbulkan asap, dan letusan gunung menimbulkan abu vulkanik. Magma adalah penyebab, sedangkan kawah dan lereng adalah bagian gunung.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0073",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Petani garam : garam = Penebang : ...",
+      "options": [
+        "Rimba",
+        "Hutan",
+        "Gergaji",
+        "Kayu"
+      ],
+      "correctIndex": 3,
+      "explanation": "Petani garam menghasilkan garam, dan penebang menghasilkan kayu. Hutan dan rimba adalah tempat kerja, sedangkan gergaji adalah alatnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0074",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Terik : dehidrasi = Dingin ekstrem : ...",
+      "options": [
+        "Salju",
+        "Jaket",
+        "Hipotermia",
+        "Selimut"
+      ],
+      "correctIndex": 2,
+      "explanation": "Terik yang berlebihan dapat menyebabkan dehidrasi, dan dingin ekstrem dapat menyebabkan hipotermia. Jaket dan selimut adalah perlindungan, sedangkan salju adalah gejala cuaca.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0075",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Perahu : pelaut = Parasut : ...",
+      "options": [
+        "Penerjun",
+        "Pesawat",
+        "Ketinggian",
+        "Angin"
+      ],
+      "correctIndex": 0,
+      "explanation": "Perahu digunakan oleh pelaut, dan parasut digunakan oleh penerjun. Pesawat adalah tempat penerjun berangkat, sedangkan angin dan ketinggian adalah kondisi lingkungan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0076",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kompas : navigator = Barometer : ...",
+      "options": [
+        "Meteorolog",
+        "Badai",
+        "Awan",
+        "Tekanan udara"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kompas digunakan oleh navigator, dan barometer digunakan oleh meteorolog. Tekanan udara adalah yang diukur, bukan penggunanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0077",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Observatorium : mengamati = Gua : ...",
+      "options": [
+        "Gelap",
+        "Kelelawar",
+        "Menjelajah",
+        "Stalaktit"
+      ],
+      "correctIndex": 2,
+      "explanation": "Observatorium adalah tempat mengamati bintang, dan gua adalah tempat menjelajah. Stalaktit, gelap, dan kelelawar adalah ciri atau isi gua, bukan kegiatan manusia di dalamnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0078",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Server : Data = Pabrik : ...",
+      "options": [
+        "Bahan baku",
+        "Karyawan",
+        "Produk",
+        "Mesin"
+      ],
+      "correctIndex": 2,
+      "explanation": "Server menyimpan dan menghasilkan data untuk diakses pengguna, sebagaimana pabrik menghasilkan produk. Mesin, karyawan, dan bahan baku adalah unsur masukan atau sarana pabrik, bukan hasilnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0079",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Programmer : Aplikasi = Arsitek : ...",
+      "options": [
+        "Kontraktor",
+        "Pensil",
+        "Gedung",
+        "Proyek"
+      ],
+      "correctIndex": 2,
+      "explanation": "Programmer membuat aplikasi sebagai hasil kerjanya; arsitek merancang gedung sebagai hasil kerjanya. Kontraktor adalah pelaksana, pensil adalah alat, dan proyek bukan hasil rancangan yang spesifik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0080",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Keyboard : Mengetik = Pisau : ...",
+      "options": [
+        "Daging",
+        "Tajam",
+        "Dapur",
+        "Memotong"
+      ],
+      "correctIndex": 3,
+      "explanation": "Keyboard adalah alat untuk mengetik, sedangkan pisau adalah alat untuk memotong. Tajam adalah sifat, dapur adalah tempat, dan daging adalah objek.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0081",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Virus : Kerusakan sistem = Api : ...",
+      "options": [
+        "Korek",
+        "Asap",
+        "Kebakaran",
+        "Pemadam"
+      ],
+      "correctIndex": 2,
+      "explanation": "Virus komputer menyebabkan kerusakan sistem; api menyebabkan kebakaran. Asap adalah akibat sampingan, pemadam adalah penanggulangnya, dan korek adalah alat penyulut.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0082",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Warnet : Berselancar = Bioskop : ...",
+      "options": [
+        "Karcis",
+        "Layar",
+        "Penonton",
+        "Menonton"
+      ],
+      "correctIndex": 3,
+      "explanation": "Warnet adalah tempat untuk berselancar di internet; bioskop adalah tempat untuk menonton film. Karcis dan layar adalah benda, sedangkan penonton adalah pelaku, bukan kegiatan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0084",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Baterai habis : Mati = Hujan lebat : ...",
+      "options": [
+        "Basah kuyup",
+        "Payung",
+        "Awan",
+        "Petir"
+      ],
+      "correctIndex": 0,
+      "explanation": "Baterai yang habis menyebabkan perangkat mati; hujan lebat menyebabkan basah kuyup. Payung adalah pelindung, awan adalah asal hujan, dan petir adalah gejala yang menyertai.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0085",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Printer : Mencetak = Kamera : ...",
+      "options": [
+        "Fotografer",
+        "Lensa",
+        "Foto",
+        "Memotret"
+      ],
+      "correctIndex": 3,
+      "explanation": "Printer berfungsi untuk mencetak; kamera berfungsi untuk memotret. Lensa adalah bagian, foto adalah hasil, dan fotografer adalah penggunanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0086",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Peretas : Pencurian data = Pencuri : ...",
+      "options": [
+        "Gembok",
+        "Penjara",
+        "Polisi",
+        "Perampokan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Peretas melakukan pencurian data sebagai perbuatannya; pencuri melakukan perampokan sebagai perbuatannya. Polisi, penjara, dan gembok berkaitan dengan penanganan atau pencegahan, bukan perbuatan pelaku.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0087",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Laboratorium : Percobaan = Studio : ...",
+      "options": [
+        "Musik",
+        "Kaset",
+        "Mikrofon",
+        "Rekaman"
+      ],
+      "correctIndex": 3,
+      "explanation": "Laboratorium adalah tempat melakukan percobaan; studio adalah tempat melakukan rekaman. Mikrofon dan kaset adalah benda, sedangkan musik adalah isi yang direkam, bukan kegiatan di tempat itu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0088",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Stetoskop : mendengarkan detak jantung = Termometer : ...",
+      "options": [
+        "suhu",
+        "demam",
+        "mengukur tekanan darah",
+        "mengukur suhu tubuh"
+      ],
+      "correctIndex": 3,
+      "explanation": "Stetoskop adalah alat untuk mendengarkan detak jantung; termometer adalah alat untuk mengukur suhu tubuh. Tensimeter (opsi C) memang alat, tetapi fungsinya bukan terkait termometer.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0090",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kolam renang : berenang = Lapangan : ...",
+      "options": [
+        "gawang",
+        "bermain bola",
+        "berkeringat",
+        "pemain"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kolam renang adalah tempat untuk berenang; lapangan adalah tempat untuk bermain bola. Pemain dan gawang bukan kegiatan, dan berkeringat adalah akibat, bukan kegiatan di tempat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0091",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kurang tidur : lelah = Merokok : ...",
+      "options": [
+        "tembakau",
+        "perokok",
+        "gangguan paru-paru",
+        "asbak"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kurang tidur menyebabkan lelah; merokok menyebabkan gangguan paru-paru. Perokok adalah pelaku, asbak alat, dan tembakau bahan, sehingga relasinya berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0092",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Perawat : merawat pasien = Pelatih : ...",
+      "options": [
+        "juara",
+        "melatih atlet",
+        "stadion",
+        "bertanding"
+      ],
+      "correctIndex": 1,
+      "explanation": "Perawat bertugas merawat pasien; pelatih bertugas melatih atlet. Bertanding dilakukan atlet, stadion adalah tempat, dan juara adalah hasil.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0093",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Raket : pemain bulu tangkis = Jarum suntik : ...",
+      "options": [
+        "tenaga kesehatan",
+        "botol",
+        "pasien",
+        "vaksin"
+      ],
+      "correctIndex": 0,
+      "explanation": "Raket digunakan oleh pemain bulu tangkis; jarum suntik digunakan oleh tenaga kesehatan. Pasien adalah sasaran, bukan pengguna alat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0094",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Olahraga teratur : bugar = Makan berlebihan : ...",
+      "options": [
+        "kenyang",
+        "dapur",
+        "obesitas",
+        "nasi"
+      ],
+      "correctIndex": 2,
+      "explanation": "Olahraga teratur menyebabkan tubuh bugar; makan berlebihan menyebabkan obesitas. Kenyang bersifat sementara dan bukan akibat negatif sepadan, sedangkan dapur dan nasi bukan akibat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0095",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Apotek : membeli obat = Rumah sakit : ...",
+      "options": [
+        "dokter",
+        "menjalani perawatan",
+        "ambulans",
+        "sakit"
+      ],
+      "correctIndex": 1,
+      "explanation": "Apotek adalah tempat membeli obat; rumah sakit adalah tempat menjalani perawatan. Dokter dan ambulans adalah orang/benda, bukan kegiatan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0096",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Apoteker : obat = Juru masak : ...",
+      "options": [
+        "wajan",
+        "hidangan",
+        "pelanggan",
+        "restoran"
+      ],
+      "correctIndex": 1,
+      "explanation": "Apoteker meracik dan menyediakan obat sebagai hasil kerjanya; juru masak menghasilkan hidangan. Wajan adalah alat, restoran tempat, pelanggan penerima.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0097",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Cedera : pincang = Dehidrasi berat : ...",
+      "options": [
+        "pingsan",
+        "haus",
+        "air",
+        "minum"
+      ],
+      "correctIndex": 0,
+      "explanation": "Cedera pada kaki dapat menyebabkan pincang; dehidrasi berat dapat menyebabkan pingsan. Minum dan air adalah penanganan, sedangkan haus adalah gejala awal, bukan akibat parah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0098",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Petani : padi = Nelayan : ...",
+      "options": [
+        "perahu",
+        "ikan",
+        "jaring",
+        "laut"
+      ],
+      "correctIndex": 1,
+      "explanation": "Petani menghasilkan padi lewat pekerjaannya, dan nelayan menghasilkan ikan. Jaring adalah alat, laut adalah tempat, dan perahu adalah sarana.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0100",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Cangkul : petani = Timbangan : ...",
+      "options": [
+        "barang",
+        "pedagang",
+        "pembeli",
+        "pasar"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cangkul adalah alat yang digunakan petani, dan timbangan adalah alat yang digunakan pedagang. Pasar adalah tempat, dan barang adalah objek yang ditimbang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0101",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Dapur : memasak = Garasi : ...",
+      "options": [
+        "menggoreng",
+        "memarkir",
+        "menjemur",
+        "menidurkan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dapur adalah tempat utama untuk memasak, dan garasi adalah tempat utama untuk memarkir kendaraan. Tiga opsi lain bukan kegiatan utama garasi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0102",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Lantai licin : terpeleset = Makanan basi : ...",
+      "options": [
+        "pembusukan",
+        "lemari es",
+        "kedaluwarsa",
+        "keracunan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Lantai licin menyebabkan orang terpeleset, dan makanan basi menyebabkan keracunan. Pembusukan dan kedaluwarsa adalah penyebab makanan menjadi basi, jadi relasinya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0103",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Atap bocor : lantai basah = Garam berlebihan : ...",
+      "options": [
+        "pahit",
+        "renyah",
+        "asin",
+        "hambar"
+      ],
+      "correctIndex": 2,
+      "explanation": "Atap bocor menyebabkan lantai basah, dan garam berlebihan menyebabkan rasa asin. Hambar adalah akibat kekurangan garam.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0104",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Peternak lebah : madu = Tukang batu : ...",
+      "options": [
+        "semen",
+        "mandor",
+        "dinding",
+        "palu"
+      ],
+      "correctIndex": 2,
+      "explanation": "Peternak lebah menghasilkan madu, dan tukang batu menghasilkan dinding. Semen adalah bahan, palu adalah alat, dan mandor adalah pengawas.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0105",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Lemari es : mengawetkan = Genteng : ...",
+      "options": [
+        "menopang atap",
+        "melindungi dari hujan",
+        "mengalirkan air",
+        "menerangi ruangan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fungsi lemari es adalah mengawetkan makanan, dan fungsi genteng adalah melindungi rumah dari hujan. Menopang atap adalah fungsi kuda-kuda, dan mengalirkan air adalah fungsi talang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0106",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Kunci : pintu = Tutup : ...",
+      "options": [
+        "rak",
+        "kue",
+        "meja",
+        "toples"
+      ],
+      "correctIndex": 3,
+      "explanation": "Kunci berfungsi mengamankan pintu, dan tutup berfungsi menutup toples. Kue adalah isi toples, bukan benda yang ditutup. Rak dan meja tidak memiliki tutup.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0107",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Pasar : berbelanja = Sumur : ...",
+      "options": [
+        "menjemur padi",
+        "menimba air",
+        "menggoreng ikan",
+        "mencuci piring"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pasar adalah tempat untuk berbelanja, dan sumur adalah tempat untuk menimba air. Mencuci piring memakai air, tetapi bukan kegiatan utama di sumur.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0108",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Printer : mencetak dokumen = Pemindai : ...",
+      "options": [
+        "memotong dokumen",
+        "menghapus dokumen",
+        "mengirim dokumen lewat pos",
+        "mengubah dokumen menjadi berkas digital"
+      ],
+      "correctIndex": 3,
+      "explanation": "Printer adalah alat yang fungsinya mencetak dokumen. Pemindai (scanner) adalah alat yang fungsinya mengubah dokumen fisik menjadi berkas digital.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0109",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Programmer : aplikasi = Perancang grafis : ...",
+      "options": [
+        "desain",
+        "komputer",
+        "tablet gambar",
+        "kantor"
+      ],
+      "correctIndex": 0,
+      "explanation": "Programmer menghasilkan aplikasi sebagai hasil kerjanya. Perancang grafis menghasilkan desain sebagai hasil kerjanya. Komputer dan tablet gambar adalah alat, sedangkan kantor adalah tempat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0110",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Baterai habis : ponsel mati = Sinyal hilang : ...",
+      "options": [
+        "panggilan terputus",
+        "pulsa",
+        "kartu SIM",
+        "menara pemancar"
+      ],
+      "correctIndex": 0,
+      "explanation": "Baterai habis menyebabkan ponsel mati. Sinyal hilang menyebabkan panggilan terputus. Pilihan lain adalah benda atau komponen, bukan akibat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0112",
+      "type": "VRB-ANA",
+      "difficulty": "medium",
+      "stem": "Pusat data : menyimpan server = Studio : ...",
+      "options": [
+        "merekam suara",
+        "mikrofon",
+        "penyanyi",
+        "tiket"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pusat data adalah tempat kegiatan menyimpan server. Studio rekaman adalah tempat kegiatan merekam suara. Penyanyi adalah pelaku dan mikrofon adalah alat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0115",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Gerimis : Hujan lebat = Angin sepoi-sepoi : ...",
+      "options": [
+        "Angin musim",
+        "Angin puting beliung",
+        "Semilir",
+        "Angin laut"
+      ],
+      "correctIndex": 1,
+      "explanation": "Gerimis adalah bentuk hujan yang lemah, sedangkan hujan lebat adalah bentuk yang sangat kuat. Angin sepoi-sepoi adalah angin yang lemah, dan angin puting beliung adalah angin yang sangat kuat. Semilir sama lemahnya dengan sepoi-sepoi, sedangkan angin laut dan angin musim dibedakan menurut asal atau waktunya, bukan kekuatannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0116",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Pasir : Kaca = Tanah liat : ...",
+      "options": [
+        "Tungku",
+        "Lumpur",
+        "Gerabah",
+        "Galian"
+      ],
+      "correctIndex": 2,
+      "explanation": "Pasir (silika) dilebur menjadi kaca, dan tanah liat dibakar menjadi gerabah. Lumpur adalah tanah yang bercampur air, bukan produk olahan. Tungku adalah alat pembakar, dan galian adalah tempat bahan diambil.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0117",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Ulat : Kepompong = Kecebong : ...",
+      "options": [
+        "Kumbang",
+        "Katak",
+        "Rawa",
+        "Telur katak"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kepompong adalah tahap perkembangan sesudah ulat. Katak adalah tahap sesudah kecebong. Telur katak adalah tahap sebelum kecebong, jadi urutannya terbalik. Rawa adalah habitat dan kumbang adalah serangga, keduanya bukan tahap lanjutan kecebong.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0118",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Gejala alam : Pelangi = Bencana alam : ...",
+      "options": [
+        "Musim",
+        "Mendung",
+        "Tanah longsor",
+        "Hujan lebat"
+      ],
+      "correctIndex": 2,
+      "explanation": "Pelangi adalah salah satu contoh gejala alam, dan tanah longsor adalah salah satu contoh bencana alam. Hujan lebat dan mendung bisa menjadi penyebab atau pertanda bencana, tetapi keduanya bukan bencana itu sendiri. Musim adalah pembagian waktu, bukan bencana.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0119",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Sejuk : Dingin = Hangat : ...",
+      "options": [
+        "Kemarau",
+        "Lembap",
+        "Panas",
+        "Suam"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dingin adalah tingkat yang lebih kuat dari sejuk. Panas adalah tingkat yang lebih kuat dari hangat. Suam berada di bawah hangat, jadi arah tingkatannya terbalik. Kemarau adalah musim, dan lembap menyangkut kadar uap air, bukan suhu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0120",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Kemarau panjang : Kekeringan = Hujan deras berkepanjangan : ...",
+      "options": [
+        "Banjir",
+        "Musim hujan",
+        "Irigasi",
+        "Awan kumulonimbus"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kemarau panjang menyebabkan kekeringan, dan hujan deras berkepanjangan menyebabkan banjir. Awan kumulonimbus berperan sebagai penyebab hujan, bukan akibatnya, jadi relasinya terbalik. Musim hujan adalah waktu terjadinya, dan irigasi adalah upaya manusia mengatur air.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0121",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Kapas : Benang = Kepompong ulat sutra : ...",
+      "options": [
+        "Daun",
+        "Ngengat",
+        "Murbei",
+        "Sutra"
+      ],
+      "correctIndex": 3,
+      "explanation": "Kapas dipintal menjadi benang, dan kepompong ulat sutra diurai menjadi serat sutra. Murbei dan daun adalah makanan ulat, bukan hasil olahan kepompong. Ngengat adalah tahap dewasa serangga itu, bukan produk bahan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0122",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Bukit : Gunung = Kolam : ...",
+      "options": [
+        "Genangan",
+        "Muara",
+        "Hulu",
+        "Danau"
+      ],
+      "correctIndex": 3,
+      "explanation": "Gunung adalah bentuk lahan yang jauh lebih besar daripada bukit. Danau adalah perairan yang jauh lebih besar daripada kolam. Genangan lebih kecil daripada kolam, jadi tingkatannya terbalik. Muara dan hulu adalah bagian sungai, bukan perbandingan ukuran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0123",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Musim : Kemarau = Samudra : ...",
+      "options": [
+        "Laut Jawa",
+        "Pasifik",
+        "Selat Malaka",
+        "Teluk Benggala"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kemarau adalah salah satu contoh musim, dan Pasifik adalah salah satu contoh samudra. Selat Malaka adalah selat, Teluk Benggala adalah teluk, dan Laut Jawa adalah laut. Ketiganya bukan samudra.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0124",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Membeku : Es = Menguap : ...",
+      "options": [
+        "Air",
+        "Mendidih",
+        "Panas",
+        "Uap"
+      ],
+      "correctIndex": 3,
+      "explanation": "Proses membeku menghasilkan es, dan proses menguap menghasilkan uap. Air adalah bahan awal yang menguap, jadi relasinya terbalik. Mendidih dan panas adalah kondisi atau penyebab, bukan hasil dari menguap.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0125",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Lembap : basah = Redup : ...",
+      "options": [
+        "silau",
+        "terang",
+        "bercahaya",
+        "gelap"
+      ],
+      "correctIndex": 3,
+      "explanation": "Lembap (agak basah) meningkat intensitasnya menjadi basah, sama seperti redup (kurang terang) meningkat menjadi gelap. Terang, silau, dan bercahaya bergerak ke arah sebaliknya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0126",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Batu bata : tembok = Tepung : ...",
+      "options": [
+        "dapur",
+        "gandum",
+        "oven",
+        "roti"
+      ],
+      "correctIndex": 3,
+      "explanation": "Batu bata adalah bahan pembentuk tembok, sama seperti tepung adalah bahan pembentuk roti. Gandum adalah bahan tepung, sehingga relasinya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0127",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Mengadon : memanggang = Memasang pondasi : ...",
+      "options": [
+        "merobohkan bangunan",
+        "mendirikan dinding",
+        "menyewakan rumah",
+        "menggali tanah"
+      ],
+      "correctIndex": 1,
+      "explanation": "Memanggang adalah tahap setelah mengadon. Mendirikan dinding adalah tahap setelah memasang pondasi. Menggali tanah dilakukan sebelum pondasi, jadi urutannya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0128",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Rasa : manis = Tekstur : ...",
+      "options": [
+        "renyah",
+        "harum",
+        "gurih",
+        "pahit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Manis adalah contoh rasa. Renyah adalah contoh tekstur makanan. Gurih dan pahit adalah rasa, sedangkan harum adalah aroma.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0129",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Karbohidrat : nasi = Protein : ...",
+      "options": [
+        "tempe",
+        "minyak",
+        "gula",
+        "garam"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nasi adalah sumber karbohidrat, sama seperti tempe adalah sumber protein. Gula adalah karbohidrat, minyak adalah lemak, dan garam adalah mineral.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0130",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Gubuk : vila = Warung : ...",
+      "options": [
+        "gerobak",
+        "restoran",
+        "lapak",
+        "angkringan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Vila adalah bentuk hunian yang jauh lebih besar dan mewah daripada gubuk. Restoran adalah tempat makan yang lebih besar dan mewah daripada warung. Lapak, gerobak, dan angkringan sama sederhananya dengan warung.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0131",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Kedelai : tempe = Susu : ...",
+      "options": [
+        "keju",
+        "sapi",
+        "gelas",
+        "kandang"
+      ],
+      "correctIndex": 0,
+      "explanation": "Tempe dibuat dari kedelai, sama seperti keju dibuat dari susu. Sapi adalah penghasil susu, jadi relasinya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0132",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Segar : basi = Kokoh : ...",
+      "options": [
+        "bersih",
+        "lapuk",
+        "megah",
+        "kuat"
+      ],
+      "correctIndex": 1,
+      "explanation": "Makanan yang segar menjadi basi seiring waktu, sama seperti bangunan yang kokoh menjadi lapuk. Kuat hanya sinonim kokoh, sedangkan megah dan bersih tidak menunjukkan kemerosotan kondisi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0133",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Hunian : apartemen = Hidangan penutup : ...",
+      "options": [
+        "sup",
+        "restoran",
+        "puding",
+        "manis"
+      ],
+      "correctIndex": 2,
+      "explanation": "Apartemen adalah contoh hunian, sama seperti puding adalah contoh hidangan penutup. Sup adalah hidangan pembuka atau utama, restoran adalah tempat, dan manis adalah sifat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0134",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Mengupas : mengiris = Mengamplas : ...",
+      "options": [
+        "menebang",
+        "mengecat",
+        "menyewa",
+        "merobohkan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Mengiris dilakukan setelah mengupas. Mengecat dilakukan setelah mengamplas permukaan kayu atau dinding. Menebang adalah tahap yang mendahului mengamplas, jadi urutannya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0135",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Ramai : Padat = Macet : ...",
+      "options": [
+        "Berhenti sebentar",
+        "Lumpuh total",
+        "Lengang",
+        "Lancar"
+      ],
+      "correctIndex": 1,
+      "explanation": "Padat adalah tingkat yang lebih tinggi dari ramai; macet yang lebih tinggi intensitasnya adalah lumpuh total. Opsi lain bermakna lebih ringan atau berlawanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0136",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Aspal : Jalan raya = Baja : ...",
+      "options": [
+        "Gerbong",
+        "Lokomotif",
+        "Stasiun",
+        "Rel kereta"
+      ],
+      "correctIndex": 3,
+      "explanation": "Aspal adalah bahan utama pembuat jalan raya, sedangkan baja adalah bahan pembuat rel kereta. Opsi lain bukan produk utama dari baja dalam relasi bahan-produk yang sama.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0137",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Kendaraan : Bus = Prasarana : ...",
+      "options": [
+        "Transportasi",
+        "Jembatan",
+        "Bensin",
+        "Sopir"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bus adalah contoh kendaraan; jembatan adalah contoh prasarana. Transportasi adalah kategori yang lebih luas, bukan contoh.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0138",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Gang : Jalan raya = Anak sungai : ...",
+      "options": [
+        "Muara",
+        "Sungai besar",
+        "Tepian",
+        "Perahu"
+      ],
+      "correctIndex": 1,
+      "explanation": "Gang lebih kecil dan bermuara ke jalan raya yang lebih besar; anak sungai lebih kecil dari sungai besar. Opsi lain bukan tingkatan ukuran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0139",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Berjalan : Berlari = Melaju : ...",
+      "options": [
+        "Berhenti",
+        "Bergerak",
+        "Ngebut",
+        "Merayap"
+      ],
+      "correctIndex": 2,
+      "explanation": "Berlari adalah tingkat kecepatan yang lebih tinggi dari berjalan; ngebut lebih tinggi dari melaju. Merayap lebih lambat sehingga terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0140",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Lampu merah : Berhenti = Rambu larangan parkir : ...",
+      "options": [
+        "Boleh memarkir",
+        "Dilarang memarkir",
+        "Tempat parkir",
+        "Memarkir"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lampu merah menandakan perintah berhenti; rambu larangan parkir menandakan perintah dilarang memarkir. Opsi lain berlawanan atau hanya benda/tindakan netral.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0141",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Gerbong : Kereta api = Kabin : ...",
+      "options": [
+        "Bandara",
+        "Pilot",
+        "Landasan",
+        "Pesawat"
+      ],
+      "correctIndex": 3,
+      "explanation": "Gerbong adalah bagian dari kereta api; kabin adalah bagian dari pesawat. Pilot adalah pelaku, bukan wadah/bagian.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0142",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Tiket : Penumpang = Surat izin mengemudi : ...",
+      "options": [
+        "Pengemudi",
+        "Kendaraan",
+        "Polisi",
+        "Jalan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Tiket adalah bukti hak yang dimiliki penumpang; surat izin mengemudi adalah bukti hak yang dimiliki pengemudi. Polisi adalah pemeriksa, bukan pemegangnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0143",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Urbanisasi : Kemacetan = Pembangunan jalan tol : ...",
+      "options": [
+        "Kelancaran perjalanan",
+        "Kendaraan pribadi",
+        "Pembebasan lahan",
+        "Tarif tol"
+      ],
+      "correctIndex": 0,
+      "explanation": "Urbanisasi berakibat pada kemacetan; pembangunan jalan tol berakibat pada kelancaran perjalanan. Pembebasan lahan adalah tahap sebelumnya (sebab), bukan akibat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0144",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Cemas : Panik = Rugi : ...",
+      "options": [
+        "Bangkrut",
+        "Impas",
+        "Laba",
+        "Modal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Panik adalah tingkat yang lebih parah dari cemas, sebagaimana bangkrut adalah tingkat yang lebih parah dari rugi. Impas, laba, dan modal tidak menunjukkan tingkatan kerugian.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0145",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Karet : Ban = Pasir : ...",
+      "options": [
+        "Ombak",
+        "Pantai",
+        "Kerikil",
+        "Kaca"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ban dibuat dari bahan karet, sebagaimana kaca dibuat dari bahan pasir (silika). Pantai, ombak, dan kerikil bukan produk olahan pasir.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0146",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Aset : Tanah = Liabilitas : ...",
+      "options": [
+        "Modal",
+        "Saham",
+        "Piutang",
+        "Utang"
+      ],
+      "correctIndex": 3,
+      "explanation": "Tanah adalah contoh aset, sedangkan utang adalah contoh liabilitas. Piutang termasuk aset, sedangkan modal dan saham termasuk ekuitas, bukan liabilitas.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0148",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Menurun : Anjlok = Meningkat : ...",
+      "options": [
+        "Merosot",
+        "Melonjak",
+        "Menyusut",
+        "Stagnan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Anjlok adalah penurunan yang sangat tajam, sebagaimana melonjak adalah peningkatan yang sangat tajam. Merosot dan menyusut berkaitan dengan penurunan, sedangkan stagnan berarti tidak berubah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0149",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Resesi : Depresi = Inflasi : ...",
+      "options": [
+        "Deflasi",
+        "Stagflasi",
+        "Hiperinflasi",
+        "Devaluasi"
+      ],
+      "correctIndex": 2,
+      "explanation": "Depresi adalah resesi yang jauh lebih parah, sebagaimana hiperinflasi adalah inflasi yang jauh lebih parah. Deflasi adalah kebalikan inflasi, sedangkan stagflasi dan devaluasi memiliki makna yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0150",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Deposito : Bunga = Saham : ...",
+      "options": [
+        "Emiten",
+        "Obligasi",
+        "Dividen",
+        "Bursa"
+      ],
+      "correctIndex": 2,
+      "explanation": "Deposito menghasilkan bunga, sedangkan saham menghasilkan dividen. Emiten adalah penerbit saham dan bursa adalah tempat perdagangannya, bukan hasilnya; obligasi adalah instrumen lain.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0151",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Valuta : Rupiah = Logam mulia : ...",
+      "options": [
+        "Besi",
+        "Emas",
+        "Timah",
+        "Seng"
+      ],
+      "correctIndex": 1,
+      "explanation": "Rupiah adalah contoh valuta, sebagaimana emas adalah contoh logam mulia. Besi, timah, dan seng bukan logam mulia.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0152",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Kapas : Kain = Bijih besi : ...",
+      "options": [
+        "Tambang",
+        "Baja",
+        "Karat",
+        "Pabrik"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kain adalah produk olahan dari kapas, sebagaimana baja adalah produk olahan dari bijih besi. Tambang dan pabrik adalah tempat, sedangkan karat adalah hasil kerusakan, bukan produk olahan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0153",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Produsen : Penawaran = Konsumen : ...",
+      "options": [
+        "Pasokan",
+        "Distribusi",
+        "Permintaan",
+        "Pemasaran"
+      ],
+      "correctIndex": 2,
+      "explanation": "Produsen menciptakan sisi penawaran di pasar, sedangkan konsumen menciptakan sisi permintaan. Pasokan sama dengan penawaran sehingga merupakan relasi produsen, sedangkan distribusi dan pemasaran adalah kegiatan penyalur dan penjual.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0154",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Bising : Memekakkan = Terang : ...",
+      "options": [
+        "Menyilaukan",
+        "Lampu",
+        "Cahaya",
+        "Redup"
+      ],
+      "correctIndex": 0,
+      "explanation": "Memekakkan adalah tingkat paling ekstrem dari bising, sama seperti menyilaukan adalah tingkat paling ekstrem dari terang. Redup berlawanan arah, sedangkan lampu dan cahaya tidak menyatakan tingkatan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0155",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Silikon : Prosesor = Tembaga : ...",
+      "options": [
+        "Korosi",
+        "Kabel",
+        "Tambang",
+        "Konduktor"
+      ],
+      "correctIndex": 1,
+      "explanation": "Silikon adalah bahan pembuat prosesor, dan tembaga adalah bahan pembuat kabel. Tambang adalah asal bahan, konduktor adalah sifat atau kategorinya, dan korosi adalah kerusakannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0156",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Sistem operasi : Linux = Bahasa pemrograman : ...",
+      "options": [
+        "Pemrogram",
+        "Windows",
+        "Python",
+        "Kompilator"
+      ],
+      "correctIndex": 2,
+      "explanation": "Linux adalah contoh sistem operasi, dan Python adalah contoh bahasa pemrograman. Kompilator adalah alat penerjemah kode, pemrogram adalah pelakunya, dan Windows adalah contoh sistem operasi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0157",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Analisis : Perancangan = Pengodean : ...",
+      "options": [
+        "Pengumpulan",
+        "Kebutuhan",
+        "Pengujian",
+        "Peretasan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Dalam pengembangan perangkat lunak, perancangan mengikuti analisis, dan pengujian mengikuti pengodean. Kebutuhan dan pengumpulan adalah kegiatan tahap awal, jadi urutannya terbalik. Peretasan bukan tahap pengembangan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0158",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Retak : Hancur = Goyah : ...",
+      "options": [
+        "Menara",
+        "Roboh",
+        "Kokoh",
+        "Fondasi"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hancur adalah tingkat kerusakan yang lebih parah daripada retak, sama seperti roboh yang lebih parah daripada goyah. Kokoh adalah lawan kata, sedangkan fondasi dan menara hanya benda yang berkaitan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0159",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Plastik : Casing = Kaca : ...",
+      "options": [
+        "Transparan",
+        "Pecahan",
+        "Debu",
+        "Layar"
+      ],
+      "correctIndex": 3,
+      "explanation": "Casing perangkat dibuat dari plastik, dan layar perangkat dibuat dari kaca. Pecahan adalah hasil kaca yang rusak, transparan adalah sifatnya, dan debu tidak berelasi bahan-produk.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0160",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Perangkat masukan : Papan ketik = Perangkat keluaran : ...",
+      "options": [
+        "Tetikus",
+        "Pengeras suara",
+        "Mikrofon",
+        "Pemindai"
+      ],
+      "correctIndex": 1,
+      "explanation": "Papan ketik adalah contoh perangkat masukan, dan pengeras suara adalah contoh perangkat keluaran. Tetikus, pemindai, dan mikrofon semuanya perangkat masukan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0161",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Pemindaian : Pembersihan = Diagnosis : ...",
+      "options": [
+        "Perbaikan",
+        "Pemeriksaan",
+        "Gejala",
+        "Kerusakan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pembersihan dilakukan setelah pemindaian menemukan masalah, dan perbaikan dilakukan setelah diagnosis. Gejala muncul sebelum diagnosis, sehingga urutannya terbalik. Kerusakan adalah objek masalahnya, dan pemeriksaan hampir sepadan dengan diagnosis, bukan tahap lanjutannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0162",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Menyusut : Lenyap = Meredup : ...",
+      "options": [
+        "Lampu",
+        "Terang",
+        "Berkedip",
+        "Padam"
+      ],
+      "correctIndex": 3,
+      "explanation": "Lenyap adalah ujung proses menyusut, sama seperti padam adalah ujung proses meredup. Terang berlawanan arah, sedangkan lampu dan berkedip tidak menyatakan puncak proses.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0163",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Tinta : Cetakan = Kode : ...",
+      "options": [
+        "Pemrogram",
+        "Galat",
+        "Server",
+        "Aplikasi"
+      ],
+      "correctIndex": 3,
+      "explanation": "Tinta adalah bahan pembentuk cetakan, dan kode adalah bahan pembentuk aplikasi. Pemrogram adalah pembuat kode, galat adalah kesalahan dalam kode, dan server adalah tempat menjalankan kode.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0164",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Membaca : Menelaah = Melihat : ...",
+      "options": [
+        "Mengamati",
+        "Melirik",
+        "Tontonan",
+        "Kacamata"
+      ],
+      "correctIndex": 0,
+      "explanation": "Menelaah adalah membaca secara mendalam dan cermat. Dengan relasi yang sama, mengamati adalah melihat secara mendalam dan cermat. Melirik justru melihat sekilas, jadi tingkatannya terbalik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0165",
+      "type": "VRB-ANA",
+      "difficulty": "hard",
+      "stem": "Kayu : Kertas = Tebu : ...",
+      "options": [
+        "Manis",
+        "Petani",
+        "Gula",
+        "Kebun"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kayu diolah menjadi kertas, dan tebu diolah menjadi gula. Petani adalah pelaku dan kebun adalah tempat, sedangkan manis hanyalah sifat, bukan produk olahan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-ANA-0171",
+      "type": "VRB-ANA",
+      "difficulty": "easy",
+      "stem": "Pensil : Menulis = Penghapus : ...",
+      "options": [
+        "Kotak pensil",
+        "Karet",
+        "Salah",
+        "Menghapus"
+      ],
+      "correctIndex": 3,
+      "explanation": "Pensil adalah alat yang fungsinya untuk menulis; penghapus adalah alat yang fungsinya untuk menghapus.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0001",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"berita\" adalah ...",
+      "options": [
+        "iklan",
+        "judul",
+        "opini",
+        "kabar"
+      ],
+      "correctIndex": 3,
+      "explanation": "Berita bermakna kabar, yaitu laporan tentang kejadian atau peristiwa. Opini, iklan, dan judul adalah hal berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0002",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"bercakap\" adalah ...",
+      "options": [
+        "berbisik",
+        "berteriak",
+        "berbicara",
+        "membaca"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bercakap berarti berbicara atau bercakap-cakap. Berbisik dan berteriak hanya cara berbicara tertentu, bukan padanan umum.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0003",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"pesan\" adalah ...",
+      "options": [
+        "sandi",
+        "amanat",
+        "surat kabar",
+        "sinyal"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pesan bermakna amanat, yaitu hal yang disampaikan kepada orang lain. Pengecoh lain berkaitan dengan komunikasi tetapi maknanya berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0004",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"balas\" adalah ...",
+      "options": [
+        "teruskan",
+        "tanya",
+        "kirim",
+        "jawab"
+      ],
+      "correctIndex": 3,
+      "explanation": "Membalas pesan sama dengan menjawab pesan. Mengirim, bertanya, dan meneruskan adalah tindakan berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0005",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"siaran\" adalah ...",
+      "options": [
+        "rekaman",
+        "tayangan",
+        "naskah",
+        "tontonan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Siaran bermakna tayangan atau acara yang dipancarkan lewat radio/televisi. Rekaman dan naskah bukan makna yang sama, sedangkan tontonan lebih menekankan hal yang ditonton.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0006",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"wartawan\" adalah ...",
+      "options": [
+        "jurnalis",
+        "penyiar",
+        "penulis novel",
+        "redaktur"
+      ],
+      "correctIndex": 0,
+      "explanation": "Wartawan dan jurnalis bermakna sama, yaitu pencari dan penulis berita. Penyiar membacakan berita, redaktur menyunting naskah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0007",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"sebar\" adalah ...",
+      "options": [
+        "salin",
+        "sebarluaskan",
+        "hapus",
+        "simpan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Menyebar bermakna menyebarluaskan agar sampai ke banyak orang. Menyimpan, menghapus, dan menyalin berbeda makna.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0009",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"jelas\" adalah ...",
+      "options": [
+        "terang",
+        "singkat",
+        "keras",
+        "lambat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Jelas bermakna terang, yaitu mudah dipahami dan tidak meragukan. Singkat, keras, dan lambat menyangkut hal lain.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0010",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"umum\" adalah ...",
+      "options": [
+        "pribadi",
+        "rahasia",
+        "khusus",
+        "lazim"
+      ],
+      "correctIndex": 3,
+      "explanation": "Umum bermakna lazim, yaitu berlaku atau diketahui secara luas. Rahasia, pribadi, dan khusus berlawanan atau tidak sepadan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0011",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"cepat\" adalah ...",
+      "options": [
+        "Lambat",
+        "Lekas",
+        "Santai",
+        "Tertib"
+      ],
+      "correctIndex": 1,
+      "explanation": "\"Cepat\" bersinonim dengan \"lekas\", yaitu tidak memakan banyak waktu. \"Lambat\" adalah antonimnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0012",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"besar\" adalah ...",
+      "options": [
+        "Luas",
+        "Panjang",
+        "Sempit",
+        "Raya"
+      ],
+      "correctIndex": 3,
+      "explanation": "\"Besar\" bersinonim dengan \"raya\", misalnya pada \"jalan raya\" yang berarti jalan besar. \"Luas\" dan \"panjang\" menyangkut ukuran lain, bukan padanan tepat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0013",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"mulai\" adalah ...",
+      "options": [
+        "Lanjut",
+        "Selesai",
+        "Berangkat",
+        "Awali"
+      ],
+      "correctIndex": 3,
+      "explanation": "\"Mulai\" bermakna sama dengan \"awali\", yaitu memulai sesuatu. \"Selesai\" adalah antonimnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0015",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"macet\" adalah ...",
+      "options": [
+        "Padat",
+        "Sesak",
+        "Ramai",
+        "Tersendat"
+      ],
+      "correctIndex": 3,
+      "explanation": "\"Macet\" berarti tidak lancar atau terhenti-henti, sama dengan \"tersendat\". Padat, ramai, dan sesak menggambarkan jumlah, bukan terhambatnya gerak.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0016",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"kendaraan\" adalah ...",
+      "options": [
+        "Wahana",
+        "Bensin",
+        "Bengkel",
+        "Pengemudi"
+      ],
+      "correctIndex": 0,
+      "explanation": "\"Kendaraan\" bersinonim dengan \"wahana\", yaitu alat untuk membawa orang atau barang. Pengemudi, bensin, dan bengkel berkaitan dengan kendaraan, tetapi bukan padanannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0017",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"tiba\" adalah ...",
+      "options": [
+        "Pergi",
+        "Sampai",
+        "Singgah",
+        "Pulang"
+      ],
+      "correctIndex": 1,
+      "explanation": "\"Tiba\" berarti sampai di tempat tujuan. \"Singgah\" hanya berhenti sebentar, sedangkan \"pergi\" berlawanan makna.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0018",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"berangkat\" adalah ...",
+      "options": [
+        "Tiba",
+        "Menunggu",
+        "Berhenti",
+        "Bertolak"
+      ],
+      "correctIndex": 3,
+      "explanation": "\"Berangkat\" berarti mulai pergi, sama dengan \"bertolak\". \"Tiba\" adalah antonimnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0021",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"rajin\" adalah ...",
+      "options": [
+        "malas",
+        "tekun",
+        "patuh",
+        "giat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Rajin berarti suka bekerja atau belajar dengan sungguh-sungguh; lawannya malas, yaitu enggan bekerja atau belajar. Tekun dan giat bersinonim dengan rajin, sedangkan patuh tidak berkaitan langsung.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0022",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"pintar\" adalah ...",
+      "options": [
+        "pendiam",
+        "sopan",
+        "bodoh",
+        "cerdas"
+      ],
+      "correctIndex": 2,
+      "explanation": "Pintar berarti pandai atau cerdas; lawannya bodoh, yaitu kurang akal atau tidak pandai. Cerdas adalah sinonim, bukan lawan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0023",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"masuk\" adalah ...",
+      "options": [
+        "datang",
+        "pulang",
+        "keluar",
+        "duduk"
+      ],
+      "correctIndex": 2,
+      "explanation": "Masuk berarti berpindah dari luar ke dalam; lawannya keluar, yaitu berpindah dari dalam ke luar. Pulang dan datang menyangkut arah menuju atau dari rumah, bukan lawan langsung.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0024",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"bertanya\" adalah ...",
+      "options": [
+        "menjawab",
+        "menulis",
+        "mencatat",
+        "membaca"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bertanya berarti meminta jawaban atau keterangan; lawannya menjawab, yaitu memberikan keterangan atas pertanyaan. Mencatat, membaca, dan menulis adalah kegiatan belajar lain yang bukan lawan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0025",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"mudah\" adalah ...",
+      "options": [
+        "singkat",
+        "ringan",
+        "sukar",
+        "biasa"
+      ],
+      "correctIndex": 2,
+      "explanation": "Mudah berarti tidak memerlukan banyak tenaga atau pikiran; lawannya sukar atau sulit. Ringan mirip maknanya dengan mudah, bukan lawan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0026",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"lulus\" adalah ...",
+      "options": [
+        "gagal",
+        "tamat",
+        "naik",
+        "ujian"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lulus berarti berhasil dalam ujian; lawannya gagal atau tidak lulus. Tamat dan naik bermakna berhasil menyelesaikan atau meningkat, sedangkan ujian adalah kegiatannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0027",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"ingat\" adalah ...",
+      "options": [
+        "pikir",
+        "paham",
+        "lupa",
+        "hafal"
+      ],
+      "correctIndex": 2,
+      "explanation": "Ingat berarti tetap ada dalam pikiran; lawannya lupa, yaitu hilang dari ingatan. Hafal dan paham berkaitan dengan ingat, bukan lawannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0029",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"hadir\" adalah ...",
+      "options": [
+        "absen",
+        "telat",
+        "duduk",
+        "pindah"
+      ],
+      "correctIndex": 0,
+      "explanation": "Hadir berarti ada di suatu tempat atau pertemuan; lawannya absen, yaitu tidak hadir. Telat tetap hadir meski terlambat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0030",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"rapi\" adalah ...",
+      "options": [
+        "bersih",
+        "baru",
+        "berantakan",
+        "indah"
+      ],
+      "correctIndex": 2,
+      "explanation": "Rapi berarti teratur dan tertata baik; lawannya berantakan, yaitu tidak teratur. Bersih, indah, dan baru bukan lawan langsung dari rapi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0031",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"sehat\" adalah ...",
+      "options": [
+        "pucat",
+        "bugar",
+        "sakit",
+        "lemas"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sehat berarti dalam keadaan baik badan dan jiwanya; bugar bersinonim dengan sehat. Lemas, sakit, dan pucat menggambarkan kondisi tubuh yang tidak baik.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0032",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"obat\" adalah ...",
+      "options": [
+        "penawar",
+        "dokter",
+        "racun",
+        "rumah sakit"
+      ],
+      "correctIndex": 0,
+      "explanation": "Obat adalah bahan untuk mencegah, meredakan, atau menyembuhkan penyakit; penawar bermakna dekat. Racun justru berbahaya, sedangkan dokter dan rumah sakit adalah orang dan tempat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0033",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"lelah\" adalah ...",
+      "options": [
+        "penat",
+        "mengantuk",
+        "malas",
+        "lapar"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lelah berarti capai atau tidak bertenaga setelah bekerja; penat bersinonim dengannya. Mengantuk, lapar, dan malas adalah keadaan yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0034",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"latihan\" adalah ...",
+      "options": [
+        "pertandingan",
+        "tontonan",
+        "istirahat",
+        "praktik"
+      ],
+      "correctIndex": 3,
+      "explanation": "Latihan berarti pekerjaan melatih diri untuk memperoleh kemahiran; praktik bersinonim dengannya. Pertandingan adalah adu kemampuan, bukan latihan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0035",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"kuat\" adalah ...",
+      "options": [
+        "tinggi",
+        "kokoh",
+        "kurus",
+        "gesit"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kuat berarti mempunyai tenaga atau daya tahan besar; kokoh bermakna sepadan. Kurus, tinggi, dan gesit menyatakan sifat yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0037",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"pelatih\" adalah ...",
+      "options": [
+        "instruktur",
+        "atlet",
+        "wasit",
+        "penonton"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pelatih adalah orang yang melatih; instruktur bersinonim dengannya. Atlet berlatih, penonton menyaksikan, dan wasit memimpin pertandingan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0038",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"gizi\" adalah ...",
+      "options": [
+        "diet",
+        "kalori",
+        "nutrisi",
+        "porsi"
+      ],
+      "correctIndex": 2,
+      "explanation": "Gizi adalah zat makanan yang berguna bagi tubuh; nutrisi bersinonim dengannya. Porsi, diet, dan kalori terkait tetapi bukan padanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0039",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"bertanding\" adalah ...",
+      "options": [
+        "berlomba",
+        "bersantai",
+        "menonton",
+        "berlatih"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bertanding berarti beradu kekuatan atau kepandaian dalam perlombaan; berlomba bersinonim. Berlatih adalah persiapan, bukan adu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0040",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"demam\" adalah ...",
+      "options": [
+        "meriang",
+        "pilek",
+        "pusing",
+        "batuk"
+      ],
+      "correctIndex": 0,
+      "explanation": "Demam berarti suhu badan lebih tinggi dari normal; meriang menggambarkan keadaan itu. Batuk, pilek, dan pusing adalah gejala lain.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0041",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"sedih\" adalah ...",
+      "options": [
+        "Kesal",
+        "Pilu",
+        "Kecewa",
+        "Marah"
+      ],
+      "correctIndex": 1,
+      "explanation": "Sedih bermakna susah hati atau pilu. Marah, kesal, dan kecewa adalah perasaan lain yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0042",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"gembira\" adalah ...",
+      "options": [
+        "Tenang",
+        "Bangga",
+        "Lega",
+        "Senang"
+      ],
+      "correctIndex": 3,
+      "explanation": "Gembira bermakna senang atau suka hati. Tenang, bangga, dan lega adalah perasaan yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0044",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"marah\" adalah ...",
+      "options": [
+        "Sedih",
+        "Gusar",
+        "Bosan",
+        "Heran"
+      ],
+      "correctIndex": 1,
+      "explanation": "Marah bermakna gusar atau berang. Sedih, heran, dan bosan bukan padanannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0047",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"jujur\" adalah ...",
+      "options": [
+        "Ramah",
+        "Setia",
+        "Lurus hati",
+        "Sopan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Jujur bermakna lurus hati, tidak berbohong, dan tidak curang. Setia, ramah, dan sopan adalah sikap lain.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0049",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"cemas\" adalah ...",
+      "options": [
+        "Kaget",
+        "Khawatir",
+        "Kesal",
+        "Bingung"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cemas bermakna khawatir atau gelisah. Kesal, bingung, dan kaget adalah keadaan perasaan yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0050",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"bosan\" adalah ...",
+      "options": [
+        "Sedih",
+        "Letih",
+        "Marah",
+        "Jemu"
+      ],
+      "correctIndex": 3,
+      "explanation": "Bosan bermakna jemu, yaitu tidak suka lagi karena terlalu sering atau lama. Marah, letih, dan sedih berbeda maknanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0051",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"kabar\" adalah ...",
+      "options": [
+        "sandi",
+        "iklan",
+        "warta",
+        "judul"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kabar bermakna berita atau warta. Sandi, iklan, dan judul berkaitan dengan media tetapi tidak semakna dengan kabar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0052",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"bicara\" adalah ...",
+      "options": [
+        "tutur",
+        "dengar",
+        "bisik",
+        "diam"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bicara bersinonim dengan tutur, yaitu mengucapkan kata-kata. Bisik hanya cara berbicara pelan, sedangkan diam adalah lawan kata dan dengar bukan padanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0053",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"gambar\" adalah ...",
+      "options": [
+        "foto",
+        "tulisan",
+        "naskah",
+        "suara"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gambar dalam media dapat dipadankan dengan foto, yaitu tampilan visual. Suara, naskah, dan tulisan bukan bentuk visual berupa gambar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0054",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"baca\" adalah ...",
+      "options": [
+        "telaah",
+        "salin",
+        "cetak",
+        "lipat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Baca bersinonim dengan telaah dalam arti memahami isi tulisan. Salin, cetak, dan lipat berkaitan dengan kertas atau teks tetapi tidak bermakna membaca.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0055",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"kirim\" adalah ...",
+      "options": [
+        "terima",
+        "antar",
+        "kumpul",
+        "simpan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kirim bermakna menyampaikan sesuatu ke pihak lain, sepadan dengan antar. Terima adalah lawan kata, sedangkan simpan dan kumpul tidak sepadan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0056",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"bohong\" adalah ...",
+      "options": [
+        "rahasia",
+        "dusta",
+        "lupa",
+        "salah"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bohong sama artinya dengan dusta, yaitu tidak sesuai dengan kenyataan secara sengaja. Salah bisa tanpa sengaja, lupa dan rahasia berbeda makna.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0057",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Padanan kata \"suara\" adalah ...",
+      "options": [
+        "bunyi",
+        "nada",
+        "kata",
+        "bisik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Suara bersinonim dengan bunyi, yaitu sesuatu yang terdengar. Nada, kata, dan bisik hanya bagian atau jenis tertentu dari suara.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0058",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"HEMAT\" adalah ...",
+      "options": [
+        "boros",
+        "ekonomis",
+        "irit",
+        "cermat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Hemat berarti berhati-hati dalam membelanjakan uang; lawannya boros, yaitu berlebihan dalam pemakaian. Irit dan ekonomis bersinonim dengan hemat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0059",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PROMOSI\" (kenaikan jabatan) adalah ...",
+      "options": [
+        "demosi",
+        "pensiun",
+        "rotasi",
+        "mutasi"
+      ],
+      "correctIndex": 0,
+      "explanation": "Promosi adalah kenaikan jabatan, sedangkan demosi adalah penurunan jabatan. Mutasi dan rotasi hanya perpindahan tugas tanpa arah naik atau turun.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0060",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"ATASAN\" adalah ...",
+      "options": [
+        "bawahan",
+        "mitra",
+        "kolega",
+        "rekan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Atasan adalah orang yang kedudukannya lebih tinggi; lawannya bawahan. Rekan, kolega, dan mitra berkedudukan setara.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0061",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"AKTIF\" adalah ...",
+      "options": [
+        "pasif",
+        "sibuk",
+        "produktif",
+        "giat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Aktif berarti giat bekerja atau berusaha; lawannya pasif, yaitu tidak giat atau hanya menerima. Giat dan sibuk bersinonim dengan aktif.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0062",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"MENYETUJUI\" adalah ...",
+      "options": [
+        "menolak",
+        "membenarkan",
+        "mengesahkan",
+        "menyepakati"
+      ],
+      "correctIndex": 0,
+      "explanation": "Menyetujui berarti menyatakan sepaham atau membolehkan; lawannya menolak. Pilihan lain bermakna sama atau mirip dengan menyetujui.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0063",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"RUGI\" adalah ...",
+      "options": [
+        "modal",
+        "upah",
+        "pajak",
+        "laba"
+      ],
+      "correctIndex": 3,
+      "explanation": "Rugi berarti kehilangan atau kekurangan hasil dalam usaha; lawannya laba, yaitu keuntungan. Modal, pajak, dan upah bukan lawan rugi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0064",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PERMANEN\" adalah ...",
+      "options": [
+        "berkala",
+        "tetap",
+        "sementara",
+        "tahunan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Permanen berarti tetap atau tidak berubah dalam waktu lama; lawannya sementara. Tetap bersinonim dengan permanen, sedangkan tahunan dan berkala menyangkut keteraturan waktu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0065",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PENJUAL\" adalah ...",
+      "options": [
+        "agen",
+        "pembeli",
+        "pemasok",
+        "distributor"
+      ],
+      "correctIndex": 1,
+      "explanation": "Penjual adalah orang yang menjual barang; lawannya pembeli, orang yang membeli. Pemasok, agen, dan distributor berada di sisi penjual.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0066",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"AMATIR\" adalah ...",
+      "options": [
+        "pekerja lepas",
+        "magang",
+        "profesional",
+        "relawan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Amatir berarti melakukan sesuatu karena kesenangan, bukan sebagai pekerjaan utama; lawannya profesional. Relawan dan magang tidak berlawanan makna dengan amatir.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0067",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"SENIOR\" adalah ...",
+      "options": [
+        "direktur",
+        "junior",
+        "veteran",
+        "kolega"
+      ],
+      "correctIndex": 1,
+      "explanation": "Senior berarti lebih tinggi tingkat atau lebih lama pengalamannya; lawannya junior. Direktur dan veteran justru dekat dengan makna senior.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0068",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"OPTIMIS\" adalah ...",
+      "options": [
+        "Realistis",
+        "Skeptis",
+        "Pesimis",
+        "Apatis"
+      ],
+      "correctIndex": 2,
+      "explanation": "Optimis berarti selalu berpengharapan baik; lawannya pesimis, yaitu mudah putus asa dan kurang berharap. Skeptis, realistis, dan apatis bukan lawan yang tepat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0069",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"SABAR\" adalah ...",
+      "options": [
+        "Pasrah",
+        "Tekun",
+        "Gegabah",
+        "Hemat"
+      ],
+      "correctIndex": 2,
+      "explanation": "Sabar berarti tenang dan tidak terburu-buru; lawannya gegabah, yaitu bertindak tergesa-gesa tanpa pertimbangan. Tekun dan pasrah bukan lawan sabar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0070",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"RENDAH HATI\" adalah ...",
+      "options": [
+        "Pendiam",
+        "Santun",
+        "Dermawan",
+        "Sombong"
+      ],
+      "correctIndex": 3,
+      "explanation": "Rendah hati berarti tidak sombong; lawannya sombong atau angkuh, yaitu menghargai diri secara berlebihan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0071",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PEDULI\" adalah ...",
+      "options": [
+        "Acuh tak acuh",
+        "Waspada",
+        "Penasaran",
+        "Simpati"
+      ],
+      "correctIndex": 0,
+      "explanation": "Peduli berarti mengindahkan atau memperhatikan; lawannya acuh tak acuh, yaitu tidak mengindahkan. Simpati justru searah dengan peduli.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0072",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PERCAYA DIRI\" adalah ...",
+      "options": [
+        "Berani",
+        "Sombong",
+        "Mandiri",
+        "Rendah diri"
+      ],
+      "correctIndex": 3,
+      "explanation": "Percaya diri berarti yakin akan kemampuan sendiri; lawannya rendah diri, yaitu merasa kurang berharga atau tidak mampu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0073",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"TULUS\" adalah ...",
+      "options": [
+        "Lugu",
+        "Pura-pura",
+        "Sederhana",
+        "Diam"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tulus berarti sungguh dan bersih hati; lawannya pura-pura, yaitu tidak sungguh-sungguh dan hanya berlagak.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0074",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"ANTUSIAS\" adalah ...",
+      "options": [
+        "Ambisius",
+        "Gigih",
+        "Apatis",
+        "Tegas"
+      ],
+      "correctIndex": 2,
+      "explanation": "Antusias berarti penuh semangat atau minat; lawannya apatis, yaitu tidak menunjukkan minat atau gairah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0075",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"TEGAS\" adalah ...",
+      "options": [
+        "Keras",
+        "Cermat",
+        "Galak",
+        "Plin-plan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Tegas berarti jelas dan pasti dalam sikap; lawannya plin-plan, yaitu tidak tetap pendirian. Keras dan galak mirip makna, bukan lawan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0076",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"HORMAT\" adalah ...",
+      "options": [
+        "Kagum",
+        "Meremehkan",
+        "Patuh",
+        "Segan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Hormat berarti menghargai dengan takzim; lawannya meremehkan, yaitu menganggap rendah atau tidak penting. Segan, kagum, dan patuh searah dengan hormat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0077",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"DERMAWAN\" adalah ...",
+      "options": [
+        "Boros",
+        "Pelit",
+        "Sederhana",
+        "Miskin"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dermawan berarti suka memberi atau murah hati; lawannya pelit, yaitu kikir dan enggan memberi. Miskin menyangkut kekayaan, boros menyangkut pengeluaran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0078",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"INFLASI\" adalah ...",
+      "options": [
+        "deflasi",
+        "resesi",
+        "devaluasi",
+        "stagnasi"
+      ],
+      "correctIndex": 0,
+      "explanation": "Inflasi adalah kenaikan harga barang secara umum dan terus-menerus, sedangkan deflasi adalah penurunan harga secara umum.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0079",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"SURPLUS\" adalah ...",
+      "options": [
+        "likuiditas",
+        "laba",
+        "defisit",
+        "investasi"
+      ],
+      "correctIndex": 2,
+      "explanation": "Surplus berarti kelebihan atau sisa pendapatan, sedangkan defisit berarti kekurangan atau kelebihan pengeluaran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0080",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"DEBIT\" adalah ...",
+      "options": [
+        "saldo",
+        "tarif",
+        "bunga",
+        "kredit"
+      ],
+      "correctIndex": 3,
+      "explanation": "Dalam pembukuan, debit adalah catatan sisi kiri (penambahan aset), lawannya kredit pada sisi kanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0081",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"EKSPOR\" adalah ...",
+      "options": [
+        "produksi",
+        "distribusi",
+        "konsumsi",
+        "impor"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ekspor adalah pengiriman barang ke luar negeri, sedangkan impor adalah pemasukan barang dari luar negeri.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0082",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PENDAPATAN\" adalah ...",
+      "options": [
+        "modal",
+        "pengeluaran",
+        "keuntungan",
+        "penghasilan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pendapatan adalah uang yang masuk, sedangkan pengeluaran adalah uang yang keluar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0083",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PRODUSEN\" adalah ...",
+      "options": [
+        "konsumen",
+        "pedagang",
+        "pemasok",
+        "distributor"
+      ],
+      "correctIndex": 0,
+      "explanation": "Produsen adalah pihak yang menghasilkan barang atau jasa, sedangkan konsumen adalah pihak yang memakainya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0084",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"KREDITUR\" adalah ...",
+      "options": [
+        "penjamin",
+        "investor",
+        "bendahara",
+        "debitur"
+      ],
+      "correctIndex": 3,
+      "explanation": "Kreditur adalah pihak yang memberi pinjaman, sedangkan debitur adalah pihak yang menerima pinjaman atau berutang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0085",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"BOROS\" adalah ...",
+      "options": [
+        "irit",
+        "konsumtif",
+        "royal",
+        "dermawan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Boros berarti berlebihan dalam memakai uang atau barang, sedangkan irit berarti berhati-hati dan tidak berlebihan memakainya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0086",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"MONOPOLI\" adalah ...",
+      "options": [
+        "konglomerasi",
+        "persaingan bebas",
+        "kartel",
+        "oligarki"
+      ],
+      "correctIndex": 1,
+      "explanation": "Monopoli adalah penguasaan pasar oleh satu pihak, sedangkan persaingan bebas adalah keadaan banyak pihak bersaing di pasar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0089",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"IKHLAS\" adalah ...",
+      "options": [
+        "Pasrah",
+        "Murah hati",
+        "Rela",
+        "Pamrih"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ikhlas berarti bersih hati tanpa mengharapkan imbalan; lawannya pamrih, yaitu mengharapkan balasan. Rela dan murah hati sejalan dengan ikhlas.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0090",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"EMPATI\" adalah ...",
+      "options": [
+        "Iba",
+        "Perhatian",
+        "Simpati",
+        "Acuh tak acuh"
+      ],
+      "correctIndex": 3,
+      "explanation": "Empati adalah kemampuan merasakan perasaan orang lain; sikap yang berlawanan adalah acuh tak acuh. Simpati, iba, dan perhatian searah dengan empati.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0091",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"GIGIH\" adalah ...",
+      "options": [
+        "Tekun",
+        "Ulet",
+        "Pantang mundur",
+        "Mudah menyerah"
+      ],
+      "correctIndex": 3,
+      "explanation": "Gigih berarti tekun dan pantang menyerah; lawannya mudah menyerah. Tekun, ulet, dan pantang mundur bersinonim dengan gigih.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0093",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"TENANG\" adalah ...",
+      "options": [
+        "Diam",
+        "Santai",
+        "Gelisah",
+        "Hening"
+      ],
+      "correctIndex": 2,
+      "explanation": "Tenang berarti tidak gugup dan tidak terganggu; lawannya gelisah. Santai dan hening searah maknanya, diam hanya menyangkut tidak bergerak atau bersuara.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0094",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"AROGAN\" adalah ...",
+      "options": [
+        "Pendiam",
+        "Santun",
+        "Percaya diri",
+        "Tegas"
+      ],
+      "correctIndex": 1,
+      "explanation": "Arogan berarti sombong dan merasa lebih tinggi; lawannya santun, yaitu sopan dan halus sikapnya. Tegas, percaya diri, dan pendiam bukan lawan yang tepat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0096",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"BUGAR\" adalah ...",
+      "options": [
+        "gemuk",
+        "lesu",
+        "kurus",
+        "pendiam"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bugar berarti segar dan sehat badannya; lawannya lesu, yaitu tidak bersemangat dan lemah. Kurus, gemuk, dan pendiam tidak berkaitan dengan kebugaran.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0097",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"MENANG\" adalah ...",
+      "options": [
+        "kalah",
+        "menyerang",
+        "bertahan",
+        "seri"
+      ],
+      "correctIndex": 0,
+      "explanation": "Menang berarti mengungguli lawan; lawannya kalah. Seri berarti sama kuat, bukan lawan kata yang tepat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0098",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"MEMPERCEPAT\" adalah ...",
+      "options": [
+        "menghentikan",
+        "mengulang",
+        "menunda",
+        "memperlambat"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mempercepat berarti membuat lebih cepat; lawannya memperlambat, yaitu membuat lebih lambat. Menghentikan dan menunda bukan lawan yang tepat karena tidak sekadar mengubah kecepatan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0099",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"PULIH\" adalah ...",
+      "options": [
+        "memburuk",
+        "menetap",
+        "menyembuh",
+        "berobat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pulih berarti kembali baik seperti semula; lawannya memburuk, yaitu menjadi lebih buruk. Menyembuh sepadan dengan pulih, sedangkan berobat adalah upaya, bukan kebalikannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0100",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"MENGUNTUNGKAN\" adalah ...",
+      "options": [
+        "merugikan",
+        "menyulitkan",
+        "mengurangi",
+        "mengabaikan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Menguntungkan berarti mendatangkan manfaat atau laba; lawannya merugikan. Mengurangi, menyulitkan, dan mengabaikan tidak tepat berlawanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0101",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"RUTIN\" adalah ...",
+      "options": [
+        "teratur",
+        "berkala",
+        "insidental",
+        "konsisten"
+      ],
+      "correctIndex": 2,
+      "explanation": "Rutin berarti dilakukan secara tetap dan berulang; lawannya insidental, yaitu terjadi sewaktu-waktu. Teratur, berkala, dan konsisten justru searti dengan rutin.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0102",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"LINCAH\" adalah ...",
+      "options": [
+        "kaku",
+        "pelan",
+        "tinggi",
+        "kuat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Lincah berarti gesit dan luwes dalam bergerak; lawannya kaku, yaitu tidak luwes. Pelan hanya terkait kecepatan, bukan kelincahan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0103",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"MENURUNKAN\" adalah ...",
+      "options": [
+        "menjaga",
+        "menghitung",
+        "menahan",
+        "menaikkan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Menurunkan berarti membuat menjadi lebih rendah; lawannya menaikkan. Menahan dan menjaga hanya mempertahankan keadaan, bukan kebalikan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0104",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"KRONIS\" adalah ...",
+      "options": [
+        "akut",
+        "ringan",
+        "menular",
+        "sembuh"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kronis berarti berlangsung lama dan menahun; lawannya akut, yaitu timbul mendadak dan berlangsung singkat. Ringan menyatakan tingkat keparahan, bukan lamanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0105",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"paham\" adalah ...",
+      "options": [
+        "bingung",
+        "menghafal",
+        "menyimak",
+        "mengerti"
+      ],
+      "correctIndex": 0,
+      "explanation": "Paham berarti mengerti dengan benar; lawannya bingung, yaitu tidak mengerti atau tidak tahu harus berbuat apa. Mengerti adalah padanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0106",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"teliti\" adalah ...",
+      "options": [
+        "cermat",
+        "ceroboh",
+        "tegas",
+        "cepat"
+      ],
+      "correctIndex": 1,
+      "explanation": "Teliti berarti cermat dan seksama; lawannya ceroboh, yaitu kurang hati-hati. Cermat adalah padanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0107",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"mengajar\" adalah ...",
+      "options": [
+        "menguji",
+        "mendidik",
+        "membimbing",
+        "belajar"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mengajar adalah memberi pelajaran; pasangan berlawanan perannya adalah belajar, yaitu menerima pelajaran. Membimbing dan mendidik searti dengan mengajar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0108",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Lawan kata \"tertib\" adalah ...",
+      "options": [
+        "singkat",
+        "kacau",
+        "sopan",
+        "rapi"
+      ],
+      "correctIndex": 1,
+      "explanation": "Tertib berarti teratur dan menurut aturan; lawannya kacau, yaitu tidak teratur. Rapi adalah padanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0109",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Padanan kata \"LETIH\" adalah ...",
+      "options": [
+        "haus",
+        "lapar",
+        "mengantuk",
+        "lelah"
+      ],
+      "correctIndex": 3,
+      "explanation": "Letih berarti capek atau kehabisan tenaga, sama dengan lelah. Mengantuk, lapar, dan haus adalah keadaan tubuh lain yang tidak sama maknanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0110",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Padanan kata \"MUJARAB\" adalah ...",
+      "options": [
+        "murah",
+        "pahit",
+        "mahal",
+        "manjur"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mujarab berarti terbukti berhasil atau berkhasiat, terutama untuk obat. Padanannya manjur. Murah, pahit, dan mahal hanya menyebut harga atau rasa.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0111",
+      "type": "VRB-SYN",
+      "difficulty": "medium",
+      "stem": "Padanan kata \"NUTRISI\" adalah ...",
+      "options": [
+        "gizi",
+        "porsi",
+        "diet",
+        "selera"
+      ],
+      "correctIndex": 0,
+      "explanation": "Nutrisi dan gizi sama-sama berarti zat makanan yang dibutuhkan tubuh. Porsi adalah takaran, selera adalah kesukaan, dan diet adalah pengaturan makan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0115",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"nirlaba\" adalah ...",
+      "options": [
+        "mandiri",
+        "swasta",
+        "komersial",
+        "nonprofit"
+      ],
+      "correctIndex": 3,
+      "explanation": "Nirlaba berarti tidak bertujuan mencari laba, sepadan dengan nonprofit. Komersial justru berorientasi laba, sedangkan swasta dan mandiri tidak berkaitan dengan tujuan laba.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0116",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"redundan\" adalah ...",
+      "options": [
+        "singkat",
+        "berlebihan",
+        "esensial",
+        "efisien"
+      ],
+      "correctIndex": 1,
+      "explanation": "Redundan berarti berlebihan atau tidak perlu karena mengulang hal yang sudah ada. Esensial dan efisien bermakna sebaliknya atau berbeda, singkat tidak menunjuk pada pengulangan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0117",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"esensial\" adalah ...",
+      "options": [
+        "sekunder",
+        "tambahan",
+        "opsional",
+        "hakiki"
+      ],
+      "correctIndex": 3,
+      "explanation": "Esensial berarti sangat mendasar atau pokok, sepadan dengan hakiki. Tambahan, opsional, dan sekunder bermakna tidak pokok.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0118",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"kolaborasi\" adalah ...",
+      "options": [
+        "persaingan",
+        "pengawasan",
+        "pembagian",
+        "kerja sama"
+      ],
+      "correctIndex": 3,
+      "explanation": "Kolaborasi berarti kerja sama antara beberapa pihak untuk mencapai tujuan bersama. Persaingan adalah kebalikannya, pembagian dan pengawasan berbeda makna.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0119",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"mutasi\" dalam konteks kepegawaian adalah ...",
+      "options": [
+        "pengangkatan",
+        "kenaikan pangkat",
+        "pemindahan",
+        "pemecatan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Mutasi dalam kepegawaian berarti pemindahan tugas atau tempat kerja pegawai. Pemecatan, kenaikan pangkat, dan pengangkatan adalah tindakan kepegawaian yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0120",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"delegasi\" dalam konteks pembagian tugas adalah ...",
+      "options": [
+        "penggabungan jabatan",
+        "pelimpahan wewenang",
+        "penolakan tugas",
+        "pengawasan kerja"
+      ],
+      "correctIndex": 1,
+      "explanation": "Delegasi berarti penyerahan atau pelimpahan wewenang/tugas kepada orang lain. Pilihan lain tidak menggambarkan penyerahan wewenang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0121",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"transparan\" dalam konteks pelaporan kantor adalah ...",
+      "options": [
+        "rahasia",
+        "formal",
+        "terbuka",
+        "ringkas"
+      ],
+      "correctIndex": 2,
+      "explanation": "Transparan berarti jelas dan terbuka sehingga mudah diketahui. Rahasia berlawanan makna, ringkas dan formal tidak berkaitan dengan keterbukaan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0122",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"kompeten\" adalah ...",
+      "options": [
+        "senang",
+        "cakap",
+        "patuh",
+        "tekun"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kompeten berarti cakap atau berkemampuan dalam bidangnya. Tekun, patuh, dan senang menyatakan sifat atau perasaan, bukan kemampuan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0123",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"prioritas\" adalah ...",
+      "options": [
+        "hal yang ditunda",
+        "hal yang diutamakan",
+        "hal yang dihapus",
+        "hal yang diulang"
+      ],
+      "correctIndex": 1,
+      "explanation": "Prioritas berarti hal yang didahulukan atau diutamakan. Pilihan lain menyatakan tindakan yang berbeda terhadap suatu hal.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0124",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"akuntabel\" adalah ...",
+      "options": [
+        "dapat dipertanggungjawabkan",
+        "dapat dinegosiasikan",
+        "dapat diwariskan",
+        "dapat diperdebatkan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Akuntabel berarti dapat dipertanggungjawabkan. Pilihan lain menyatakan sifat yang tidak berkaitan dengan tanggung jawab.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0125",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"lugas\" adalah ...",
+      "options": [
+        "Berbelit-belit",
+        "Lugu",
+        "Sopan",
+        "Terus terang"
+      ],
+      "correctIndex": 3,
+      "explanation": "Lugas berarti langsung pada pokok dan tidak bertele-tele, sepadan dengan terus terang. Berbelit-belit justru lawannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0126",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"honorarium\" adalah ...",
+      "options": [
+        "Upah jasa",
+        "Denda",
+        "Tunjangan",
+        "Pesangon"
+      ],
+      "correctIndex": 0,
+      "explanation": "Honorarium adalah imbalan atas jasa yang diberikan, sepadan dengan upah jasa. Tunjangan dan pesangon memiliki makna berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0127",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"notulen\" adalah ...",
+      "options": [
+        "Risalah rapat",
+        "Agenda rapat",
+        "Undangan rapat",
+        "Peserta rapat"
+      ],
+      "correctIndex": 0,
+      "explanation": "Notulen adalah catatan hasil rapat, sepadan dengan risalah rapat. Agenda adalah daftar acara yang akan dibahas.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0128",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"mangkir\" adalah ...",
+      "options": [
+        "Cuti",
+        "Mengundurkan diri",
+        "Absen tanpa alasan",
+        "Terlambat"
+      ],
+      "correctIndex": 2,
+      "explanation": "Mangkir berarti tidak hadir tanpa keterangan yang sah. Cuti adalah ketidakhadiran yang sah dan diizinkan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0129",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"purnabakti\" adalah ...",
+      "options": [
+        "Dimutasi",
+        "Pensiun",
+        "Dipromosikan",
+        "Dipecat"
+      ],
+      "correctIndex": 1,
+      "explanation": "Purnabakti berarti selesai masa bakti atau pensiun. Dipecat berarti diberhentikan secara sepihak.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0130",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"inventaris\" adalah ...",
+      "options": [
+        "Surat kontrak",
+        "Anggaran belanja",
+        "Laporan keuangan",
+        "Daftar barang milik"
+      ],
+      "correctIndex": 3,
+      "explanation": "Inventaris berarti daftar atau catatan barang milik kantor. Anggaran dan laporan keuangan berkaitan dengan uang, bukan barang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0131",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"lembur\" adalah ...",
+      "options": [
+        "Bekerja paruh waktu",
+        "Bekerja di luar jam kerja",
+        "Bekerja sambil belajar",
+        "Bekerja pada malam hari saja"
+      ],
+      "correctIndex": 1,
+      "explanation": "Lembur adalah bekerja melebihi atau di luar jam kerja yang ditentukan. Paruh waktu berarti jam kerja memang singkat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0132",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"konsekuen\" adalah ...",
+      "options": [
+        "Cepat",
+        "Pasrah",
+        "Taat asas",
+        "Ragu"
+      ],
+      "correctIndex": 2,
+      "explanation": "Konsekuen berarti sesuai dengan perkataan atau perbuatan sebelumnya, yaitu taat asas. Ragu bertentangan dengan makna tersebut.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0133",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"sinkronisasi\" adalah ...",
+      "options": [
+        "Penyelarasan",
+        "Pengawasan",
+        "Penggantian",
+        "Pemisahan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sinkronisasi berarti penyesuaian agar serentak atau selaras, sepadan dengan penyelarasan. Pemisahan adalah kebalikannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0134",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"inklusif\" adalah ...",
+      "options": [
+        "progresif",
+        "eksklusif",
+        "afektif",
+        "kolektif"
+      ],
+      "correctIndex": 1,
+      "explanation": "Inklusif berarti terbuka dan mencakup semua pihak. Lawannya, eksklusif, berarti terbatas untuk kalangan tertentu saja.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0135",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"abstrak\" adalah ...",
+      "options": [
+        "lengkap",
+        "singkat",
+        "formal",
+        "konkret"
+      ],
+      "correctIndex": 3,
+      "explanation": "Abstrak berarti tidak berwujud atau hanya ada dalam pikiran. Lawannya, konkret, berarti nyata dan dapat dilihat atau diraba.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0136",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"kuantitatif\" adalah ...",
+      "options": [
+        "relatif",
+        "kumulatif",
+        "kualitatif",
+        "objektif"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kuantitatif berkaitan dengan jumlah atau angka. Lawannya, kualitatif, berkaitan dengan mutu atau sifat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0137",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"awam\" adalah ...",
+      "options": [
+        "pelajar",
+        "pengawas",
+        "pakar",
+        "panitia"
+      ],
+      "correctIndex": 2,
+      "explanation": "Awam berarti orang kebanyakan yang tidak memiliki keahlian khusus. Lawannya, pakar, berarti orang yang sangat ahli di bidangnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0138",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"superfisial\" adalah ...",
+      "options": [
+        "samar",
+        "singkat",
+        "mendalam",
+        "lancar"
+      ],
+      "correctIndex": 2,
+      "explanation": "Superfisial berarti hanya di permukaan atau tidak mendalam. Lawannya adalah mendalam.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0139",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"heterogen\" adalah ...",
+      "options": [
+        "harmonis",
+        "homogen",
+        "hibrida",
+        "heroik"
+      ],
+      "correctIndex": 1,
+      "explanation": "Heterogen berarti terdiri atas unsur yang beraneka ragam. Lawannya, homogen, berarti sejenis atau seragam.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0140",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"subjektif\" adalah ...",
+      "options": [
+        "informatif",
+        "objektif",
+        "reflektif",
+        "produktif"
+      ],
+      "correctIndex": 1,
+      "explanation": "Subjektif berarti berdasarkan pandangan pribadi. Lawannya, objektif, berarti berdasarkan keadaan yang sebenarnya tanpa dipengaruhi pendapat pribadi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0141",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"fakultatif\" adalah ...",
+      "options": [
+        "ringan",
+        "wajib",
+        "lazim",
+        "tersier"
+      ],
+      "correctIndex": 1,
+      "explanation": "Fakultatif berarti tidak wajib atau bersifat pilihan. Lawannya adalah wajib.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0142",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"fasih\" adalah ...",
+      "options": [
+        "terbata-bata",
+        "cermat",
+        "lantang",
+        "ringkas"
+      ],
+      "correctIndex": 0,
+      "explanation": "Fasih berarti lancar dan jelas dalam berbicara. Lawannya, terbata-bata, berarti berbicara tersendat-sendat dan tidak lancar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0143",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"deduktif\" adalah ...",
+      "options": [
+        "eksploratif",
+        "induktif",
+        "reduktif",
+        "produktif"
+      ],
+      "correctIndex": 1,
+      "explanation": "Deduktif berarti bernalar dari hal umum ke hal khusus. Lawannya, induktif, berarti bernalar dari hal khusus ke hal umum.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0144",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"gawai\" adalah ...",
+      "options": [
+        "piranti",
+        "jaringan",
+        "aplikasi",
+        "sandi"
+      ],
+      "correctIndex": 0,
+      "explanation": "Gawai berarti peranti atau alat elektronik, sehingga sepadan dengan piranti. Aplikasi, jaringan, dan sandi bukan sebutan untuk alat.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0145",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"mutakhir\" adalah ...",
+      "options": [
+        "kuno",
+        "canggih",
+        "kompleks",
+        "terkini"
+      ],
+      "correctIndex": 3,
+      "explanation": "Mutakhir berarti terbaru atau paling baru, sepadan dengan terkini. Canggih menyangkut kecermatan teknologi, bukan kebaruan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0146",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"purwarupa\" adalah ...",
+      "options": [
+        "versi akhir",
+        "duplikat",
+        "cetak biru",
+        "prototipe"
+      ],
+      "correctIndex": 3,
+      "explanation": "Purwarupa adalah rupa atau bentuk awal suatu produk, yaitu prototipe. Cetak biru hanyalah rancangan, sedangkan versi akhir dan duplikat berbeda makna.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0147",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"obsolet\" adalah ...",
+      "options": [
+        "usang",
+        "rusak",
+        "lambat",
+        "mahal"
+      ],
+      "correctIndex": 0,
+      "explanation": "Obsolet berarti sudah tidak terpakai lagi karena ketinggalan zaman, yaitu usang. Rusak, lambat, dan mahal tidak selalu berarti ketinggalan zaman.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0148",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"integrasi\" adalah ...",
+      "options": [
+        "pembaruan",
+        "pemaduan",
+        "pengujian",
+        "pemisahan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Integrasi berarti pembauran atau penyatuan hingga menjadi satu kesatuan, sepadan dengan pemaduan. Pemisahan adalah lawan katanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0149",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"konfigurasi\" adalah ...",
+      "options": [
+        "pengaturan",
+        "pemasangan",
+        "penghapusan",
+        "pemeliharaan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Konfigurasi berarti pengaturan atau susunan bagian-bagian suatu sistem. Pemasangan, pemeliharaan, dan penghapusan adalah kegiatan yang berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0150",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"kompatibel\" adalah ...",
+      "options": [
+        "kokoh",
+        "seragam",
+        "cocok",
+        "mandiri"
+      ],
+      "correctIndex": 2,
+      "explanation": "Kompatibel berarti cocok atau dapat berpadu dan berfungsi bersama. Seragam berarti sama bentuk, bukan sekadar sesuai.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0151",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"andal\" adalah ...",
+      "options": [
+        "ringkas",
+        "tepercaya",
+        "murah",
+        "cepat"
+      ],
+      "correctIndex": 1,
+      "explanation": "Andal berarti dapat dipercaya atau dapat diandalkan, sepadan dengan tepercaya. Cepat, murah, dan ringkas menyatakan sifat lain.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0152",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"enkripsi\" adalah ...",
+      "options": [
+        "penyandian",
+        "pemadatan",
+        "pemulihan",
+        "pencadangan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Enkripsi berarti penyandian, yaitu mengubah data menjadi sandi agar tidak terbaca pihak lain. Pemulihan, pemadatan, dan pencadangan memiliki makna berbeda.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0153",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Padanan kata \"validasi\" adalah ...",
+      "options": [
+        "pengiriman",
+        "penghapusan",
+        "penyimpanan",
+        "pengesahan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Validasi berarti pengesahan, yaitu pernyataan bahwa sesuatu sah atau berlaku. Penghapusan, penyimpanan, dan pengiriman tidak bermakna mengesahkan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0154",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"urban\" adalah ...",
+      "options": [
+        "metropolitan",
+        "megapolitan",
+        "kosmopolitan",
+        "rural"
+      ],
+      "correctIndex": 3,
+      "explanation": "Urban berarti bersifat kekotaan, sedangkan rural berarti bersifat kedesaan. Ketiga pengecoh berkaitan dengan kota besar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0155",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"kumuh\" adalah ...",
+      "options": [
+        "padat",
+        "asri",
+        "sesak",
+        "semrawut"
+      ],
+      "correctIndex": 1,
+      "explanation": "Kumuh berarti kotor dan tidak tertata, sedangkan asri berarti bersih, indah, dan tertata. Sesak, semrawut, dan padat justru menggambarkan kondisi permukiman yang buruk.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0156",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"akselerasi\" adalah ...",
+      "options": [
+        "manuver",
+        "deselerasi",
+        "kecepatan",
+        "mobilitas"
+      ],
+      "correctIndex": 1,
+      "explanation": "Akselerasi adalah percepatan, sedangkan deselerasi adalah perlambatan. Pengecoh hanya berkaitan dengan gerak kendaraan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0157",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"sentral\" adalah ...",
+      "options": [
+        "periferal",
+        "strategis",
+        "vital",
+        "dominan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sentral berarti berada di pusat, sedangkan periferal berarti berada di pinggiran. Vital, strategis, dan dominan bermakna penting atau utama, bukan lawan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0158",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"stagnan\" adalah ...",
+      "options": [
+        "dinamis",
+        "mandek",
+        "lesu",
+        "statis"
+      ],
+      "correctIndex": 0,
+      "explanation": "Stagnan berarti tidak bergerak atau tidak berkembang, sedangkan dinamis berarti bergerak dan berkembang. Statis, mandek, dan lesu bersinonim atau berdekatan dengan stagnan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0159",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"bising\" adalah ...",
+      "options": [
+        "padat",
+        "hening",
+        "gempar",
+        "riuh"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bising berarti sangat gaduh, sedangkan hening berarti sunyi dan tenang. Riuh dan gempar mirip makna bising, sedangkan padat tidak berkaitan dengan bunyi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0160",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"rawan\" adalah ...",
+      "options": [
+        "riskan",
+        "aman",
+        "genting",
+        "kritis"
+      ],
+      "correctIndex": 1,
+      "explanation": "Rawan berarti mudah terjadi hal yang tidak diinginkan, sedangkan aman berarti bebas dari bahaya. Genting, riskan, dan kritis mengandung makna bahaya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0161",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"ekspansi\" adalah ...",
+      "options": [
+        "pemekaran",
+        "pembangunan",
+        "perluasan",
+        "penyusutan"
+      ],
+      "correctIndex": 3,
+      "explanation": "Ekspansi berarti perluasan wilayah atau usaha, sedangkan penyusutan berarti pengurangan ukuran atau luas. Perluasan dan pemekaran bersinonim dengan ekspansi.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0162",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"vertikal\" adalah ...",
+      "options": [
+        "tegak",
+        "diagonal",
+        "horizontal",
+        "menjulang"
+      ],
+      "correctIndex": 2,
+      "explanation": "Vertikal berarti tegak lurus ke atas atau bawah, sedangkan horizontal berarti mendatar. Tegak dan menjulang searah dengan vertikal, sedangkan diagonal berarti miring.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0163",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"domestik\" adalah ...",
+      "options": [
+        "antardaerah",
+        "regional",
+        "nasional",
+        "mancanegara"
+      ],
+      "correctIndex": 3,
+      "explanation": "Domestik berarti dalam negeri, sedangkan mancanegara berarti luar negeri. Nasional, regional, dan antardaerah masih berada dalam lingkup dalam negeri.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0164",
+      "type": "VRB-SYN",
+      "difficulty": "hard",
+      "stem": "Lawan kata \"steril\" adalah ...",
+      "options": [
+        "terkontaminasi",
+        "bersih",
+        "murni",
+        "antiseptik"
+      ],
+      "correctIndex": 0,
+      "explanation": "Steril berarti bebas dari kuman, sedangkan terkontaminasi berarti sudah tercemar kuman atau zat lain. Antiseptik, bersih, dan murni berkaitan dengan kebersihan, tetapi bukan lawan katanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0172",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"benar\" adalah ...",
+      "options": [
+        "salah",
+        "tepat",
+        "jujur",
+        "sesuai"
+      ],
+      "correctIndex": 0,
+      "explanation": "Benar berarti sesuai dengan fakta; lawannya salah. Tepat, sesuai, dan jujur tidak berlawanan makna dengan benar.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0173",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"terbuka\" adalah ...",
+      "options": [
+        "bebas",
+        "umum",
+        "lebar",
+        "tertutup"
+      ],
+      "correctIndex": 3,
+      "explanation": "Terbuka berarti tidak ditutup atau tidak dirahasiakan; lawannya tertutup. Bebas, umum, dan lebar bukan lawan katanya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    },
+    {
+      "id": "VRB-SYN-0175",
+      "type": "VRB-SYN",
+      "difficulty": "easy",
+      "stem": "Lawan kata \"menerima\" adalah ...",
+      "options": [
+        "mencatat",
+        "mengambil",
+        "memperoleh",
+        "mengirim"
+      ],
+      "correctIndex": 3,
+      "explanation": "Menerima berarti memperoleh kiriman atau pesan; lawannya mengirim. Mengambil dan memperoleh searti dengan menerima, sedangkan mencatat tidak berlawanan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree"
+      }
+    }
+  ]
+}
