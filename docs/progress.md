@@ -11,7 +11,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T04 Generator FIG-MTX, solver, property test
 - [x] T05 Generator FIG-MIR, FIG-SEQ, FIG-ODD
 - [x] T06 Generator numerik dan logika
-- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip dan validator selesai; pembuatan 300 soal dan pemeriksaan 10% oleh pemilik belum dijalankan, lihat `tool/pregenerate/README.md`)
+- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip, validator, dan bank 300 soal selesai dan terdaftar di `pubspec.yaml`; pemeriksaan 10% sampel oleh pemilik belum dilakukan, lihat `docs/eval/verbal_sample.md`; app belum memuat bank ini, lihat pertanyaan terbuka)
 - [x] T08 Renderer figural dan golden test
 - [x] T09 Database Drift dan repository
 - [x] T10 Kerangka sesi
@@ -57,8 +57,9 @@ Kotak T20 belum dicentang karena "Selesai bila" memuat hal yang hanya bisa dilak
 - [x] Workflow `release-apk` (tag `v*`, tanda tangan dari secret atau kunci debug) dan `pages` (manual atau tag, bukan push biasa); sintaks YAML diperiksa, belum pernah dijalankan di GitHub.
 - [x] `CHANGELOG.md`, `docs/RILIS-APK.md`, `docs/eval/checklist-v1.0.0.md`.
 
-Menunggu pemilik: checklist manual di HP, bank verbal 300 soal, secret keystore, keputusan Pages untuk repo privat, tag `v1.0.0` (perintah di `docs/RILIS-APK.md`), centang T20 setelah APK terlampir di Releases. Belum dicoba: integration_test di HP atau emulator dan di Chrome (`flutter drive`), APK di perangkat, workflow GitHub di luar CI pull request, desain ikon app.
+Menunggu pemilik: checklist manual di HP, pemeriksaan 30 soal sampel bank verbal (tandai di `docs/eval/verbal_flags.txt`, lalu jalankan `bundle.py` lagi), secret keystore, keputusan Pages untuk repo privat, tag `v1.0.0` (perintah di `docs/RILIS-APK.md`), centang T20 setelah APK terlampir di Releases. Belum dicoba: integration_test di HP atau emulator dan di Chrome (`flutter drive`), APK di perangkat, workflow GitHub di luar CI pull request, desain ikon app.
 
 ## Pertanyaan terbuka
 
-Tidak ada.
+- Pemuat bank verbal. `assets/verbal_bank.json` sudah ada dan terdaftar, tetapi tidak ada kode yang membacanya: `availableTypesProvider` (`lib/domain/providers.dart`) hanya memakai `GeneratorRegistry.types`, jadi Sinonim dan Analogi tetap "Segera" di katalog dan tidak masuk diagnostik, simulasi, atau latihan harian (temuan uji perangkat 2). Mana yang dikerjakan: tugas tersendiri (cabang `fitur/Txx-pemuat-bank-verbal`) yang memuat bank ke database atau memori, menambah tipe VRB-SYN dan VRB-ANA ke `availableTypesProvider`, dan membuat soal bank ikut flow sesi dan pembahasan? Saya berhenti di sini dan tidak menulis logikanya.
+- Temuan uji perangkat 2 (Back sistem menutup app dari wizard profil, teks terpotong di skala 1,3 dan 2,0, target waktu 394 dtk di pembahasan, placeholder Wawancara) belum dikerjakan; rincian di `uji-perangkat/LAPORAN-2.md` (lokal, tidak di-commit).
