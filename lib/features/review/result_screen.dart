@@ -233,6 +233,27 @@ class ResultScreen extends ConsumerWidget {
           ],
         ),
       ),
+      if (s.tidakDijawab > 0) ...[
+        const SizedBox(height: AppSpace.s24),
+        ScreenPadding(
+          child: Semantics(
+            header: true,
+            child: Text('Tidak dijawab', style: AppType.title(c.ink)),
+          ),
+        ),
+        const SizedBox(height: AppSpace.s4),
+        MergeSemantics(
+          child: ListRow(
+            title: 'Soal tidak dijawab',
+            subtitle: 'Dihitung salah pada skor, tidak masuk buku kesalahan, '
+                'dan tidak masuk empat hitungan di atas.',
+            trailing: Text(
+              '${s.tidakDijawab}',
+              style: AppType.title(c.ink),
+            ),
+          ),
+        ),
+      ],
       const SizedBox(height: AppSpace.s16),
       ScreenPadding(
         child: NoteBox(
@@ -243,15 +264,6 @@ class ResultScreen extends ConsumerWidget {
               : 'Tidak ada soal salah. Buku kesalahan tidak berubah.',
         ),
       ),
-      if (s.tidakDijawab > 0)
-        ScreenPadding(
-          top: AppSpace.s8,
-          child: Text(
-            'Tidak dijawab: ${s.tidakDijawab} soal. Dihitung salah pada skor, '
-            'tidak masuk buku kesalahan.',
-            style: AppType.label(c.inkMuted),
-          ),
-        ),
     ];
   }
 

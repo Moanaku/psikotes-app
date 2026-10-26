@@ -72,6 +72,17 @@ void main() {
       expect(
           Scoring.thresholdMs(const {'LOG-SYL': 30000}, 'LOG-SYL', 45), 30000);
     });
+
+    test('median riwayat dijepit ke 0,5 sampai 2 kali estimatedSeconds', () {
+      // Kasus uji perangkat: median 394 dtk untuk soal berperkiraan 35 dtk.
+      expect(
+          Scoring.thresholdMs(const {'NUM-ARI': 394453}, 'NUM-ARI', 35), 70000);
+      expect(Scoring.thresholdMs(const {'NUM-ARI': 800}, 'NUM-ARI', 35), 17500);
+      expect(
+          Scoring.thresholdMs(const {'NUM-ARI': 17500}, 'NUM-ARI', 35), 17500);
+      expect(
+          Scoring.thresholdMs(const {'NUM-ARI': 70000}, 'NUM-ARI', 35), 70000);
+    });
   });
 
   group('skor', () {
@@ -91,8 +102,8 @@ void main() {
     });
 
     test(
-        'ringkasan: empat sel menjumlah ke total; soal tanpa baris dihitung '
-        'salah dan lambat', () {
+        'ringkasan: soal tidak dijawab di luar kuadran; kuadran dan tidak '
+        'dijawab menjumlah ke total', () {
       final plan = simPlan();
       final s = Scoring.summarize(plan, [
         a(0, ms: 4000),
@@ -112,9 +123,10 @@ void main() {
         SpeedLabel.benarCepat: 1,
         SpeedLabel.benarLambat: 1,
         SpeedLabel.salahCepat: 1,
-        SpeedLabel.salahLambat: 4,
+        SpeedLabel.salahLambat: 0,
       });
-      expect(s.kuadran.values.reduce((x, y) => x + y), s.total);
+      expect(
+          s.kuadran.values.reduce((x, y) => x + y) + s.tidakDijawab, s.total);
       final num = s.perKategori['numerik']!;
       expect(num.benar, 1);
       expect(num.jumlah, 3);
