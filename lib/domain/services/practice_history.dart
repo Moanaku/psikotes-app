@@ -5,6 +5,7 @@ import '../models/session.dart';
 import '../repositories/repositories.dart';
 import 'scoring.dart';
 import 'seed_allocator.dart';
+import 'verbal_bank.dart';
 
 /// Riwayat jawaban 30 hari terakhir sebagai masukan perencana
 /// (docs/03-data-model.md, "Rencana latihan harian").
@@ -23,11 +24,15 @@ class PracticeHistory {
 
   bool get isEmpty => answers.isEmpty;
 
-  /// Pasangan (tipe, seed) soal engine yang sudah muncul; dipakai
-  /// `SeedAllocator` agar soal tidak berulang dalam 30 hari.
+  /// Pasangan (tipe, seed) soal engine dan (tipe, nomor butir) soal bank yang
+  /// sudah muncul; dipakai `ItemAllocator` agar soal tidak berulang dalam 30
+  /// hari.
   Set<String> get seenKeys => {
         for (final a in answers)
-          if (a.sumber == AnswerSource.engine) '${a.tipe}:${a.seed}',
+          if (a.sumber == AnswerSource.engine)
+            '${a.tipe}:${a.seed}'
+          else if (a.sumber == AnswerSource.bank && a.refId != null)
+            VerbalBank.keyOf(a.tipe, a.refId!),
       };
 
   /// Median detik per soal dari jawaban yang benar-benar dikerjakan (bukan

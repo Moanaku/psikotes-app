@@ -1,6 +1,7 @@
 import 'package:question_engine/question_engine.dart';
 
 import '../../domain/models/catalog.dart';
+import '../../domain/services/verbal_bank.dart';
 
 /// Satu baris katalog. [type] null untuk butir yang bukan tipe soal engine
 /// (Pengetahuan role, S19).
@@ -84,13 +85,24 @@ class CatalogAvailability {
     'Bank soal sedang disiapkan',
   );
 
-  /// Butir bisa dibuka bila tipenya ada di [available] (registry generator).
+  /// Bank verbal ada tetapi gagal dibaca atau skemanya salah.
+  static const CatalogAvailability bankError = CatalogAvailability._(
+    'Galat',
+    'Bank soal tidak terbaca. Buka ulang app.',
+  );
+
+  /// Butir bisa dibuka bila tipenya ada di [available] (registry generator
+  /// dan bank verbal). [bankFailed] menandai bank verbal yang gagal dimuat.
   static CatalogAvailability? of(
     CatalogEntry entry,
-    Set<QuestionType> available,
-  ) {
+    Set<QuestionType> available, {
+    bool bankFailed = false,
+  }) {
     final type = entry.type;
     if (type != null && available.contains(type)) return null;
+    if (type != null && bankFailed && VerbalBank.bankTypes.contains(type)) {
+      return bankError;
+    }
     return entry.releaseOf == Release.v11 ? v11 : preparing;
   }
 }

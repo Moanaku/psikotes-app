@@ -1,5 +1,7 @@
 import 'package:question_engine/question_engine.dart';
 
+import 'verbal_bank.dart';
+
 /// Perkiraan waktu per soal dari engine, dipakai selama riwayat belum ada
 /// (docs/03-data-model.md, langkah 1 rencana harian dan label cepat-lambat).
 abstract final class QuestionTiming {
@@ -15,6 +17,9 @@ abstract final class QuestionTiming {
       _cache[type] ??= _probe(type);
 
   static int _probe(QuestionType type) {
+    if (VerbalBank.bankTypes.contains(type)) {
+      return VerbalBank.estimatedSeconds(type, Difficulty.medium);
+    }
     if (!GeneratorRegistry.has(type)) return fallbackSeconds;
     try {
       return GeneratorRegistry.generate(type, _probeSeed, Difficulty.medium)

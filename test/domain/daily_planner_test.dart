@@ -8,6 +8,7 @@ import 'package:simulator_psikotes_it/domain/services/daily_planner.dart';
 import 'package:simulator_psikotes_it/domain/services/default_daily_planner.dart';
 import 'package:simulator_psikotes_it/domain/services/practice_history.dart';
 import 'package:simulator_psikotes_it/domain/services/seed_allocator.dart';
+import 'package:simulator_psikotes_it/domain/services/verbal_bank.dart';
 import 'package:simulator_psikotes_it/domain/services/weakness_model.dart';
 
 import '../support/fake_repositories.dart';
@@ -345,13 +346,17 @@ void main() {
           reason: 'tidak kembar di rencana yang sama');
     });
 
-    test('hanya soal engine yang dihitung sebagai sudah muncul', () {
+    test('soal engine dihitung per seed, soal bank per butir, Capture tidak',
+        () {
       final history = PracticeHistory([
         ans(QuestionType.numSeq, seed: 5),
         ans(QuestionType.numSeq, seed: 6, sumber: AnswerSource.capture),
         ans(QuestionType.vrbSyn, seed: 7, sumber: AnswerSource.bank),
       ]);
-      expect(history.seenKeys, {SeedAllocator.key(QuestionType.numSeq, 5)});
+      expect(history.seenKeys, {
+        SeedAllocator.key(QuestionType.numSeq, 5),
+        VerbalBank.keyOf('VRB-SYN', 1),
+      });
     });
   });
 

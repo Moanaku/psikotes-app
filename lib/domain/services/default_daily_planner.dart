@@ -10,7 +10,8 @@ import 'mistake_book.dart';
 import 'practice_history.dart';
 import 'profile_validation.dart';
 import 'question_timing.dart';
-import 'seed_allocator.dart';
+import 'item_allocator.dart';
+import 'verbal_bank.dart';
 import 'session_plan_builder.dart';
 import 'weakness_model.dart';
 
@@ -46,11 +47,13 @@ class DefaultDailyPlanner implements DailyPlanner {
     required AnswerRepository answers,
     required MistakeRepository mistakes,
     required Set<QuestionType> available,
+    VerbalBank? bank,
     this.targetMinutes = defaultMinutes,
     int Function(Iterable<QuestionType> types)? estimate,
   })  : _answers = answers,
         _mistakes = mistakes,
         _available = available,
+        _bank = bank,
         _estimate = estimate ?? QuestionTiming.medianOf;
 
   /// Target durasi bawaan 15 menit (A3).
@@ -69,6 +72,7 @@ class DefaultDailyPlanner implements DailyPlanner {
   final AnswerRepository _answers;
   final MistakeRepository _mistakes;
   final Set<QuestionType> _available;
+  final VerbalBank? _bank;
   final int targetMinutes;
   final int Function(Iterable<QuestionType> types) _estimate;
 
@@ -102,7 +106,8 @@ class DefaultDailyPlanner implements DailyPlanner {
   @override
   Future<DailyPlan> plan(TestProfile profile, DateTime now) async {
     final blueprint = profile.blueprint;
-    final candidates = WeaknessScoring.candidates(blueprint, _available);
+    final candidates =
+        WeaknessScoring.candidates(blueprint, _available, bank: _bank);
     if (candidates.isEmpty) {
       return const DailyPlan(
         session: SessionPlan(items: []),
@@ -122,27 +127,22 @@ class DefaultDailyPlanner implements DailyPlanner {
         .round()
         .clamp(minQuestions, maxQuestions);
 
-    final seeds = SeedAllocator(
+    final alloc = ItemAllocator(
       SessionPlanBuilder.seedBase(now),
       avoid: history.seenKeys,
+      bank: _bank,
     );
     final items = <PlanItem>[];
     final blocks = <PlanBlock>[];
     QuestionType? weakest;
 
     void add(QuestionType type, {String? subtes, int? cardId}) => items.add(
-          SessionPlanBuilder.item(
-            type,
-            seeds.next(type),
-            Difficulty.medium,
-            subtes: subtes,
-            cardId: cardId,
-          ),
+          alloc.next(type, Difficulty.medium, subtes: subtes, cardId: cardId),
         );
 
     if (history.isEmpty && dueCards.isEmpty) {
       for (final t in SessionPlanBuilder.mixedTypes(blueprint,
-          count: total, available: _available)) {
+          count: total, available: _available, bank: _bank)) {
         add(t);
       }
       if (items.isNotEmpty) {
@@ -172,6 +172,18 @@ class DefaultDailyPlanner implements DailyPlanner {
               subtes: SubtestPlan.mixedLabel,
               cardId: card.id,
             ));
+          } else if (card.sumber == AnswerSource.bank) {
+            final type = QuestionType.fromCode(card.tipe);
+            final picked = _bank!.byRef(type, card.refId!)!;
+            items.add(PlanItem.bank(
+              type: type,
+              refId: picked.number,
+              seed: 0,
+              difficulty: picked.difficulty,
+              genVersi: _bank.versi,
+              subtes: type.category.code,
+              cardId: card.id,
+            ));
           } else {
             add(QuestionType.fromCode(card.tipe), cardId: card.id);
           }
@@ -180,7 +192,7 @@ class DefaultDailyPlanner implements DailyPlanner {
       }
       if (parts.mixed > 0) {
         final types = SessionPlanBuilder.mixedTypes(blueprint,
-            count: parts.mixed, available: _available);
+            count: parts.mixed, available: _available, bank: _bank);
         for (final t in types) {
           add(t);
         }
@@ -198,8 +210,9 @@ class DefaultDailyPlanner implements DailyPlanner {
       for (var i = 0; i < practiceCount; i++) {
         items[i] = items[i].withSubtes(SubtestPlan.mixedLabel);
       }
-      final types =
-          SessionPlanBuilder.categoryTypes(simulation.kategori, _available);
+      final types = SessionPlanBuilder.categoryTypes(
+          simulation.kategori, _available,
+          bank: _bank);
       for (var i = 0; i < simulation.jumlah; i++) {
         add(types[i % types.length]);
       }
@@ -228,10 +241,19 @@ class DefaultDailyPlanner implements DailyPlanner {
   }
 
   /// Kartu yang bisa dijadikan soal: soal engine dengan tipe yang terdaftar,
-  /// atau soal Capture yang punya `ref_id`. Kartu bank dan pengetahuan
-  /// menunggu pemakainya (T07, T25).
+  /// atau soal Capture atau bank yang punya `ref_id` (butir bank harus ada di
+  /// bank yang termuat). Kartu pengetahuan menunggu pemakainya (T25).
   bool _usable(MistakeCard c) {
     if (c.sumber == AnswerSource.capture) return c.refId != null;
+    if (c.sumber == AnswerSource.bank) {
+      final bank = _bank;
+      final refId = c.refId;
+      if (bank == null || refId == null) return false;
+      for (final t in VerbalBank.bankTypes) {
+        if (t.code == c.tipe) return bank.byRef(t, refId) != null;
+      }
+      return false;
+    }
     if (c.sumber != AnswerSource.engine) return false;
     for (final t in _available) {
       if (t.code == c.tipe) return GeneratorRegistry.has(t);
@@ -257,7 +279,9 @@ class DefaultDailyPlanner implements DailyPlanner {
       for (final s in profile.blueprint.subtes)
         if (s.aktif &&
             (profile.blueprint.bobot[s.kategori] ?? 0) > 0 &&
-            SessionPlanBuilder.categoryTypes(s.kategori, _available).isNotEmpty)
+            SessionPlanBuilder.categoryTypes(s.kategori, _available,
+                    bank: _bank)
+                .isNotEmpty)
           s,
     ];
     if (specs.isEmpty) return null;

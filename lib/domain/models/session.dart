@@ -32,6 +32,21 @@ class PlanItem {
         genVersi = 0,
         _kategori = kategori;
 
+  /// Soal dari bank verbal (VRB-SYN, VRB-ANA). [refId] adalah nomor butir
+  /// bank (`VRB-SYN-0042` bertipe `VRB-SYN`, refId 42); [seed] adalah seed
+  /// pemilih butir, [difficulty] kesulitan butir yang terpilih, dan
+  /// [genVersi] nomor versi bank.
+  const PlanItem.bank({
+    required QuestionType this.type,
+    required int this.refId,
+    required this.seed,
+    required this.difficulty,
+    required this.genVersi,
+    required this.subtes,
+    this.cardId,
+  })  : source = AnswerSource.bank,
+        _kategori = null;
+
   /// Nilai kolom `tipe` untuk semua soal Capture: identitas kartu dan
   /// jawaban Capture dibaca dari `(sumber, tipe, ref_id)`, jadi tidak ikut
   /// berubah bila pengguna mengganti kategorinya.
@@ -56,6 +71,7 @@ class PlanItem {
   final int? cardId;
 
   bool get isCapture => source == AnswerSource.capture;
+  bool get isBank => source == AnswerSource.bank;
 
   /// Kode tipe yang ditulis ke `answer.tipe`.
   String get tipeCode => type?.code ?? captureTipe;
@@ -70,37 +86,69 @@ class PlanItem {
           subtes: subtes,
           cardId: cardId,
         )
-      : PlanItem(
-          type: type!,
-          seed: seed,
-          difficulty: difficulty,
-          genVersi: genVersi,
-          subtes: subtes,
-          cardId: cardId,
-        );
+      : isBank
+          ? PlanItem.bank(
+              type: type!,
+              refId: refId!,
+              seed: seed,
+              difficulty: difficulty,
+              genVersi: genVersi,
+              subtes: subtes,
+              cardId: cardId,
+            )
+          : PlanItem(
+              type: type!,
+              seed: seed,
+              difficulty: difficulty,
+              genVersi: genVersi,
+              subtes: subtes,
+              cardId: cardId,
+            );
 
-  Map<String, Object?> toJson() => type == null
+  Map<String, Object?> toJson() => isBank
       ? {
-          'sumber': AnswerSource.capture.code,
-          'refId': refId,
-          'kategori': _kategori,
-          'subtes': subtes,
-          if (cardId != null) 'cardId': cardId,
-        }
-      : {
+          'sumber': AnswerSource.bank.code,
           'type': type!.code,
+          'refId': refId,
           'seed': seed,
           'difficulty': difficulty.code,
           'genVersi': genVersi,
           'subtes': subtes,
           if (cardId != null) 'cardId': cardId,
-        };
+        }
+      : type == null
+          ? {
+              'sumber': AnswerSource.capture.code,
+              'refId': refId,
+              'kategori': _kategori,
+              'subtes': subtes,
+              if (cardId != null) 'cardId': cardId,
+            }
+          : {
+              'type': type!.code,
+              'seed': seed,
+              'difficulty': difficulty.code,
+              'genVersi': genVersi,
+              'subtes': subtes,
+              if (cardId != null) 'cardId': cardId,
+            };
 
   factory PlanItem.fromJson(Map<String, Object?> m) {
     if (m['sumber'] == AnswerSource.capture.code) {
       return PlanItem.capture(
         refId: m['refId']! as int,
         kategori: m['kategori']! as String,
+        subtes: m['subtes']! as String,
+        cardId: m['cardId'] as int?,
+      );
+    }
+    if (m['sumber'] == AnswerSource.bank.code) {
+      return PlanItem.bank(
+        type: QuestionType.fromCode(m['type']! as String),
+        refId: m['refId']! as int,
+        seed: m['seed']! as int,
+        difficulty: Difficulty.fromCode(m['difficulty']! as String),
+        genVersi: m['genVersi']! as int,
         subtes: m['subtes']! as String,
         cardId: m['cardId'] as int?,
       );

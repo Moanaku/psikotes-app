@@ -5,6 +5,7 @@ import '../repositories/repositories.dart';
 import 'daily_planner.dart';
 import 'practice_history.dart';
 import 'session_plan_builder.dart';
+import 'verbal_bank.dart';
 
 /// Skor kelemahan satu tipe.
 class TypeScore {
@@ -36,12 +37,14 @@ abstract final class WeaknessScoring {
   /// aktif di blueprint dan berbobot lebih dari nol. Urut menurut katalog.
   static List<QuestionType> candidates(
     ProfileBlueprint blueprint,
-    Set<QuestionType> available,
-  ) {
+    Set<QuestionType> available, {
+    VerbalBank? bank,
+  }) {
     final result = <QuestionType>{};
     for (final s in blueprint.subtes) {
       if (!s.aktif || (blueprint.bobot[s.kategori] ?? 0) <= 0) continue;
-      result.addAll(SessionPlanBuilder.categoryTypes(s.kategori, available));
+      result.addAll(
+          SessionPlanBuilder.categoryTypes(s.kategori, available, bank: bank));
     }
     return result.toList()..sort((a, b) => a.index.compareTo(b.index));
   }
@@ -84,10 +87,12 @@ abstract final class WeaknessScoring {
 
 /// `WeaknessModel` dari riwayat jawaban 30 hari terakhir.
 class HistoryWeaknessModel implements WeaknessModel {
-  const HistoryWeaknessModel(this._answers, this._available);
+  const HistoryWeaknessModel(this._answers, this._available, {VerbalBank? bank})
+      : _bank = bank;
 
   final AnswerRepository _answers;
   final Set<QuestionType> _available;
+  final VerbalBank? _bank;
 
   /// Hanya tipe yang punya jawaban yang ditampilkan: tipe tanpa data (0,5)
   /// dipakai perencana, tetapi bukan "kelemahan" yang terukur.
@@ -102,7 +107,7 @@ class HistoryWeaknessModel implements WeaknessModel {
     final ranked = WeaknessScoring.rank(
       history,
       profile.blueprint,
-      WeaknessScoring.candidates(profile.blueprint, _available),
+      WeaknessScoring.candidates(profile.blueprint, _available, bank: _bank),
     );
     return [
       for (final s in ranked.where((s) => s.jumlah > 0).take(count))

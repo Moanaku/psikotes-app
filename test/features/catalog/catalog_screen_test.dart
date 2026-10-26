@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,7 @@ import 'package:simulator_psikotes_it/domain/models/profile.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
 import 'package:simulator_psikotes_it/domain/services/session_plan_builder.dart';
+import 'package:simulator_psikotes_it/domain/services/verbal_bank.dart';
 import 'package:simulator_psikotes_it/features/catalog/catalog_entries.dart';
 
 import '../../support/fake_repositories.dart';
@@ -524,6 +526,67 @@ void main() {
       final s = tester.getSemantics(find.text('Numerik dan logika'));
       expect(s.flagsCollection.isHeader, isTrue);
       handle.dispose();
+    });
+  });
+
+  group('bank verbal', () {
+    final loaded = VerbalBankState.loaded(
+      VerbalBank.parse(File('assets/verbal_bank.json').readAsStringSync()),
+    );
+
+    testWidgets('bank termuat: Sinonim dan Analogi bisa dibuka, tanpa Segera',
+        (tester) async {
+      await openCatalog(
+        tester,
+        overrides: [verbalBankStateProvider.overrideWithValue(loaded)],
+      );
+      for (final name in ['Sinonim / antonim', 'Analogi']) {
+        await show(tester, name);
+        final r = row(tester, name);
+        expect(r.onTap, isNotNull, reason: name);
+        expect(r.subtitle, isNull, reason: name);
+      }
+      expect(find.text('Segera'), findsNothing);
+    });
+
+    testWidgets('latihan Sinonim membuat sesi dari 10 butir bank',
+        (tester) async {
+      final sessions = FakeSessionRepository();
+      final app = await openCatalog(
+        tester,
+        sessions: sessions,
+        overrides: [verbalBankStateProvider.overrideWithValue(loaded)],
+      );
+      await show(tester, 'Sinonim / antonim');
+      await tester.tap(find.text('Sinonim / antonim'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/sesi/1');
+      final items = sessions.sessions[1]!.plan.items;
+      expect(items, hasLength(10));
+      expect(items.every((i) => i.isBank && i.type == QuestionType.vrbSyn),
+          isTrue);
+      expect(items.map((i) => i.refId).toSet(), hasLength(10));
+    });
+
+    testWidgets('bank gagal dimuat: baris verbal berstatus Galat, bukan Segera',
+        (tester) async {
+      await openCatalog(
+        tester,
+        overrides: [
+          verbalBankStateProvider
+              .overrideWithValue(const VerbalBankState.failed('skema salah')),
+        ],
+      );
+      for (final name in ['Sinonim / antonim', 'Analogi']) {
+        await show(tester, name);
+        final r = row(tester, name);
+        expect(r.onTap, isNull, reason: name);
+        expect(r.subtitle, 'Bank soal tidak terbaca. Buka ulang app.');
+      }
+      expect(find.text('Galat'), findsNWidgets(2));
+      expect(find.textContaining('skema salah'), findsNothing);
+      // Tipe lain tetap bisa dibuka.
+      expect(row(tester, 'Deret angka').onTap, isNotNull);
     });
   });
 }

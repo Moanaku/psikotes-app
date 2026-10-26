@@ -3,7 +3,8 @@ import 'package:question_engine/question_engine.dart';
 import '../models/codes.dart';
 import '../models/notebook.dart';
 import '../models/session.dart';
-import 'seed_allocator.dart';
+import 'item_allocator.dart';
+import 'verbal_bank.dart';
 import 'session_plan_builder.dart';
 
 /// Kartu bank dan pengetahuan yang diulang dengan butir yang sama. Belum bisa
@@ -41,6 +42,14 @@ class ReviewPlan {
   final List<MistakeCard> skipped;
 }
 
+QuestionType? _bankType(String code, VerbalBank? bank) {
+  if (bank == null) return null;
+  for (final t in VerbalBank.bankTypes) {
+    if (t.code == code && bank.has(t)) return t;
+  }
+  return null;
+}
+
 /// Menyusun ulangan dari kartu jatuh tempo (F07): soal engine memakai tipe
 /// yang sama dengan seed baru; soal Capture, bank, dan pengetahuan memakai
 /// butir yang sama.
@@ -56,8 +65,10 @@ abstract final class ReviewPlanner {
     required Set<QuestionType> available,
     Set<String> avoid = const {},
     Difficulty Function(MistakeCard card)? difficulty,
+    VerbalBank? bank,
   }) {
-    final seeds = SeedAllocator(SessionPlanBuilder.seedBase(now), avoid: avoid);
+    final alloc = ItemAllocator(SessionPlanBuilder.seedBase(now),
+        avoid: avoid, bank: bank);
     final items = <PlanItem>[];
     final same = <SameItemReview>[];
     final skipped = <MistakeCard>[];
@@ -70,6 +81,22 @@ abstract final class ReviewPlanner {
           cardId: card.id,
         ));
         continue;
+      }
+      if (card.sumber == AnswerSource.bank && card.refId != null) {
+        final type = _bankType(card.tipe, bank);
+        final picked = type == null ? null : bank!.byRef(type, card.refId!);
+        if (picked != null) {
+          items.add(PlanItem.bank(
+            type: type!,
+            refId: picked.number,
+            seed: 0,
+            difficulty: picked.difficulty,
+            genVersi: bank!.versi,
+            subtes: type.category.code,
+            cardId: card.id,
+          ));
+          continue;
+        }
       }
       if (card.sumber != AnswerSource.engine) {
         same.add(SameItemReview(
@@ -88,9 +115,8 @@ abstract final class ReviewPlanner {
         skipped.add(card);
         continue;
       }
-      items.add(SessionPlanBuilder.item(
+      items.add(alloc.next(
         type,
-        seeds.next(type),
         difficulty?.call(card) ?? Difficulty.medium,
         cardId: card.id,
       ));

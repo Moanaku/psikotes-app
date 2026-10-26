@@ -3,7 +3,9 @@ import 'package:question_engine/question_engine.dart';
 import '../models/notebook.dart';
 import '../models/profile.dart';
 import '../models/session.dart';
+import 'item_allocator.dart';
 import 'seed_allocator.dart';
+import 'verbal_bank.dart';
 
 /// Menyusun `SessionPlan` dari tipe soal dan blueprint profil. Fungsi murni:
 /// seed diturunkan dari waktu yang dioper (lewat `Clock`), tanpa membaca jam.
@@ -64,14 +66,20 @@ abstract final class SessionPlanBuilder {
     );
   }
 
+  /// Tipe yang bisa dibuat: punya generator, atau butir di [bank].
+  static bool playable(QuestionType type, VerbalBank? bank) =>
+      GeneratorRegistry.has(type) ||
+      (VerbalBank.bankTypes.contains(type) && (bank?.has(type) ?? false));
+
   /// Tipe terdaftar di [available] untuk satu kategori, urut menurut katalog.
   static List<QuestionType> categoryTypes(
     String kategori,
-    Set<QuestionType> available,
-  ) =>
+    Set<QuestionType> available, {
+    VerbalBank? bank,
+  }) =>
       [
         for (final t in available)
-          if (t.category.code == kategori && GeneratorRegistry.has(t)) t,
+          if (t.category.code == kategori && playable(t, bank)) t,
       ]..sort((a, b) => a.index.compareTo(b.index));
 
   /// Latihan satu tipe tanpa timer (S05 ke S06). Tipe harus terdaftar di
@@ -82,12 +90,12 @@ abstract final class SessionPlanBuilder {
     int count = practiceCount,
     Difficulty difficulty = Difficulty.medium,
     Set<String> avoid = const {},
+    VerbalBank? bank,
   }) {
-    final seeds = SeedAllocator(seedBase(now), avoid: avoid);
+    final alloc = ItemAllocator(seedBase(now), avoid: avoid, bank: bank);
     return SessionPlan(
       items: [
-        for (var i = 0; i < count; i++)
-          item(type, seeds.next(type), difficulty),
+        for (var i = 0; i < count; i++) alloc.next(type, difficulty),
       ],
     );
   }
@@ -100,11 +108,12 @@ abstract final class SessionPlanBuilder {
     ProfileBlueprint blueprint, {
     required int count,
     required Set<QuestionType> available,
+    VerbalBank? bank,
   }) {
     final categories = <String, List<QuestionType>>{};
     for (final s in blueprint.subtes) {
       if (!s.aktif) continue;
-      final types = categoryTypes(s.kategori, available);
+      final types = categoryTypes(s.kategori, available, bank: bank);
       if (types.isNotEmpty && (blueprint.bobot[s.kategori] ?? 0) > 0) {
         categories[s.kategori] = types;
       }
@@ -153,13 +162,14 @@ abstract final class SessionPlanBuilder {
     required int count,
     required Set<QuestionType> available,
     Set<String> avoid = const {},
+    VerbalBank? bank,
   }) {
-    final seeds = SeedAllocator(seedBase(now), avoid: avoid);
+    final alloc = ItemAllocator(seedBase(now), avoid: avoid, bank: bank);
     return SessionPlan(
       items: [
-        for (final t
-            in mixedTypes(blueprint, count: count, available: available))
-          item(t, seeds.next(t), Difficulty.medium),
+        for (final t in mixedTypes(blueprint,
+            count: count, available: available, bank: bank))
+          alloc.next(t, Difficulty.medium),
       ],
     );
   }
@@ -173,21 +183,22 @@ abstract final class SessionPlanBuilder {
     required DateTime now,
     required Set<QuestionType> available,
     Set<String> avoid = const {},
+    VerbalBank? bank,
   }) {
-    final seeds = SeedAllocator(seedBase(now), avoid: avoid);
+    final alloc = ItemAllocator(seedBase(now), avoid: avoid, bank: bank);
     final items = <PlanItem>[];
     final subtests = <SubtestPlan>[];
     final skipped = <String>[];
     for (final s in blueprint.subtes) {
       if (!s.aktif) continue;
-      final types = categoryTypes(s.kategori, available);
+      final types = categoryTypes(s.kategori, available, bank: bank);
       if (types.isEmpty) {
         skipped.add(s.kategori);
         continue;
       }
       for (var i = 0; i < s.jumlah; i++) {
         final type = types[i % types.length];
-        items.add(item(type, seeds.next(type), Difficulty.medium));
+        items.add(alloc.next(type, Difficulty.medium));
       }
       subtests.add(
         SubtestPlan(kategori: s.kategori, jumlah: s.jumlah, menit: s.menit),

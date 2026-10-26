@@ -5,7 +5,8 @@ import '../models/session.dart';
 import '../repositories/repositories.dart';
 import 'practice_history.dart';
 import 'question_timing.dart';
-import 'seed_allocator.dart';
+import 'item_allocator.dart';
+import 'verbal_bank.dart';
 import 'session_plan_builder.dart';
 
 /// Rencana sesi diagnostik beserta kategori yang dilewati.
@@ -36,8 +37,10 @@ class DiagnosticPlanner {
   DiagnosticPlanner({
     required AnswerRepository answers,
     required Set<QuestionType> available,
+    VerbalBank? bank,
   })  : _answers = answers,
-        _available = available;
+        _available = available,
+        _bank = bank;
 
   static const int maxMinutes = 20;
   static const int minQuestionsPerSubtest = 3;
@@ -45,6 +48,7 @@ class DiagnosticPlanner {
 
   final AnswerRepository _answers;
   final Set<QuestionType> _available;
+  final VerbalBank? _bank;
 
   /// Null bila tidak ada kategori aktif yang punya soal.
   Future<DiagnosticPlan?> plan(TestProfile profile, DateTime now) async {
@@ -54,6 +58,7 @@ class DiagnosticPlanner {
       now: now,
       available: _available,
       avoid: history.seenKeys,
+      bank: _bank,
     );
   }
 
@@ -64,13 +69,15 @@ class DiagnosticPlanner {
     required Set<QuestionType> available,
     Set<String> avoid = const {},
     int Function(QuestionType type)? estimate,
+    VerbalBank? bank,
   }) {
     final seconds = estimate ?? QuestionTiming.estimatedSeconds;
     final categories = <String, List<QuestionType>>{};
     final skipped = <String>[];
     for (final s in blueprint.subtes) {
       if (!s.aktif) continue;
-      final types = SessionPlanBuilder.categoryTypes(s.kategori, available);
+      final types =
+          SessionPlanBuilder.categoryTypes(s.kategori, available, bank: bank);
       if (types.isEmpty) {
         skipped.add(s.kategori);
       } else {
@@ -80,7 +87,8 @@ class DiagnosticPlanner {
     if (categories.isEmpty) return null;
 
     final minutes = (maxMinutes ~/ categories.length).clamp(1, maxMinutes);
-    final seeds = SeedAllocator(SessionPlanBuilder.seedBase(now), avoid: avoid);
+    final alloc = ItemAllocator(SessionPlanBuilder.seedBase(now),
+        avoid: avoid, bank: bank);
     final items = <PlanItem>[];
     final subtests = <SubtestPlan>[];
     for (final MapEntry(key: kategori, value: types) in categories.entries) {
@@ -94,8 +102,7 @@ class DiagnosticPlanner {
           );
       for (var i = 0; i < count; i++) {
         final type = types[i % types.length];
-        items.add(
-            SessionPlanBuilder.item(type, seeds.next(type), Difficulty.medium));
+        items.add(alloc.next(type, Difficulty.medium));
       }
       subtests.add(
         SubtestPlan(kategori: kategori, jumlah: count, menit: minutes),

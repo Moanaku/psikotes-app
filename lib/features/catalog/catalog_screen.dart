@@ -24,6 +24,7 @@ import '../../domain/models/session.dart';
 import '../../domain/providers.dart';
 import '../../domain/services/profile_templates.dart';
 import '../../domain/services/session_plan_builder.dart';
+import '../../domain/services/verbal_bank.dart';
 import '../session/session_launcher.dart';
 import 'catalog_entries.dart';
 
@@ -93,6 +94,8 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
   Widget build(BuildContext context) {
     final mode = ref.watch(catalogModeProvider);
     final available = ref.watch(availableTypesProvider);
+    final bank = ref.watch(verbalBankProvider);
+    final bankFailed = ref.watch(verbalBankStateProvider).isFailed;
     final profile = ref.watch(activeProfileProvider);
     final active = profile.valueOrNull;
     final clock = ref.watch(clockProvider);
@@ -136,6 +139,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                     _Group(
                       group: g,
                       available: available,
+                      bankFailed: bankFailed,
                       onOpen: (type) => active == null || _starting
                           ? null
                           : () => _launch(
@@ -145,6 +149,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                                   type,
                                   now: clock.now(),
                                   avoid: avoid,
+                                  bank: bank,
                                 ),
                               ),
                     ),
@@ -164,6 +169,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   _SimulationPreview(
                     profile: profile,
                     available: available,
+                    bank: bank,
                   ),
                 const SizedBox(height: AppSpace.s24),
                 _SimulationPanel(
@@ -177,6 +183,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       now: clock.now(),
                       available: available,
                       avoid: avoid,
+                      bank: bank,
                     )?.plan,
                   ),
                 ),
@@ -197,11 +204,13 @@ class _Group extends StatelessWidget {
   const _Group({
     required this.group,
     required this.available,
+    required this.bankFailed,
     required this.onOpen,
   });
 
   final CatalogGroup group;
   final Set<QuestionType> available;
+  final bool bankFailed;
 
   /// Aksi membuka tipe [QuestionType]; null bila tidak bisa dibuka sekarang.
   final VoidCallback? Function(QuestionType type) onOpen;
@@ -227,7 +236,7 @@ class _Group extends StatelessWidget {
   }
 
   Widget _row(CatalogEntry e) {
-    final why = CatalogAvailability.of(e, available);
+    final why = CatalogAvailability.of(e, available, bankFailed: bankFailed);
     if (why != null) {
       return ListRow(
         title: e.label,
@@ -329,10 +338,15 @@ class _PrivateBank extends ConsumerWidget {
 
 /// Mode Simulasi: ringkasan subtes profil aktif yang akan dikerjakan.
 class _SimulationPreview extends ConsumerWidget {
-  const _SimulationPreview({required this.profile, required this.available});
+  const _SimulationPreview({
+    required this.profile,
+    required this.available,
+    required this.bank,
+  });
 
   final AsyncValue<TestProfile?> profile;
   final Set<QuestionType> available;
+  final VerbalBank? bank;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -422,7 +436,8 @@ class _SimulationPreview extends ConsumerWidget {
   }
 
   bool _hasType(String kategori) => available.any(
-        (t) => t.category.code == kategori && GeneratorRegistry.has(t),
+        (t) =>
+            t.category.code == kategori && SessionPlanBuilder.playable(t, bank),
       );
 }
 
