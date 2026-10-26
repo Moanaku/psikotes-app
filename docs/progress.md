@@ -11,7 +11,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T04 Generator FIG-MTX, solver, property test
 - [x] T05 Generator FIG-MIR, FIG-SEQ, FIG-ODD
 - [x] T06 Generator numerik dan logika
-- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip, validator, dan bank 300 soal selesai dan terdaftar di `pubspec.yaml`; pemeriksaan 10% sampel oleh pemilik belum dilakukan, lihat `docs/eval/verbal_sample.md`; app belum memuat bank ini, lihat pertanyaan terbuka)
+- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip, validator, dan bank 300 soal selesai dan terdaftar di `pubspec.yaml` di cabang sebelumnya; pemuat bank, pemilihan soal, dan integrasi ke rencana, sesi, pembahasan, buku kesalahan, dan katalog baru selesai di cabang `fix/pemuat-verbal-dan-ui`, A100; sebelum itu app tidak membaca bank ini. Pemeriksaan 10% sampel oleh pemilik belum dilakukan, lihat `docs/eval/verbal_sample.md`; `docs/eval/verbal_flags.txt` masih kosong, jadi bank belum berubah)
 - [x] T08 Renderer figural dan golden test
 - [x] T09 Database Drift dan repository
 - [x] T10 Kerangka sesi
@@ -61,5 +61,4 @@ Menunggu pemilik: checklist manual di HP, pemeriksaan 30 soal sampel bank verbal
 
 ## Pertanyaan terbuka
 
-- Pemuat bank verbal. `assets/verbal_bank.json` sudah ada dan terdaftar, tetapi tidak ada kode yang membacanya: `availableTypesProvider` (`lib/domain/providers.dart`) hanya memakai `GeneratorRegistry.types`, jadi Sinonim dan Analogi tetap "Segera" di katalog dan tidak masuk diagnostik, simulasi, atau latihan harian (temuan uji perangkat 2). Mana yang dikerjakan: tugas tersendiri (cabang `fitur/Txx-pemuat-bank-verbal`) yang memuat bank ke database atau memori, menambah tipe VRB-SYN dan VRB-ANA ke `availableTypesProvider`, dan membuat soal bank ikut flow sesi dan pembahasan? Saya berhenti di sini dan tidak menulis logikanya.
-- Temuan uji perangkat 2 (Back sistem menutup app dari wizard profil, teks terpotong di skala 1,3 dan 2,0, target waktu 394 dtk di pembahasan, placeholder Wawancara) belum dikerjakan; rincian di `uji-perangkat/LAPORAN-2.md` (lokal, tidak di-commit).
+- Temuan uji perangkat 2: bagian logika selesai di `fix/pemuat-verbal-dan-ui` (pemuat verbal A100, target waktu A98, soal tidak dijawab A99, tab Wawancara, nama tipe). Bagian UI di HP (teks terpotong di skala 1,3 dan 2,0, S07, S11, Back wizard) tercatat di bawah setelah diverifikasi. Pertanyaan baru: Q8 sampai Q10 di `docs/11-asumsi-dan-pertanyaan.md`. Rincian temuan: `uji-perangkat/LAPORAN-2.md` (lokal, tidak di-commit).
