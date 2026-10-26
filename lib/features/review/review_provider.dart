@@ -52,7 +52,12 @@ class SessionReview {
     return 0;
   }
 
-  int get wrongCount => total - summary.benar;
+  /// Jawaban yang diisi dan salah; hanya ini yang masuk buku kesalahan. Soal
+  /// tanpa jawaban dihitung salah pada skor tetapi tidak dihitung di sini.
+  int get wrongCount => [
+        for (final a in answers.values)
+          if (a.opsiDipilih != null && !a.benar) a,
+      ].length;
 
   /// Soal di [index] dibuat ulang; null bila tidak bisa (generator gagal, tipe
   /// belum terdaftar, atau `gen_versi` berbeda).

@@ -9,6 +9,7 @@ import '../../core/widgets/figure_view.dart';
 import '../../core/widgets/note_box.dart';
 import '../../core/widgets/number_bubble.dart';
 import '../../core/widgets/option_tile.dart';
+import '../onboarding/onboarding_frame.dart';
 
 /// Margin layar horizontal 16 untuk isi layar sesi.
 const EdgeInsets sessionMargin = EdgeInsets.symmetric(
@@ -26,11 +27,16 @@ class QuestionBody extends StatelessWidget {
     required this.selected,
     required this.onSelect,
     this.photo,
+    this.keyIndex,
   });
 
   final Question question;
   final int? selected;
   final ValueChanged<int>? onSelect;
+
+  /// Opsi kunci, ditandai "Kunci" di daftar opsi (pembahasan). Dipisah dari
+  /// tanda "Jawabanmu" pada opsi yang dipilih.
+  final int? keyIndex;
 
   /// Foto soal Capture; tampil di bawah teks soal.
   final Widget? photo;
@@ -78,6 +84,7 @@ class QuestionBody extends StatelessWidget {
             question: question,
             selected: selected,
             onSelect: onSelect,
+            keyIndex: keyIndex,
           ),
         ],
       ),
@@ -90,11 +97,13 @@ class _Options extends StatelessWidget {
     required this.question,
     required this.selected,
     required this.onSelect,
+    this.keyIndex,
   });
 
   final Question question;
   final int? selected;
   final ValueChanged<int>? onSelect;
+  final int? keyIndex;
 
   Widget _tile(int i) {
     final o = question.options[i];
@@ -117,6 +126,11 @@ class _Options extends StatelessWidget {
       label: fig == null ? text : null,
       semanticLabel: fig == null ? null : describeFigure(fig),
       selected: selected == i,
+      marks: [
+        if (keyIndex != null && selected == i)
+          (icon: AppIcons.target, label: 'Jawabanmu'),
+        if (keyIndex == i) (icon: AppIcons.key, label: 'Kunci'),
+      ],
       onTap: onSelect == null ? null : () => onSelect!(i),
       child: child,
     );
@@ -157,26 +171,30 @@ class _Options extends StatelessWidget {
   }
 }
 
-/// Deretan nomor soal yang bisa digulir mendatar (latihan). Nomor sekarang
-/// digulir ke tengah saat berganti. Tidak bisa diketuk.
+/// Deretan nomor soal satu baris yang digulir mendatar, di latihan dan
+/// simulasi. Tiap nomor mendapat sel 48 x 48 (target sentuh yang sama di semua
+/// mode); nomor sekarang digulir ke tengah saat berganti. Bisa diketuk hanya
+/// bila [onTap] ada (simulasi); latihan tidak boleh melompat antar soal.
 class NumberStrip extends StatefulWidget {
   const NumberStrip({
     super.key,
     required this.count,
     required this.current,
     required this.answered,
+    this.onTap,
   });
 
   final int count;
   final int current;
   final bool Function(int index) answered;
+  final ValueChanged<int>? onTap;
 
   @override
   State<NumberStrip> createState() => _NumberStripState();
 }
 
 class _NumberStripState extends State<NumberStrip> {
-  static const double _step = AppSizes.bubble + AppSpace.s4;
+  static const double _step = AppSizes.touchTarget;
   final ScrollController _controller = ScrollController();
 
   @override
@@ -196,8 +214,7 @@ class _NumberStripState extends State<NumberStrip> {
   void _center() {
     if (!mounted || !_controller.hasClients) return;
     final p = _controller.position;
-    final target =
-        widget.current * _step - (p.viewportDimension - AppSizes.bubble) / 2;
+    final target = widget.current * _step - (p.viewportDimension - _step) / 2;
     _controller.jumpTo(target.clamp(0.0, p.maxScrollExtent));
   }
 
@@ -207,14 +224,25 @@ class _NumberStripState extends State<NumberStrip> {
     super.dispose();
   }
 
-  Widget _bubble(int i) => NumberBubble(
-        number: i + 1,
-        state: i == widget.current
-            ? NumberBubbleState.current
-            : widget.answered(i)
-                ? NumberBubbleState.answered
-                : NumberBubbleState.unanswered,
-      );
+  Widget _bubble(int i) {
+    final tap = widget.onTap;
+    final bubble = NumberBubble(
+      number: i + 1,
+      state: i == widget.current
+          ? NumberBubbleState.current
+          : widget.answered(i)
+              ? NumberBubbleState.answered
+              : NumberBubbleState.unanswered,
+      onTap: tap == null ? null : () => tap(i),
+    );
+    // Sel 48 juga untuk nomor yang tidak bisa diketuk, supaya jarak dan tinggi
+    // deretan sama di semua mode.
+    return SizedBox(
+      width: _step,
+      height: _step,
+      child: tap == null ? Center(child: bubble) : bubble,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -223,13 +251,13 @@ class _NumberStripState extends State<NumberStrip> {
       label: 'Nomor soal, sekarang soal ${widget.current + 1} dari '
           '${widget.count}',
       child: SizedBox(
-        height: AppSizes.bubble,
-        child: ListView.separated(
+        height: AppSizes.touchTarget,
+        child: ListView.builder(
           controller: _controller,
           scrollDirection: Axis.horizontal,
           padding: sessionMargin,
           itemCount: widget.count,
-          separatorBuilder: (_, __) => const SizedBox(width: AppSpace.s4),
+          itemExtent: _step,
           itemBuilder: (context, i) => _bubble(i),
         ),
       ),
@@ -376,22 +404,17 @@ class ExitPanel extends StatelessWidget {
         const SizedBox(height: AppSpace.s12),
         AppButton(label: 'Tetap mengerjakan', onPressed: onStay),
         const SizedBox(height: AppSpace.s8),
-        Row(
-          children: [
-            Expanded(
-              child: AppButton(
-                label: 'Lanjutkan nanti',
-                variant: AppButtonVariant.secondary,
-                onPressed: onLater,
-              ),
+        FooterButtons(
+          buttons: [
+            AppButton(
+              label: 'Lanjutkan nanti',
+              variant: AppButtonVariant.secondary,
+              onPressed: onLater,
             ),
-            const SizedBox(width: AppSpace.s8),
-            Expanded(
-              child: AppButton(
-                label: 'Akhiri sesi',
-                variant: AppButtonVariant.outline,
-                onPressed: onFinish,
-              ),
+            AppButton(
+              label: 'Akhiri sesi',
+              variant: AppButtonVariant.outline,
+              onPressed: onFinish,
             ),
           ],
         ),

@@ -235,6 +235,7 @@ void main() {
       final app = await openCatalog(tester);
       await tester.tap(find.text('Simulasi'));
       await tester.pumpAndSettle();
+      await show(tester, 'Mulai simulasi');
       await tester.tap(find.text('Mulai simulasi'));
       await tester.pumpAndSettle();
       app.router.pop();
@@ -307,6 +308,7 @@ void main() {
       final app = await openCatalog(tester, sessions: sessions);
       expect(find.text('Simulasi penuh'), findsOneWidget);
       expect(find.text('QA, CCAT-style'), findsOneWidget);
+      await show(tester, 'Mulai simulasi');
       await tester.tap(find.text('Mulai simulasi'));
       await tester.pumpAndSettle();
 
@@ -330,6 +332,7 @@ void main() {
           activeProfile(blueprint: only('verbal')),
         ]),
       );
+      await show(tester, 'Mulai simulasi');
       await tester.tap(find.text('Mulai simulasi'));
       await tester.pumpAndSettle();
       expect(app.location, '/psikotes');
@@ -342,6 +345,7 @@ void main() {
       final sessions = FakeSessionRepository()
         ..failStartWith = StateError('io error');
       await openCatalog(tester, sessions: sessions);
+      await show(tester, 'Mulai simulasi');
       await tester.tap(find.text('Mulai simulasi'));
       await tester.pumpAndSettle();
       expect(find.textContaining('Sesi belum dimulai'), findsOneWidget);

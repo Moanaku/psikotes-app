@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_tokens.dart';
+import '../../core/utils/text_scale.dart';
 import '../../domain/services/stats_service.dart';
 
 const List<String> _monthShort = [
@@ -31,7 +32,8 @@ String trendDescription(StatsSummary s) => [
         '${periodLabel(s.range, p.start)} ${p.skor.round()} persen',
     ].join(', ');
 
-/// Grafik garis skor simulasi per periode (S11). Warna dari token; nilai tiap
+/// Grafik garis skor simulasi per periode (S11). Skala huruf label dibatasi
+/// 1,3 dan sumbu Y selebar 48 supaya angka tidak bertumpuk. Warna dari token; nilai tiap
 /// titik juga tertulis di atasnya dan di ringkasan teks layar. Satu titik
 /// digambar sebagai titik tunggal.
 class TrendChart extends StatelessWidget {
@@ -90,7 +92,7 @@ class TrendChart extends StatelessWidget {
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: AppSpace.s32,
+              reservedSize: AppSpace.s48,
               interval: 50,
               getTitlesWidget: (v, meta) => Padding(
                 padding: const EdgeInsets.only(right: AppSpace.s4),
@@ -157,7 +159,9 @@ class TrendChart extends StatelessWidget {
       excludeSemantics: true,
       child: SizedBox(
         height: height,
-        child: chart,
+        // Label sumbu dan nilai titik dibatasi 1,3 kali; lebih besar dari itu
+        // angka sumbu bertumpuk dan menimpa judul.
+        child: ClampedChromeText(child: chart),
       ),
     );
   }

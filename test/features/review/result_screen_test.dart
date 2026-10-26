@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simulator_psikotes_it/core/theme/app_tokens.dart';
+import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
 import 'package:simulator_psikotes_it/core/widgets/quadrant_grid.dart';
 import 'package:simulator_psikotes_it/core/widgets/score_bar.dart';
 import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
@@ -63,23 +64,35 @@ void main() {
       expect(bars[1].weakest, isFalse);
     });
 
-    testWidgets('keempat sel menjumlah ke total soal', (tester) async {
+    testWidgets('empat hitungan kecepatan berupa baris dan menjumlah ke total',
+        (tester) async {
       final sessions = FakeSessionRepository();
       final id = await seedFinished(sessions, mixed);
       await openResult(tester, sessions, id);
 
-      final cells =
-          tester.widget<QuadrantGrid>(find.byType(QuadrantGrid)).cells;
-      expect(cells.map((c) => c.title), [
+      expect(find.byType(QuadrantGrid), findsNothing,
+          reason: 'bukan kisi 2x2 kotak seragam');
+      final titles = [
         'Benar dan cepat',
         'Benar tapi lambat',
         'Salah dan cepat',
         'Salah dan lambat',
-      ]);
-      expect(cells.map((c) => c.count), [1, 1, 1, 1]);
-      expect(cells.fold<int>(0, (a, c) => a + c.count), 4);
+      ];
+      var total = 0;
+      for (final t in titles) {
+        final row = find.widgetWithText(ListRow, t);
+        expect(row, findsOneWidget, reason: t);
+        final count = tester.widget<ListRow>(row).trailing! as Text;
+        total += int.parse(count.data!);
+      }
+      expect(total, 4);
       expect(find.text('Terburu-buru'), findsOneWidget);
       expect(find.text('Belum paham pola'), findsOneWidget);
+      // Satu angka skor dominan: hanya skor yang berukuran display.
+      final display = tester
+          .widgetList<Text>(find.byType(Text))
+          .where((t) => t.style?.fontSize == 36);
+      expect(display, hasLength(1));
     });
 
     testWidgets('jumlah soal salah masuk buku kesalahan dan soal dilewati',
@@ -88,12 +101,16 @@ void main() {
       final id = await seedFinished(sessions, mixed);
       await openResult(tester, sessions, id);
       expect(
-        find.text('2 soal salah masuk buku kesalahan dan dijadwalkan ulang '
+        find.text('1 soal salah masuk buku kesalahan dan dijadwalkan ulang '
             'besok.'),
         findsOneWidget,
+        reason: 'soal tanpa jawaban tidak membuat kartu',
       );
-      expect(find.text('1 soal tidak dijawab dan dihitung salah.'),
-          findsOneWidget);
+      expect(
+        find.text('Tidak dijawab: 1 soal. Dihitung salah pada skor, tidak '
+            'masuk buku kesalahan.'),
+        findsOneWidget,
+      );
     });
 
     testWidgets('semua benar: tanpa kartu baru dan pembahasan mulai soal 1',

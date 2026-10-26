@@ -41,6 +41,19 @@ void main() {
       expect(find.text('Kamu melamar sebagai apa?'), findsOneWidget);
     });
 
+    testWidgets(
+        'pertama kali: S01 tanpa tombol kembali, Lanjut ke S02 dan '
+        'kembali ke S01', (tester) async {
+      final app = await pumpApp(tester);
+      expect(find.byTooltip('Kembali ke pengaturan'), findsNothing);
+      await tester.tap(find.text('Lanjut'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/onboarding/profil');
+      await tester.tap(find.byTooltip('Kembali ke pilihan role'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/onboarding/role');
+    });
+
     for (final path in [
       '/psikotes',
       '/statistik',

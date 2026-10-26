@@ -124,10 +124,14 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
   }
 
   void _back() {
-    if (widget.editId != null) {
-      context.canPop() ? context.pop() : context.go(Routes.beranda);
+    // Profil baru: kembali ke langkah 1 yang ada di bawahnya di tumpukan.
+    // Dibuka langsung lewat tautan (tanpa tumpukan): ke S01 untuk profil baru,
+    // ke beranda untuk mengubah profil.
+    if (context.canPop()) {
+      context.pop();
     } else {
-      context.go(Routes.onboardingRole);
+      context
+          .go(widget.editId != null ? Routes.beranda : Routes.onboardingRole);
     }
   }
 

@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 import '../../core/theme/app_tokens.dart';
+import '../../core/utils/text_scale.dart';
+
+/// Bagian tinggi layar yang paling banyak dipakai bilah aksi.
+const double _footerMaxShare = 0.4;
 
 /// Rangka layar onboarding: kepala tetap, badan yang bisa digulir, dan bilah
-/// aksi di bawah dengan garis `outlineVariant` di atasnya. Perakitan token
+/// aksi di bawah dengan garis `outlineVariant` di atasnya. Bilah aksi tidak
+/// lebih tinggi dari 40% layar; bila isinya lebih tinggi (skala huruf besar,
+/// panel konfirmasi), bilah itu sendiri yang bisa digulir dan badan layar
+/// tetap punya ruang. Perakitan token
 /// untuk S01 dan S02, bukan komponen inti (lihat A48).
 class OnboardingFrame extends StatelessWidget {
   const OnboardingFrame({
@@ -47,14 +54,21 @@ class OnboardingFrame extends StatelessWidget {
                 color: c.surface,
                 border: Border(top: BorderSide(color: c.outlineVariant)),
               ),
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  AppSpace.s16,
-                  AppSpace.s12,
-                  AppSpace.s16,
-                  AppSpace.s12,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight:
+                      MediaQuery.sizeOf(context).height * _footerMaxShare,
                 ),
-                child: footer,
+                child: ListView(
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.fromLTRB(
+                    AppSpace.s16,
+                    AppSpace.s12,
+                    AppSpace.s16,
+                    AppSpace.s12,
+                  ),
+                  children: [footer],
+                ),
               ),
             ),
           ],
@@ -81,4 +95,44 @@ class ScreenPadding extends StatelessWidget {
         ),
         child: child,
       );
+}
+
+/// Tombol di bilah aksi bawah. Biasanya berdampingan dalam satu baris setinggi
+/// tombol tertinggi; di skala huruf besar ([shouldStackButtons]) tombol disusun
+/// vertikal selebar penuh dan tingginya menyesuaikan isi, supaya label tidak
+/// terpotong. Urutan [buttons] dari kiri ke kanan, aksi utama terakhir; di
+/// susunan vertikal aksi utama naik ke atas. [flex] mengatur lebar relatif
+/// pada susunan mendatar (bawaan sama lebar).
+class FooterButtons extends StatelessWidget {
+  const FooterButtons({super.key, required this.buttons, this.flex});
+
+  final List<Widget> buttons;
+  final List<int>? flex;
+
+  @override
+  Widget build(BuildContext context) {
+    if (buttons.length == 1) return buttons.single;
+    if (shouldStackButtons(context)) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = buttons.length - 1; i >= 0; i--) ...[
+            if (i < buttons.length - 1) const SizedBox(height: AppSpace.s8),
+            buttons[i],
+          ],
+        ],
+      );
+    }
+    return IntrinsicHeight(
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = 0; i < buttons.length; i++) ...[
+            if (i > 0) const SizedBox(width: AppSpace.s8),
+            Expanded(flex: flex?[i] ?? 1, child: buttons[i]),
+          ],
+        ],
+      ),
+    );
+  }
 }

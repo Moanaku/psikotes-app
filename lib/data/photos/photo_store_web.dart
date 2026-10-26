@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../domain/services/capture_service.dart';
+import '../../domain/services/clock.dart';
 import 'photo_names.dart';
 
 /// Foto Capture di web: base64 di penyimpanan lokal peramban (localStorage).
@@ -13,6 +14,10 @@ import 'photo_names.dart';
 CapturePhotoStore createPhotoStore() => WebCapturePhotoStore();
 
 class WebCapturePhotoStore implements CapturePhotoStore {
+  WebCapturePhotoStore({Clock? clock}) : _clock = clock ?? SystemClock();
+
+  final Clock _clock;
+
   static const int maxWebBytes = 600 * 1024;
   static const String prefix = 'capture_photo:';
 
@@ -23,7 +28,7 @@ class WebCapturePhotoStore implements CapturePhotoStore {
     if (bytes.length > maxWebBytes) {
       throw const PhotoStoreException(PhotoStoreProblem.tooLarge);
     }
-    final name = PhotoNames.create(extension);
+    final name = PhotoNames.create(extension, _clock);
     try {
       final ok =
           await (await _prefs).setString('$prefix$name', base64Encode(bytes));

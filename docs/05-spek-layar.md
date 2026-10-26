@@ -106,14 +106,14 @@ Aturan umum:
 
 ### S08 Hasil sesi (F06)
 - **Tujuan:** ringkasan skor dan pola kecepatan.
-- **Elemen:** `[skor]%` dan "QA, CCAT-style"; "Sesi lalu [skor]%, durasi [mm:ss]"; "Per kategori" dengan akurasi dan median; "Kecepatan vs ketepatan" (`QuadrantGrid`: benar dan cepat, benar tapi lambat, salah dan cepat dengan "Terburu-buru", salah dan lambat dengan "Belum paham pola"); "[n] soal salah masuk buku kesalahan dan dijadwalkan ulang besok."; tombol "Beranda" dan "Lihat pembahasan".
+- **Elemen:** `[skor]%` dan "QA, CCAT-style"; "Sesi lalu [skor]%, durasi [mm:ss]"; "Per kategori" dengan akurasi dan median; "Kecepatan vs ketepatan" (empat baris dengan pemisah, bukan kisi kotak; `ListRow` dengan hitungan di kanan: benar dan cepat, benar tapi lambat, salah dan cepat dengan "Terburu-buru", salah dan lambat dengan "Belum paham pola"; hanya angka skor yang dominan); "[n] soal salah masuk buku kesalahan dan dijadwalkan ulang besok."; tombol "Beranda" dan "Lihat pembahasan".
 - **Data:** `answer` sesi ini; menulis `mistake_card` untuk setiap jawaban salah (F07); `session.skor`.
 - **Aksi:** "Lihat pembahasan" ke S09 (soal pertama yang salah); "Beranda" ke S04.
 - **Selesai bila:** keempat sel menjumlah ke total soal; setiap soal salah punya kartu.
 
 ### S09 Pembahasan soal (F06)
 - **Tujuan:** memahami satu soal.
-- **Elemen:** strip nomor soal (benar atau salah, salah bergaris putus, sekarang berkontur tebal); jenis dan stimulus soal; blok "Salah, Jawabanmu" dan "Kunci"; "Kenapa" dengan penjelasan dan rangkaian selisih; "Pola dan trik"; "Waktumu [dtk], target [dtk]"; sakelar "Masuk buku kesalahan"; "Sebelumnya" dan "Berikutnya".
+- **Elemen:** strip nomor soal (benar atau salah, salah bergaris putus, sekarang berkontur tebal); jenis dan stimulus soal; daftar opsi dengan penanda ikon dan teks "Kunci" pada opsi kunci dan "Jawabanmu" pada opsi yang dipilih (tidak hanya warna); blok "Salah, Jawabanmu" dan "Kunci"; "Kenapa" dengan penjelasan dan rangkaian selisih; "Pola dan trik"; "Waktumu [dtk], target [dtk]"; sakelar "Masuk buku kesalahan"; "Sebelumnya" dan "Berikutnya".
 - **Data:** soal dibuat ulang dari `(tipe, seed, kesulitan)`; pembahasan dari `Question.explanation`.
 - **Aksi:** sakelar menambah atau menghapus kartu buku kesalahan; navigasi antar soal.
 - **Selesai bila:** pembahasan otomatis ada untuk semua tipe soal (diuji di property test: `explanation` tidak kosong).

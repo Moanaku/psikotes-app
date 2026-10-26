@@ -149,8 +149,10 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
         _busy = false;
         _pending = null;
         _backupMessage = (
-          text: 'Backup digabungkan: ${summary.added} baris baru, '
-              '${summary.updated} diperbarui. Data lamamu tetap ada.',
+          text: 'Backup digabungkan: ${summary.added} baris baru'
+              '${summary.updated > 0 ? ', ${summary.updated} diperbarui' : ''}.'
+              '${summary.renumbered > 0 ? ' ${summary.renumbered} baris diberi nomor baru karena bentrok dengan data di perangkat ini.' : ''}'
+              ' Data lamamu tetap ada.',
           error: false,
         );
       });
@@ -408,8 +410,9 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
           ),
         const SizedBox(height: AppSpace.s12),
         Text(
-          'Data di perangkat ini tidak dihapus. Bila id sama, baris yang '
-          'lebih baru dipakai.',
+          'Data di perangkat ini tidak dihapus. Baris yang sudah ada dilewati. '
+          'Baris dengan nomor yang bentrok diberi nomor baru, jadi sesi dan '
+          'kartu tetap ikut profil dan soalnya.',
           style: AppType.label(c.inkMuted),
         ),
         const SizedBox(height: AppSpace.s12),
@@ -698,7 +701,9 @@ class _SummaryRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final parts = [
-      if (count.added > 0) '${count.added} baru',
+      if (count.added > 0)
+        '${count.added} baru'
+            '${count.renumbered > 0 ? ' (${count.renumbered} diberi nomor baru)' : ''}',
       if (count.updated > 0) '${count.updated} diperbarui',
       if (count.kept > 0) '${count.kept} sudah ada',
     ];

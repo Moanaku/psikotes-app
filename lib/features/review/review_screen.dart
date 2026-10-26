@@ -9,6 +9,7 @@ import 'package:question_engine/question_engine.dart';
 import '../../app/routes.dart';
 import '../../core/theme/app_icons.dart';
 import '../../core/theme/app_tokens.dart';
+import '../../core/utils/text_scale.dart';
 import '../../core/utils/time_format.dart';
 import '../../core/widgets/app_button.dart';
 import '../../core/widgets/app_top_bar.dart';
@@ -107,7 +108,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       title: 'Pembahasan',
       onBack: _back,
       actions: [
-        if (reviewAsync.valueOrNull != null)
+        if (reviewAsync.valueOrNull != null && !isLargeText(context))
           Padding(
             padding: const EdgeInsets.only(right: AppSpace.s16),
             child: Center(
@@ -164,29 +165,20 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
         return OnboardingFrame(
           scrollController: _scroll,
           header: header,
-          footer: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: AppButton(
-                    label: 'Sebelumnya',
-                    variant: AppButtonVariant.secondary,
-                    onPressed:
-                        index > 0 ? () => _goTo(widget.number - 1) : null,
-                  ),
-                ),
-                const SizedBox(width: AppSpace.s8),
-                Expanded(
-                  child: AppButton(
-                    label: 'Berikutnya',
-                    onPressed: index < review.total - 1
-                        ? () => _goTo(widget.number + 1)
-                        : null,
-                  ),
-                ),
-              ],
-            ),
+          footer: FooterButtons(
+            buttons: [
+              AppButton(
+                label: 'Sebelumnya',
+                variant: AppButtonVariant.secondary,
+                onPressed: index > 0 ? () => _goTo(widget.number - 1) : null,
+              ),
+              AppButton(
+                label: 'Berikutnya',
+                onPressed: index < review.total - 1
+                    ? () => _goTo(widget.number + 1)
+                    : null,
+              ),
+            ],
           ),
           children: _body(context, review, index),
         );
@@ -214,6 +206,17 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
         current: index,
         onTap: (i) => _goTo(i + 1),
       ),
+      if (isLargeText(context)) ...[
+        // Penghitung soal tidak muat di bilah atas pada skala huruf besar.
+        const SizedBox(height: AppSpace.s8),
+        Padding(
+          padding: sessionMargin,
+          child: Text(
+            'Soal ${widget.number} dari ${review.total}',
+            style: AppType.label(c.inkMuted),
+          ),
+        ),
+      ],
       const SizedBox(height: AppSpace.s16),
       Padding(
         padding: sessionMargin,
@@ -254,36 +257,32 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
           question: q,
           selected: answer?.opsiDipilih,
           onSelect: null,
+          keyIndex: q.correctIndex,
           photo: photoForItem(item),
         ),
         const SizedBox(height: AppSpace.s16),
         Padding(
           padding: sessionMargin,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: _SideBySide(
+            stacked: isLargeText(context),
             children: [
-              Expanded(
-                child: ReviewAnswerBlock(
-                  ok: benar,
-                  title: benar
-                      ? 'Benar'
-                      : skipped
-                          ? 'Dilewati'
-                          : 'Salah',
-                  caption: 'Jawabanmu',
-                  question: q,
-                  index: answer?.opsiDipilih,
-                ),
+              ReviewAnswerBlock(
+                ok: benar,
+                title: benar
+                    ? 'Benar'
+                    : skipped
+                        ? 'Tidak dijawab'
+                        : 'Salah',
+                caption: 'Jawabanmu',
+                question: q,
+                index: answer?.opsiDipilih,
               ),
-              const SizedBox(width: AppSpace.s8),
-              Expanded(
-                child: ReviewAnswerBlock(
-                  ok: true,
-                  title: 'Kunci',
-                  caption: 'Jawaban benar',
-                  question: q,
-                  index: q.correctIndex,
-                ),
+              ReviewAnswerBlock(
+                ok: true,
+                title: 'Kunci',
+                caption: 'Jawaban benar',
+                question: q,
+                index: q.correctIndex,
               ),
             ],
           ),
@@ -384,6 +383,38 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       };
 }
 
+/// Dua blok berdampingan sama lebar; di skala huruf besar disusun ke bawah.
+class _SideBySide extends StatelessWidget {
+  const _SideBySide({required this.children, required this.stacked});
+
+  final List<Widget> children;
+  final bool stacked;
+
+  @override
+  Widget build(BuildContext context) {
+    if (stacked) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          for (var i = 0; i < children.length; i++) ...[
+            if (i > 0) const SizedBox(height: AppSpace.s8),
+            children[i],
+          ],
+        ],
+      );
+    }
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        for (var i = 0; i < children.length; i++) ...[
+          if (i > 0) const SizedBox(width: AppSpace.s8),
+          Expanded(child: children[i]),
+        ],
+      ],
+    );
+  }
+}
+
 /// Judul seksi dan isinya di S09 dan pembahasan kartu buku kesalahan.
 class ReviewSection extends StatelessWidget {
   const ReviewSection({super.key, required this.title, required this.text});
@@ -463,7 +494,7 @@ class ReviewAnswerBlock extends StatelessWidget {
             Text(caption, style: AppType.label(c.ink)),
             const SizedBox(height: AppSpace.s4),
             if (o == null)
-              Text('Tidak dijawab', style: AppType.body(c.ink))
+              Text('Tanpa pilihan', style: AppType.body(c.ink))
             else if (fig != null)
               Row(
                 children: [

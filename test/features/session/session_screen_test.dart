@@ -10,6 +10,7 @@ import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/question_guides.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
+import 'package:simulator_psikotes_it/features/session/session_widgets.dart';
 
 import '../../core/golden_helper.dart' show expectTouchTargets48;
 import '../../support/fake_clock.dart';
@@ -230,13 +231,17 @@ void main() {
     testWidgets('judul dengan nama profil, langkah subtes, kisi, dan catatan',
         (tester) async {
       await openSession(tester, SessionMode.simulasi, simulasiPlan());
-      expect(find.text('Simulasi QA, CCAT-style'), findsOneWidget);
+      expect(find.text('Simulasi'), findsOneWidget);
+      expect(find.text('QA, CCAT-style'), findsOneWidget,
+          reason: 'nama profil jadi baris sekunder, bukan judul');
       expect(find.text('05:00'), findsOneWidget);
       for (final k in ['Numerik', 'Logika', 'Figural']) {
         expect(find.text(k), findsOneWidget, reason: k);
       }
       expect(find.text('Subtes 1 dari 3, soal 1 dari 3'), findsOneWidget);
       expect(find.byType(NumberBubble), findsNWidgets(3));
+      expect(find.byType(ListView), findsWidgets,
+          reason: 'navigator soal satu baris yang digulir mendatar');
       expect(
         find.textContaining('Setelah subtes ditutup, kamu tidak bisa kembali '
             'ke sana. Pembahasan muncul setelah simulasi selesai.'),
@@ -748,6 +753,24 @@ void main() {
         (tester) async {
       await openSession(tester, SessionMode.latihan, latihanPlan());
       expectTouchTargets48(tester);
+    });
+
+    testWidgets('navigator soal punya sel 48 dp di latihan dan simulasi',
+        (tester) async {
+      for (final mode in [SessionMode.latihan, SessionMode.simulasi]) {
+        await openSession(tester, mode,
+            mode == SessionMode.latihan ? latihanPlan() : simulasiPlan());
+        final strip = tester.getRect(find.byType(NumberStrip));
+        expect(strip.height, 48, reason: '$mode');
+        final bubbles = find.byType(NumberBubble);
+        for (var i = 0; i < 3; i++) {
+          final cell = tester.getRect(find
+              .ancestor(of: bubbles.at(i), matching: find.byType(SizedBox))
+              .first);
+          expect(cell.width, greaterThanOrEqualTo(48), reason: '$mode $i');
+          expect(cell.height, greaterThanOrEqualTo(48), reason: '$mode $i');
+        }
+      }
     });
 
     testWidgets('target sentuh minimal 48 dp di simulasi', (tester) async {

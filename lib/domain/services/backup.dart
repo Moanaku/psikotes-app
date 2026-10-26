@@ -47,18 +47,25 @@ class BackupException implements Exception {
   String toString() => 'BackupException(${problem.name})';
 }
 
-/// Hitungan satu tabel: baris di berkas, yang baru di perangkat ini, yang
-/// menggantikan baris lama karena lebih baru, dan yang dibiarkan.
+/// Hitungan satu tabel: baris di berkas, yang baru di perangkat ini, dan yang
+/// dibiarkan karena baris yang sama sudah ada. Dari yang baru, [renumbered]
+/// adalah baris yang nomornya (id) bentrok dengan baris lain di perangkat ini
+/// dan karena itu diberi nomor baru.
 class BackupTableCount {
   const BackupTableCount({
     required this.total,
     required this.added,
-    required this.updated,
+    this.updated = 0,
+    this.renumbered = 0,
   });
 
   final int total;
   final int added;
+
+  /// Cadangan untuk penggantian baris; impor tidak lagi mengganti baris yang
+  /// ada (nomor yang sama dengan isi lain dianggap baris lain), jadi nol.
   final int updated;
+  final int renumbered;
 
   int get kept => total - added - updated;
 }
@@ -80,6 +87,7 @@ class BackupSummary {
   int get totalRows => tabel.values.fold(0, (a, b) => a + b.total);
   int get added => tabel.values.fold(0, (a, b) => a + b.added);
   int get updated => tabel.values.fold(0, (a, b) => a + b.updated);
+  int get renumbered => tabel.values.fold(0, (a, b) => a + b.renumbered);
 }
 
 abstract class BackupService {

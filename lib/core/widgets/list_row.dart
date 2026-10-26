@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_icons.dart';
 import '../theme/app_tokens.dart';
+import '../utils/text_scale.dart';
 
 /// Baris daftar: min 56, garis bawah `outlineVariant`, bukan kartu.
-/// Chevron muncul bila `onTap` ada dan `trailing` kosong.
+/// Chevron muncul bila `onTap` ada dan `trailing` kosong. Di skala huruf
+/// besar ([isLargeText]) `trailing` buatan pemanggil pindah ke bawah teks
+/// supaya judul tidak terdesak sampai kata terpotong.
 class ListRow extends StatelessWidget {
   const ListRow({
     super.key,
@@ -26,10 +29,14 @@ class ListRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final c = context.tokens.colors;
-    final end = trailing ??
-        (onTap != null
-            ? Icon(AppIcons.next, size: AppSizes.iconBase, color: c.inkMuted)
-            : null);
+    final stacked = trailing != null && isLargeText(context);
+    final end = stacked
+        ? null
+        : trailing ??
+            (onTap != null
+                ? Icon(AppIcons.next,
+                    size: AppSizes.iconBase, color: c.inkMuted)
+                : null);
 
     final content = DecoratedBox(
       decoration: BoxDecoration(
@@ -64,6 +71,10 @@ class ListRow extends StatelessWidget {
                     if (subtitle != null) ...[
                       const SizedBox(height: AppSpace.s4),
                       Text(subtitle!, style: AppType.label(c.inkMuted)),
+                    ],
+                    if (stacked) ...[
+                      const SizedBox(height: AppSpace.s8),
+                      trailing!,
                     ],
                   ],
                 ),

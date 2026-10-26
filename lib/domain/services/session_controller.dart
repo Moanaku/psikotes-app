@@ -533,24 +533,29 @@ class SessionController extends Notifier<SessionState?> {
     for (var p = 0; p < r.plan.items.length; p++) {
       if (!r.answers.containsKey(p)) await _recordSkipped(r, p);
     }
-    // Setiap soal yang tidak benar, termasuk yang dilewati, menjadi kartu
-    // buku kesalahan (jatuh tempo besok). Soal ulangan (PlanItem.cardId)
+    // Setiap jawaban yang diisi dan salah menjadi kartu buku kesalahan (jatuh
+    // tempo besok). Soal yang tidak dijawab (waktu habis atau sesi diakhiri)
+    // dihitung salah pada skor, tetapi tidak membuat kartu dan tidak mengubah
+    // kartu ulangan (A63, A77). Soal ulangan (PlanItem.cardId)
     // menjadwal ulang kartunya lewat SM-2, benar atau salah, dan tidak
-    // membuat kartu baru untuk seed barunya. Ditulis sebelum sesi ditutup:
-    // bila gagal, sesi tetap terbuka. Kartu soal baru diperbarui bukan
-    // ditambah; ulangan yang sudah terterapkan akan terterapkan dua kali bila
-    // penutupan diulang (A79).
-    for (final a in r.answers.values) {
-      final cardId = r.plan.items[a.posisi].cardId;
-      if (cardId != null && await _mistakes.byId(cardId) != null) {
-        await _mistakes.applyReview(cardId, a.benar, now);
-        continue;
+    // membuat kartu baru untuk seed barunya. Semua kartu dan penutupan sesi
+    // ditulis dalam satu transaksi: bila gagal di tengah, tidak ada kartu yang
+    // berubah dan sesi tetap terbuka, jadi penutupan bisa diulang tanpa
+    // menerapkan ulangan dua kali (A79).
+    r.skor = await _sessions.atomically(() async {
+      for (final a in r.answers.values) {
+        if (a.opsiDipilih == null) continue;
+        final cardId = r.plan.items[a.posisi].cardId;
+        if (cardId != null && await _mistakes.byId(cardId) != null) {
+          await _mistakes.applyReview(cardId, a.benar, now);
+          continue;
+        }
+        if (a.benar) continue;
+        if (a.sumber != AnswerSource.engine && a.refId == null) continue;
+        await _mistakes.upsertFromAnswer(a, now);
       }
-      if (a.benar) continue;
-      if (a.sumber != AnswerSource.engine && a.refId == null) continue;
-      await _mistakes.upsertFromAnswer(a, now);
-    }
-    r.skor = await _sessions.finish(r.sessionId, now);
+      return _sessions.finish(r.sessionId, now);
+    });
     r.finished = true;
     r.deadline = null;
     r.selected = null;

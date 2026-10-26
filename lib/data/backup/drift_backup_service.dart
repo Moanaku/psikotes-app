@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:drift/drift.dart';
 
+import '../../domain/models/codes.dart';
 import '../../domain/services/backup.dart';
 import '../db/app_database.dart';
 
@@ -76,19 +77,6 @@ class DriftBackupService implements BackupService {
         for (final name in BackupFormat.order) {
           final t = plan.tables[name];
           if (t == null) continue;
-          if (name == 'answer') {
-            for (final id in plan.replacedSessions) {
-              await _write(
-                'DELETE FROM answer WHERE session_id = ?',
-                [Variable.withInt(id)],
-                name,
-                UpdateKind.delete,
-              );
-            }
-          }
-          for (final row in t.updates) {
-            await _update(name, row, plan);
-          }
           for (final row in t.inserts) {
             await _insert(name, row, plan);
           }
@@ -104,31 +92,31 @@ class DriftBackupService implements BackupService {
     return plan.summary;
   }
 
+  /// Menyusun penggabungan. Baris dianggap sama bila nomornya (id) sama dan
+  /// waktu pembuatannya sama (`dibuat`, `mulai`, atau `tanggal`); baris sama
+  /// dibiarkan. Nomor yang sama dengan isi lain berarti baris lain dari
+  /// perangkat lain: ia diberi nomor baru, dan semua rujukan ke nomor itu
+  /// (sesi ke profil, jawaban ke sesi, rencana sesi ke soal Capture dan kartu,
+  /// soal Capture ke catatan tes) dipetakan ke nomor barunya. Kartu buku
+  /// kesalahan dikenali dari soalnya, bukan dari nomornya.
   Future<_Plan> _plan(BackupFile file) async {
     const bad = BackupException(BackupProblem.unreadable);
     final plan = _Plan(file);
 
-    // Baris yang sudah ada di perangkat: id dan waktu pembanding.
-    Future<Map<int, int?>> existing(String table) async {
-      final recency = BackupFormat.recency[table];
-      final rows = await _db
-          .customSelect(
-            'SELECT id${recency == null ? '' : ', $recency'} FROM $table',
-          )
-          .get();
+    // Baris yang sudah ada di perangkat: id dan sidik jarinya.
+    Future<Map<int, String>> existing(String table) async {
+      final rows = await _db.customSelect('SELECT * FROM $table').get();
       return {
-        for (final r in rows)
-          r.read<int>('id'): recency == null ? null : r.read<int>(recency),
+        for (final r in rows) r.read<int>('id'): _fingerprint(table, r.data),
       };
     }
 
-    final onDevice = {
+    final onDevice = <String, Map<int, String>>{
       for (final t in const [
         'test_profile',
         'company_test_log',
         'captured_question',
         'session',
-        'mistake_card',
       ])
         t: await existing(t),
     };
@@ -153,6 +141,42 @@ class DriftBackupService implements BackupService {
       if (!sessionIds.contains(r['session_id'])) throw bad;
     }
 
+    // Kartu di perangkat: id dan kunci soalnya.
+    final cardRows = await _db
+        .customSelect('SELECT id, sumber, tipe, seed, ref_id FROM mistake_card')
+        .get();
+    final deviceCardKeys = <String, int>{
+      for (final r in cardRows)
+        _cardKey(
+          r.read<String>('sumber'),
+          r.read<String>('tipe'),
+          r.readNullable<int>('seed'),
+          r.readNullable<int>('ref_id'),
+        ): r.read<int>('id'),
+    };
+    final usedCardIds = {for (final r in cardRows) r.read<int>('id')};
+
+    // Nomor baru dibagikan di atas semua nomor yang ada di perangkat dan di
+    // berkas, jadi tidak pernah menabrak nomor lain.
+    final nextId = <String, int>{};
+    int maxOf(Iterable<int> ids) => ids.fold(0, (a, b) => a > b ? a : b);
+    for (final t in const [
+      'test_profile',
+      'company_test_log',
+      'captured_question',
+      'session',
+    ]) {
+      nextId[t] = maxOf([
+        ...?onDevice[t]?.keys,
+        for (final r in file.rows(t)) r['id']! as int,
+      ]);
+    }
+    nextId['mistake_card'] = maxOf([
+      ...usedCardIds,
+      for (final r in file.rows('mistake_card')) r['id']! as int,
+    ]);
+    int fresh(String table) => nextId[table] = nextId[table]! + 1;
+
     final hasActive = (await _db
             .customSelect(
                 'SELECT COUNT(*) AS n FROM test_profile WHERE aktif = 1')
@@ -160,13 +184,167 @@ class DriftBackupService implements BackupService {
         .read<int>('n');
     var activeTaken = hasActive > 0;
 
-    for (final name in BackupFormat.order) {
+    final profileMap = <int, int>{};
+    final logMap = <int, int>{};
+    final captureMap = <int, int>{};
+    final cardMap = <int, int>{};
+    final sessionMap = <int, int>{};
+
+    // Sidik jari -> nomor di perangkat, dan nomor yang sudah terpakai.
+    final byPrint = {
+      for (final e in onDevice.entries)
+        e.key: {for (final p in e.value.entries) p.value: p.key},
+    };
+    final usedIds = {
+      for (final e in onDevice.entries) e.key: e.value.keys.toSet(),
+    };
+
+    /// Menempatkan baris dari berkas: baris yang sama sudah ada di perangkat
+    /// (dibiarkan, rujukan diarahkan ke nomornya di sini), nomornya bebas
+    /// (dipakai apa adanya), atau nomornya sudah dipakai baris lain (nomor
+    /// baru). Mengembalikan nomor yang dipakai dan apakah baris perlu ditulis.
+    ({int id, bool write}) place(
+      String table,
+      Map<String, Object?> row,
+      Map<int, int> map,
+      _TablePlan t,
+    ) {
+      final id = row['id']! as int;
+      final print = _fingerprint(table, row);
+      final known = byPrint[table]![print];
+      if (known != null) {
+        map[id] = known;
+        return (id: known, write: false);
+      }
+      var nid = id;
+      if (usedIds[table]!.contains(id)) {
+        nid = fresh(table);
+        t.renumbered++;
+      }
+      usedIds[table]!.add(nid);
+      byPrint[table]![print] = nid;
+      map[id] = nid;
+      return (id: nid, write: true);
+    }
+
+    for (final name in const [
+      'test_profile',
+      'company_test_log',
+      'captured_question',
+      'mistake_card',
+      'session',
+      'answer',
+      'app_setting',
+    ]) {
       if (BackupFormat.deferred.contains(name)) continue;
       final rows = file.rows(name);
       if (!file.tables.containsKey(name)) continue;
       final t = plan.tables[name] = _TablePlan(rows.length);
 
       switch (name) {
+        case 'test_profile':
+          for (final r in rows) {
+            final p = place(name, r, profileMap, t);
+            if (!p.write) continue;
+            final wantsActive = r['aktif'] == 1 && !activeTaken;
+            if (wantsActive) activeTaken = true;
+            t.inserts.add({...r, 'id': p.id, 'aktif': wantsActive ? 1 : 0});
+          }
+        case 'company_test_log':
+          for (final r in rows) {
+            final p = place(name, r, logMap, t);
+            if (p.write) t.inserts.add({...r, 'id': p.id});
+          }
+        case 'captured_question':
+          for (final r in rows) {
+            final p = place(name, r, captureMap, t);
+            if (!p.write) continue;
+            final log = r['company_log_id'] as int?;
+            t.inserts.add({
+              ...r,
+              'id': p.id,
+              'company_log_id': log == null ? null : (logMap[log] ?? log),
+            });
+          }
+        case 'mistake_card':
+          for (final r in rows) {
+            final id = r['id']! as int;
+            final capture = r['sumber'] == AnswerSource.capture.code;
+            final ref = r['ref_id'] as int?;
+            final mappedRef =
+                capture && ref != null ? (captureMap[ref] ?? ref) : ref;
+            final key = _cardKey(
+              r['sumber']! as String,
+              r['tipe']! as String,
+              r['seed'] as int?,
+              mappedRef,
+            );
+            final known = deviceCardKeys[key];
+            if (known != null) {
+              // Soal yang sama sudah punya kartu; kartu di perangkat dipakai.
+              cardMap[id] = known;
+              continue;
+            }
+            var nid = id;
+            if (usedCardIds.contains(nid)) {
+              nid = fresh(name);
+              t.renumbered++;
+            }
+            usedCardIds.add(nid);
+            deviceCardKeys[key] = nid;
+            cardMap[id] = nid;
+            t.inserts.add({...r, 'id': nid, 'ref_id': mappedRef});
+          }
+        case 'session':
+          for (final r in rows) {
+            final p = place(name, r, sessionMap, t);
+            final id = r['id']! as int;
+            if (!p.write) {
+              plan.sessionDecision[id] = _Decision.keep;
+              continue;
+            }
+            plan.sessionDecision[id] = _Decision.add;
+            final profile = r['profile_id']! as int;
+            t.inserts.add({
+              ...r,
+              'id': p.id,
+              'profile_id': profileMap[profile] ?? profile,
+              'rencana_json': _remapPlan(
+                r['rencana_json']! as String,
+                captureMap,
+                cardMap,
+              ),
+            });
+          }
+        case 'answer':
+          // Jawaban mengikuti keputusan sesinya: sesi baru membawa jawabannya,
+          // sesi yang sama dibiarkan.
+          final withoutId = <Map<String, Object?>>[];
+          final usedIds = {
+            for (final r
+                in await _db.customSelect('SELECT id FROM answer').get())
+              r.read<int>('id'),
+          };
+          for (final r in rows) {
+            final session = r['session_id']! as int;
+            if (plan.sessionDecision[session] != _Decision.add) continue;
+            final capture = r['sumber'] == AnswerSource.capture.code;
+            final ref = r['ref_id'] as int?;
+            final row = {
+              ...r,
+              'session_id': sessionMap[session] ?? session,
+              'ref_id': capture && ref != null ? (captureMap[ref] ?? ref) : ref,
+            };
+            if (usedIds.contains(r['id'])) {
+              withoutId.add(row..remove('id'));
+            } else {
+              usedIds.add(r['id']! as int);
+              t.inserts.add(row);
+            }
+          }
+          // Id baru dibuat setelah semua id bawaan terpakai, supaya nomor
+          // otomatis tidak menabrak id berikutnya dari berkas.
+          t.inserts.addAll(withoutId);
         case 'app_setting':
           final keys = {
             for (final r
@@ -176,57 +354,49 @@ class DriftBackupService implements BackupService {
           for (final r in rows) {
             if (!keys.contains(r['key'])) t.inserts.add(r);
           }
-        case 'answer':
-          // Jawaban mengikuti keputusan sesinya.
-          final decided = plan.sessionDecision;
-          final withoutId = <Map<String, Object?>>[];
-          final usedIds = {
-            for (final r in await _db
-                .customSelect('SELECT id, session_id FROM answer')
-                .get())
-              if (!plan.replacedSessions.contains(r.read<int>('session_id')))
-                r.read<int>('id'),
-          };
-          for (final r in rows) {
-            final d = decided[r['session_id']];
-            if (d != _Decision.add && d != _Decision.update) continue;
-            if (usedIds.contains(r['id'])) {
-              withoutId.add({...r}..remove('id'));
-            } else {
-              usedIds.add(r['id']! as int);
-              t.inserts.add(r);
-            }
-          }
-          // Id baru dibuat setelah semua id bawaan terpakai, supaya nomor
-          // otomatis tidak menabrak id berikutnya dari berkas.
-          t.inserts.addAll(withoutId);
-        default:
-          final have = onDevice[name]!;
-          final recency = BackupFormat.recency[name]!;
-          for (final r in rows) {
-            final id = r['id']! as int;
-            if (!have.containsKey(id)) {
-              if (name == 'test_profile') {
-                final wantsActive = r['aktif'] == 1 && !activeTaken;
-                if (wantsActive) activeTaken = true;
-                t.inserts.add({...r, 'aktif': wantsActive ? 1 : 0});
-              } else {
-                t.inserts.add(r);
-              }
-              if (name == 'session') plan.sessionDecision[id] = _Decision.add;
-            } else if ((r[recency]! as int) > (have[id] ?? 0)) {
-              t.updates.add(r);
-              if (name == 'session') {
-                plan.sessionDecision[id] = _Decision.update;
-                plan.replacedSessions.add(id);
-              }
-            } else if (name == 'session') {
-              plan.sessionDecision[id] = _Decision.keep;
-            }
-          }
       }
     }
     return plan;
+  }
+
+  /// Sidik jari sebuah baris: apa yang membuatnya baris yang sama di perangkat
+  /// lain, tidak bergantung pada nomornya. Waktu pembuatan (milidetik) dengan
+  /// satu isian pembeda; isian yang bisa diubah pengguna tidak dipakai kecuali
+  /// perlu.
+  static String _fingerprint(String table, Map<String, Object?> r) =>
+      switch (table) {
+        'test_profile' => '${r['dibuat']}|${r['nama']}',
+        'company_test_log' => '${r['perusahaan']}|${r['tanggal']}',
+        'captured_question' => '${r['dibuat']}',
+        'session' => '${r['mulai']}|${r['mode']}',
+        _ => throw ArgumentError('tabel tanpa sidik jari: $table'),
+      };
+
+  /// Kunci soal sebuah kartu: soal engine dari (tipe, seed), soal lain dari
+  /// (sumber, tipe, ref_id), sama dengan `MistakeRepository`.
+  static String _cardKey(String sumber, String tipe, int? seed, int? ref) =>
+      sumber == AnswerSource.engine.code
+          ? '$sumber|$tipe|$seed'
+          : '$sumber|$tipe|$ref';
+
+  /// Rencana sesi dengan rujukan soal Capture dan kartu dipetakan ke nomor
+  /// barunya.
+  static String _remapPlan(
+    String json,
+    Map<int, int> captures,
+    Map<int, int> cards,
+  ) {
+    final plan = (jsonDecode(json) as Map).cast<String, Object?>();
+    final items = <Object?>[];
+    for (final i in plan['items']! as List) {
+      final item = Map<String, Object?>.from(i as Map);
+      final ref = item['refId'];
+      if (ref is int) item['refId'] = captures[ref] ?? ref;
+      final card = item['cardId'];
+      if (card is int) item['cardId'] = cards[card] ?? card;
+      items.add(item);
+    }
+    return jsonEncode({...plan, 'items': items});
   }
 
   Future<void> _write(
@@ -261,22 +431,6 @@ class DriftBackupService implements BackupService {
     );
   }
 
-  Future<void> _update(String table, Map<String, Object?> row, _Plan plan) {
-    // Profil yang diperbarui tetap memakai status aktif perangkat ini.
-    final skip = {'id', if (table == 'test_profile') 'aktif'};
-    final names = [
-      for (final n in row.keys)
-        if (!skip.contains(n)) n,
-    ];
-    return _write(
-      'UPDATE $table SET ${[for (final n in names) '$n = ?'].join(', ')} '
-      'WHERE id = ?',
-      [for (final n in names) _variable(row[n]), _variable(row['id'])],
-      table,
-      UpdateKind.update,
-    );
-  }
-
   /// Tepat satu profil aktif setelah impor (docs/03-data-model.md).
   Future<void> _ensureOneActiveProfile() async {
     final active = (await _db
@@ -306,14 +460,16 @@ class DriftBackupService implements BackupService {
   }
 }
 
-enum _Decision { add, update, keep }
+enum _Decision { add, keep }
 
 class _TablePlan {
   _TablePlan(this.total);
 
   final int total;
   final List<Map<String, Object?>> inserts = [];
-  final List<Map<String, Object?>> updates = [];
+
+  /// Dari [inserts], yang diberi nomor baru karena bentrok.
+  int renumbered = 0;
 }
 
 class _Plan {
@@ -323,9 +479,6 @@ class _Plan {
   final Map<String, _TablePlan> tables = {};
   final Map<int, _Decision> sessionDecision = {};
 
-  /// Sesi di perangkat yang digantikan; jawaban lamanya dihapus lebih dulu.
-  final Set<int> replacedSessions = {};
-
   BackupSummary get summary => BackupSummary(
         versi: file.versi,
         diekspor: file.diekspor,
@@ -334,7 +487,7 @@ class _Plan {
             e.key: BackupTableCount(
               total: e.value.total,
               added: e.value.inserts.length,
-              updated: e.value.updates.length,
+              renumbered: e.value.renumbered,
             ),
         },
       );

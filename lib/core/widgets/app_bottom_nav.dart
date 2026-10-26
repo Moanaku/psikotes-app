@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../theme/app_icons.dart';
 import '../theme/app_tokens.dart';
+import '../utils/text_scale.dart';
 
 /// Empat tab tetap: Beranda, Psikotes, Wawancara, Statistik.
-/// Tab aktif: ikon di dalam pil `accent` 56 x 32, label `ink` tebal.
+/// Tab aktif: ikon di dalam pil `accent` 56 x 32, label `ink` tebal. Skala
+/// huruf label dibatasi 1,3 supaya nama tab tidak terpotong.
 class AppBottomNav extends StatelessWidget {
   const AppBottomNav({
     super.key,
@@ -45,10 +47,8 @@ class AppBottomNav extends StatelessWidget {
                     child: InkWell(
                       onTap: () => onSelected(i),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: AppSpace.s8,
-                          horizontal: AppSpace.s4,
-                        ),
+                        padding:
+                            const EdgeInsets.symmetric(vertical: AppSpace.s8),
                         child: Column(
                           children: [
                             AnimatedContainer(
@@ -74,15 +74,17 @@ class AppBottomNav extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: AppSpace.s4),
-                            Text(
-                              _tabs[i].$2,
-                              textAlign: TextAlign.center,
-                              style: AppType.caption(
-                                i == currentIndex ? c.ink : c.inkMuted,
-                              ).copyWith(
-                                fontWeight: i == currentIndex
-                                    ? FontWeight.w700
-                                    : FontWeight.w600,
+                            ClampedChromeText(
+                              child: Text(
+                                _tabs[i].$2,
+                                textAlign: TextAlign.center,
+                                style: AppType.caption(
+                                  i == currentIndex ? c.ink : c.inkMuted,
+                                ).copyWith(
+                                  fontWeight: i == currentIndex
+                                      ? FontWeight.w700
+                                      : FontWeight.w600,
+                                ),
                               ),
                             ),
                           ],

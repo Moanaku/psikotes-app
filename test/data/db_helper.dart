@@ -17,6 +17,7 @@ TestProfile profile({
   String nama = 'QA, CCAT',
   bool aktif = false,
   int? id,
+  DateTime? dibuat,
 }) =>
     TestProfile(
       id: id,
@@ -33,7 +34,7 @@ TestProfile profile({
         bobot: {'verbal': 0.6, 'figural': 0.4},
       ),
       cvTeks: 'ringkasan CV',
-      dibuat: t0,
+      dibuat: dibuat ?? t0,
     );
 
 SessionPlan plan({int n = 4}) => SessionPlan(

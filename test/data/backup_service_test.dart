@@ -103,6 +103,14 @@ Future<Map<String, Object?>> snapshot(AppDatabase db) async {
   return (json['tabel']! as Map).cast<String, Object?>();
 }
 
+/// Semua sesi di [db] menurut nomor.
+Future<List<SessionRecord>> allSessions(AppDatabase db) async {
+  final repo = DriftSessionRepository(db);
+  final rows =
+      await db.customSelect('SELECT id FROM session ORDER BY id').get();
+  return [for (final r in rows) (await repo.byId(r.read<int>('id')))!];
+}
+
 Future<String> exported(AppDatabase db) => DriftBackupService(db).export(now);
 
 void main() {
@@ -431,7 +439,7 @@ void main() {
       return copy;
     }
 
-    test('baris yang sama dan lebih baru menggantikan; lebih lama dibiarkan',
+    test('nomor sama dengan isi lain diberi nomor baru, tidak menimpa',
         () async {
       // Perangkat A: satu profil (id 1) dibuat t0.
       final a = await device();
@@ -440,28 +448,30 @@ void main() {
       final base = jsonDecode(await DriftBackupService(a).export(now))
           as Map<String, Object?>;
 
-      // Perangkat B: profil id 1 lebih baru dengan nama lain.
-      final newer = exportedWith(base, (t) {
+      // Backup dari perangkat lain: profil dengan id 1 juga, tetapi profil
+      // lain (dibuat sehari kemudian, nama lain).
+      final other = exportedWith(base, (t) {
         final row = t['test_profile']!.first as Map;
-        row['nama'] = 'Versi baru dari backup';
+        row['nama'] = 'Profil dari backup';
+        row['aktif'] = 0;
         row['dibuat'] =
             h.t0.add(const Duration(days: 1)).millisecondsSinceEpoch;
       });
-      final summary = await DriftBackupService(a).import(jsonEncode(newer));
-      expect(summary.tabel['test_profile']!.updated, 1);
-      expect((await repoA.active())!.nama, 'Versi baru dari backup');
-      expect((await repoA.active())!.aktif, isTrue,
-          reason: 'status aktif perangkat ini dipertahankan');
+      final summary = await DriftBackupService(a).import(jsonEncode(other));
+      final count = summary.tabel['test_profile']!;
+      expect((count.added, count.renumbered, count.updated), (1, 1, 0));
+      final all = await repoA.watchAll().first;
+      expect(
+          all.map((p) => p.nama).toSet(), {'Versi lama', 'Profil dari backup'},
+          reason: 'profil lama tidak tertimpa');
+      expect(all.map((p) => p.id).toSet(), hasLength(2));
+      expect((await repoA.active())!.nama, 'Versi lama');
 
-      final older = exportedWith(base, (t) {
-        final row = t['test_profile']!.first as Map;
-        row['nama'] = 'Versi tua';
-        row['dibuat'] =
-            h.t0.subtract(const Duration(days: 9)).millisecondsSinceEpoch;
-      });
-      final second = await DriftBackupService(a).import(jsonEncode(older));
-      expect(second.tabel['test_profile']!.kept, 1);
-      expect((await repoA.active())!.nama, 'Versi baru dari backup');
+      // Berkas yang sama sekali lagi: sudah ada, tidak menggandakan.
+      final again = await DriftBackupService(a).import(jsonEncode(other));
+      expect(again.tabel['test_profile']!.kept, 1);
+      expect(again.added, 0);
+      expect(await repoA.watchAll().first, hasLength(2));
     });
 
     test('data di perangkat tidak hilang; profil aktif perangkat tetap aktif',
@@ -471,8 +481,11 @@ void main() {
 
       final other = await device();
       final repo = DriftProfileRepository(other);
-      final own =
-          await repo.save(h.profile(nama: 'Punya sendiri', aktif: true));
+      final own = await repo.save(h.profile(
+        nama: 'Punya sendiri',
+        aktif: true,
+        dibuat: h.t0.add(const Duration(days: 7)),
+      ));
       // Sesi sendiri dengan id yang akan bertabrakan (id 1).
       final ownSession = await DriftSessionRepository(other).start(NewSession(
         profileId: own,
@@ -486,26 +499,234 @@ void main() {
 
       final profiles = await repo.watchAll().first;
       expect(profiles.map((p) => p.nama),
-          containsAll(['Punya sendiri', 'Profil kedua']));
+          containsAll(['Punya sendiri', 'QA, CCAT', 'Profil kedua']));
       expect(profiles.where((p) => p.aktif), hasLength(1));
       expect((await repo.active())!.id, own);
-      final sessions = await DriftSessionRepository(other).byId(1);
-      expect(sessions!.mode, SessionMode.simulasi,
-          reason: 'sesi sendiri yang lebih baru tidak diganti');
-      expect(summary.tabel['session']!.kept, 1);
+
+      // Sesi sendiri utuh dan tetap milik profilnya.
+      final sessions = DriftSessionRepository(other);
+      final mine = await sessions.byId(ownSession);
+      expect(mine!.mode, SessionMode.simulasi);
+      expect(mine.profileId, own);
+
+      // Sesi dari backup menempel ke profil dari backup, bukan ke profil
+      // sendiri yang kebetulan bernomor sama.
+      final imported =
+          (await allSessions(other)).where((s) => s.id != ownSession).single;
+      expect(imported.mode, SessionMode.latihan);
+      final owner = await repo.byId(imported.profileId);
+      expect(owner!.nama, 'QA, CCAT');
+      expect(imported.profileId, isNot(own));
+      expect(await DriftAnswerRepository(other).forSession(imported.id),
+          hasLength(3));
+
+      expect(summary.tabel['test_profile']!.renumbered, 1);
+      expect(summary.tabel['session']!.renumbered, 1);
+      expect(summary.tabel['session']!.kept, 0);
+    });
+
+    test('rujukan Capture, kartu, dan catatan ikut dipetakan ke nomor baru',
+        () async {
+      // Sumber: soal Capture (id 1) dalam catatan (id 1), kartu engine (id 1),
+      // dan sesi yang merujuk ke soal Capture dan ke kartu itu.
+      final src = await device();
+      final srcProfile =
+          await DriftProfileRepository(src).save(h.profile(aktif: true));
+      final srcLog = await DriftCompanyLogRepository(src).save(CompanyTestLog(
+        perusahaan: 'PT Sumber',
+        tanggal: DateTime.utc(2026, 9, 1),
+        subtes: const ['verbal'],
+        tipeBaru: const [],
+        catatan: '',
+      ));
+      final srcCapture =
+          await DriftCaptureRepository(src).save(CapturedQuestion(
+        teks: 'Soal sumber',
+        opsi: const ['a', 'b'],
+        kunci: 0,
+        kategori: 'lipat kertas',
+        companyLogId: srcLog,
+        dibuat: h.t0,
+      ));
+      final srcCardAnswer = h.answer(0, seed: 777, benar: false);
+      final srcCard = (await DriftMistakeRepository(src)
+          .upsertFromAnswer(srcCardAnswer, h.t0))!;
+      final srcSession = await DriftSessionRepository(src).start(NewSession(
+        profileId: srcProfile,
+        mode: SessionMode.latihan,
+        plan: SessionPlan(
+          items: [
+            PlanItem.capture(
+                refId: srcCapture, kategori: 'lipat kertas', subtes: 'x'),
+            PlanItem(
+              type: QuestionType.figMtx,
+              seed: 778,
+              difficulty: Difficulty.medium,
+              genVersi: 1,
+              subtes: 'figural',
+              cardId: srcCard.id,
+            ),
+          ],
+          subtes: const [SubtestPlan(kategori: 'figural', jumlah: 2, menit: 5)],
+        ),
+        mulai: h.t0,
+      ));
+      final captureAnswer = h.answer(
+        srcSession,
+        seed: 0,
+        benar: false,
+        tipe: PlanItem.captureTipe,
+        sumber: AnswerSource.capture,
+        refId: srcCapture,
+      );
+      await DriftSessionRepository(src).recordAnswer(captureAnswer);
+      await DriftMistakeRepository(src).upsertFromAnswer(captureAnswer, h.t0);
+      final text = await DriftBackupService(src).export(now);
+
+      // Tujuan: sudah punya baris bernomor 1 di semua tabel, semuanya lain.
+      final dst = await device();
+      final dstProfile = await DriftProfileRepository(dst).save(h.profile(
+        nama: 'Milik tujuan',
+        aktif: true,
+        dibuat: h.t0.add(const Duration(days: 9)),
+      ));
+      final dstLog = await DriftCompanyLogRepository(dst).save(CompanyTestLog(
+        perusahaan: 'PT Tujuan',
+        tanggal: DateTime.utc(2026, 8, 1),
+        subtes: const [],
+        tipeBaru: const [],
+        catatan: '',
+      ));
+      final dstCapture =
+          await DriftCaptureRepository(dst).save(CapturedQuestion(
+        teks: 'Soal tujuan',
+        opsi: const ['x', 'y'],
+        kunci: 1,
+        kategori: 'verbal',
+        companyLogId: dstLog,
+        dibuat: h.t0.add(const Duration(days: 9)),
+      ));
+      final dstCard = (await DriftMistakeRepository(dst)
+          .upsertFromAnswer(h.answer(0, seed: 1, benar: false), h.t0))!;
+      expect([dstProfile, dstLog, dstCapture, dstCard.id], [1, 1, 1, 1]);
+
+      final summary = await DriftBackupService(dst).import(text);
+      expect(summary.tabel['captured_question']!.renumbered, 1);
+      expect(summary.tabel['company_test_log']!.renumbered, 1);
+
+      // Soal Capture sumber punya nomor baru dan tetap terhubung ke catatan
+      // sumber, bukan ke catatan tujuan.
+      final captures = await DriftCaptureRepository(dst).watchAll().first;
+      final imported = captures.singleWhere((q) => q.teks == 'Soal sumber');
+      expect(imported.id, isNot(dstCapture));
+      final log =
+          await DriftCompanyLogRepository(dst).byId(imported.companyLogId!);
+      expect(log!.perusahaan, 'PT Sumber');
+      expect((await DriftCaptureRepository(dst).byId(dstCapture))!.companyLogId,
+          dstLog,
+          reason: 'soal tujuan tidak berubah');
+
+      // Kartu sumber punya nomor baru; rencana sesi menunjuk ke nomor itu.
+      final cards = await DriftMistakeRepository(dst).watchAll().first;
+      final engineCard = cards.singleWhere((c) => c.seed == 777);
+      final captureCard =
+          cards.singleWhere((c) => c.sumber == AnswerSource.capture);
+      expect(engineCard.id, isNot(dstCard.id));
+      expect(captureCard.refId, imported.id);
+
+      final session = (await allSessions(dst)).single;
+      expect(session.profileId, isNot(dstProfile));
+      expect((await DriftProfileRepository(dst).byId(session.profileId))!.aktif,
+          isFalse);
+      expect(session.plan.items[0].refId, imported.id);
+      expect(session.plan.items[1].cardId, engineCard.id);
+      final answers = await DriftAnswerRepository(dst).forSession(session.id);
+      expect(answers.single.refId, imported.id);
     });
 
     test(
-        'jawaban sesi yang digantikan ikut diganti; id jawaban bentrok diberi id baru',
-        () async {
+        'kartu untuk soal yang sama tidak digandakan; rencana memakai kartu '
+        'perangkat', () async {
+      final src = await device();
+      final srcProfile =
+          await DriftProfileRepository(src).save(h.profile(aktif: true));
+      final srcCard = (await DriftMistakeRepository(src)
+          .upsertFromAnswer(h.answer(0, seed: 55, benar: false), h.t0))!;
+      await DriftSessionRepository(src).start(NewSession(
+        profileId: srcProfile,
+        mode: SessionMode.latihan,
+        plan: SessionPlan(
+          items: [
+            PlanItem(
+              type: QuestionType.figMtx,
+              seed: 56,
+              difficulty: Difficulty.medium,
+              genVersi: 1,
+              subtes: 'figural',
+              cardId: srcCard.id,
+            ),
+          ],
+          subtes: const [SubtestPlan(kategori: 'figural', jumlah: 1, menit: 5)],
+        ),
+        mulai: h.t0,
+      ));
+      final text = await DriftBackupService(src).export(now);
+
+      final dst = await device();
+      await DriftProfileRepository(dst).save(
+          h.profile(aktif: true, dibuat: h.t0.add(const Duration(days: 1))));
+      // Kartu soal yang sama (seed 55) dengan nomor lain di tujuan.
+      final mistakes = DriftMistakeRepository(dst);
+      await mistakes.upsertFromAnswer(h.answer(0, seed: 1, benar: false), h.t0);
+      final same = (await mistakes.upsertFromAnswer(
+          h.answer(0, seed: 55, benar: false), h.t0))!;
+      expect(same.id, 2);
+
+      final summary = await DriftBackupService(dst).import(text);
+      expect(summary.tabel['mistake_card']!.added, 0);
+      expect(summary.tabel['mistake_card']!.kept, 1);
+      expect(await mistakes.watchAll().first, hasLength(2));
+      final session = (await allSessions(dst)).single;
+      expect(session.plan.items.single.cardId, same.id);
+    });
+
+    test(
+        'impor berkas yang sama dua kali ke perangkat bernomor bentrok tidak '
+        'menggandakan', () async {
+      await seed(db);
+      final text = await service.export(now);
+
+      final other = await device();
+      await DriftProfileRepository(other).save(h.profile(
+        nama: 'Punya sendiri',
+        aktif: true,
+        dibuat: h.t0.add(const Duration(days: 7)),
+      ));
+      final target = DriftBackupService(other);
+      final first = await target.import(text);
+      expect(first.renumbered, greaterThan(0));
+      final before = await snapshot(other);
+      final second = await target.import(text);
+      expect(second.added, 0);
+      expect(second.renumbered, 0);
+      expect(await snapshot(other), before);
+    });
+
+    test(
+        'jawaban sesi dari backup menempel ke sesinya; id jawaban bentrok '
+        'diberi id baru', () async {
       await seed(db);
       final text = await service.export(now);
 
       final other = await device();
       final repo = DriftProfileRepository(other);
-      final own = await repo.save(h.profile(aktif: true));
+      final own = await repo.save(h.profile(
+        aktif: true,
+        dibuat: h.t0.add(const Duration(days: 7)),
+      ));
       final sessions = DriftSessionRepository(other);
-      // Sesi id 1 lebih lama dari backup, dengan satu jawaban (id 1).
+      // Sesi id 1 dengan satu jawaban (id 1); nomornya sama dengan sesi backup
+      // tetapi sesi lain (mulai berbeda).
       final old = await sessions.start(NewSession(
         profileId: own,
         mode: SessionMode.latihan,
@@ -549,12 +770,21 @@ void main() {
       await DriftBackupService(other).import(text);
 
       final answers = DriftAnswerRepository(other);
-      final replaced = await answers.forSession(old);
-      expect(replaced, hasLength(3),
-          reason: 'jawaban lama diganti jawaban dari backup');
-      expect(replaced.map((a) => a.tipe).toSet(), {'FIG-MTX'});
+      final oldAnswers = await answers.forSession(old);
+      expect(oldAnswers.single.tipe, 'NUM-SEQ',
+          reason: 'jawaban sesi sendiri tidak diganti');
       final kept = await answers.forSession(keep);
       expect(kept.single.tipe, 'NUM-ARI');
+      final imported = (await allSessions(other))
+          .singleWhere((s) => s.id != old && s.id != keep);
+      final carried = await answers.forSession(imported.id);
+      expect(carried, hasLength(3));
+      expect(carried.map((a) => a.tipe).toSet(), {'FIG-MTX'});
+      final ids = [
+        for (final s in [old, keep, imported.id])
+          ...(await answers.forSession(s)).map((a) => a.id),
+      ];
+      expect(ids.toSet(), hasLength(ids.length), reason: 'id jawaban unik');
     });
 
     test('pengaturan yang sudah ada di perangkat tidak ditimpa', () async {

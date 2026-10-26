@@ -85,6 +85,39 @@ void main() {
     });
   });
 
+  group('SkeletonList rata kiri', () {
+    testWidgets('batang placeholder mulai di tepi kiri isi, tidak dipusatkan',
+        (tester) async {
+      await pumpScene(tester, const SkeletonList(rows: 2));
+      final list = tester.getTopLeft(find.byType(SkeletonList));
+      final bars = find.descendant(
+        of: find.byType(SkeletonList),
+        matching: find.byType(FractionallySizedBox),
+      );
+      expect(bars, findsNWidgets(4));
+      for (final bar in bars.evaluate()) {
+        final box = tester.getRect(find.byWidget(bar.widget));
+        expect(box.left, list.dx + 16,
+            reason: 'tepi kiri batang sejajar margin isi (16)');
+        final inner = tester.getRect(find
+            .descendant(
+                of: find.byWidget(bar.widget), matching: find.byType(Container))
+            .first);
+        expect(inner.left, box.left);
+      }
+    });
+
+    testWidgets('dengan ikon: batang mulai tepat setelah ikon', (tester) async {
+      await pumpScene(tester, const SkeletonList(rows: 1, withLeading: true));
+      final bar = tester.getRect(find
+          .descendant(
+              of: find.byType(SkeletonList),
+              matching: find.byType(FractionallySizedBox))
+          .first);
+      expect(bar.left, 16 + 24 + 16);
+    });
+  });
+
   group('ErrorView', () {
     Widget view() => ErrorView(
           title: 'Rencana latihan tidak bisa disusun',

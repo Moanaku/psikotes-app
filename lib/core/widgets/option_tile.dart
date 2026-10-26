@@ -5,6 +5,8 @@ import '../theme/app_tokens.dart';
 /// Opsi soal. Batas `outline` 1, latar `surfaceContainer`, radius 8.
 /// Terpilih: latar `accent`, batas `ink` 2, huruf opsi berlatar `ink`.
 /// Isi berupa teks (`label`) atau widget (`child`, mis. gambar figural).
+/// [marks] (pembahasan): penanda ikon dan teks di bawah isi, mis. "Kunci" dan
+/// "Jawabanmu"; warna tidak berdiri sendiri.
 class OptionTile extends StatelessWidget {
   const OptionTile({
     super.key,
@@ -12,6 +14,7 @@ class OptionTile extends StatelessWidget {
     this.label,
     this.child,
     this.semanticLabel,
+    this.marks = const [],
     required this.selected,
     required this.onTap,
   }) : assert(label != null || child != null, 'Isi label atau child.');
@@ -22,6 +25,7 @@ class OptionTile extends StatelessWidget {
 
   /// Wajib bila `child` berupa gambar; dibaca setelah "Opsi [huruf]".
   final String? semanticLabel;
+  final List<({IconData icon, String label})> marks;
   final bool selected;
   final VoidCallback? onTap;
 
@@ -34,7 +38,10 @@ class OptionTile extends StatelessWidget {
       button: true,
       selected: selected,
       label:
-          'Opsi $letter${(semanticLabel ?? label) == null ? '' : ', ${semanticLabel ?? label}'}',
+          'Opsi $letter${(semanticLabel ?? label) == null ? '' : ', ${semanticLabel ?? label}'}'
+          '${marks.isEmpty ? '' : ', ${[
+              for (final m in marks) m.label
+            ].join(', ')}'}',
       excludeSemantics: true,
       onTap: onTap,
       child: InkWell(
@@ -77,14 +84,42 @@ class OptionTile extends StatelessWidget {
               ),
               const SizedBox(width: AppSpace.s12),
               Expanded(
-                child: child ??
-                    Text(
-                      label!,
-                      style:
-                          AppType.body(selected ? c.onAccent : c.ink).copyWith(
-                        fontWeight: selected ? FontWeight.w600 : null,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    child ??
+                        Text(
+                          label!,
+                          style: AppType.body(selected ? c.onAccent : c.ink)
+                              .copyWith(
+                            fontWeight: selected ? FontWeight.w600 : null,
+                          ),
+                        ),
+                    for (final m in marks) ...[
+                      const SizedBox(height: AppSpace.s8),
+                      Row(
+                        children: [
+                          ExcludeSemantics(
+                            child: Icon(
+                              m.icon,
+                              size: AppSizes.iconInText,
+                              color: selected ? c.onAccent : c.ink,
+                            ),
+                          ),
+                          const SizedBox(width: AppSpace.s4),
+                          Flexible(
+                            child: Text(
+                              m.label,
+                              style:
+                                  AppType.label(selected ? c.onAccent : c.ink)
+                                      .copyWith(fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
+                    ],
+                  ],
+                ),
               ),
             ],
           ),

@@ -165,22 +165,23 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                     profile: profile,
                     available: available,
                   ),
+                const SizedBox(height: AppSpace.s24),
+                _SimulationPanel(
+                  profile: profile,
+                  starting: _starting,
+                  onStart: (p) => _launch(
+                    profile: p,
+                    mode: SessionMode.simulasi,
+                    build: (avoid) => SessionPlanBuilder.simulation(
+                      p.blueprint,
+                      now: clock.now(),
+                      available: available,
+                      avoid: avoid,
+                    )?.plan,
+                  ),
+                ),
               ],
             ),
-          ),
-        ),
-        _SimulationPanel(
-          profile: profile,
-          starting: _starting,
-          onStart: (p) => _launch(
-            profile: p,
-            mode: SessionMode.simulasi,
-            build: (avoid) => SessionPlanBuilder.simulation(
-              p.blueprint,
-              now: clock.now(),
-              available: available,
-              avoid: avoid,
-            )?.plan,
           ),
         ),
       ],
@@ -425,8 +426,9 @@ class _SimulationPreview extends ConsumerWidget {
       );
 }
 
-/// Panel bawah "Simulasi penuh" dengan profil aktif. Disusun dari token
-/// seperti bilah aksi onboarding (A48).
+/// Panel "Simulasi penuh" dengan profil aktif, bagian akhir daftar yang ikut
+/// tergulir dan selalu tampil di dua mode. Disusun dari token seperti bilah
+/// aksi onboarding (A48).
 class _SimulationPanel extends StatelessWidget {
   const _SimulationPanel({
     required this.profile,

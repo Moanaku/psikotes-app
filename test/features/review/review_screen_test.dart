@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:question_engine/question_engine.dart';
+import 'package:simulator_psikotes_it/core/theme/app_icons.dart';
 import 'package:simulator_psikotes_it/core/theme/app_tokens.dart';
+import 'package:simulator_psikotes_it/core/widgets/option_tile.dart';
 import 'package:simulator_psikotes_it/core/widgets/figure_view.dart';
 import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
 import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
@@ -73,8 +75,10 @@ void main() {
       expect(find.text('Numerik, hitungan cepat'), findsOneWidget);
       expect(find.text(q.stem.text!), findsOneWidget);
       expect(find.text('Salah'), findsOneWidget);
-      expect(find.text('Jawabanmu'), findsOneWidget);
-      expect(find.text('Kunci'), findsOneWidget);
+      expect(find.text('Jawabanmu'), findsNWidgets(2),
+          reason: 'keterangan blok dan tanda di opsi yang dipilih');
+      expect(find.text('Kunci'), findsNWidgets(2),
+          reason: 'judul blok dan tanda di opsi kunci');
       expect(find.text('Jawaban benar'), findsOneWidget);
       expect(find.text('A. ${q.options[0].content.text}'), findsWidgets);
       expect(find.text('Kenapa'), findsOneWidget);
@@ -83,6 +87,67 @@ void main() {
       expect(find.text(questionTypeTrick(QuestionType.numAri)), findsOneWidget);
       expect(find.textContaining('Waktumu 5 dtk, target'), findsOneWidget);
       expect(find.text('Salah, cepat'), findsOneWidget);
+    });
+
+    testWidgets(
+        'opsi kunci ditandai di daftar opsi dengan ikon dan teks, '
+        'terpisah dari Jawabanmu', (tester) async {
+      final plan = sessions.sessions[id]!.plan;
+      await openReview(tester, sessions, id, 2);
+      final q = questionOf(plan, 1);
+      final tiles = tester.widgetList<OptionTile>(find.byType(OptionTile));
+      final key = q.correctIndex;
+      // seedFinished menjawab semua soal dengan opsi 0.
+      for (final (i, t) in tiles.indexed) {
+        final labels = t.marks.map((m) => m.label).toList();
+        expect(
+            labels,
+            [
+              if (i == 0) 'Jawabanmu',
+              if (i == key) 'Kunci',
+            ],
+            reason: 'opsi $i');
+        for (final m in t.marks) {
+          expect(m.icon, m.label == 'Kunci' ? AppIcons.key : AppIcons.target);
+        }
+      }
+      expect(
+        find.descendant(
+          of: find.byType(OptionTile).at(key),
+          matching: find.byIcon(AppIcons.key),
+        ),
+        findsOneWidget,
+        reason: 'ikon tampil, bukan hanya warna',
+      );
+    });
+
+    testWidgets('soal tidak dijawab: kunci tetap ditandai, tanpa Jawabanmu',
+        (tester) async {
+      final plan = sessions.sessions[id]!.plan;
+      await openReview(tester, sessions, id, 4);
+      final key = questionOf(plan, 3).correctIndex;
+      final marks = [
+        for (final t in tester.widgetList<OptionTile>(find.byType(OptionTile)))
+          t.marks.map((m) => m.label).toList(),
+      ];
+      expect(marks.expand((m) => m).toList(), ['Kunci']);
+      expect(marks[key], ['Kunci']);
+    });
+
+    testWidgets('kunci yang sama dengan jawaban: satu opsi membawa kedua tanda',
+        (tester) async {
+      // seedFinished menjawab dengan opsi 0 dan soal 2 berkunci opsi 0 (seed
+      // tetap), jadi opsi pertama membawa kedua tanda.
+      final plan = sessions.sessions[id]!.plan;
+      expect(questionOf(plan, 1).correctIndex, 0);
+      await openReview(tester, sessions, id, 2);
+      final first = tester.widget<OptionTile>(find.byType(OptionTile).first);
+      expect(first.marks.map((m) => m.label), ['Jawabanmu', 'Kunci']);
+      final others = tester
+          .widgetList<OptionTile>(find.byType(OptionTile))
+          .skip(1)
+          .expand((t) => t.marks);
+      expect(others, isEmpty);
     });
 
     testWidgets('soal benar: blok Benar dengan waktu dan label',
@@ -96,8 +161,9 @@ void main() {
     testWidgets('soal dilewati: tanpa jawaban dan menyebut target',
         (tester) async {
       await openReview(tester, sessions, id, 4);
-      expect(find.text('Dilewati'), findsOneWidget);
-      expect(find.text('Tidak dijawab'), findsOneWidget);
+      expect(find.text('Tidak dijawab'), findsOneWidget,
+          reason: 'judul blok jawabanmu');
+      expect(find.text('Dilewati'), findsNothing);
       expect(find.textContaining('Tidak dijawab, target'), findsOneWidget);
     });
 

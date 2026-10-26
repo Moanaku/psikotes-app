@@ -713,7 +713,8 @@ void main() {
         .watchDue(t0.add(const Duration(days: 400)))
         .first;
 
-    test('tiap soal salah membuat kartu jatuh tempo besok; benar tidak',
+    test(
+        'jawaban salah membuat kartu jatuh tempo besok; benar dan kosong tidak',
         () async {
       await h.start(SessionMode.simulasi, simPlan());
       await h.c.select(h.rightOption()); // soal 0 benar
@@ -721,11 +722,13 @@ void main() {
       await h.c.select(h.wrongOption()); // soal 1 salah
       // soal 2 dan sisanya tidak dijawab.
       h.clock.advance(const Duration(minutes: 10));
-      await h.c.finish();
+      final skor = await h.c.finish();
 
+      expect(skor, closeTo(100 / 7, 1e-9),
+          reason: 'soal kosong tetap dihitung salah pada skor');
       final all = await cards();
-      expect(all.length, 6,
-          reason: '1 salah + 5 dilewati; 1 benar tanpa kartu');
+      expect(all.length, 1,
+          reason: 'hanya 1 jawaban diisi yang salah; 5 kosong tanpa kartu');
       final items = h.s.plan.items;
       for (final c in all) {
         expect(c.status, CardStatus.aktif);
@@ -818,6 +821,23 @@ void main() {
         );
       });
 
+      test('soal ulangan yang tidak dijawab tidak mengubah kartunya', () async {
+        final card = await origin();
+        h.clock.advance(const Duration(days: 1));
+        final plan = SessionPlan(
+          items: [item(QuestionType.numSeq, 99, 'numerik', cardId: card.id)],
+        );
+        await h.start(SessionMode.latihan, plan);
+        final skor = await h.c.finish();
+        expect(skor, 0, reason: 'tetap salah pada skor');
+
+        final all = await book.watchAll().first;
+        expect(all, hasLength(1));
+        expect((all.single.streakBenar, all.single.intervalHari),
+            (card.streakBenar, card.intervalHari));
+        expect(all.single.jatuhTempo, card.jatuhTempo);
+      });
+
       test('salah: kartu kembali ke 1 hari, tetap satu kartu', () async {
         final card = await origin();
         await book.applyReview(card.id, true, h.clock.now());
@@ -831,6 +851,44 @@ void main() {
           all.single.jatuhTempo,
           h.clock.now().add(const Duration(days: 1)),
         );
+      });
+
+      test(
+          'A79: menutup sesi diulang setelah gagal di tengah tidak menerapkan '
+          'ulangan dua kali', () async {
+        // Gagal saat menerapkan kartu kedua, sekali saja.
+        late _FailOnceMistakeRepository failing;
+        await h.dispose();
+        h = Harness(overrides: (db) {
+          failing = _FailOnceMistakeRepository(db, failOnCall: 2);
+          return [mistakeRepositoryProvider.overrideWithValue(failing)];
+        });
+        final cardA = await _originCard(DriftMistakeRepository(h.db), h, 7);
+        final cardB = await _originCard(DriftMistakeRepository(h.db), h, 8);
+        h.clock.advance(const Duration(days: 1));
+
+        final plan = SessionPlan(items: [
+          item(QuestionType.numSeq, 99, 'numerik', cardId: cardA.id),
+          item(QuestionType.numSeq, 98, 'numerik', cardId: cardB.id),
+        ]);
+        await h.start(SessionMode.latihan, plan);
+        await h.c.select(h.rightOption());
+        await h.c.submit();
+        await h.c.next();
+        await h.c.select(h.rightOption());
+        await h.c.submit();
+        await expectLater(h.c.next(), throwsA(isA<StateError>()));
+        expect(failing.calls, 2, reason: 'kartu kedua gagal');
+        expect((await h.session()).selesai, isNull,
+            reason: 'sesi tetap terbuka');
+
+        await h.c.finish(); // diulang, kini berhasil
+        expect((await h.session()).selesai, isNotNull);
+        final a = (await failing.byId(cardA.id))!;
+        final b = (await failing.byId(cardB.id))!;
+        expect((a.streakBenar, a.intervalHari), (1, 3),
+            reason: 'kartu A diterapkan sekali, bukan dua kali');
+        expect((b.streakBenar, b.intervalHari), (1, 3));
       });
 
       test('soal dilewati dihitung salah', () async {
@@ -906,4 +964,40 @@ void main() {
       expect(await cards(), isEmpty);
     });
   });
+}
+
+/// Kartu soal asal (numSeq) dengan [seed] yang salah di sesi lain.
+Future<MistakeCard> _originCard(
+        DriftMistakeRepository book, Harness h, int seed) async =>
+    (await book.upsertFromAnswer(
+      AnswerRecord(
+        sessionId: 0,
+        posisi: 0,
+        tipe: QuestionType.numSeq.code,
+        kategori: 'numerik',
+        seed: seed,
+        kesulitan: Difficulty.easy,
+        genVersi: 1,
+        benar: false,
+        durasiMs: 1000,
+        label: SpeedLabel.salahCepat,
+      ),
+      h.clock.now(),
+    ))!;
+
+/// Repositori kartu yang gagal pada pemanggilan [applyReview] ke-[failOnCall],
+/// sekali saja (menguji penutupan sesi yang diulang, A79).
+class _FailOnceMistakeRepository extends DriftMistakeRepository {
+  _FailOnceMistakeRepository(super.db, {required this.failOnCall});
+
+  final int failOnCall;
+  int calls = 0;
+
+  @override
+  Future<MistakeCard> applyReview(
+      int cardId, bool correct, DateTime now) async {
+    calls++;
+    if (calls == failOnCall) throw StateError('gagal menulis kartu');
+    return super.applyReview(cardId, correct, now);
+  }
 }

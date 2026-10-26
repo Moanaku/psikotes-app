@@ -24,6 +24,7 @@ AnswerRecord ans(
   bool benar = true,
   int ms = 43000,
   AnswerSource sumber = AnswerSource.engine,
+  bool dijawab = true,
 }) =>
     AnswerRecord(
       sessionId: 1,
@@ -35,7 +36,7 @@ AnswerRecord ans(
       genVersi: 1,
       sumber: sumber,
       refId: sumber == AnswerSource.engine ? null : 1,
-      opsiDipilih: 0,
+      opsiDipilih: dijawab ? 0 : null,
       benar: benar,
       durasiMs: ms,
       label: benar ? SpeedLabel.benarCepat : SpeedLabel.salahCepat,
@@ -390,6 +391,19 @@ void main() {
       expect(silent.weakness, 0.5);
       expect(silent.jumlah, 0);
       expect(ranked.indexOf(silent), inExclusiveRange(0, ranked.length - 1));
+    });
+
+    test('soal tidak dijawab tidak ikut menurunkan kelemahan', () {
+      final history = PracticeHistory([
+        for (var i = 0; i < 20; i++)
+          ans(QuestionType.figMtx, benar: false, dijawab: false),
+        ans(QuestionType.figMtx),
+        ans(QuestionType.figMtx, benar: false),
+      ]);
+      final s = WeaknessScoring.rank(history, blueprint, types)
+          .firstWhere((s) => s.type == QuestionType.figMtx);
+      expect((s.benar, s.jumlah), (1, 2),
+          reason: 'hanya dua jawaban yang diisi yang dihitung');
     });
 
     test('hanya 30 jawaban terbaru per tipe', () {

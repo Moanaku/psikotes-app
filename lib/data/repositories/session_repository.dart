@@ -47,6 +47,9 @@ class DriftSessionRepository implements SessionRepository {
   final AppDatabase _db;
 
   @override
+  Future<T> atomically<T>(Future<T> Function() body) => _db.transaction(body);
+
+  @override
   Future<int> start(NewSession s) => _db.into(_db.sessionTable).insert(
         SessionTableCompanion.insert(
           profileId: s.profileId,
