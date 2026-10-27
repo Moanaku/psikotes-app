@@ -41,7 +41,7 @@ class _InterviewReportScreenState extends ConsumerState<InterviewReportScreen> {
     final dialog = ref.watch(interviewDialogProvider);
     final report = ref.watch(interviewReportProvider);
     final header = AppTopBar(
-      title: 'Laporan ${setup.persona.title.toLowerCase()}',
+      title: 'Laporan ${setup.persona.title}',
       onBack: _back,
     );
 

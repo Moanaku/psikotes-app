@@ -263,7 +263,7 @@ void main() {
       await tap(tester, button('Akhiri'));
       expect(app.location, '/wawancara/1/laporan');
       expect(find.text('Data contoh'), findsOneWidget);
-      expect(find.text('Laporan wawancara hr'), findsOneWidget);
+      expect(find.text('Laporan Wawancara HR'), findsOneWidget);
       expect(tester.widgetList<ScoreBar>(find.byType(ScoreBar)), hasLength(4));
       expect(find.text('Goyah'), findsNWidgets(2));
       expect(find.text('Kuat'), findsOneWidget);
