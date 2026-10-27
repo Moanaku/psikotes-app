@@ -1,0 +1,2 @@
+# ID butir bank pengetahuan yang meragukan, satu per baris. Komentar diawali #.
+KB-BA-L-013  # rujukan spesifikasi BPMN tidak mendukung isi trade-off otomatisasi

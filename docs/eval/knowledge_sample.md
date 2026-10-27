@@ -250,16 +250,16 @@ Semua butir bertanda perlu verifikasi: dua pass dilakukan oleh model yang sama, 
 
 **Rujukan:** BABOK Guide (IIBA)
 
-## KB-BA-L-013 (trade-off)
+## KB-BA-L-014 (trade-off)
 
-**Pertanyaan:** Bagaimana kamu menimbang otomatisasi penuh sebuah proses terhadap mempertahankan langkah persetujuan manual oleh manusia?
+**Pertanyaan:** Bagaimana kamu menimbang perbaikan cepat jangka pendek terhadap perubahan struktural jangka panjang ketika bisnis menekan agar masalah segera teratasi?
 
-**Jawaban model:** Saya menilai volume, tingkat kesalahan, dampak dari keputusan yang salah, serta kebutuhan kontrol dan audit. Proses berulang, berisiko rendah, dan berbasis aturan jelas cocok diotomatisasi penuh. Keputusan yang berdampak besar, ambigu, atau berkaitan dengan regulasi sebaiknya tetap melibatkan manusia, mungkin dengan otomatisasi parsial yang menangani kasus rutin dan meneruskan pengecualian.
+**Jawaban model:** Saya akan memisahkan penanganan gejala dari akar masalah, lalu menawarkan solusi sementara yang jelas batasnya sambil merencanakan perbaikan struktural. Pemangku kepentingan perlu memahami biaya menunda perbaikan permanen, seperti utang teknis atau pekerjaan manual berulang. Solusi sementara harus punya pemilik, batas waktu, dan kriteria penggantian agar tidak menjadi permanen tanpa disadari.
 
 **Poin kunci:**
-- Otomatisasi paling cocok untuk proses bervolume tinggi, berulang, dan berbasis aturan jelas.
-- Dampak keputusan yang salah menentukan seberapa perlu pengawasan manusia.
-- Kebutuhan kontrol internal dan jejak audit dapat mempertahankan langkah manual.
-- Penanganan pengecualian secara terpisah memungkinkan otomatisasi parsial yang seimbang.
+- Bedakan gejala dari akar masalah sebelum memilih solusi.
+- Solusi sementara dapat meredakan tekanan bisnis, asalkan batasnya dinyatakan terbuka.
+- Tunjukkan biaya jangka panjang dari menunda perbaikan struktural.
+- Tetapkan pemilik, tenggat, dan kriteria pengganti untuk solusi sementara.
 
-**Rujukan:** Spesifikasi BPMN (OMG)
+**Rujukan:** BABOK Guide (IIBA)
