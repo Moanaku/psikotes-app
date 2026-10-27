@@ -42,7 +42,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 
 ## v1.3
 
-- [ ] T29 UI wawancara dengan data contoh (boleh dikerjakan lebih awal)
+- [x] T29 UI wawancara dengan data contoh (boleh dikerjakan lebih awal)
 - [ ] T30 Antarmuka AiCoach, sanitasi CV, kartu template
 - [ ] T31 Coach LLM (Gemini atau Groq), penilai, dan evaluasi
 - [ ] T32 Suara di wawancara
@@ -74,6 +74,10 @@ Dari T25 (belum dicoba di HP dan browser; bank bawaan masih kosong, jadi S19 men
 - [ ] "Belum paham" muncul sebagai kartu "Pengetahuan QA, Dasar" di S10 dan dihitung di "jatuh tempo" beranda.
 - [ ] Upgrade dari APK lama (skema v2 ke v3) tidak menghapus riwayat; backup lalu impor membawa kemajuan pengetahuan.
 
+Dari T29 (belum dicoba di HP dan browser):
+
+- [ ] S15 sampai S17 di skala 1,0, 1,3, 2,0: pilih pewawancara, mulai, kirim jawaban sampai penutup, Akhiri, transkrip; judul S16 di 2,0; tombol Back sistem.
+
 Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
 
 Dari Tugas 0 (belum dicoba di HP dan browser):
@@ -100,6 +104,7 @@ Dari T23 (belum dicoba di HP dan browser):
 
 ## Catatan lanjut
 
+- T29 selesai: S15 sampai S17 dengan `FakeCoach`, `ChatBubble`, semua kondisi (A108). Berikutnya: selesaikan T26 (`python tool/pregenerate/gen_knowledge.py all`, lalu `gen_reading.py all`), Tugas 4 (font kode), Tugas 5 (uji HP dan browser), golden lewat WSL, PR.
 - T25 selesai di cabang `fitur/fitur-inti-dan-uji-akhir`: `KnowledgeBank` (pemuat dengan kondisi galat seperti A100), `KnowledgeSelector`, `KnowledgeService` (penilaian diri, kemajuan, kartu SM-2), tabel `knowledge_progress` (skema v3 dengan test migrasi v2 ke v3), S19 dan S20 dengan semua kondisi, baris katalog dan pintasan beranda, backup ikut membawa `knowledge_progress` dan `answer.dijawab` (A106, A107). Terbuka: Q15 (`CheckRow`). Berikutnya: T26 (isi bank pengetahuan dan VRB-RC).
 - Tugas 0 (cabang `fitur/fitur-inti-dan-uji-akhir`) selesai: baris "Sudah dikerjakan hari ini: N soal" di bawah panel latihan S04 (A105). Skema naik ke v2 (`answer.dijawab`, migrasi dan test migrasi). Berikutnya: T25 (bank pengetahuan, S19, S20).
 - T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).

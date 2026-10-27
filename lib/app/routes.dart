@@ -32,6 +32,10 @@ abstract final class Routes {
   /// S20 untuk sesi kartu [id].
   static String pengetahuanSesiPath(int id) => '/pengetahuan/sesi/$id';
 
+  /// S16 dan S17 untuk dialog contoh [id].
+  static String wawancaraDialogPath(int id) => '/wawancara/$id';
+  static String wawancaraLaporanPath(int id) => '/wawancara/$id/laporan';
+
   /// S06 atau S07 untuk sesi [id].
   static String sesiPath(int id) => '/sesi/$id';
 

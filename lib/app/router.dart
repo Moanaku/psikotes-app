@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:question_engine/question_engine.dart' show KrpConfig;
 
-import '../core/widgets/placeholder_screen.dart';
 import '../domain/models/knowledge.dart';
 import '../domain/providers.dart';
 import '../features/capture/capture_screen.dart';
@@ -11,6 +10,8 @@ import '../features/capture/company_log_form_screen.dart';
 import '../features/capture/company_log_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/home/home_screen.dart';
+import '../features/interview/interview_dialog_screen.dart';
+import '../features/interview/interview_report_screen.dart';
 import '../features/interview/interview_screen.dart';
 import '../features/mistakes/mistake_book_screen.dart';
 import '../features/mistakes/mistake_card_screen.dart';
@@ -174,8 +175,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           seed: int.tryParse(state.pathParameters['id'] ?? '') ?? 0,
         ),
       ),
-      _r(Routes.wawancaraDialog, 'S16', 'Dialog wawancara'),
-      _r(Routes.wawancaraLaporan, 'S17', 'Laporan wawancara'),
+      GoRoute(
+        path: Routes.wawancaraDialog,
+        builder: (context, state) => const InterviewDialogScreen(),
+      ),
+      GoRoute(
+        path: Routes.wawancaraLaporan,
+        builder: (context, state) => const InterviewReportScreen(),
+      ),
       GoRoute(
         path: Routes.pengaturan,
         builder: (context, state) => const SettingsScreen(),
@@ -194,8 +201,3 @@ final routerProvider = Provider<GoRouter>((ref) {
   });
   return router;
 });
-
-GoRoute _r(String path, String id, String title) => GoRoute(
-      path: path,
-      builder: (context, state) => PlaceholderScreen(id: id, title: title),
-    );
