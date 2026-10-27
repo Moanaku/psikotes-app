@@ -33,7 +33,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T23 Kraepelin/Pauli penuh (penyimpanan hasil dan durasi asli menunggu Q14)
 - [x] T24 Modul IT: pseudocode, flowchart, Excel (engine, katalog, template Mobile Dev; tampilan monospasi menunggu Q11, QA menunggu Q12)
 - [x] T25 Bank pengetahuan role: S19, S20 (isi bank menunggu T26; aset sementara berisi nol butir)
-- [ ] T26 Pembuatan isi bank pengetahuan dan bacaan
+- [x] T26 Pembuatan isi bank pengetahuan dan bacaan (pengetahuan: 180 butir; bacaan: lihat catatan)
 
 ## v1.2
 
@@ -68,7 +68,7 @@ Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subt
 - [ ] Label sumbu grafik S11 di skala 2,0.
 - [ ] Tombol Back sistem di langkah 1 wizard tambah profil.
 
-Dari T25 (belum dicoba di HP dan browser; bank bawaan masih kosong, jadi S19 menampilkan kondisi kosong sampai T26):
+Dari T25 (belum dicoba di HP dan browser; bank bawaan kini 180 butir dari T26):
 
 - [ ] S19 dan S20 dengan bank kecil (isi `assets/knowledge_bank.json` sementara untuk uji) di skala 1,0, 1,3, 2,0; ketuk level, topik, "Latihan 10 kartu", "Buka jawaban", centang poin kunci Lanjut, ringkasan, tombol tutup, tombol Back sistem.
 - [ ] "Belum paham" muncul sebagai kartu "Pengetahuan QA, Dasar" di S10 dan dihitung di "jatuh tempo" beranda.
@@ -108,6 +108,7 @@ Dari T23 (belum dicoba di HP dan browser):
 
 ## Catatan lanjut
 
+- T26: `assets/knowledge_bank.json` berisi 180 butir (qa, mobile, ba x dasar, menengah, lanjut x 20; 27 topik). 245 kandidat diperiksa pass 2 tanpa melihat kunci, 5 gugur. SEMUA butir bertanda perlu verifikasi: pass 1 dan 2 memakai model yang sama dan rujukan belum dicocokkan dengan teks aslinya. Sampel 18 butir di `docs/eval/knowledge_sample.md` menunggu pemeriksaan pemilik; id meragukan ditulis di `docs/eval/knowledge_flags.txt` lalu `python tool/pregenerate/gen_knowledge.py bundle`. Role Umum memakai butir lintas role (tanpa butir role `umum`). Lanjut bila perlu: `python tool/pregenerate/gen_knowledge.py all`.
 - Tugas 4 selesai: `AppType.code`, `CodeBlock`, IBM Plex Mono di `assets/fonts` (A109). Golden S06 teks dan tabel IT perlu dibuat ulang lewat WSL.
 - T29 selesai: S15 sampai S17 dengan `FakeCoach`, `ChatBubble`, semua kondisi (A108). Berikutnya: selesaikan T26 (`python tool/pregenerate/gen_knowledge.py all`, lalu `gen_reading.py all`), Tugas 4 (font kode), Tugas 5 (uji HP dan browser), golden lewat WSL, PR.
 - T25 selesai di cabang `fitur/fitur-inti-dan-uji-akhir`: `KnowledgeBank` (pemuat dengan kondisi galat seperti A100), `KnowledgeSelector`, `KnowledgeService` (penilaian diri, kemajuan, kartu SM-2), tabel `knowledge_progress` (skema v3 dengan test migrasi v2 ke v3), S19 dan S20 dengan semua kondisi, baris katalog dan pintasan beranda, backup ikut membawa `knowledge_progress` dan `answer.dijawab` (A106, A107). Terbuka: Q15 (`CheckRow`). Berikutnya: T26 (isi bank pengetahuan dan VRB-RC).
