@@ -56,6 +56,6 @@ flutter:
           weight: 700
   assets:
     - assets/verbal_bank.json
+    - assets/personality_pool.json
   # Ditambahkan di tugas yang memakainya:
   #   - assets/knowledge_bank.json     (T26)
-  #   - assets/personality_pool.json   (T22)

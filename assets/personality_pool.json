@@ -1,0 +1,486 @@
+{
+  "versi": 1,
+  "dibuat": "2026-10-27",
+  "sifat": [
+    {
+      "id": "keteraturan",
+      "nama": "Keteraturan dan ketelitian",
+      "arti": "Kecenderungan bekerja terstruktur dan memeriksa detail sebelum selesai.",
+      "relevansiRole": {
+        "qa": "tinggi",
+        "mobile": "sedang",
+        "ba": "sedang"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-KTR-001",
+          "teks": "Saya menyusun daftar tugas harian sebelum mulai mengerjakan proyek."
+        },
+        {
+          "id": "PER-KTR-002",
+          "teks": "Saya membaca ulang kode saya sebelum mengirim permintaan penggabungan ke tim."
+        },
+        {
+          "id": "PER-KTR-003",
+          "teks": "Saya memberi nama berkas dan folder dengan pola yang konsisten."
+        },
+        {
+          "id": "PER-KTR-004",
+          "teks": "Saya mencocokkan hasil akhir dengan daftar kebutuhan sebelum menyerahkan pekerjaan."
+        },
+        {
+          "id": "PER-KTR-005",
+          "teks": "Saya mencatat langkah konfigurasi agar rekan satu tim dapat mengulanginya."
+        },
+        {
+          "id": "PER-KTR-006",
+          "teks": "Saya memeriksa angka dalam laporan mingguan satu per satu sebelum dikirim."
+        },
+        {
+          "id": "PER-KTR-007",
+          "teks": "Saya membagi proyek besar menjadi tahapan kecil dengan tenggat masing-masing."
+        },
+        {
+          "id": "PER-KTR-008",
+          "teks": "Saya menjalankan skenario uji pada fitur baru sebelum menyatakannya selesai."
+        },
+        {
+          "id": "PER-KTR-009",
+          "teks": "Saya merapikan catatan belajar berdasarkan topik setelah mengikuti pelatihan."
+        },
+        {
+          "id": "PER-KTR-010",
+          "teks": "Saya memeriksa ejaan dan format dokumen teknis sebelum dibagikan kepada tim."
+        },
+        {
+          "id": "PER-KTR-011",
+          "teks": "Saya menyimpan cadangan data dan mencatat versinya sebelum melakukan perubahan besar."
+        },
+        {
+          "id": "PER-KTR-012",
+          "teks": "Saya menyiapkan agenda tertulis sebelum memimpin rapat koordinasi proyek."
+        }
+      ]
+    },
+    {
+      "id": "ketekunan",
+      "nama": "Ketekunan",
+      "arti": "Kecenderungan bertahan pada tugas sampai tuntas walau membosankan atau sulit.",
+      "relevansiRole": {
+        "qa": "tinggi",
+        "mobile": "tinggi",
+        "ba": "sedang"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-TKN-001",
+          "teks": "Saya menyelesaikan laporan mingguan sampai rapi meskipun isinya berulang dan memakan waktu."
+        },
+        {
+          "id": "PER-TKN-002",
+          "teks": "Saya mencoba pendekatan lain satu per satu ketika kode yang saya tulis belum berjalan sesuai harapan."
+        },
+        {
+          "id": "PER-TKN-003",
+          "teks": "Saya melanjutkan pengujian seluruh skenario sampai semua kasus tercatat, termasuk yang sangat sederhana."
+        },
+        {
+          "id": "PER-TKN-004",
+          "teks": "Saya membaca dokumentasi teknis yang panjang sampai selesai sebelum mulai mengerjakan fitur baru."
+        },
+        {
+          "id": "PER-TKN-005",
+          "teks": "Saya menelusuri catatan log baris demi baris ketika mencari penyebab galat yang sulit ditemukan."
+        },
+        {
+          "id": "PER-TKN-006",
+          "teks": "Saya mengulang latihan materi baru beberapa kali sampai bisa menerapkannya pada proyek nyata."
+        },
+        {
+          "id": "PER-TKN-007",
+          "teks": "Saya menuntaskan migrasi data yang berjalan lambat dengan memantau tiap tahapnya hingga selesai."
+        },
+        {
+          "id": "PER-TKN-008",
+          "teks": "Saya kembali menyelesaikan bagian tugas tim yang tertunda setelah rapat panjang berakhir."
+        },
+        {
+          "id": "PER-TKN-009",
+          "teks": "Saya merapikan dokumentasi proyek sampai lengkap walau pekerjaan inti sudah diserahkan."
+        },
+        {
+          "id": "PER-TKN-010",
+          "teks": "Saya mengikuti kursus daring sampai modul terakhir meskipun materinya terasa lambat."
+        },
+        {
+          "id": "PER-TKN-011",
+          "teks": "Saya memperbaiki satu per satu daftar temuan dari hasil tinjauan kode sampai semuanya selesai."
+        },
+        {
+          "id": "PER-TKN-012",
+          "teks": "Saya menjaga jadwal kerja pada proyek jangka panjang dengan menyelesaikan target kecil setiap hari."
+        }
+      ]
+    },
+    {
+      "id": "inisiatif",
+      "nama": "Inisiatif dan kemandirian",
+      "arti": "Kecenderungan memulai sendiri, mencari jalan, dan bekerja tanpa banyak arahan.",
+      "relevansiRole": {
+        "qa": "sedang",
+        "mobile": "tinggi",
+        "ba": "sedang"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-INS-001",
+          "teks": "Saya menyusun rencana kerja sendiri ketika menerima tugas baru tanpa petunjuk rinci."
+        },
+        {
+          "id": "PER-INS-002",
+          "teks": "Saya mengusulkan perbaikan pada alur proyek sebelum diminta oleh atasan."
+        },
+        {
+          "id": "PER-INS-003",
+          "teks": "Saya mencari dokumentasi dan contoh sendiri ketika menemui kendala teknis."
+        },
+        {
+          "id": "PER-INS-004",
+          "teks": "Saya mengambil bagian pekerjaan yang belum ada penanggungjawabnya dalam rapat tim."
+        },
+        {
+          "id": "PER-INS-005",
+          "teks": "Saya mempelajari perangkat atau bahasa pemrograman baru atas keinginan sendiri di sela pekerjaan."
+        },
+        {
+          "id": "PER-INS-006",
+          "teks": "Saya langsung menjalankan langkah awal sebuah tugas tanpa menunggu arahan lanjutan."
+        },
+        {
+          "id": "PER-INS-007",
+          "teks": "Saya menentukan sendiri urutan prioritas pekerjaan harian berdasarkan tenggat yang ada."
+        },
+        {
+          "id": "PER-INS-008",
+          "teks": "Saya menyelesaikan masalah kecil di sistem yang saya temukan tanpa menunggu laporan resmi."
+        },
+        {
+          "id": "PER-INS-009",
+          "teks": "Saya menyiapkan draf solusi lebih dulu sebelum berdiskusi dengan rekan satu tim."
+        },
+        {
+          "id": "PER-INS-010",
+          "teks": "Saya membuat catatan panduan bagi diri sendiri saat mengerjakan tugas yang belum pernah dilakukan."
+        },
+        {
+          "id": "PER-INS-011",
+          "teks": "Saya menawarkan diri memimpin bagian kecil proyek ketika tim membutuhkan seseorang."
+        },
+        {
+          "id": "PER-INS-012",
+          "teks": "Saya mengatur jadwal belajar mandiri untuk menambah keterampilan yang dibutuhkan proyek berikutnya."
+        }
+      ]
+    },
+    {
+      "id": "kerjasama",
+      "nama": "Kerja sama tim",
+      "arti": "Kecenderungan bekerja bersama, berbagi beban, dan menjaga suasana tim.",
+      "relevansiRole": {
+        "qa": "sedang",
+        "mobile": "sedang",
+        "ba": "tinggi"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-KRS-001",
+          "teks": "Saya membagi tugas proyek secara merata agar semua anggota tim memegang bagian yang jelas."
+        },
+        {
+          "id": "PER-KRS-002",
+          "teks": "Saya menawarkan bantuan kepada rekan yang sedang kewalahan menyelesaikan fitur menjelang tenggat."
+        },
+        {
+          "id": "PER-KRS-003",
+          "teks": "Saya menyampaikan ucapan terima kasih kepada rekan setelah ia membantu memperbaiki kode saya."
+        },
+        {
+          "id": "PER-KRS-004",
+          "teks": "Saya ikut menyiapkan agenda dan catatan rapat harian agar seluruh tim memiliki acuan yang sama."
+        },
+        {
+          "id": "PER-KRS-005",
+          "teks": "Saya meminta pendapat setiap anggota sebelum tim memutuskan teknologi yang akan dipakai."
+        },
+        {
+          "id": "PER-KRS-006",
+          "teks": "Saya berbagi hasil belajar dari pelatihan daring kepada rekan dalam sesi singkat tim."
+        },
+        {
+          "id": "PER-KRS-007",
+          "teks": "Saya mengajak anggota baru makan siang bersama agar cepat akrab dengan tim."
+        },
+        {
+          "id": "PER-KRS-008",
+          "teks": "Saya meninjau kode rekan dengan masukan yang sopan dan mudah ditindaklanjuti."
+        },
+        {
+          "id": "PER-KRS-009",
+          "teks": "Saya mengambil sebagian pekerjaan rekan yang berhalangan hadir supaya target sprint tetap tercapai."
+        },
+        {
+          "id": "PER-KRS-010",
+          "teks": "Saya mencairkan suasana dengan candaan ringan ketika diskusi teknis terasa tegang."
+        },
+        {
+          "id": "PER-KRS-011",
+          "teks": "Saya menyusun dokumentasi bersama rekan agar pengetahuan proyek mudah diakses seluruh anggota."
+        },
+        {
+          "id": "PER-KRS-012",
+          "teks": "Saya mengajak rekan berpasangan menulis kode ketika menghadapi masalah yang rumit."
+        }
+      ]
+    },
+    {
+      "id": "komunikasi",
+      "nama": "Komunikasi",
+      "arti": "Kecenderungan menjelaskan, bertanya, dan menyampaikan pendapat dengan jelas.",
+      "relevansiRole": {
+        "qa": "sedang",
+        "mobile": "sedang",
+        "ba": "tinggi"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-KOM-001",
+          "teks": "Saya menjelaskan langkah kerja kepada rekan tim sebelum mulai mengerjakan bagian proyek bersama."
+        },
+        {
+          "id": "PER-KOM-002",
+          "teks": "Saya mengajukan pertanyaan lanjutan ketika arahan dari atasan masih memiliki bagian yang belum terang."
+        },
+        {
+          "id": "PER-KOM-003",
+          "teks": "Saya menyampaikan pendapat saya dalam rapat harian dengan contoh yang mudah dipahami."
+        },
+        {
+          "id": "PER-KOM-004",
+          "teks": "Saya menulis catatan serah terima yang runtut agar rekan lain bisa melanjutkan tugas saya."
+        },
+        {
+          "id": "PER-KOM-005",
+          "teks": "Saya menanyakan tujuan fitur kepada pemilik produk sebelum menulis kode pertama."
+        },
+        {
+          "id": "PER-KOM-006",
+          "teks": "Saya menyusun pesan di grup tim dengan poin-poin singkat agar mudah dibaca."
+        },
+        {
+          "id": "PER-KOM-007",
+          "teks": "Saya memaparkan hasil pengujian kepada tim dengan urutan masalah, penyebab, dan usulan perbaikan."
+        },
+        {
+          "id": "PER-KOM-008",
+          "teks": "Saya meminta rekan senior menjelaskan ulang konsep baru dengan contoh ketika saya sedang belajar."
+        },
+        {
+          "id": "PER-KOM-009",
+          "teks": "Saya menyampaikan perkiraan waktu penyelesaian kepada klien dengan bahasa yang sederhana dan jelas."
+        },
+        {
+          "id": "PER-KOM-010",
+          "teks": "Saya menyampaikan perbedaan pandangan dalam diskusi desain dengan alasan yang mendukung usulan saya."
+        },
+        {
+          "id": "PER-KOM-011",
+          "teks": "Saya menuliskan komentar pada kode agar maksud setiap bagian mudah dipahami pembaca berikutnya."
+        },
+        {
+          "id": "PER-KOM-012",
+          "teks": "Saya merangkum hasil rapat dan membagikannya kepada peserta beserta pembagian tugasnya."
+        }
+      ]
+    },
+    {
+      "id": "kepemimpinan",
+      "nama": "Mengarahkan orang lain",
+      "arti": "Kecenderungan mengambil peran memimpin, membagi tugas, dan mengambil keputusan.",
+      "relevansiRole": {
+        "qa": "sedang",
+        "mobile": "sedang",
+        "ba": "sedang"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-PIM-001",
+          "teks": "Saya membagi tugas proyek kepada anggota tim berdasarkan keahlian masing-masing."
+        },
+        {
+          "id": "PER-PIM-002",
+          "teks": "Saya langsung mengambil keputusan ketika tim menghadapi dua pilihan teknis yang seimbang."
+        },
+        {
+          "id": "PER-PIM-003",
+          "teks": "Saya menawarkan diri memimpin rapat harian ketika belum ada yang ditunjuk."
+        },
+        {
+          "id": "PER-PIM-004",
+          "teks": "Saya menetapkan tenggat untuk setiap bagian pekerjaan agar tim punya arah yang jelas."
+        },
+        {
+          "id": "PER-PIM-005",
+          "teks": "Saya mengajak kelompok belajar menyepakati jadwal dan membagi materi yang akan dibahas."
+        },
+        {
+          "id": "PER-PIM-006",
+          "teks": "Saya menyampaikan arahan langkah demi langkah kepada anggota baru yang bergabung dalam proyek."
+        },
+        {
+          "id": "PER-PIM-007",
+          "teks": "Saya mengambil alih koordinasi ketika pekerjaan tim mulai berjalan tanpa pembagian peran."
+        },
+        {
+          "id": "PER-PIM-008",
+          "teks": "Saya menentukan prioritas tugas pada awal minggu lalu menyampaikannya kepada rekan satu tim."
+        },
+        {
+          "id": "PER-PIM-009",
+          "teks": "Saya memimpin sesi diskusi untuk memilih solusi yang akan dikerjakan bersama."
+        },
+        {
+          "id": "PER-PIM-010",
+          "teks": "Saya memberi keputusan akhir saat rekan tim meminta kepastian mengenai arah pengerjaan fitur."
+        },
+        {
+          "id": "PER-PIM-011",
+          "teks": "Saya mengatur giliran tugas jaga agar beban kerja terbagi rata di antara anggota tim."
+        },
+        {
+          "id": "PER-PIM-012",
+          "teks": "Saya mengambil peran ketua ketika kelompok pelatihan membutuhkan seseorang untuk mewakili hasil kerja."
+        }
+      ]
+    },
+    {
+      "id": "ketenangan",
+      "nama": "Tenang saat ditekan",
+      "arti": "Kecenderungan tetap fokus ketika tenggat dekat, ada masalah, atau rencana berubah.",
+      "relevansiRole": {
+        "qa": "tinggi",
+        "mobile": "sedang",
+        "ba": "sedang"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-TEN-001",
+          "teks": "Saya menyusun ulang urutan tugas dengan tenang ketika tenggat proyek tiba-tiba dimajukan."
+        },
+        {
+          "id": "PER-TEN-002",
+          "teks": "Saya menjaga nada bicara tetap stabil ketika klien menyampaikan perubahan kebutuhan di tengah rapat."
+        },
+        {
+          "id": "PER-TEN-003",
+          "teks": "Saya melanjutkan pengerjaan fitur sesuai prioritas saat banyak pesan masuk meminta perhatian sekaligus."
+        },
+        {
+          "id": "PER-TEN-004",
+          "teks": "Saya mencatat poin penting dan menyusun rencana baru ketika anggota tim mendadak berhalangan hadir."
+        },
+        {
+          "id": "PER-TEN-005",
+          "teks": "Saya memeriksa daftar tugas dan memilih yang paling mendesak saat beban kerja menumpuk di akhir pekan sprint."
+        },
+        {
+          "id": "PER-TEN-006",
+          "teks": "Saya menjelaskan kendala teknis secara runtut kepada atasan ketika peluncuran produk terancam tertunda."
+        },
+        {
+          "id": "PER-TEN-007",
+          "teks": "Saya tetap mengikuti langkah pengujian yang telah disusun meski waktu pengecekan dipersingkat."
+        },
+        {
+          "id": "PER-TEN-008",
+          "teks": "Saya membuka dokumentasi dan mencoba solusi bertahap ketika menemui galat yang belum pernah saya jumpai."
+        },
+        {
+          "id": "PER-TEN-009",
+          "teks": "Saya mengajak rekan berdiskusi singkat untuk membagi ulang pekerjaan saat target tim berubah mendadak."
+        },
+        {
+          "id": "PER-TEN-010",
+          "teks": "Saya menyelesaikan presentasi demo dengan alur yang jelas meski perangkat sempat bermasalah di tengah acara."
+        },
+        {
+          "id": "PER-TEN-011",
+          "teks": "Saya mengerjakan materi belajar secara terjadwal menjelang ujian sertifikasi meski jadwal proyek sedang padat."
+        },
+        {
+          "id": "PER-TEN-012",
+          "teks": "Saya menanggapi umpan balik tajam dari peninjau kode dengan mencatat dan memperbaikinya satu per satu."
+        }
+      ]
+    },
+    {
+      "id": "belajar",
+      "nama": "Rasa ingin tahu",
+      "arti": "Kecenderungan mencari tahu cara kerja sesuatu dan mempelajari hal baru.",
+      "relevansiRole": {
+        "qa": "sedang",
+        "mobile": "tinggi",
+        "ba": "sedang"
+      },
+      "pernyataan": [
+        {
+          "id": "PER-BLJ-001",
+          "teks": "Saya membongkar alur kode lama sampai paham cara kerjanya sebelum mengubahnya."
+        },
+        {
+          "id": "PER-BLJ-002",
+          "teks": "Saya membaca dokumentasi teknis versi terbaru saat tim mulai memakai pustaka baru."
+        },
+        {
+          "id": "PER-BLJ-003",
+          "teks": "Saya menanyakan alasan di balik sebuah keputusan arsitektur ketika rapat perencanaan proyek."
+        },
+        {
+          "id": "PER-BLJ-004",
+          "teks": "Saya mencoba fitur baru di lingkungan uji untuk melihat batas kemampuannya."
+        },
+        {
+          "id": "PER-BLJ-005",
+          "teks": "Saya meluangkan waktu akhir pekan untuk mengikuti kursus daring tentang bahasa pemrograman baru."
+        },
+        {
+          "id": "PER-BLJ-006",
+          "teks": "Saya menelusuri log sistem langkah demi langkah untuk memahami penyebab sebuah galat."
+        },
+        {
+          "id": "PER-BLJ-007",
+          "teks": "Saya meminta rekan dari divisi lain menjelaskan cara kerja layanan yang terhubung dengan modul saya."
+        },
+        {
+          "id": "PER-BLJ-008",
+          "teks": "Saya mencatat temuan menarik dari setiap tugas untuk dibagikan kepada tim."
+        },
+        {
+          "id": "PER-BLJ-009",
+          "teks": "Saya menghadiri seminar teknologi untuk mengetahui perkembangan terbaru di bidang pekerjaan saya."
+        },
+        {
+          "id": "PER-BLJ-010",
+          "teks": "Saya membuat proyek percobaan kecil untuk memahami konsep yang baru saya dengar."
+        },
+        {
+          "id": "PER-BLJ-011",
+          "teks": "Saya mengajukan diri menangani tugas yang memakai teknologi belum pernah saya gunakan."
+        },
+        {
+          "id": "PER-BLJ-012",
+          "teks": "Saya membaca ulasan kode rekan untuk mempelajari gaya penulisan dan teknik yang mereka pakai."
+        }
+      ]
+    }
+  ]
+}

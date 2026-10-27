@@ -20,6 +20,7 @@ import '../features/settings/settings_screen.dart';
 import '../features/stats/stats_screen.dart';
 import '../features/review/review_screen.dart';
 import '../features/session/session_screen.dart';
+import '../features/personality/personality_screen.dart';
 import 'routes.dart';
 import 'tab_shell.dart';
 
@@ -133,7 +134,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: Routes.catatanTesBaru,
         builder: (context, state) => const CompanyLogFormScreen(),
       ),
-      _r(Routes.kepribadian, 'S14', 'Sesi kepribadian'),
+      GoRoute(
+        path: Routes.kepribadian,
+        builder: (context, state) => PersonalityScreen(
+          seed: int.tryParse(state.pathParameters['id'] ?? '') ?? 0,
+        ),
+      ),
       _r(Routes.wawancaraDialog, 'S16', 'Dialog wawancara'),
       _r(Routes.wawancaraLaporan, 'S17', 'Laporan wawancara'),
       GoRoute(

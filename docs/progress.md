@@ -29,7 +29,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 ## v1.1
 
 - [ ] T21 Tema gelap
-- [ ] T22 Kepribadian Papi/DISC-style: S14
+- [x] T22 Kepribadian Papi/DISC-style: S14 (Papi-style selesai, pool 12 per sifat menunggu pemeriksaan pemilik; DISC-style dan penyimpanan hasil menunggu Q13)
 - [ ] T23 Kraepelin/Pauli penuh
 - [x] T24 Modul IT: pseudocode, flowchart, Excel (engine, katalog, template Mobile Dev; tampilan monospasi menunggu Q11, QA menunggu Q12)
 - [ ] T25 Bank pengetahuan role: S19, S20
@@ -76,10 +76,16 @@ Dari T24 (belum dicoba di HP dan browser):
 - [ ] Tabel flowchart dan lembar kerja di S06 dan S09 (TableFigure) di layar sempit.
 - [ ] S02 dengan baris "Modul IT" dan role Mobile Dev; simulasi berisi subtes Modul IT.
 
+Dari T22 (belum dicoba di HP dan browser):
+
+- [ ] S14 Papi-style dari katalog: soal, Sebelumnya, konfirmasi keluar, tombol Back sistem, review panjang (24 baris arti pilihan) di skala 1,0, 1,3, 2,0.
+- [ ] Pool kepribadian termuat di web (aset JSON) dan di APK.
+
 ## Catatan lanjut
 
 - T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).
-- Berikutnya: T22 Papi-style (pool lewat `claude -p`, S14), lalu T23 Kraepelin.
+- T22 selesai: pool 96 pernyataan (8 sifat x 12) lewat `claude -p` dengan penyaring istilah klinis, sampel di `docs/eval/personality_sample.md` menunggu pemeriksaan pemilik (catatan: PER-KRS-001 dan PER-PIM-001 mirip), S14 dengan empat kondisi dan review per role, baris Papi-style di katalog terbuka (A103). Terbuka: Q13 (simpan hasil, subtes Kepribadian di simulasi, DISC-style).
+- Berikutnya: T23 Kraepelin/Pauli (generator KRP, layar input angka cepat, grafik konsistensi, template QA).
 
 ## Pertanyaan terbuka
 

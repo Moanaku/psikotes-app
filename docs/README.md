@@ -47,6 +47,7 @@ Desain layar ada di artefak Claude Design "Desain UI Simulator Psikotes IT" (20 
 | Skrip bank verbal | Selesai (T07): `tool/pregenerate/` (pass 1, pass 2, bundel, validator, tes). Bank 300 soal belum dibuat; menunggu dijalankan pemilik |
 | Alur integrasi, build, rilis | Sebagian (T20): tiga integration_test lulus di mesin uji Flutter; `applicationId` `io.github.moanaku.psikotes`; build web dan APK (debug dan rilis) berhasil lokal; workflow `release-apk` dan `pages` (hanya tag atau manual) ditulis tetapi belum pernah jalan di GitHub; CHANGELOG, `RILIS-APK.md`, dan `eval/checklist-v1.0.0.md` ada. Menunggu pemilik: checklist di HP, bank verbal, secret keystore, keputusan Pages, tag `v1.0.0` |
 | Modul IT | Selesai (T24): IT-PSE (interpreter pseudocode mini dengan batas langkah, 22 kasus tulisan tangan), IT-FLW (flowchart sebagai tabel kotak), IT-XLS (SUM, IF, VLOOKUP, COUNTIF dengan pecahan eksak), solver kedua independen untuk FLW dan XLS, 10.000 seed per kesulitan lolos; terbuka di katalog dan aktif sebagai subtes untuk Mobile Dev. Font monospasi menunggu Q11; belum dicoba di HP dan peramban (A101, A102) |
+| Kepribadian | Papi-style selesai (T22): pool 8 sifat x 12 pernyataan lewat `claude -p` (sampel menunggu pemilik), S14 dengan review profil dan arti pilihan, tanpa penyimpanan hasil (A103). DISC-style menunggu Q13 |
 | Kode fitur | Belum mulai |
 | Daftar tes nyata yang sudah dijalani | Terbuka, menunggu dari pemilik |
 | Penyedia LLM wawancara | Terbuka, diputuskan sebelum v1.3 |

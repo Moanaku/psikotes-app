@@ -140,18 +140,27 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       group: g,
                       available: available,
                       bankFailed: bankFailed,
-                      onOpen: (type) => active == null || _starting
-                          ? null
-                          : () => _launch(
-                                profile: active,
-                                mode: SessionMode.latihan,
-                                build: (avoid) => SessionPlanBuilder.practice(
-                                  type,
-                                  now: clock.now(),
-                                  avoid: avoid,
-                                  bank: bank,
+                      onOpen: (type) => type == QuestionType.perPapi
+                          // Papi-style punya layar sendiri (S14), tanpa
+                          // sesi di database (A103).
+                          ? () => unawaited(context.push(
+                                Routes.kepribadianPath(
+                                  SessionPlanBuilder.seedBase(clock.now()),
                                 ),
-                              ),
+                              ))
+                          : active == null || _starting
+                              ? null
+                              : () => _launch(
+                                    profile: active,
+                                    mode: SessionMode.latihan,
+                                    build: (avoid) =>
+                                        SessionPlanBuilder.practice(
+                                      type,
+                                      now: clock.now(),
+                                      avoid: avoid,
+                                      bank: bank,
+                                    ),
+                                  ),
                     ),
                   _PrivateBank(
                     onPractice: active == null || _starting

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:simulator_psikotes_it/features/personality/personality_providers.dart';
 import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/core/widgets/app_bottom_nav.dart';
 import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
@@ -100,13 +101,27 @@ void main() {
       }
     });
 
+    testWidgets('Papi-style membuka S14 dengan soal dari waktu sekarang (T22)',
+        (tester) async {
+      final app = await openCatalog(tester, overrides: [
+        personalityAssetReaderProvider.overrideWithValue(
+          (_) async => File('assets/personality_pool.json').readAsStringSync(),
+        ),
+      ]);
+      await show(tester, 'Papi-style');
+      expect(row(tester, 'Papi-style').subtitle, isNull);
+      await tester.tap(find.text('Papi-style'));
+      await tester.pumpAndSettle();
+      expect(app.location, startsWith('/kepribadian/'));
+      expect(find.text('Soal 1 dari 24'), findsOneWidget);
+    });
+
     testWidgets('tipe belum rilis nonaktif dengan alasan dan tag',
         (tester) async {
       await openCatalog(tester);
       for (final name in [
         'Bacaan',
         'Kraepelin / Pauli',
-        'Papi-style',
         'DISC-style',
       ]) {
         await show(tester, name);
@@ -157,12 +172,16 @@ void main() {
       expect(types.length, QuestionType.values.length);
     });
 
-    testWidgets('tipe yang terdaftar selalu dianggap tersedia', (tester) async {
+    testWidgets('tipe terdaftar dan tipe berlayar sendiri dianggap tersedia',
+        (tester) async {
       final reg = GeneratorRegistry.types.toSet();
       for (final g in catalogGroups) {
         for (final e in g.entries) {
           final why = CatalogAvailability.of(e, reg);
-          expect(why == null, e.type != null && reg.contains(e.type),
+          expect(
+              why == null,
+              e.type != null &&
+                  (reg.contains(e.type) || ownScreenTypes.contains(e.type)),
               reason: e.label);
         }
       }

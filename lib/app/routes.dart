@@ -27,6 +27,9 @@ abstract final class Routes {
   /// S06 atau S07 untuk sesi [id].
   static String sesiPath(int id) => '/sesi/$id';
 
+  /// S14 dengan soal dari [seed].
+  static String kepribadianPath(int seed) => '/kepribadian/$seed';
+
   /// S08 untuk sesi [id].
   static String hasilPath(int id) => '/hasil/$id';
 
