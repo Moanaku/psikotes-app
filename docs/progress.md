@@ -59,6 +59,17 @@ Kotak T20 belum dicentang karena "Selesai bila" memuat hal yang hanya bisa dilak
 
 Menunggu pemilik: checklist manual di HP, pemeriksaan 30 soal sampel bank verbal (tandai di `docs/eval/verbal_flags.txt`, lalu jalankan `bundle.py` lagi), secret keystore, keputusan Pages untuk repo privat, tag `v1.0.0` (perintah di `docs/RILIS-APK.md`), centang T20 setelah APK terlampir di Releases. Belum dicoba: integration_test di HP atau emulator dan di Chrome (`flutter drive`), APK di perangkat, workflow GitHub di luar CI pull request, desain ikon app.
 
+## Daftar untuk fase pengujian akhir (perbaikan UI skala huruf)
+
+Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subtes mengecil dalam satu baris, gambar soal, test dengan font asli `test/support/app_fonts.dart`) lulus di test widget pada layar 360 x 800, tetapi **belum selesai dan belum diverifikasi di HP**. Yang masih harus diperiksa dan mungkin diperbaiki:
+
+- [ ] Navigasi bawah dan tombol terpotong di skala 1,3 dan 2,0.
+- [ ] Kepala S07 di skala 2,0 (masih memakan banyak tinggi layar).
+- [ ] Label sumbu grafik S11 di skala 2,0.
+- [ ] Tombol Back sistem di langkah 1 wizard tambah profil.
+
+Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
+
 ## Pertanyaan terbuka
 
 - Temuan uji perangkat 2: bagian logika selesai di `fix/pemuat-verbal-dan-ui` (pemuat verbal A100, target waktu A98, soal tidak dijawab A99, tab Wawancara, nama tipe). Bagian UI di HP (teks terpotong di skala 1,3 dan 2,0, S07, S11, Back wizard) tercatat di bawah setelah diverifikasi. Pertanyaan baru: Q8 sampai Q10 di `docs/11-asumsi-dan-pertanyaan.md`. Rincian temuan: `uji-perangkat/LAPORAN-2.md` (lokal, tidak di-commit).

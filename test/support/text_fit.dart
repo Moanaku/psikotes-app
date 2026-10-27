@@ -2,13 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'app_fonts.dart';
+
 /// Tidak ada kata yang terpaksa dipatahkan di tengah kata. Setiap kata di
 /// setiap teks yang tampil diukur sendiri pada lebar teksnya; bila kata itu
 /// sendirian pun memakai lebih dari satu baris, kata tersebut terpotong.
 ///
+/// Font app sungguhan (Instrument Sans) harus termuat: pemeriksaan ini gagal
+/// bila test mengukur dengan font cadangan ([expectAppFontLoaded]).
+///
 /// Teks yang dibatasi satu baris dengan elipsis tidak diperiksa: itu
 /// pemotongan yang disengaja dan terlihat.
 void expectNoMidWordBreaks(WidgetTester tester, {String? reason}) {
+  expectAppFontLoaded();
   final broken = <String>[];
   for (final element in find.byType(RichText).evaluate()) {
     final box = element.renderObject;

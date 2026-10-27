@@ -414,52 +414,128 @@ class FigurePainter extends CustomPainter {
 
 /// Tabel data soal cerita: judul kolom tebal, baris dipisah garis, angka rata
 /// kanan. Bukan kartu; mengikuti aturan daftar sebagai baris dan garis.
+///
+/// Lebar kolom: tiap kolom paling sedikit selebar kata terpanjangnya (pada
+/// skala huruf pengguna), sisa lebar dibagi menurut bobot kolom. Judul panjang
+/// membungkus per kata. Bila kata-kata terpanjang pun tidak muat, tabel
+/// digulir mendatar, jadi tidak ada kata yang terpotong di tengah.
 class _FigureTable extends StatelessWidget {
   const _FigureTable({required this.table});
 
   final TableFigure table;
+
+  static const double _cellPadding = AppSpace.s4;
+
+  /// Lebar kata terpanjang di antara [texts] untuk [style] pada skala huruf
+  /// [scaler].
+  static double _longestWord(
+    Iterable<String> texts,
+    TextStyle style,
+    TextScaler scaler,
+    TextDirection direction,
+  ) {
+    var widest = 0.0;
+    for (final text in texts) {
+      for (final word in text.split(RegExp(r'\s+'))) {
+        if (word.isEmpty) continue;
+        final painter = TextPainter(
+          text: TextSpan(text: word, style: style),
+          textDirection: direction,
+          textScaler: scaler,
+        )..layout();
+        if (painter.width > widest) widest = painter.width;
+        painter.dispose();
+      }
+    }
+    return widest;
+  }
 
   @override
   Widget build(BuildContext context) {
     final c = context.tokens.colors;
     final head = AppType.label(c.ink).copyWith(fontWeight: FontWeight.w600);
     final body = AppType.body(c.ink);
+    final scaler = MediaQuery.textScalerOf(context);
+    // Teks sel digambar dengan `DefaultTextStyle` di bawahnya (mis. jarak
+    // huruf dari tema); pengukuran harus memakai gaya gabungan yang sama.
+    final inherited = DefaultTextStyle.of(context).style;
+    final direction = Directionality.of(context);
     TextAlign align(int col) => col == 0 ? TextAlign.start : TextAlign.end;
 
     Widget cell(String text, int col, TextStyle style) => Padding(
           padding: const EdgeInsets.symmetric(
             vertical: AppSpace.s8,
-            horizontal: AppSpace.s4,
+            horizontal: _cellPadding,
           ),
           child: Text(text, style: style, textAlign: align(col)),
         );
 
-    return Table(
-      border: TableBorder(
-        top: BorderSide(color: c.outline),
-        bottom: BorderSide(color: c.outline),
-        horizontalInside: BorderSide(color: c.outlineVariant),
-      ),
-      columnWidths: {
-        for (var i = 0; i < table.headers.length; i++)
-          i: i == 0 ? const FlexColumnWidth(1.6) : const FlexColumnWidth(1),
-      },
-      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-      children: [
-        TableRow(
-          decoration: BoxDecoration(color: c.surfaceContainerHigh),
-          children: [
-            for (var i = 0; i < table.headers.length; i++)
-              cell(table.headers[i], i, head),
-          ],
-        ),
-        for (final row in table.rows)
-          TableRow(
-            children: [
-              for (var i = 0; i < row.length; i++) cell(row[i], i, body),
-            ],
+    final columns = table.headers.length;
+    final minWidths = [
+      for (var i = 0; i < columns; i++)
+        math.max(
+              _longestWord(
+                [table.headers[i]],
+                inherited.merge(head),
+                scaler,
+                direction,
+              ),
+              _longestWord(
+                [for (final row in table.rows) row[i]],
+                inherited.merge(body),
+                scaler,
+                direction,
+              ),
+            ) +
+            2 * _cellPadding +
+            1,
+    ];
+    final weights = [
+      for (var i = 0; i < columns; i++) i == 0 ? 1.6 : 1.0,
+    ];
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final available = constraints.maxWidth;
+        final needed = minWidths.fold<double>(0, (a, b) => a + b);
+        final spare = math.max(0.0, available - needed);
+        final weightSum = weights.fold<double>(0, (a, b) => a + b);
+        final widths = [
+          for (var i = 0; i < columns; i++)
+            minWidths[i] + spare * weights[i] / weightSum,
+        ];
+        final grid = Table(
+          border: TableBorder(
+            top: BorderSide(color: c.outline),
+            bottom: BorderSide(color: c.outline),
+            horizontalInside: BorderSide(color: c.outlineVariant),
           ),
-      ],
+          columnWidths: {
+            for (var i = 0; i < columns; i++) i: FixedColumnWidth(widths[i]),
+          },
+          defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+          children: [
+            TableRow(
+              decoration: BoxDecoration(color: c.surfaceContainerHigh),
+              children: [
+                for (var i = 0; i < columns; i++)
+                  cell(table.headers[i], i, head),
+              ],
+            ),
+            for (final row in table.rows)
+              TableRow(
+                children: [
+                  for (var i = 0; i < row.length; i++) cell(row[i], i, body),
+                ],
+              ),
+          ],
+        );
+        if (needed <= available) return grid;
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: grid,
+        );
+      },
     );
   }
 }
