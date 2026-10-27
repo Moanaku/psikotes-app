@@ -49,7 +49,7 @@ Daftar lengkap: [docs/09-keputusan.md](docs/09-keputusan.md) (16 ADR).
 | Property test | 33 sapuan (11 tipe x 3 kesulitan) x 10.000 seed = 330.000 soal per platform, masing-masing lolos pemeriksaan invarian | keluaran `dart test` di atas, `test/support/property_harness.dart` |
 | Bank verbal | 300 soal; 380 kandidat, 352 lolos pass 2, 28 gugur | [docs/eval/laporan-bank.md](docs/eval/laporan-bank.md) |
 | Bank pengetahuan role | 180 butir (3 role x 3 level x 20); 245 kandidat, 240 lolos, 5 gugur | [docs/eval/laporan-bank.md](docs/eval/laporan-bank.md) |
-| Pool kepribadian | 96 pernyataan (8 sifat x 12) | [docs/eval/laporan-bank.md](docs/eval/laporan-bank.md) |
+| Pool kepribadian | 95 pernyataan (8 sifat; kerja sama 11, tujuh sifat lain 12) | [docs/eval/laporan-bank.md](docs/eval/laporan-bank.md) |
 | Ukuran APK rilis | 58,1 MB (60.919.686 byte), ditandatangani kunci debug karena keystore belum dibuat | `flutter build apk --release` |
 | Analisis statis | 0 masalah | `flutter analyze` |
 | Uji HP (Xiaomi, MIUI, 720 x 1600) | Putaran 2: semua butir daftar uji diperiksa pada skala huruf 1,0, 1,3, dan 2,0 kecuali yang tercatat belum; empat temuan (panel keluar sesi, Kraepelin, petunjuk tabel flowchart, judul laporan wawancara) diperbaiki dan diuji ulang | `docs/progress.md` bagian "Catatan lanjut"; `uji-perangkat/LAPORAN-3.md` (lokal, tidak di-commit) |

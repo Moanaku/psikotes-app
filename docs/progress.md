@@ -29,7 +29,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 ## v1.1
 
 - [ ] T21 Tema gelap
-- [x] T22 Kepribadian Papi/DISC-style: S14 (Papi-style selesai, pool 12 per sifat menunggu pemeriksaan pemilik; DISC-style dan penyimpanan hasil menunggu Q13)
+- [x] T22 Kepribadian Papi/DISC-style: S14 (Papi-style selesai, pool 95 pernyataan menunggu pemeriksaan pemilik; DISC-style dan penyimpanan hasil menunggu Q13)
 - [x] T23 Kraepelin/Pauli penuh (penyimpanan hasil dan durasi asli menunggu Q14)
 - [x] T24 Modul IT: pseudocode, flowchart, Excel (engine, katalog, template Mobile Dev; tampilan monospasi menunggu Q11, QA menunggu Q12)
 - [x] T25 Bank pengetahuan role: S19, S20 (isi bank menunggu T26; aset sementara berisi nol butir)
@@ -116,7 +116,7 @@ Dari T23 (belum dicoba di HP dan browser):
 - T25 selesai di cabang `fitur/fitur-inti-dan-uji-akhir`: `KnowledgeBank` (pemuat dengan kondisi galat seperti A100), `KnowledgeSelector`, `KnowledgeService` (penilaian diri, kemajuan, kartu SM-2), tabel `knowledge_progress` (skema v3 dengan test migrasi v2 ke v3), S19 dan S20 dengan semua kondisi, baris katalog dan pintasan beranda, backup ikut membawa `knowledge_progress` dan `answer.dijawab` (A106, A107). Terbuka: Q15 (`CheckRow`). Berikutnya: T26 (isi bank pengetahuan dan VRB-RC).
 - Tugas 0 (cabang `fitur/fitur-inti-dan-uji-akhir`) selesai: baris "Sudah dikerjakan hari ini: N soal" di bawah panel latihan S04 (A105). Skema naik ke v2 (`answer.dijawab`, migrasi dan test migrasi). Berikutnya: T25 (bank pengetahuan, S19, S20).
 - T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).
-- T22 selesai: pool 96 pernyataan (8 sifat x 12) lewat `claude -p` dengan penyaring istilah klinis, sampel di `docs/eval/personality_sample.md` menunggu pemeriksaan pemilik (catatan: PER-KRS-001 dan PER-PIM-001 mirip), S14 dengan empat kondisi dan review per role, baris Papi-style di katalog terbuka (A103). Terbuka: Q13 (simpan hasil, subtes Kepribadian di simulasi, DISC-style).
+- T22 selesai: pool 95 pernyataan (8 sifat; kerja sama 11, tujuh lain 12, setelah PER-KRS-001 dibuang) lewat `claude -p` dengan penyaring istilah klinis, sampel di `docs/eval/personality_sample.md` menunggu pemeriksaan pemilik (catatan: PER-KRS-001 dan PER-PIM-001 mirip), S14 dengan empat kondisi dan review per role, baris Papi-style di katalog terbuka (A103). Terbuka: Q13 (simpan hasil, subtes Kepribadian di simulasi, DISC-style).
 - T23 selesai: `KrpSheet` dan `KrpScore` di engine (test tulisan tangan dan 10.000 seed), `KraepelinRun` dengan pergantian kolom otomatis dari jam monoton, layar dengan input angka cepat, hasil kecepatan, ketelitian, konsistensi, dan grafik `fl_chart`; baris katalog terbuka; QA menyalakan Kraepelin (A104). Ditemukan dan diperbaiki: mengganti role mematikan Kraepelin Bank-style; integration_test profil sampai statistik masih mencari teks S08 lama "Tidak dijawab: n soal" sejak A99, kini membaca baris "Soal tidak dijawab". Terbuka: Q14.
 - Berikutnya: checklist UI, pull request ke main, pantau CI. Lalu jawaban Q11 sampai Q14 dan fase pengujian akhir di HP.
 
