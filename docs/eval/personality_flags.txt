@@ -1,1 +1,2 @@
 # ID pernyataan kepribadian yang dibuang dari pool, satu per baris (T22).
+PER-KRS-001  # mirip PER-PIM-001 ("membagi tugas proyek"); sifat kerja sama lebih tepat lewat bantuan dan ucapan terima kasih
