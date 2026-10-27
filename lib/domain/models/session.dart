@@ -280,6 +280,7 @@ class AnswerRecord {
     required this.benar,
     required this.durasiMs,
     required this.label,
+    this.dijawabPada,
   });
 
   final int? id;
@@ -306,6 +307,9 @@ class AnswerRecord {
   final bool benar;
   final int durasiMs;
   final SpeedLabel label;
+
+  /// Kapan jawaban dicatat (UTC); null pada data lama dan soal dilewati.
+  final DateTime? dijawabPada;
 }
 
 class SessionSnapshot {

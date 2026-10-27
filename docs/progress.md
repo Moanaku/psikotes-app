@@ -70,6 +70,10 @@ Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subt
 
 Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
 
+Dari Tugas 0 (belum dicoba di HP dan browser):
+
+- [ ] S04: baris "Sudah dikerjakan hari ini" naik setelah menjawab, tidak menghitung soal dilewati, kembali ke "Belum ada soal dikerjakan hari ini." setelah lewat tengah malam; dibaca di skala 1,0, 1,3, 2,0. Upgrade dari APK lama (skema v1 ke v2) tidak menghapus riwayat.
+
 Dari T24 (belum dicoba di HP dan browser):
 
 - [ ] S06 dengan soal Pseudocode, Flowchart, dan Excel di skala 1,0, 1,3, 2,0 (test widget 360 dp dengan font asli lulus). Perhatikan pseudocode yang baris panjangnya terlipat di 2,0: indentasi hilang di baris lanjutan (Q11).
@@ -90,6 +94,7 @@ Dari T23 (belum dicoba di HP dan browser):
 
 ## Catatan lanjut
 
+- Tugas 0 (cabang `fitur/fitur-inti-dan-uji-akhir`) selesai: baris "Sudah dikerjakan hari ini: N soal" di bawah panel latihan S04 (A105). Skema naik ke v2 (`answer.dijawab`, migrasi dan test migrasi). Berikutnya: T25 (bank pengetahuan, S19, S20).
 - T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).
 - T22 selesai: pool 96 pernyataan (8 sifat x 12) lewat `claude -p` dengan penyaring istilah klinis, sampel di `docs/eval/personality_sample.md` menunggu pemeriksaan pemilik (catatan: PER-KRS-001 dan PER-PIM-001 mirip), S14 dengan empat kondisi dan review per role, baris Papi-style di katalog terbuka (A103). Terbuka: Q13 (simpan hasil, subtes Kepribadian di simulasi, DISC-style).
 - T23 selesai: `KrpSheet` dan `KrpScore` di engine (test tulisan tangan dan 10.000 seed), `KraepelinRun` dengan pergantian kolom otomatis dari jam monoton, layar dengan input angka cepat, hasil kecepatan, ketelitian, konsistensi, dan grafik `fl_chart`; baris katalog terbuka; QA menyalakan Kraepelin (A104). Ditemukan dan diperbaiki: mengganti role mematikan Kraepelin Bank-style; integration_test profil sampai statistik masih mencari teks S08 lama "Tidak dijawab: n soal" sejak A99, kini membaca baris "Soal tidak dijawab". Terbuka: Q14.

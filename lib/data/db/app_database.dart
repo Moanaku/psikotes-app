@@ -20,7 +20,7 @@ class AppDatabase extends _$AppDatabase {
 
   /// Naik setiap kali skema berubah; tiap kenaikan menambah langkah di
   /// [migration] dan satu test migrasi (docs/03-data-model.md, "Migrasi").
-  static const int currentSchemaVersion = 1;
+  static const int currentSchemaVersion = 2;
 
   @override
   int get schemaVersion => currentSchemaVersion;
@@ -29,9 +29,10 @@ class AppDatabase extends _$AppDatabase {
   MigrationStrategy get migration => MigrationStrategy(
         onCreate: (m) => m.createAll(),
         onUpgrade: (m, from, to) async {
-          // v1 adalah skema awal; belum ada langkah. Tabel v1.1 dan v1.3
-          // (knowledge_progress, cv_profile, interview_session) ditambahkan
-          // di sini oleh tugas fiturnya.
+          // v2: waktu jawaban untuk penghitung "soal dikerjakan hari ini".
+          if (from < 2) await m.addColumn(answerTable, answerTable.dijawab);
+          // Tabel v1.1 dan v1.3 (knowledge_progress, cv_profile,
+          // interview_session) ditambahkan di sini oleh tugas fiturnya.
         },
         beforeOpen: (details) async {
           await customStatement('PRAGMA foreign_keys = ON');

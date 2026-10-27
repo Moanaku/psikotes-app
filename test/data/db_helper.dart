@@ -60,6 +60,7 @@ AnswerRecord answer(
   AnswerSource sumber = AnswerSource.engine,
   int? refId,
   int? posisi,
+  DateTime? dijawabPada,
 }) =>
     AnswerRecord(
       sessionId: sessionId,
@@ -75,6 +76,7 @@ AnswerRecord answer(
       benar: benar,
       durasiMs: 12000,
       label: benar ? SpeedLabel.benarCepat : SpeedLabel.salahLambat,
+      dijawabPada: dijawabPada,
     );
 
 /// Profil dan sesi siap pakai.

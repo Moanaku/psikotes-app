@@ -61,6 +61,7 @@ Indeks: `(profile_id, mulai)`, `(selesai)`.
 | benar | INTEGER | 0 atau 1 |
 | durasi_ms | INTEGER | |
 | label | TEXT | `benar_cepat`, `benar_lambat`, `salah_cepat`, `salah_lambat` |
+| dijawab | INTEGER NULL | ms UTC saat jawaban terakhir dicatat; NULL pada jawaban sebelum skema v2 dan soal dilewati (skema v2, A105) |
 
 Indeks: `(session_id, posisi)` unik, `(tipe, id)` untuk statistik, `(kategori, id)`.
 

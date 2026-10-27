@@ -74,6 +74,10 @@ abstract class AnswerRepository {
   /// Jawaban sejak [since], dari yang terbaru.
   Future<List<AnswerRecord>> since(DateTime since);
 
+  /// Jumlah soal yang dijawab (opsi terisi) pada [from] sampai sebelum [to],
+  /// dari semua sesi, selesai atau belum, semua profil.
+  Future<int> countAnswered(DateTime from, DateTime to);
+
   /// Semua jawaban dari sesi yang sudah selesai (statistik), urut id.
   Future<List<AnswerRecord>> forFinishedSessions();
 

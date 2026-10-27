@@ -64,6 +64,10 @@ class AnswerTable extends Table {
   BoolColumn get benar => boolean()();
   IntColumn get durasiMs => integer()();
   TextColumn get label => text()();
+
+  /// Waktu jawaban terakhir dicatat (ms UTC). Null pada jawaban sebelum skema
+  /// v2 dan pada soal yang dilewati.
+  IntColumn get dijawab => integer().nullable()();
 }
 
 @DataClassName('MistakeCardRow')

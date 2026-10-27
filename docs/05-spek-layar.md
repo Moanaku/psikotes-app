@@ -65,13 +65,14 @@ Aturan umum:
 
 ### S04 Beranda (F03)
 - **Tujuan:** satu ketukan menuju latihan hari ini.
-- **Elemen:** "Halo, [nama]" dan ikon pengaturan; baris profil aktif dengan "[n] hari lagi"; panel "Latihan hari ini" (± menit, tiga butir rencana, tombol "Mulai"); "Kelemahan saat ini" dengan tiga `ScoreBar` dan tautan "Statistik"; empat pintasan (Katalog psikotes, Pengetahuan role, Capture soal, Buku kesalahan dengan "[n] jatuh tempo"); bottom nav.
-- **Data:** profil aktif, `DailyPlanner.plan()`, kelemahan (tiga tipe dengan skor tertinggi), jumlah kartu jatuh tempo.
+- **Elemen:** "Halo, [nama]" dan ikon pengaturan; baris profil aktif dengan "[n] hari lagi"; panel "Latihan hari ini" (± menit, tiga butir rencana, tombol "Mulai") dengan satu baris di bawahnya "Sudah dikerjakan hari ini: N soal" (A105); "Kelemahan saat ini" dengan tiga `ScoreBar` dan tautan "Statistik"; empat pintasan (Katalog psikotes, Pengetahuan role, Capture soal, Buku kesalahan dengan "[n] jatuh tempo"); bottom nav.
+- **Data:** profil aktif, `DailyPlanner.plan()`, kelemahan (tiga tipe dengan skor tertinggi), jumlah kartu jatuh tempo, jumlah soal dijawab hari ini (`AnsweredToday`, A105).
 - **Aksi:** "Mulai" ke S06 dengan sesi dari rencana; ikon pengaturan ke S18; pintasan ke S05, S19, S12, S10; "Statistik" ke S11.
 - **Kondisi:**
   - Kosong (belum ada riwayat): "Belum ada data kelemahan. Kerjakan diagnostik agar latihan hari ini bisa disusun." Tombol: "Mulai diagnostik". Panel latihan tetap ada dengan campuran sesuai bobot profil.
   - Memuat: skeleton untuk baris profil, panel, dan tiga baris kelemahan.
   - Galat: "Rencana latihan tidak bisa disusun. Data profil gagal dibaca." Tombol: "Coba lagi".
+  - Belum ada soal dijawab hari ini: baris di bawah panel berbunyi "Belum ada soal dikerjakan hari ini." (tanpa angka nol). Galat membaca jumlah memakai galat beranda di atas.
   - Tanpa tanggal tes: baris profil menampilkan "Tanggal tes belum diisi" dengan tautan ke S02.
 - **Selesai bila:** dari buka app sampai soal pertama tampil butuh satu ketukan; rencana memenuhi komposisi 50/30/20 di `03-data-model.md`.
 

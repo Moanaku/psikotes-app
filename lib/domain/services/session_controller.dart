@@ -592,6 +592,7 @@ class SessionController extends Notifier<SessionState?> {
         ambangMs:
             Scoring.thresholdMs(r.medians, item.tipeCode, q.estimatedSeconds),
       ),
+      dijawabPada: now.toUtc(),
     );
     await _sessions.recordAnswer(a);
     r.answers[r.posisi] = a;

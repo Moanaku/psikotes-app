@@ -25,6 +25,7 @@ AnswerRecord _answer(AnswerRow r) => AnswerRecord(
       benar: r.benar,
       durasiMs: r.durasiMs,
       label: SpeedLabel.fromCode(r.label),
+      dijawabPada: r.dijawab == null ? null : _utc(r.dijawab!),
     );
 
 SessionRecord _session(SessionRow r) => SessionRecord(
@@ -79,6 +80,7 @@ class DriftSessionRepository implements SessionRepository {
       benar: a.benar,
       durasiMs: a.durasiMs,
       label: a.label.code,
+      dijawab: Value(a.dijawabPada?.millisecondsSinceEpoch),
     );
     return _db.into(_db.answerTable).insert(
           row,
@@ -229,6 +231,26 @@ class DriftAnswerRepository implements AnswerRepository {
       ..orderBy([OrderingTerm.desc(_db.answerTable.id)]);
     final rows = await query.get();
     return rows.map((r) => _answer(r.readTable(_db.answerTable))).toList();
+  }
+
+  @override
+  Future<int> countAnswered(DateTime from, DateTime to) async {
+    // Jawaban sebelum skema v2 belum punya waktu sendiri: dihitung menurut
+    // waktu mulai sesinya.
+    final at = coalesce([_db.answerTable.dijawab, _db.sessionTable.mulai]);
+    final count = _db.answerTable.id.count();
+    final query = _db.selectOnly(_db.answerTable).join([
+      innerJoin(
+        _db.sessionTable,
+        _db.sessionTable.id.equalsExp(_db.answerTable.sessionId),
+      ),
+    ])
+      ..addColumns([count])
+      ..where(_db.answerTable.opsiDipilih.isNotNull() &
+          at.isBiggerOrEqualValue(from.millisecondsSinceEpoch) &
+          at.isSmallerThanValue(to.millisecondsSinceEpoch));
+    final row = await query.getSingle();
+    return row.read(count) ?? 0;
   }
 
   @override

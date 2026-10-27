@@ -25,7 +25,8 @@ String poolJson({int traits = 4, int per = 10, Object? versi = 1}) =>
 
 void main() {
   group('pool', () {
-    test('aset terbundel sah: 8 sifat, 10 sampai 20 pernyataan, tanpa istilah klinis',
+    test(
+        'aset terbundel sah: 8 sifat, 10 sampai 20 pernyataan, tanpa istilah klinis',
         () {
       final pool = PersonalityPool.parse(
           File('assets/personality_pool.json').readAsStringSync());

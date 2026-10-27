@@ -116,6 +116,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   starting: _starting,
                   onStart: () => _start(data),
                 ),
+                _AnsweredTodayLine(count: data.answeredToday),
                 if (_startFailed)
                   Padding(
                     padding: const EdgeInsets.fromLTRB(
@@ -350,6 +351,32 @@ class _TodayPanel extends StatelessWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// Satu baris di bawah panel latihan: berapa soal sudah dijawab hari ini.
+class _AnsweredTodayLine extends StatelessWidget {
+  const _AnsweredTodayLine({required this.count});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.tokens.colors;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpace.s16,
+        AppSpace.s8,
+        AppSpace.s16,
+        0,
+      ),
+      child: Text(
+        count == 0
+            ? 'Belum ada soal dikerjakan hari ini.'
+            : 'Sudah dikerjakan hari ini: $count soal',
+        style: AppType.label(c.inkMuted),
       ),
     );
   }

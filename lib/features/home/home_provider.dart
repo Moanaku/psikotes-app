@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../domain/models/codes.dart';
 import '../../domain/models/profile.dart';
 import '../../domain/providers.dart';
+import '../../domain/services/answered_today.dart';
 import '../../domain/services/daily_planner.dart';
 import '../../domain/services/profile_validation.dart';
 import '../../domain/services/session_controller.dart';
@@ -32,6 +33,7 @@ class HomeData {
     required this.weaknesses,
     required this.dueCount,
     required this.daysUntilTest,
+    required this.answeredToday,
     this.resume,
   });
 
@@ -45,6 +47,9 @@ class HomeData {
   /// Hari kalender sampai tanggal tes (0 = hari ini, negatif = sudah lewat);
   /// null bila tanggal tes belum diisi.
   final int? daysUntilTest;
+
+  /// Soal yang dijawab pada hari kalender ini, semua sesi dan profil.
+  final int answeredToday;
 
   /// Sesi profil aktif yang belum selesai; null bila tidak ada.
   final ResumeInfo? resume;
@@ -80,6 +85,11 @@ final homeProvider = FutureProvider.autoDispose<HomeData?>((ref) async {
       .watch(sessionRepositoryProvider)
       .unfinished(profileId: profile.id);
 
+  final answeredToday = await AnsweredToday(
+    ref.watch(answerRepositoryProvider),
+    ref.watch(clockProvider),
+  ).count();
+
   final days = profile.tanggalTes
       ?.difference(ProfileValidation.dateOnly(now.toLocal()))
       .inDays;
@@ -89,6 +99,7 @@ final homeProvider = FutureProvider.autoDispose<HomeData?>((ref) async {
     weaknesses: weaknesses,
     dueCount: due.length,
     daysUntilTest: days,
+    answeredToday: answeredToday,
     resume: unfinished == null
         ? null
         : ResumeInfo(
