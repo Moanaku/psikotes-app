@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sumber tunggal ikon app. Hanya <rect>; tool/ikon/gen_ikon.py membaca berkas ini.
+     Warna dari lib/core/theme/app_tokens.dart: ink 1B1E1C (latar), inkMuted 565C57 (sel),
+     accent F2CF3D (sel bersorot: sel kosong di pojok kanan bawah matriks). Kanvas 108, sel 14 dengan celah 3, kisi 48 di tengah (zona aman adaptif). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+  <rect id="latar" x="0" y="0" width="108" height="108" fill="#1B1E1C"/>
+  <g id="kisi">
+    <rect x="30" y="30" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="47" y="30" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="64" y="30" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="30" y="47" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="47" y="47" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="64" y="47" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="30" y="64" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect x="47" y="64" width="14" height="14" rx="3" fill="#565C57"/>
+    <rect id="sorot" x="64" y="64" width="14" height="14" rx="3" fill="#F2CF3D"/>
+  </g>
+</svg>
