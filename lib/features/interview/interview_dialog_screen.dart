@@ -68,6 +68,48 @@ class _InterviewDialogScreenState extends ConsumerState<InterviewDialogScreen> {
     final large = isLargeText(context);
     final canSend = !s.typing && !s.finished && s.turns.isNotEmpty;
 
+    // Di teks besar blok info ikut tergulir; margin diberi oleh daftar.
+    final im = large ? EdgeInsets.zero : _margin;
+    final info = <Widget>[
+      Padding(
+        padding: im,
+        child: Row(
+          children: [
+            const StatusTag(
+              label: 'Data contoh',
+              kind: StatusTagKind.attention,
+            ),
+            const SizedBox(width: AppSpace.s8),
+            Expanded(
+              child: Text('Dialog tertulis, bukan AI',
+                  style: AppType.label(c.inkMuted)),
+            ),
+          ],
+        ),
+      ),
+      if (large) ...[
+        const SizedBox(height: AppSpace.s8),
+        Padding(
+          padding: im,
+          child: AppButton(
+            label: 'Akhiri',
+            variant: AppButtonVariant.outline,
+            onPressed: _finish,
+          ),
+        ),
+      ],
+      const SizedBox(height: AppSpace.s8),
+      Padding(
+        padding: im,
+        child: ScoreBar(
+          label: 'Topik ${s.topic} dari $total, mode ${setup.mode.label}',
+          value: (s.topic / total).clamp(0.0, 1.0),
+          valueLabel: '${s.topic}/$total',
+        ),
+      ),
+      const SizedBox(height: AppSpace.s12),
+    ];
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -80,56 +122,26 @@ class _InterviewDialogScreenState extends ConsumerState<InterviewDialogScreen> {
               actions: large
                   ? const []
                   : [
-                      AppButton(
-                        label: 'Akhiri',
-                        variant: AppButtonVariant.outline,
-                        expand: false,
-                        onPressed: _finish,
+                      Padding(
+                        padding: const EdgeInsets.only(right: AppSpace.s16),
+                        child: AppButton(
+                          label: 'Akhiri',
+                          variant: AppButtonVariant.outline,
+                          expand: false,
+                          onPressed: _finish,
+                        ),
                       ),
                     ],
             ),
-            Padding(
-              padding: _margin,
-              child: Row(
-                children: [
-                  const StatusTag(
-                    label: 'Data contoh',
-                    kind: StatusTagKind.attention,
-                  ),
-                  const SizedBox(width: AppSpace.s8),
-                  Expanded(
-                    child: Text('Dialog tertulis, bukan AI',
-                        style: AppType.label(c.inkMuted)),
-                  ),
-                ],
-              ),
-            ),
-            if (large) ...[
-              const SizedBox(height: AppSpace.s8),
-              Padding(
-                padding: _margin,
-                child: AppButton(
-                  label: 'Akhiri',
-                  variant: AppButtonVariant.outline,
-                  onPressed: _finish,
-                ),
-              ),
-            ],
-            const SizedBox(height: AppSpace.s8),
-            Padding(
-              padding: _margin,
-              child: ScoreBar(
-                label: 'Topik ${s.topic} dari $total, mode ${setup.mode.label}',
-                value: (s.topic / total).clamp(0.0, 1.0),
-                valueLabel: '${s.topic}/$total',
-              ),
-            ),
+            if (!large) ...info,
             const SizedBox(height: AppSpace.s12),
             Expanded(
               child: ListView(
                 controller: _scroll,
                 padding: _margin,
                 children: [
+                  // Teks besar: blok info ikut tergulir supaya obrolan punya ruang.
+                  if (large) ...info,
                   for (final t in s.turns) ...[
                     ChatBubble(text: t.text, fromInterviewer: t.byInterviewer),
                     const SizedBox(height: AppSpace.s12),

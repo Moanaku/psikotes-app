@@ -64,4 +64,5 @@ flutter:
     - assets/verbal_bank.json
     - assets/personality_pool.json
     - assets/knowledge_bank.json
+    - assets/reading_bank.json
   # Ditambahkan di tugas yang memakainya:

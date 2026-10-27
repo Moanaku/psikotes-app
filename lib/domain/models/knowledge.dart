@@ -94,10 +94,17 @@ class KnowledgeItem {
   /// Nama tampilan topik: "siklus-bug" menjadi "Siklus bug".
   String get topikLabel => topicLabel(topik);
 
+  static const Set<String> _acronyms = {'mvvm', 'bpmn', 'ci', 'api', 'uat'};
+
   static String topicLabel(String slug) {
-    final words = slug.replaceAll('-', ' ').trim();
-    if (words.isEmpty) return slug;
-    return words[0].toUpperCase() + words.substring(1);
+    final parts = slug.split('-').where((w) => w.isNotEmpty).toList();
+    if (parts.isEmpty) return slug;
+    final words = [
+      for (final w in parts) _acronyms.contains(w) ? w.toUpperCase() : w,
+    ];
+    final first = words.first;
+    words[0] = first[0].toUpperCase() + first.substring(1);
+    return words.join(' ');
   }
 
   /// Nama kartu di buku kesalahan dari kode tipenya (`KB-QA-D`), atau null

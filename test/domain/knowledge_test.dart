@@ -256,6 +256,14 @@ void main() {
     });
   });
 
+  test('nama topik: akronim huruf besar', () {
+    expect(KnowledgeItem.topicLabel('siklus-bug'), 'Siklus bug');
+    expect(KnowledgeItem.topicLabel('bpmn'), 'BPMN');
+    expect(KnowledgeItem.topicLabel('ci'), 'CI');
+    expect(KnowledgeItem.topicLabel('arsitektur-mvvm'), 'Arsitektur MVVM');
+    expect(KnowledgeItem.topicLabel('pengujian-api'), 'Pengujian API');
+  });
+
   group('penilaian poin kunci (Lanjut)', () {
     test('perlu dua pertiga, dibulatkan ke atas', () {
       expect([

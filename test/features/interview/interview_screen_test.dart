@@ -198,6 +198,27 @@ void main() {
       expect(mic, findsOneWidget);
     });
 
+    testWidgets('tombol Akhiri tidak keluar dari tepi layar 360 dp',
+        (tester) async {
+      await startDialog(tester);
+      final rect = tester.getRect(find.widgetWithText(AppButton, 'Akhiri'));
+      expect(rect.right, lessThanOrEqualTo(360 - 16));
+      expect(rect.left, greaterThanOrEqualTo(0));
+    });
+
+    testWidgets('skala 2,0: obrolan mendapat sedikitnya 40% tinggi layar',
+        (tester) async {
+      await startDialog(tester, scale: 2);
+      final list = tester.getRect(find.byType(ListView));
+      expect(
+        find.descendant(
+            of: find.byType(ListView), matching: find.text('Akhiri')),
+        findsOneWidget,
+      );
+      expect(list.height, greaterThan(800 * 0.4),
+          reason: 'header tetap tidak boleh memakan layar');
+    });
+
     testWidgets('kirim jawaban memajukan topik sampai penutup', (tester) async {
       final app = await startDialog(tester);
       for (var i = 1; i <= 7; i++) {
@@ -277,6 +298,11 @@ void main() {
         expect(tester.takeException(), isNull);
         expectNoMidWordBreaks(tester);
         expectTouchTargets48(tester);
+        if (scale > 1.5) {
+          // Teks besar: tombol Akhiri ada di awal daftar yang tergulir.
+          await tester.drag(find.byType(ListView), const Offset(0, 4000));
+          await tester.pump();
+        }
         await tap(tester, button('Akhiri'));
         expect(tester.takeException(), isNull);
         expectNoMidWordBreaks(tester);
