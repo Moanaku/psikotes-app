@@ -63,10 +63,10 @@ Menunggu pemilik: checklist manual di HP, pemeriksaan 30 soal sampel bank verbal
 
 Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subtes mengecil dalam satu baris, gambar soal, test dengan font asli `test/support/app_fonts.dart`) lulus di test widget pada layar 360 x 800, tetapi **belum selesai dan belum diverifikasi di HP**. Yang masih harus diperiksa dan mungkin diperbaiki:
 
-- [ ] Navigasi bawah dan tombol terpotong di skala 1,3 dan 2,0.
-- [ ] Kepala S07 di skala 2,0 (masih memakan banyak tinggi layar).
-- [ ] Label sumbu grafik S11 di skala 2,0.
-- [ ] Tombol Back sistem di langkah 1 wizard tambah profil.
+- [x] Navigasi bawah dan tombol terpotong di skala 1,3 dan 2,0 (HP: 2,0 lulus; panel keluar diperbaiki).
+- [x] Kepala S07 di skala 2,0 (HP lulus).
+- [x] Label sumbu grafik S11 di skala 2,0 (HP lulus).
+- [x] Tombol Back sistem di langkah 1 wizard tambah profil (HP lulus).
 
 Dari T25 (belum dicoba di HP dan browser; bank bawaan kini 180 butir dari T26):
 
@@ -108,7 +108,7 @@ Dari T23 (belum dicoba di HP dan browser):
 
 ## Catatan lanjut
 
-- Uji HP dan browser (Tugas 5) sebagian selesai; laporan lokal di `uji-perangkat/LAPORAN-3.md` (tidak di-commit). Lulus di HP: S04 penghitung, upgrade skema, S19, S20, S15, S16 (1,0), pseudocode monospasi (1,0 dan 2,0). Diperbaiki: tombol Akhiri S16 terpotong, nama topik akronim. Belum terbukti di HP: S16 di 2,0. Tidak diuji: Kraepelin, S14, tabel IT, S17, S19 dan S20 di 1,3 dan 2,0, butir lama (nav, S07, S11, Back wizard). Browser: aset termuat (200), tampilan belum diverifikasi. `assets/reading_bank.json` (30 soal VRB-RC: 10 per kesulitan, 10 per kunci; 45 kandidat semua sepakat di pass 2, jadi penguji tampak longgar) terdaftar tetapi belum dipakai app; sampel di `docs/eval/reading_sample.md`. Terbuka: Q15, Q16.
+- Penutupan cabang: Q15 = tetap `StatusTag`, Q16 = topik S19 dilipat (A110), keduanya diputuskan pemilik. Uji HP putaran 2 selesai untuk semua butir di daftar (laporan lokal `uji-perangkat/LAPORAN-3.md`, bukti `uji-perangkat/r5/`). Gagal lalu diperbaiki: panel keluar S07, Kraepelin, dan Papi-style di skala 2,0 (bilah aksi naik ke 60% tinggi layar saat konfirmasi), tabel yang menggulir mendatar kini diberi petunjuk, judul S17 "HR". Sebab "perbaikan tidak terlihat di HP" ternyata cache Gradle: hapus `build/app/intermediates/flutter` dan `.dart_tool/flutter_build` sebelum `flutter build apk --debug`. Browser: belum diverifikasi (ekstensi Chrome tidak tersambung). Terbuka: S02 role Mobile Dev dan skala 1,3 untuk S14 hanya lewat test; Beranda 2,0 memecah baris "Deret angka, kategori terlemah"; `assets/reading_bank.json` terdaftar tetapi belum dipakai app.
 - T26: `assets/knowledge_bank.json` berisi 180 butir (qa, mobile, ba x dasar, menengah, lanjut x 20; 27 topik). 245 kandidat diperiksa pass 2 tanpa melihat kunci, 5 gugur. SEMUA butir bertanda perlu verifikasi: pass 1 dan 2 memakai model yang sama dan rujukan belum dicocokkan dengan teks aslinya. Sampel 18 butir di `docs/eval/knowledge_sample.md` menunggu pemeriksaan pemilik; id meragukan ditulis di `docs/eval/knowledge_flags.txt` lalu `python tool/pregenerate/gen_knowledge.py bundle`. Role Umum memakai butir lintas role (tanpa butir role `umum`). Lanjut bila perlu: `python tool/pregenerate/gen_knowledge.py all`.
 - Tugas 4 selesai: `AppType.code`, `CodeBlock`, IBM Plex Mono di `assets/fonts` (A109). Golden S06 teks dan tabel IT perlu dibuat ulang lewat WSL.
 - T29 selesai: S15 sampai S17 dengan `FakeCoach`, `ChatBubble`, semua kondisi (A108). Berikutnya: selesaikan T26 (`python tool/pregenerate/gen_knowledge.py all`, lalu `gen_reading.py all`), Tugas 4 (font kode), Tugas 5 (uji HP dan browser), golden lewat WSL, PR.
