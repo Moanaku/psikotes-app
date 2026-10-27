@@ -4,9 +4,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:simulator_psikotes_it/features/knowledge/knowledge_providers.dart';
 import 'package:simulator_psikotes_it/features/personality/personality_providers.dart';
 import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/core/widgets/app_bottom_nav.dart';
+import 'package:simulator_psikotes_it/core/widgets/app_chip.dart';
 import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
 import 'package:simulator_psikotes_it/core/widgets/segmented_control.dart';
 import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
@@ -21,6 +23,7 @@ import 'package:simulator_psikotes_it/features/catalog/catalog_entries.dart';
 
 import '../../support/fake_repositories.dart';
 import '../../support/fixtures.dart';
+import '../../support/knowledge_fixtures.dart';
 import '../../support/pump_app.dart';
 
 Future<AppHarness> openCatalog(
@@ -128,10 +131,32 @@ void main() {
         expect(r.onTap, isNull, reason: name);
         expect(r.subtitle, 'Tersedia di v1.1', reason: name);
       }
-      for (final name in ['QA Engineer', 'Mobile Dev', 'IT BA', 'Umum']) {
+    });
+
+    testWidgets('baris Pengetahuan role membuka S19 dengan role terpilih',
+        (tester) async {
+      Future<String> reader(String _) async => bankJson(smallBank().items);
+      for (final (name, chip) in [
+        ('QA Engineer', 'QA'),
+        ('Mobile Dev', 'Mobile Dev'),
+        ('IT BA', 'IT BA'),
+        ('Umum', 'Umum'),
+      ]) {
+        final app = await openCatalog(tester, overrides: [
+          knowledgeAssetReaderProvider.overrideWithValue(reader),
+        ]);
         await show(tester, name);
-        expect(row(tester, name).onTap, isNull, reason: name);
-        expect(row(tester, name).subtitle, 'Tersedia di v1.1');
+        expect(row(tester, name).onTap, isNotNull, reason: name);
+        expect(row(tester, name).subtitle, isNull, reason: name);
+        await tester.tap(find.text(name));
+        await tester.pumpAndSettle();
+        expect(app.location, startsWith('/pengetahuan?role='), reason: name);
+        expect(find.text('Pengetahuan role'), findsOneWidget);
+        expect(
+          tester.widget<AppChip>(find.widgetWithText(AppChip, chip)).selected,
+          isTrue,
+          reason: name,
+        );
       }
     });
 
@@ -179,8 +204,9 @@ void main() {
           final why = CatalogAvailability.of(e, reg);
           expect(
               why == null,
-              e.type != null &&
-                  (reg.contains(e.type) || ownScreenTypes.contains(e.type)),
+              e.knowledgeRole != null ||
+                  e.type != null &&
+                      (reg.contains(e.type) || ownScreenTypes.contains(e.type)),
               reason: e.label);
         }
       }

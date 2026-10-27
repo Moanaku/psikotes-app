@@ -183,15 +183,22 @@ Aturan umum:
 
 ### S19 Bank pengetahuan role (F17)
 - **Tujuan:** memilih role, level, dan topik.
-- **Elemen:** chip role (QA, Mobile Dev, IT BA, Umum); penjelasan; tiga baris level (Dasar, Menengah, Lanjut) dengan "[n] dari [n] dikuasai" dan bilah progres; chip topik; "Latihan 10 kartu"; bottom nav.
-- **Data:** `knowledge_bank.json`, `knowledge_progress`.
-- **Aksi:** baris level atau tombol ke S20.
-- **Kondisi:** topik tanpa butir: "Belum ada kartu untuk topik ini. Pilih topik lain." Tombol: "Tampilkan semua topik".
+- **Elemen:** chip role (QA, Mobile Dev, IT BA, Umum; awalnya role profil aktif, atau role dari baris katalog); penjelasan; chip topik ("Semua topik" dan topik role itu); tiga baris level (Dasar, Menengah, Lanjut) berupa `ScoreBar` "[n] dari [N]" yang bisa diketuk; "Latihan 10 kartu"; bottom nav (tab Psikotes aktif).
+- **Data:** `knowledge_bank.json` (dimuat saat layar dibuka), `knowledge_progress`, kartu buku kesalahan jatuh tempo.
+- **Aksi:** baris level atau tombol membuka sesi 10 kartu di S20 (A106).
+- **Kondisi:**
+  - Memuat: skeleton.
+  - Galat (berkas rusak atau tidak terbaca): "Bank pengetahuan tidak terbaca" dengan "Coba lagi". Kemajuan gagal dibaca: "Kemajuanmu tidak terbaca" dengan "Coba lagi".
+  - Kosong (bank belum berisi): "Belum ada kartu pengetahuan"; role tanpa butir: "Belum ada kartu untuk role ini".
+  - Filter kosong: "Belum ada kartu untuk topik ini. Pilih topik lain." Tombol: "Tampilkan semua topik". Level tanpa butir tidak bisa diketuk ("0 dari 0").
+  - Umum dan semua kartu level itu sudah dikuasai: "Semua kartu level [level] sudah kamu kuasai."
+  - Offline tidak berlaku: bank berjalan dari berkas bawaan.
 
 ### S20 Sesi kartu (F17)
 - **Tujuan:** menjawab, membuka jawaban model, menilai diri.
-- **Elemen:** "[role], level [level]" dan "Kartu [n] dari 10"; topik dan pertanyaan; isian jawaban (boleh dilewati); "Jawaban model"; "Poin kunci" dengan kotak centang; tombol "Belum paham" dan "Sudah paham".
-- **Perilaku:** jawaban model tertutup sampai pengguna menekan "Buka jawaban" (papan desain menampilkan keadaan terbuka); level Lanjut menilai dengan poin kunci yang dicentang; "Belum paham" membuat kartu buku kesalahan sumber `pengetahuan`.
+- **Elemen:** "[role], level [level]" dan "Kartu [n] dari [total]" dengan bilah; tag topik dan, bila perlu, "Perlu verifikasi"; pertanyaan; isian jawaban (boleh dikosongkan, tidak disimpan); "Buka jawaban"; "Jawaban model"; "Poin kunci" (level Lanjut: bisa dicentang lewat baris dengan tag "Ada" atau "Belum"; level lain: daftar baca saja); sumber, atau "Belum ada sumber. Periksa sendiri sebelum dipercaya."; tombol "Belum paham" dan "Sudah paham"; ringkasan "Sesi selesai" di akhir.
+- **Perilaku:** jawaban model tertutup sampai "Buka jawaban"; level Lanjut menilai dengan poin kunci yang dicentang ("Sudah paham" aktif bila paling sedikit dua pertiga poin dicentang); "Belum paham" membuat kartu buku kesalahan sumber `pengetahuan` (A107); setiap penilaian langsung tersimpan.
+- **Kondisi:** gagal menyimpan: "Penilaian belum tersimpan. Data di perangkat gagal ditulis. Ketuk sekali lagi." dan tetap di kartu itu; sesi tidak ada: "Sesi kartu tidak ditemukan" dengan "Ke bank pengetahuan".
 
 ---
 

@@ -3,6 +3,7 @@
 library;
 
 import '../models/codes.dart';
+import '../models/knowledge.dart';
 import '../models/notebook.dart';
 import '../models/profile.dart';
 import '../models/session.dart';
@@ -150,4 +151,13 @@ abstract class SettingsRepository {
   Future<void> set(String key, String value);
   Future<ThemeSetting> theme();
   Future<void> setTheme(ThemeSetting theme);
+}
+
+/// Kemajuan bank pengetahuan role (F17, tabel `knowledge_progress`).
+abstract class KnowledgeRepository {
+  Stream<Map<String, KnowledgeProgress>> watchAll();
+  Future<Map<String, KnowledgeProgress>> all();
+
+  /// Menyimpan atau menggantikan kemajuan butir.
+  Future<void> save(KnowledgeProgress progress);
 }

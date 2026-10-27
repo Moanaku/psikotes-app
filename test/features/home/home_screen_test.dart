@@ -11,10 +11,12 @@ import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
+import 'package:simulator_psikotes_it/features/knowledge/knowledge_providers.dart';
 
 import '../../support/fake_clock.dart';
 import '../../support/fake_repositories.dart';
 import '../../support/fixtures.dart';
+import '../../support/knowledge_fixtures.dart';
 import '../../support/pump_app.dart';
 import '../../support/text_fit.dart';
 
@@ -320,12 +322,25 @@ void main() {
       expect(app.location, '/buku-kesalahan');
     });
 
-    testWidgets('Pengetahuan role nonaktif dengan alasan', (tester) async {
-      await openHome(tester, tanggal: nov5);
+    testWidgets('Pengetahuan role membuka S19', (tester) async {
+      final app = await openHome(
+        tester,
+        tanggal: nov5,
+        overrides: [
+          knowledgeAssetReaderProvider.overrideWithValue(
+            (_) async => bankJson(smallBank().items),
+          ),
+        ],
+      );
       final row = tester
           .widget<ListRow>(find.widgetWithText(ListRow, 'Pengetahuan role'));
-      expect(row.onTap, isNull);
-      expect(find.text('Tersedia di v1.1'), findsOneWidget);
+      expect(row.onTap, isNotNull);
+      expect(find.text('Tersedia di v1.1'), findsNothing);
+      await tester.ensureVisible(find.text('Pengetahuan role'));
+      await tester.tap(find.text('Pengetahuan role'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/pengetahuan');
+      expect(find.text('Level'), findsOneWidget);
     });
 
     testWidgets('ikon Pengaturan berlabel dan membuka S18', (tester) async {

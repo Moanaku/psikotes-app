@@ -57,5 +57,5 @@ flutter:
   assets:
     - assets/verbal_bank.json
     - assets/personality_pool.json
+    - assets/knowledge_bank.json
   # Ditambahkan di tugas yang memakainya:
-  #   - assets/knowledge_bank.json     (T26)

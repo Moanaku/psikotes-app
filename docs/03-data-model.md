@@ -105,10 +105,10 @@ Indeks: `(status, jatuh_tempo)`.
 | tipe_baru_json | TEXT | tag tipe baru, mis. "lipat kertas" |
 | catatan | TEXT | |
 
-### knowledge_progress (v1.1)
+### knowledge_progress (skema v3)
 | Kolom | Tipe | Catatan |
 |---|---|---|
-| butir_id | TEXT PK | id dari `knowledge_bank.json` |
+| butir_id | TEXT PK | id dari `knowledge_bank.json`, mis. `KB-QA-D-001` |
 | level | TEXT | `dasar`, `menengah`, `lanjut` |
 | terakhir | INTEGER | |
 | dikuasai | INTEGER | 0 atau 1 |

@@ -130,3 +130,20 @@ class AppSettingTable extends Table {
   @override
   Set<Column<Object>> get primaryKey => {key};
 }
+
+@DataClassName('KnowledgeProgressRow')
+class KnowledgeProgressTable extends Table {
+  @override
+  String get tableName => 'knowledge_progress';
+
+  /// Id butir di `knowledge_bank.json`, mis. `KB-QA-D-001`.
+  TextColumn get butirId => text()();
+  TextColumn get level => text()();
+
+  /// Kapan terakhir dinilai (ms UTC).
+  IntColumn get terakhir => integer()();
+  BoolColumn get dikuasai => boolean()();
+
+  @override
+  Set<Column> get primaryKey => {butirId};
+}

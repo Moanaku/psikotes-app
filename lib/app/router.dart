@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:question_engine/question_engine.dart' show KrpConfig;
 
 import '../core/widgets/placeholder_screen.dart';
+import '../domain/models/knowledge.dart';
 import '../domain/providers.dart';
 import '../features/capture/capture_screen.dart';
 import '../features/capture/company_log_form_screen.dart';
@@ -21,6 +22,8 @@ import '../features/settings/settings_screen.dart';
 import '../features/stats/stats_screen.dart';
 import '../features/review/review_screen.dart';
 import '../features/session/session_screen.dart';
+import '../features/knowledge/knowledge_screen.dart';
+import '../features/knowledge/knowledge_session_screen.dart';
 import '../features/kraepelin/kraepelin_screen.dart';
 import '../features/personality/personality_screen.dart';
 import 'routes.dart';
@@ -75,6 +78,14 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: Routes.psikotes,
             builder: (context, state) => const CatalogScreen(),
+          ),
+          GoRoute(
+            path: Routes.pengetahuan,
+            builder: (context, state) => KnowledgeScreen(
+              initialRole: KnowledgeRole.fromCode(
+                state.uri.queryParameters['role'] ?? '',
+              ),
+            ),
           ),
           GoRoute(
             path: Routes.wawancara,
@@ -169,8 +180,12 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: Routes.pengaturan,
         builder: (context, state) => const SettingsScreen(),
       ),
-      _r(Routes.pengetahuan, 'S19', 'Bank pengetahuan role'),
-      _r(Routes.pengetahuanSesi, 'S20', 'Sesi kartu pengetahuan'),
+      GoRoute(
+        path: Routes.pengetahuanSesi,
+        builder: (context, state) => KnowledgeSessionScreen(
+          sessionId: int.tryParse(state.pathParameters['id'] ?? '') ?? -1,
+        ),
+      ),
     ],
   );
   ref.onDispose(() {

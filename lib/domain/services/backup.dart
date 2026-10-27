@@ -11,6 +11,7 @@ import 'dart:convert';
 import 'package:question_engine/question_engine.dart';
 
 import '../models/codes.dart';
+import '../models/knowledge.dart';
 import '../models/session.dart';
 
 enum BackupProblem {
@@ -122,9 +123,9 @@ abstract final class BackupFormat {
     'app_setting',
   ];
 
-  /// Tabel yang belum punya penyimpanan di app ini (v1.1); berkasnya diterima
-  /// tetapi barisnya belum dipakai.
-  static const Set<String> deferred = {'knowledge_progress'};
+  /// Tabel yang belum punya penyimpanan di app ini; berkasnya diterima tetapi
+  /// barisnya belum dipakai. Kosong sejak `knowledge_progress` dipakai (T25).
+  static const Set<String> deferred = {};
 
   static const Map<String, List<BackupColumn>> columns = {
     'test_profile': [
@@ -163,6 +164,13 @@ abstract final class BackupFormat {
       BackupColumn.int_('benar'),
       BackupColumn.int_('durasi_ms'),
       BackupColumn.text('label'),
+      BackupColumn.int_('dijawab', nullable: true),
+    ],
+    'knowledge_progress': [
+      BackupColumn.text('butir_id'),
+      BackupColumn.text('level'),
+      BackupColumn.int_('terakhir'),
+      BackupColumn.int_('dikuasai'),
     ],
     'mistake_card': [
       BackupColumn.int_('id'),
@@ -287,8 +295,6 @@ class BackupFile {
       }
       tables[entry.key] = rows;
     }
-    final deferred = tabel['knowledge_progress'];
-    if (deferred != null && deferred is! List) throw bad;
     _checkReferences(tables, bad);
     return BackupFile._(
       versi,
@@ -359,6 +365,11 @@ class BackupFile {
           if (AnswerSource.fromCode(r['sumber']! as String) !=
                   AnswerSource.engine &&
               r['ref_id'] == null) {
+            throw bad;
+          }
+        case 'knowledge_progress':
+          if (KnowledgeLevel.fromCode(r['level']! as String) == null ||
+              !_flag(r['dikuasai'])) {
             throw bad;
           }
         case 'mistake_card':

@@ -21,6 +21,7 @@ import '../../core/widgets/stat_row.dart';
 import '../../core/widgets/status_tag.dart';
 import '../../domain/models/catalog.dart';
 import '../../domain/models/codes.dart';
+import '../../domain/models/knowledge.dart';
 import '../../domain/models/notebook.dart';
 import '../../domain/providers.dart';
 import '../../domain/services/mistake_book.dart';
@@ -33,6 +34,9 @@ import 'mistake_provider.dart';
 /// kartu Capture.
 String cardName(MistakeCard card) {
   if (card.sumber == AnswerSource.capture) return card.kategori;
+  if (card.sumber == AnswerSource.pengetahuan) {
+    return KnowledgeItem.cardName(card.tipe) ?? 'Pengetahuan role';
+  }
   try {
     return questionTypeName(QuestionType.fromCode(card.tipe));
   } catch (_) {

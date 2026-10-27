@@ -6,6 +6,7 @@ import 'db/connection.dart';
 import 'backup/drift_backup_service.dart';
 import 'photos/photo_store.dart';
 import 'repositories/capture_repository.dart';
+import 'repositories/knowledge_repository.dart';
 import 'repositories/mistake_repository.dart';
 import 'repositories/profile_repository.dart';
 import 'repositories/session_repository.dart';
@@ -33,6 +34,9 @@ final List<Override> dataProviderOverrides = [
   ),
   mistakeRepositoryProvider.overrideWith(
     (ref) => DriftMistakeRepository(ref.watch(appDatabaseProvider)),
+  ),
+  knowledgeRepositoryProvider.overrideWith(
+    (ref) => DriftKnowledgeRepository(ref.watch(appDatabaseProvider)),
   ),
   captureRepositoryProvider.overrideWith(
     (ref) => DriftCaptureRepository(ref.watch(appDatabaseProvider)),

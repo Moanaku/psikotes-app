@@ -17,7 +17,6 @@ import '../../core/widgets/list_row.dart';
 import '../../core/widgets/note_box.dart';
 import '../../core/widgets/score_bar.dart';
 import '../../core/widgets/skeleton_list.dart';
-import '../../core/widgets/status_tag.dart';
 import '../../domain/models/catalog.dart';
 import '../../domain/models/codes.dart';
 import '../../domain/services/daily_planner.dart';
@@ -577,11 +576,11 @@ class _Shortcuts extends StatelessWidget {
           subtitle: 'Pilih tipe soal',
           onTap: () => context.go(Routes.psikotes),
         ),
-        const ListRow(
+        ListRow(
           leading: AppIcons.bulb,
           title: 'Pengetahuan role',
-          subtitle: 'Tersedia di v1.1',
-          trailing: StatusTag(label: 'v1.1'),
+          subtitle: 'Kartu dasar sampai lanjut',
+          onTap: () => context.push(Routes.pengetahuan),
         ),
         ListRow(
           leading: AppIcons.camera,

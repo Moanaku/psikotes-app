@@ -22,6 +22,8 @@ class TabShell extends StatelessWidget {
   ];
 
   static int indexOf(String location) {
+    // Bank pengetahuan (S19) dibuka dari katalog, jadi tab Psikotes aktif.
+    if (location.startsWith(Routes.pengetahuan)) return 1;
     final i = tabRoutes.indexWhere(
       (r) => r == Routes.beranda ? location == r : location.startsWith(r),
     );

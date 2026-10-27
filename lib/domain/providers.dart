@@ -8,6 +8,7 @@ import 'dart:async';
 import 'package:question_engine/question_engine.dart';
 import 'package:riverpod/riverpod.dart';
 
+import 'models/knowledge.dart';
 import 'models/notebook.dart';
 import 'models/profile.dart';
 import 'models/session.dart';
@@ -19,6 +20,7 @@ import 'services/clock.dart';
 import 'services/daily_planner.dart';
 import 'services/default_daily_planner.dart';
 import 'services/diagnostic_planner.dart';
+import 'services/knowledge_service.dart';
 import 'services/mistake_book.dart';
 import 'services/secret_store.dart';
 import 'services/verbal_bank.dart';
@@ -163,6 +165,24 @@ final sessionRepositoryProvider = Provider<SessionRepository>(
 
 final answerRepositoryProvider = Provider<AnswerRepository>(
   (ref) => _unbound('answerRepositoryProvider'),
+);
+
+final knowledgeRepositoryProvider = Provider<KnowledgeRepository>(
+  (ref) => _unbound('knowledgeRepositoryProvider'),
+);
+
+/// Kemajuan semua butir pengetahuan, diperbarui tiap ada penilaian.
+final knowledgeProgressProvider =
+    StreamProvider.autoDispose<Map<String, KnowledgeProgress>>(
+  (ref) => ref.watch(knowledgeRepositoryProvider).watchAll(),
+);
+
+final knowledgeServiceProvider = Provider<KnowledgeService>(
+  (ref) => KnowledgeService(
+    progress: ref.watch(knowledgeRepositoryProvider),
+    mistakes: ref.watch(mistakeRepositoryProvider),
+    clock: ref.watch(clockProvider),
+  ),
 );
 
 final mistakeRepositoryProvider = Provider<MistakeRepository>(

@@ -34,6 +34,7 @@ const Map<String, String> _tableNames = {
   'session': 'Sesi',
   'answer': 'Jawaban',
   'mistake_card': 'Kartu buku kesalahan',
+  'knowledge_progress': 'Kemajuan pengetahuan',
   'captured_question': 'Soal Capture',
   'company_test_log': 'Catatan tes',
   'app_setting': 'Pengaturan',

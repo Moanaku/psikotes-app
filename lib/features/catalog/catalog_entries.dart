@@ -1,15 +1,24 @@
 import 'package:question_engine/question_engine.dart';
 
 import '../../domain/models/catalog.dart';
+import '../../domain/models/knowledge.dart';
 import '../../domain/services/verbal_bank.dart';
 
 /// Satu baris katalog. [type] null untuk butir yang bukan tipe soal engine
 /// (Pengetahuan role, S19).
 class CatalogEntry {
-  const CatalogEntry({required this.label, this.type, this.release});
+  const CatalogEntry({
+    required this.label,
+    this.type,
+    this.release,
+    this.knowledgeRole,
+  });
 
   final String label;
   final QuestionType? type;
+
+  /// Role bank pengetahuan untuk baris yang membuka S19.
+  final KnowledgeRole? knowledgeRole;
 
   /// Rilis tempat butir ini masuk bila [type] null.
   final Release? release;
@@ -58,10 +67,10 @@ final List<CatalogGroup> catalogGroups = [
     CatalogEntry.of(QuestionType.itXls),
   ]),
   const CatalogGroup('Pengetahuan role', [
-    CatalogEntry(label: 'QA Engineer', release: Release.v11),
-    CatalogEntry(label: 'Mobile Dev', release: Release.v11),
-    CatalogEntry(label: 'IT BA', release: Release.v11),
-    CatalogEntry(label: 'Umum', release: Release.v11),
+    CatalogEntry(label: 'QA Engineer', knowledgeRole: KnowledgeRole.qa),
+    CatalogEntry(label: 'Mobile Dev', knowledgeRole: KnowledgeRole.mobile),
+    CatalogEntry(label: 'IT BA', knowledgeRole: KnowledgeRole.ba),
+    CatalogEntry(label: 'Umum', knowledgeRole: KnowledgeRole.umum),
   ]),
 ];
 
@@ -106,6 +115,7 @@ class CatalogAvailability {
     bool bankFailed = false,
   }) {
     final type = entry.type;
+    if (entry.knowledgeRole != null) return null; // layar S19 sendiri
     if (type != null && available.contains(type)) return null;
     // Papi-style (S14) dan Kraepelin punya layar sendiri; galatnya tampil di
     // layar itu.

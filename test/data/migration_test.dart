@@ -1,8 +1,11 @@
 import 'package:drift_dev/api/migrations_native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simulator_psikotes_it/data/db/app_database.dart';
+import 'package:simulator_psikotes_it/data/repositories/knowledge_repository.dart';
 import 'package:simulator_psikotes_it/data/repositories/profile_repository.dart';
 import 'package:simulator_psikotes_it/data/repositories/session_repository.dart';
+
+import 'package:simulator_psikotes_it/domain/models/knowledge.dart';
 
 import 'generated/schema.dart';
 
@@ -57,7 +60,7 @@ void main() {
     ''');
     final db = AppDatabase(schema.newConnection());
     addTearDown(db.close);
-    await verifier.migrateAndValidate(db, 2);
+    await verifier.migrateAndValidate(db, AppDatabase.currentSchemaVersion);
 
     final rows = await db.customSelect('SELECT dijawab FROM answer').get();
     expect(rows.single.readNullable<int>('dijawab'), isNull);
@@ -66,6 +69,30 @@ void main() {
       DateTime.utc(2025, 10, 10),
     );
     expect(n, 1, reason: 'jawaban lama dihitung menurut waktu mulai sesi');
+  });
+
+  test('v2 ke v3: tabel knowledge_progress dibuat, data lama tetap ada',
+      () async {
+    final schema = await verifier.schemaAt(2);
+    schema.rawDatabase.execute('''
+      INSERT INTO test_profile
+        (id, nama, role, format_tes, aktif, blueprint_json, dibuat)
+      VALUES (3, 'P', 'qa', 'ccat', 1, '{"subtes":[],"bobot":{}}', 1760000000000)
+    ''');
+    final db = AppDatabase(schema.newConnection());
+    addTearDown(db.close);
+    await verifier.migrateAndValidate(db, 3);
+
+    expect((await DriftProfileRepository(db).active())!.id, 3);
+    final repo = DriftKnowledgeRepository(db);
+    expect(await repo.all(), isEmpty);
+    await repo.save(KnowledgeProgress(
+      butirId: 'KB-QA-D-001',
+      level: KnowledgeLevel.dasar,
+      terakhir: DateTime.utc(2026, 10, 22),
+      dikuasai: true,
+    ));
+    expect((await repo.all()).keys, ['KB-QA-D-001']);
   });
 
   test('versi skema di kode sama dengan berkas terakhir di drift_schemas/', () {
