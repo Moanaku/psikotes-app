@@ -11,7 +11,7 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/). Ve
 - Kepribadian Papi-style (F12, T22): 95 pernyataan dari 8 sifat kerja, sesi 24 pilihan paksa di S14 tanpa jawaban benar atau salah, review profil kecenderungan, arti tiap pilihan, dan sifat yang umumnya dicari untuk role profil.
 - Modul IT (F14, T24): trace pseudocode dengan interpreter mini buatan sendiri, logika flowchart sebagai tabel kotak, dan rumus Excel (SUM, IF, VLOOKUP, COUNTIF) dengan pecahan eksak. Ketiganya terbuka di katalog dan menjadi subtes "Modul IT" yang aktif untuk role Mobile Dev.
 
-## [1.0.0] - belum dirilis
+## [1.0.0] - 2026-10-27
 
 Rilis v1: psikotes offline untuk berlatih, tanpa akun, tanpa server, tanpa telemetri. Tag `v1.0.0` dibuat pemilik setelah checklist manual lulus (langkahnya di [docs/RILIS-APK.md](docs/RILIS-APK.md)).
 
