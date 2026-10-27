@@ -77,6 +77,26 @@ final cardReviewProvider =
   } catch (_) {
     type = null;
   }
+  if (type != null && card.sumber == AnswerSource.bank) {
+    final bank = ref.watch(verbalBankProvider);
+    final refId = card.refId;
+    Question? question;
+    if (bank != null && refId != null) {
+      try {
+        question = ref.watch(questionBuilderProvider)(PlanItem.bank(
+          type: type,
+          refId: refId,
+          seed: 0,
+          difficulty: Difficulty.medium,
+          genVersi: bank.versi,
+          subtes: type.category.code,
+        ));
+      } catch (_) {
+        question = null;
+      }
+    }
+    return CardReview(card: card, type: type, question: question);
+  }
   if (type == null || card.sumber != AnswerSource.engine || card.seed == null) {
     return CardReview(card: card, type: type);
   }

@@ -46,7 +46,11 @@ class QuestionBody extends StatelessWidget {
     final c = context.tokens.colors;
     final text = question.stem.text;
     final figure = question.stem.figure;
-    final short = text != null && text.length <= 70 && !text.contains('\n');
+    // Kalimat perintah pendek, atau kalimat apa pun yang mengantar gambar,
+    // ditebalkan; teks panjang tanpa gambar (silogisme, soal cerita) tidak.
+    final short = text != null &&
+        !text.contains('\n') &&
+        (text.length <= 70 || figure != null);
     return Padding(
       padding: sessionMargin,
       child: Column(

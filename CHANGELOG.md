@@ -2,6 +2,14 @@
 
 Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/). Versi mengikuti [docs/07-rencana-tugas.md](docs/07-rencana-tugas.md).
 
+## [Belum dirilis] - v1.1
+
+### Ditambahkan
+
+- Kraepelin/Pauli (F13, T23): lembar angka dari seed, waktu per kolom dari subtes profil dengan pergantian kolom otomatis, input angka cepat, skor kecepatan, ketelitian, dan konsistensi dengan grafik. Subtes Kraepelin aktif untuk role QA.
+- Kepribadian Papi-style (F12, T22): 96 pernyataan dari 8 sifat kerja, sesi 24 pilihan paksa di S14 tanpa jawaban benar atau salah, review profil kecenderungan, arti tiap pilihan, dan sifat yang umumnya dicari untuk role profil.
+- Modul IT (F14, T24): trace pseudocode dengan interpreter mini buatan sendiri, logika flowchart sebagai tabel kotak, dan rumus Excel (SUM, IF, VLOOKUP, COUNTIF) dengan pecahan eksak. Ketiganya terbuka di katalog dan menjadi subtes "Modul IT" yang aktif untuk role Mobile Dev.
+
 ## [1.0.0] - belum dirilis
 
 Rilis v1: psikotes offline untuk berlatih, tanpa akun, tanpa server, tanpa telemetri. Tag `v1.0.0` dibuat pemilik setelah checklist manual lulus (langkahnya di [docs/RILIS-APK.md](docs/RILIS-APK.md)).

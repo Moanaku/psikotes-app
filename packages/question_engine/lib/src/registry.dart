@@ -9,6 +9,9 @@ import 'generators/figural/fig_mtx_solver.dart';
 import 'generators/figural/fig_odd.dart';
 import 'generators/figural/fig_seq.dart';
 import 'generators/figural/fig_seq_solver.dart';
+import 'generators/it/it_flw.dart';
+import 'generators/it/it_pse.dart';
+import 'generators/it/it_xls.dart';
 import 'generators/logic/log_syl.dart';
 import 'generators/numeric/num_ari.dart';
 import 'generators/numeric/num_seq.dart';
@@ -32,6 +35,9 @@ abstract final class GeneratorRegistry {
     QuestionType.numAri: RegisteredType(NumAriGenerator(), NumAriSolver()),
     QuestionType.numWord: RegisteredType(NumWordGenerator(), NumWordSolver()),
     QuestionType.logSyl: RegisteredType(LogSylGenerator(), LogSylSolver()),
+    QuestionType.itPse: RegisteredType(ItPseGenerator(), ItPseSolver()),
+    QuestionType.itFlw: RegisteredType(ItFlwGenerator(), ItFlwSolver()),
+    QuestionType.itXls: RegisteredType(ItXlsGenerator(), ItXlsSolver()),
   };
 
   static List<QuestionType> get types => _entries.keys.toList();

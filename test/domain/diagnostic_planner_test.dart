@@ -30,7 +30,8 @@ void main() {
   test('semua kategori aktif yang punya soal, paling banyak 20 menit', () {
     final d = build(qaCcat)!;
     expect(d.categories, ['numerik', 'logika', 'figural']);
-    expect(d.skipped, ['verbal'], reason: 'belum punya soal (A59)');
+    // Verbal belum punya soal (A59); Kraepelin QA (A104) punya layar sendiri.
+    expect(d.skipped, ['verbal', 'kraepelin']);
     expect(d.totalMinutes, lessThanOrEqualTo(DiagnosticPlanner.maxMinutes));
     expect(d.plan.subtes.map((s) => s.menit), [6, 6, 6]);
   });

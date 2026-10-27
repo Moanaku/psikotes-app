@@ -12,7 +12,7 @@ List<String> activeOf(List<SubtestSpec> s) => [
 
 void main() {
   group('subtes per format', () {
-    test('semua format memuat enam kategori S02 berurutan', () {
+    test('semua format memuat tujuh kategori S02 berurutan', () {
       for (final f in TestFormat.values) {
         expect(
           [for (final s in ProfileTemplates.subtests(f)) s.kategori],
@@ -61,6 +61,33 @@ void main() {
           expect(s.menit, inInclusiveRange(1, 180), reason: s.kategori);
         }
       }
+    });
+  });
+
+  group('subtes khusus role (A101)', () {
+    test('Mobile Dev menyalakan Modul IT di semua format, role lain tidak', () {
+      for (final f in TestFormat.values) {
+        final mobile = ProfileTemplates.subtests(f, role: ProfileRole.mobile);
+        final it = mobile.firstWhere((s) => s.kategori == 'it');
+        expect((it.aktif, it.jumlah, it.menit), (true, 10, 10), reason: f.code);
+        for (final r in [ProfileRole.qa, ProfileRole.ba, ProfileRole.umum]) {
+          expect(
+            ProfileTemplates.subtests(f, role: r)
+                .firstWhere((s) => s.kategori == 'it')
+                .aktif,
+            isFalse,
+            reason: '${r.code} ${f.code}',
+          );
+        }
+      }
+    });
+
+    test('bobot Modul IT naik untuk Mobile Dev dan berjumlah 1,0', () {
+      final b = ProfileTemplates.blueprint(ProfileRole.mobile, TestFormat.ccat);
+      expect(b.bobot.keys, contains('it'));
+      expect(sum(b.bobot), closeTo(1.0, 1e-9));
+      // Bobot dasar terkecil CCAT 0,20, dinaikkan 50%: IT setara figural.
+      expect(b.bobot['it'], closeTo(b.bobot['figural']!, 1e-4));
     });
   });
 
@@ -161,9 +188,10 @@ void main() {
 
     test('blueprint menyimpan subtes nonaktif dan bobot', () {
       final b = ProfileTemplates.blueprint(ProfileRole.qa, TestFormat.ccat);
-      expect(b.subtes.length, 6);
+      expect(b.subtes.length, 7);
+      // QA menyalakan Kraepelin di atas CCAT-style (A104).
       expect(b.subtes.where((s) => !s.aktif).map((s) => s.kategori),
-          ['kraepelin', 'kepribadian']);
+          ['kepribadian', 'it']);
       expect(sum(b.bobot), closeTo(1.0, 1e-9));
       // Bisa dibaca ulang oleh ProfileBlueprint.fromJson.
       final again = ProfileBlueprint.fromJson(b.toJson());

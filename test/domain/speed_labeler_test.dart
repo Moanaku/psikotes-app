@@ -84,12 +84,23 @@ void main() {
   });
 
   test('tiap tipe punya ambang sendiri', () async {
-    await sessionWith(repo, appNow, [(true, 20000)]);
+    await sessionWith(repo, appNow, [(true, 30000)]);
     await sessionWith(repo, appNow, [(true, 60000)], type: QuestionType.logSyl);
     final t = await labeler.at(appNow);
-    expect(t.targetMs('NUM-SEQ', 45), 20000);
+    expect(t.targetMs('NUM-SEQ', 45), 30000);
     expect(t.targetMs('LOG-SYL', 60), 60000);
     expect(t.targetMs('NUM-ARI', 35), 35000);
+  });
+
+  test('median yang tak wajar dijepit ke 0,5 sampai 2 kali estimatedSeconds',
+      () async {
+    await sessionWith(repo, appNow, [(true, 400000)]);
+    await sessionWith(repo, appNow, [(true, 900)], type: QuestionType.logSyl);
+    final t = await labeler.at(appNow);
+    expect(t.medians['NUM-SEQ'], 400000,
+        reason: 'median mentah tetap tercatat');
+    expect(t.targetMs('NUM-SEQ', 45), 90000);
+    expect(t.targetMs('LOG-SYL', 60), 30000);
   });
 
   test('sesi yang sedang berjalan tidak dihitung', () async {

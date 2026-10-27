@@ -5,8 +5,9 @@ import '../models/profile.dart';
 /// Fungsi murni. Angka subtes adalah asumsi awal sampai daftar tes nyata (Q1)
 /// tersedia; lihat A4 dan A48 di docs/11-asumsi-dan-pertanyaan.md.
 abstract final class ProfileTemplates {
-  /// Kategori yang muncul di daftar subtes S02, berurutan. Modul IT dan
-  /// Pengetahuan role punya layar sendiri dan tidak ada di sini.
+  /// Kategori yang muncul di daftar subtes S02, berurutan. Pengetahuan role
+  /// punya layar sendiri dan tidak ada di sini. Modul IT masuk sejak T24
+  /// (A101).
   static const List<String> subtestCategories = [
     'verbal',
     'numerik',
@@ -14,7 +15,16 @@ abstract final class ProfileTemplates {
     'figural',
     'kraepelin',
     'kepribadian',
+    'it',
   ];
+
+  /// Subtes yang dinyalakan role di atas template format (A101, A104):
+  /// Mobile Dev memakai pseudocode, QA memakai Kraepelin
+  /// (docs/06-bank-konten.md, "Blueprint tes per profil").
+  static const Map<ProfileRole, Set<String>> roleSubtests = {
+    ProfileRole.qa: {'kraepelin'},
+    ProfileRole.mobile: {'it'},
+  };
 
   /// Role yang dipilih di S01, berurutan.
   static const List<ProfileRole> roles = [
@@ -67,10 +77,12 @@ abstract final class ProfileTemplates {
     'figural': (20, 8),
     'kraepelin': (10, 10),
     'kepribadian': (30, 10),
+    'it': (10, 10),
   };
 
   /// Subtes awal untuk [format]: semua kategori S02 dengan penanda aktif.
-  static List<SubtestSpec> subtests(TestFormat format) {
+  /// [role] menyalakan subtes tambahan dari [roleSubtests] dengan angka awal.
+  static List<SubtestSpec> subtests(TestFormat format, {ProfileRole? role}) {
     const ccat = {
       'verbal': (15, 4),
       'numerik': (15, 4),
@@ -95,11 +107,12 @@ abstract final class ProfileTemplates {
       TestFormat.bank => bank,
       TestFormat.kustom => kustom,
     };
+    final extra = roleSubtests[role] ?? const <String>{};
     return [
       for (final k in subtestCategories)
         SubtestSpec(
           kategori: k,
-          aktif: active.containsKey(k),
+          aktif: active.containsKey(k) || extra.contains(k),
           jumlah: (active[k] ?? defaultSizes[k]!).$1,
           menit: (active[k] ?? defaultSizes[k]!).$2,
         ),
@@ -150,7 +163,7 @@ abstract final class ProfileTemplates {
     TestFormat format, {
     List<SubtestSpec>? subtests,
   }) {
-    final list = subtests ?? ProfileTemplates.subtests(format);
+    final list = subtests ?? ProfileTemplates.subtests(format, role: role);
     return ProfileBlueprint(
       subtes: list,
       bobot: weights(role, format, list),

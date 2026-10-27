@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simulator_psikotes_it/core/widgets/choice_row.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
@@ -51,12 +52,13 @@ void main() {
 
   testWidgets('memilih role mengubah bobot yang tampil di S02', (tester) async {
     await pumpApp(tester);
-    // QA, CCAT-style: 0,30 / 0,30 / 0,20 x 1,5 / 0,20 dibagi 1,10:
-    // verbal, numerik, logika 27%, figural 18%.
+    // QA, CCAT-style plus Kraepelin (A104): 0,30 / 0,30 / 0,20 x 1,5 /
+    // 0,20 / Kraepelin 0,20 (bobot dasar terkecil) x 1,5, dibagi 1,40:
+    // verbal, numerik, logika, Kraepelin 21%, figural 14%.
     await tester.tap(find.text('Lanjut'));
     await tester.pumpAndSettle();
-    expect(find.text('Bobot 27% di latihan campuran'), findsNWidgets(3));
-    expect(find.text('Bobot 18% di latihan campuran'), findsOneWidget);
+    expect(find.text('Bobot 21% di latihan campuran'), findsNWidgets(4));
+    expect(find.text('Bobot 14% di latihan campuran'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Kembali ke pilihan role'));
     await tester.pumpAndSettle();
@@ -67,6 +69,49 @@ void main() {
     expect(find.text('Bobot 30% di latihan campuran'), findsNWidgets(2));
     expect(find.text('Bobot 20% di latihan campuran'), findsNWidgets(2));
     expect(find.text('Bobot 27% di latihan campuran'), findsNothing);
+  });
+
+  test('role Mobile Dev menyalakan Modul IT; role lain mematikannya (A101)',
+      () {
+    final c = ProviderContainer();
+    addTearDown(c.dispose);
+    final draft = c.read(onboardingDraftProvider.notifier);
+    bool it() => c
+        .read(onboardingDraftProvider)
+        .subtests
+        .firstWhere((s) => s.kategori == 'it')
+        .aktif;
+    expect(it(), isFalse);
+    draft.selectRole(ProfileRole.mobile);
+    expect(it(), isTrue);
+    // Ganti format tetap mempertahankan subtes khusus role.
+    draft.selectFormat(TestFormat.bank);
+    expect(it(), isTrue);
+    draft.selectRole(ProfileRole.ba);
+    expect(it(), isFalse);
+    // Subtes lain tidak ikut berubah.
+    expect(
+      [
+        for (final s in c.read(onboardingDraftProvider).subtests)
+          if (s.aktif) s.kategori,
+      ],
+      ['verbal', 'numerik', 'figural', 'kraepelin', 'kepribadian'],
+    );
+  });
+
+  test('QA menyalakan Kraepelin di CCAT-style; role lain tidak (A104)', () {
+    final c = ProviderContainer();
+    addTearDown(c.dispose);
+    final draft = c.read(onboardingDraftProvider.notifier);
+    List<String> active() => [
+          for (final s in c.read(onboardingDraftProvider).subtests)
+            if (s.aktif) s.kategori,
+        ];
+    expect(active(), ['verbal', 'numerik', 'logika', 'figural', 'kraepelin']);
+    draft.selectRole(ProfileRole.ba);
+    expect(active(), ['verbal', 'numerik', 'logika', 'figural']);
+    draft.selectRole(ProfileRole.qa);
+    expect(active(), ['verbal', 'numerik', 'logika', 'figural', 'kraepelin']);
   });
 
   testWidgets('pilihan role bertahan saat kembali dari S02', (tester) async {

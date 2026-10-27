@@ -23,7 +23,7 @@ class OnboardingDraft {
   factory OnboardingDraft.initial() => OnboardingDraft(
         role: ProfileRole.qa,
         format: TestFormat.ccat,
-        subtests: _inputs(TestFormat.ccat),
+        subtests: _inputs(TestFormat.ccat, ProfileRole.qa),
       );
 
   final ProfileRole role;
@@ -67,8 +67,9 @@ class OnboardingDraft {
         submitted: submitted ?? this.submitted,
       );
 
-  static List<SubtestInput> _inputs(TestFormat f) => [
-        for (final s in ProfileTemplates.subtests(f)) SubtestInput.fromSpec(s),
+  static List<SubtestInput> _inputs(TestFormat f, ProfileRole role) => [
+        for (final s in ProfileTemplates.subtests(f, role: role))
+          SubtestInput.fromSpec(s),
       ];
 }
 
@@ -86,14 +87,35 @@ class OnboardingDraftNotifier extends Notifier<OnboardingDraft> {
   /// Mulai dari awal (S01 dibuka untuk profil baru).
   void reset() => state = OnboardingDraft.initial();
 
-  void selectRole(ProfileRole role) => state = state.copyWith(role: role);
+  /// Mengganti role menyalakan atau mematikan subtes khusus role
+  /// ([ProfileTemplates.roleSubtests]) mengikuti template format plus role
+  /// baru; angka dan subtes lain tidak berubah.
+  void selectRole(ProfileRole role) {
+    final byRole = {
+      for (final set in ProfileTemplates.roleSubtests.values) ...set,
+    };
+    final want = {
+      for (final s in ProfileTemplates.subtests(state.format, role: role))
+        s.kategori: s.aktif,
+    };
+    state = state.copyWith(
+      role: role,
+      subtests: [
+        for (final s in state.subtests)
+          if (byRole.contains(s.kategori) && s.aktif != want[s.kategori])
+            _toggled(s)
+          else
+            s,
+      ],
+    );
+  }
 
   /// Mengganti format mengisi ulang subtes dari template format itu.
   void selectFormat(TestFormat format) {
     if (format == state.format) return;
     state = state.copyWith(
       format: format,
-      subtests: OnboardingDraft._inputs(format),
+      subtests: OnboardingDraft._inputs(format, state.role),
     );
   }
 

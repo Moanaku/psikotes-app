@@ -24,6 +24,7 @@ import '../../domain/models/session.dart';
 import '../../domain/providers.dart';
 import '../../domain/services/profile_templates.dart';
 import '../../domain/services/session_plan_builder.dart';
+import '../../domain/services/verbal_bank.dart';
 import '../session/session_launcher.dart';
 import 'catalog_entries.dart';
 
@@ -36,6 +37,23 @@ final catalogModeProvider = StateProvider<CatalogMode>(
 
 /// S05 Katalog psikotes (F04): memilih tipe soal untuk latihan, atau memulai
 /// simulasi penuh dari profil aktif.
+/// Tes Kraepelin dari katalog: kolom dan menit subtes Kraepelin profil bila
+/// aktif (mis. QA dan Bank-style), selain itu latihan 10 kolom x 30 detik
+/// (A104).
+String _kraepelinPath(TestProfile? profile, int seed) {
+  final spec = profile?.blueprint.subtes
+      .where((s) => s.kategori == 'kraepelin' && s.aktif)
+      .firstOrNull;
+  final config = spec == null
+      ? KrpConfig.practice
+      : KrpConfig.fromSubtest(columns: spec.jumlah, minutes: spec.menit);
+  return Routes.kraepelinPath(
+    seed,
+    columns: config.columns,
+    seconds: config.secondsPerColumn,
+  );
+}
+
 class CatalogScreen extends ConsumerStatefulWidget {
   const CatalogScreen({super.key});
 
@@ -93,6 +111,8 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
   Widget build(BuildContext context) {
     final mode = ref.watch(catalogModeProvider);
     final available = ref.watch(availableTypesProvider);
+    final bank = ref.watch(verbalBankProvider);
+    final bankFailed = ref.watch(verbalBankStateProvider).isFailed;
     final profile = ref.watch(activeProfileProvider);
     final active = profile.valueOrNull;
     final clock = ref.watch(clockProvider);
@@ -136,17 +156,33 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                     _Group(
                       group: g,
                       available: available,
-                      onOpen: (type) => active == null || _starting
-                          ? null
-                          : () => _launch(
-                                profile: active,
-                                mode: SessionMode.latihan,
-                                build: (avoid) => SessionPlanBuilder.practice(
-                                  type,
-                                  now: clock.now(),
-                                  avoid: avoid,
-                                ),
-                              ),
+                      bankFailed: bankFailed,
+                      onOpen: (type) => type == QuestionType.krp
+                          ? () => unawaited(context.push(_kraepelinPath(
+                                active,
+                                SessionPlanBuilder.seedBase(clock.now()),
+                              )))
+                          : type == QuestionType.perPapi
+                              // Papi-style punya layar sendiri (S14), tanpa
+                              // sesi di database (A103).
+                              ? () => unawaited(context.push(
+                                    Routes.kepribadianPath(
+                                      SessionPlanBuilder.seedBase(clock.now()),
+                                    ),
+                                  ))
+                              : active == null || _starting
+                                  ? null
+                                  : () => _launch(
+                                        profile: active,
+                                        mode: SessionMode.latihan,
+                                        build: (avoid) =>
+                                            SessionPlanBuilder.practice(
+                                          type,
+                                          now: clock.now(),
+                                          avoid: avoid,
+                                          bank: bank,
+                                        ),
+                                      ),
                     ),
                   _PrivateBank(
                     onPractice: active == null || _starting
@@ -164,6 +200,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                   _SimulationPreview(
                     profile: profile,
                     available: available,
+                    bank: bank,
                   ),
                 const SizedBox(height: AppSpace.s24),
                 _SimulationPanel(
@@ -177,6 +214,7 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       now: clock.now(),
                       available: available,
                       avoid: avoid,
+                      bank: bank,
                     )?.plan,
                   ),
                 ),
@@ -197,11 +235,13 @@ class _Group extends StatelessWidget {
   const _Group({
     required this.group,
     required this.available,
+    required this.bankFailed,
     required this.onOpen,
   });
 
   final CatalogGroup group;
   final Set<QuestionType> available;
+  final bool bankFailed;
 
   /// Aksi membuka tipe [QuestionType]; null bila tidak bisa dibuka sekarang.
   final VoidCallback? Function(QuestionType type) onOpen;
@@ -227,7 +267,7 @@ class _Group extends StatelessWidget {
   }
 
   Widget _row(CatalogEntry e) {
-    final why = CatalogAvailability.of(e, available);
+    final why = CatalogAvailability.of(e, available, bankFailed: bankFailed);
     if (why != null) {
       return ListRow(
         title: e.label,
@@ -329,10 +369,15 @@ class _PrivateBank extends ConsumerWidget {
 
 /// Mode Simulasi: ringkasan subtes profil aktif yang akan dikerjakan.
 class _SimulationPreview extends ConsumerWidget {
-  const _SimulationPreview({required this.profile, required this.available});
+  const _SimulationPreview({
+    required this.profile,
+    required this.available,
+    required this.bank,
+  });
 
   final AsyncValue<TestProfile?> profile;
   final Set<QuestionType> available;
+  final VerbalBank? bank;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -360,9 +405,16 @@ class _SimulationPreview extends ConsumerWidget {
             for (final s in p.blueprint.subtes)
               if (s.aktif) s,
           ];
+          // Kraepelin dan kepribadian punya layar sendiri (A103, A104) dan
+          // tidak masuk simulasi; tipe lain tanpa soal belum tersedia.
+          bool separate(String k) => k == 'kraepelin' || k == 'kepribadian';
           final skipped = [
             for (final s in subtests)
-              if (!_hasType(s.kategori)) s,
+              if (!_hasType(s.kategori) && !separate(s.kategori)) s,
+          ];
+          final apart = [
+            for (final s in subtests)
+              if (!_hasType(s.kategori) && separate(s.kategori)) s,
           ];
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,7 +451,11 @@ class _SimulationPreview extends ConsumerWidget {
                       '${s.menit} menit',
                   trailing: _hasType(s.kategori)
                       ? null
-                      : const StatusTag(label: 'Belum tersedia'),
+                      : StatusTag(
+                          label: separate(s.kategori)
+                              ? 'Tes terpisah'
+                              : 'Belum tersedia',
+                        ),
                 ),
               if (skipped.isNotEmpty)
                 const Padding(
@@ -414,6 +470,20 @@ class _SimulationPreview extends ConsumerWidget {
                         'dimulai.',
                   ),
                 ),
+              if (apart.isNotEmpty)
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppSpace.s16,
+                    AppSpace.s12,
+                    AppSpace.s16,
+                    0,
+                  ),
+                  child: NoteBox(
+                    text: 'Tes terpisah tidak masuk simulasi. Kerjakan dari '
+                        'mode Latihan, baris Kraepelin / Pauli atau '
+                        'Papi-style.',
+                  ),
+                ),
             ],
           );
         },
@@ -422,7 +492,8 @@ class _SimulationPreview extends ConsumerWidget {
   }
 
   bool _hasType(String kategori) => available.any(
-        (t) => t.category.code == kategori && GeneratorRegistry.has(t),
+        (t) =>
+            t.category.code == kategori && SessionPlanBuilder.playable(t, bank),
       );
 }
 

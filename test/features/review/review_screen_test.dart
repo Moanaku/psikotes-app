@@ -165,6 +165,9 @@ void main() {
           reason: 'judul blok jawabanmu');
       expect(find.text('Dilewati'), findsNothing);
       expect(find.textContaining('Tidak dijawab, target'), findsOneWidget);
+      expect(find.text('Salah, lambat'), findsNothing,
+          reason: 'tidak dijawab bukan salah dan lambat');
+      expect(find.text('Belum paham pola'), findsNothing);
     });
 
     testWidgets('soal bergambar: opsi dan blok jawaban memakai gambar',

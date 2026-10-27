@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:simulator_psikotes_it/features/personality/personality_providers.dart';
 import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/core/widgets/app_bottom_nav.dart';
 import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
@@ -14,6 +16,7 @@ import 'package:simulator_psikotes_it/domain/models/profile.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
 import 'package:simulator_psikotes_it/domain/services/session_plan_builder.dart';
+import 'package:simulator_psikotes_it/domain/services/verbal_bank.dart';
 import 'package:simulator_psikotes_it/features/catalog/catalog_entries.dart';
 
 import '../../support/fake_repositories.dart';
@@ -98,17 +101,27 @@ void main() {
       }
     });
 
+    testWidgets('Papi-style membuka S14 dengan soal dari waktu sekarang (T22)',
+        (tester) async {
+      final app = await openCatalog(tester, overrides: [
+        personalityAssetReaderProvider.overrideWithValue(
+          (_) async => File('assets/personality_pool.json').readAsStringSync(),
+        ),
+      ]);
+      await show(tester, 'Papi-style');
+      expect(row(tester, 'Papi-style').subtitle, isNull);
+      await tester.tap(find.text('Papi-style'));
+      await tester.pumpAndSettle();
+      expect(app.location, startsWith('/kepribadian/'));
+      expect(find.text('Soal 1 dari 24'), findsOneWidget);
+    });
+
     testWidgets('tipe belum rilis nonaktif dengan alasan dan tag',
         (tester) async {
       await openCatalog(tester);
       for (final name in [
         'Bacaan',
-        'Kraepelin / Pauli',
-        'Papi-style',
         'DISC-style',
-        'Pseudocode',
-        'Flowchart',
-        'Excel',
       ]) {
         await show(tester, name);
         final r = row(tester, name);
@@ -158,12 +171,16 @@ void main() {
       expect(types.length, QuestionType.values.length);
     });
 
-    testWidgets('tipe yang terdaftar selalu dianggap tersedia', (tester) async {
+    testWidgets('tipe terdaftar dan tipe berlayar sendiri dianggap tersedia',
+        (tester) async {
       final reg = GeneratorRegistry.types.toSet();
       for (final g in catalogGroups) {
         for (final e in g.entries) {
           final why = CatalogAvailability.of(e, reg);
-          expect(why == null, e.type != null && reg.contains(e.type),
+          expect(
+              why == null,
+              e.type != null &&
+                  (reg.contains(e.type) || ownScreenTypes.contains(e.type)),
               reason: e.label);
         }
       }
@@ -266,6 +283,11 @@ void main() {
       expect(find.text('10 soal, 3 menit'), findsOneWidget);
       // Verbal belum punya bank soal: ditandai dan dijelaskan.
       expect(find.text('Belum tersedia'), findsOneWidget);
+      // Kraepelin QA (A104) dikerjakan di layarnya sendiri.
+      expect(find.text('10 kolom, 10 menit'), findsOneWidget);
+      expect(find.text('Tes terpisah'), findsOneWidget);
+      expect(find.textContaining('Tes terpisah tidak masuk simulasi'),
+          findsOneWidget);
       expect(
         find.text('Subtes yang belum tersedia dilewati saat simulasi dimulai.'),
         findsOneWidget,
@@ -524,6 +546,81 @@ void main() {
       final s = tester.getSemantics(find.text('Numerik dan logika'));
       expect(s.flagsCollection.isHeader, isTrue);
       handle.dispose();
+    });
+  });
+
+  group('bank verbal', () {
+    final loaded = VerbalBankState.loaded(
+      VerbalBank.parse(File('assets/verbal_bank.json').readAsStringSync()),
+    );
+
+    testWidgets('bank termuat: Sinonim dan Analogi bisa dibuka, tanpa Segera',
+        (tester) async {
+      await openCatalog(
+        tester,
+        overrides: [verbalBankStateProvider.overrideWithValue(loaded)],
+      );
+      for (final name in ['Sinonim / antonim', 'Analogi']) {
+        await show(tester, name);
+        final r = row(tester, name);
+        expect(r.onTap, isNotNull, reason: name);
+        expect(r.subtitle, isNull, reason: name);
+      }
+      expect(find.text('Segera'), findsNothing);
+    });
+
+    testWidgets('latihan Sinonim membuat sesi dari 10 butir bank',
+        (tester) async {
+      final sessions = FakeSessionRepository();
+      final app = await openCatalog(
+        tester,
+        sessions: sessions,
+        overrides: [verbalBankStateProvider.overrideWithValue(loaded)],
+      );
+      await show(tester, 'Sinonim / antonim');
+      await tester.tap(find.text('Sinonim / antonim'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/sesi/1');
+      final items = sessions.sessions[1]!.plan.items;
+      expect(items, hasLength(10));
+      expect(items.every((i) => i.isBank && i.type == QuestionType.vrbSyn),
+          isTrue);
+      expect(items.map((i) => i.refId).toSet(), hasLength(10));
+    });
+
+    testWidgets('bank gagal dimuat: baris verbal berstatus Galat, bukan Segera',
+        (tester) async {
+      await openCatalog(
+        tester,
+        overrides: [
+          verbalBankStateProvider
+              .overrideWithValue(const VerbalBankState.failed('skema salah')),
+        ],
+      );
+      for (final name in ['Sinonim / antonim', 'Analogi']) {
+        await show(tester, name);
+        final r = row(tester, name);
+        expect(r.onTap, isNull, reason: name);
+        expect(r.subtitle, 'Bank soal tidak terbaca. Buka ulang app.');
+      }
+      expect(find.text('Galat'), findsNWidgets(2));
+      expect(find.textContaining('skema salah'), findsNothing);
+      // Tipe lain tetap bisa dibuka.
+      expect(row(tester, 'Deret angka').onTap, isNotNull);
+    });
+  });
+
+  group('nama tipe berbahasa Indonesia', () {
+    testWidgets('Cermin dan Beda sendiri, bukan nama Inggris', (tester) async {
+      await openCatalog(tester);
+      for (final name in ['Cermin', 'Beda sendiri']) {
+        await show(tester, name);
+        expect(row(tester, name).onTap, isNotNull, reason: name);
+      }
+      expect(find.text('Mirror image'), findsNothing);
+      expect(find.text('Odd one out'), findsNothing);
+      expect(questionTypeName(QuestionType.figMir), 'Cermin');
+      expect(questionTypeName(QuestionType.figOdd), 'Beda sendiri');
     });
   });
 }

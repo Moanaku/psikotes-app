@@ -43,7 +43,10 @@ class SessionSummary {
   final int tidakDijawab;
   final Map<String, CategoryScore> perKategori;
 
-  /// Hitungan per label. Keempatnya menjumlah ke [total] (S08).
+  /// Hitungan per label untuk soal yang dijawab. Soal yang tidak dijawab
+  /// tidak punya kecepatan atau ketepatan yang bisa dinilai, jadi tidak masuk
+  /// kuadran mana pun: jumlah keempatnya ditambah [tidakDijawab] sama dengan
+  /// [total] (S08, A99).
   final Map<SpeedLabel, int> kuadran;
 }
 
@@ -82,14 +85,29 @@ abstract final class Scoring {
     };
   }
 
-  /// Ambang tipe: median riwayat, atau `estimatedSeconds` engine bila belum
-  /// ada data.
+  /// Batas bawah dan atas ambang terhadap `estimatedSeconds` engine. Median
+  /// riwayat yang berasal dari sedikit jawaban, atau dari soal yang dibiarkan
+  /// terbuka lama, tidak boleh menggeser "target" jauh dari kewajaran: median
+  /// 394 detik untuk soal berperkiraan 35 detik membuat semua jawaban benar
+  /// berlabel cepat dan target di S09 tidak masuk akal (A98).
+  static const double minTargetFactor = 0.5;
+  static const double maxTargetFactor = 2;
+
+  /// Ambang tipe: median riwayat yang dijepit ke 0,5 sampai 2 kali
+  /// `estimatedSeconds`, atau `estimatedSeconds` bila belum ada data.
   static int thresholdMs(
     Map<String, int> medians,
     String tipe,
     int estimatedSeconds,
-  ) =>
-      medians[tipe] ?? estimatedSeconds * 1000;
+  ) {
+    final base = estimatedSeconds * 1000;
+    final median = medians[tipe];
+    if (median == null) return base;
+    return median.clamp(
+      (base * minTargetFactor).round(),
+      (base * maxTargetFactor).round(),
+    );
+  }
 
   /// Median bilangan bulat (rata-rata dua nilai tengah dibulatkan ke bawah);
   /// null untuk daftar kosong.
@@ -106,7 +124,8 @@ abstract final class Scoring {
       total == 0 ? 0 : (benar * 100.0 / total).clamp(0.0, 100.0);
 
   /// Ringkasan sesi dari rencana dan jawabannya. Soal tanpa baris jawaban
-  /// dihitung salah dan lambat, seperti soal yang dilewati.
+  /// diperlakukan seperti soal yang dilewati: dihitung salah pada skor, dan
+  /// dihitung di [SessionSummary.tidakDijawab], bukan di kuadran.
   static SessionSummary summarize(
     SessionPlan plan,
     Iterable<AnswerRecord> answers,
@@ -122,12 +141,12 @@ abstract final class Scoring {
       final a = byPos[i];
       final kategori = a?.kategori ?? plan.items[i].kategoriCode;
       jumlahKat[kategori] = (jumlahKat[kategori] ?? 0) + 1;
-      if (a == null || a.opsiDipilih == null) tidakDijawab++;
-      if (a == null) {
-        kuadran[SpeedLabel.salahLambat] = kuadran[SpeedLabel.salahLambat]! + 1;
-        continue;
+      if (a == null || a.opsiDipilih == null) {
+        tidakDijawab++;
+        if (a == null) continue;
+      } else {
+        kuadran[a.label] = kuadran[a.label]! + 1;
       }
-      kuadran[a.label] = kuadran[a.label]! + 1;
       if (a.benar) {
         benar++;
         benarKat[kategori] = (benarKat[kategori] ?? 0) + 1;

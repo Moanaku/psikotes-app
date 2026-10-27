@@ -327,7 +327,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                       ),
                     ],
                   ),
-                  if (answer != null)
+                  if (answer != null && !skipped)
                     StatusTag(label: _speedName(answer.label)),
                 ],
               ),

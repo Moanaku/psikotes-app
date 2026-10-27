@@ -563,7 +563,8 @@ void main() {
 
   group('penilaian', () {
     test('label memakai median riwayat 30 hari, tanpa sesi berjalan', () async {
-      // Sesi lama: NUM-SEQ benar dalam 4, 6, 8 detik (median 6 detik).
+      // Sesi lama: NUM-SEQ benar dalam 20, 24, 28 detik (median 24 detik, di
+      // dalam jepitan 0,5 sampai 2 kali perkiraan engine 30 detik).
       final pid = await h.profile();
       final old = await h.repo.start(NewSession(
         profileId: pid,
@@ -571,7 +572,7 @@ void main() {
         plan: simPlan(),
         mulai: t0.subtract(const Duration(days: 3)),
       ));
-      for (final (p, ms) in [(0, 4000), (1, 6000), (2, 8000)]) {
+      for (final (p, ms) in [(0, 20000), (1, 24000), (2, 28000)]) {
         await h.repo.recordAnswer(AnswerRecord(
           sessionId: old,
           posisi: p,
@@ -589,11 +590,11 @@ void main() {
       await h.repo.finish(old, t0.subtract(const Duration(days: 3)));
 
       await h.start(SessionMode.simulasi, simPlan());
-      h.clock.advance(const Duration(seconds: 6));
+      h.clock.advance(const Duration(seconds: 20));
       await h.c.select(h.rightOption());
       expect(h.s.answers[0]!.label, SpeedLabel.benarCepat);
       await h.c.goTo(1);
-      h.clock.advance(const Duration(seconds: 7));
+      h.clock.advance(const Duration(seconds: 26));
       await h.c.select(h.wrongOption());
       expect(h.s.answers[1]!.label, SpeedLabel.salahLambat);
     });
@@ -611,7 +612,7 @@ void main() {
       expect(summary.skor, skor);
       expect(summary.total, 7);
       expect(summary.tidakDijawab, 5);
-      expect(summary.kuadran.values.reduce((a, b) => a + b), 7);
+      expect(summary.kuadran.values.reduce((a, b) => a + b), 2);
       expect(summary.perKategori['numerik']!.benar, 1);
       expect(summary.perKategori['numerik']!.jumlah, 3);
       expect(h.s.finished, isTrue);

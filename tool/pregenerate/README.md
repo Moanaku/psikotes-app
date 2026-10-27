@@ -62,3 +62,14 @@ Skema (`docs/06-bank-konten.md`), ditambah `jumlah` (hitungan per tipe):
 Aturan yang dijaga validator: 4 opsi tidak kembar (tanpa beda huruf besar atau spasi); `correctIndex` dalam rentang; kata di soal tidak muncul sebagai opsi; `stem` memuat `...`; `explanation` tidak kosong; `needsReview` selalu `false` di bundel; tidak ada `id` atau `stem` ganda; kolom hanya yang ada di skema. ID mengikuti nomor pass 1, jadi boleh ada celah nomor.
 
 Keterbatasan: pass 2 memakai model yang sama, jadi memberi bukti kesepakatan, bukan bukti benar. Karena itu pemeriksaan manual 10% oleh pemilik tetap wajib sebelum T07 dianggap selesai penuh.
+
+## Pool kepribadian (T22, F12)
+
+`gen_personality.py` membuat `assets/personality_pool.json` (8 sifat, 12 pernyataan per sifat secara bawaan, 8 panggilan `claude -p`) dan `docs/eval/personality_sample.md`. Pernyataan disaring: diawali "Saya", 25 sampai 110 karakter, tanpa istilah klinis, tanpa "tidak", "jarang", "benar", "salah".
+
+```bash
+python tool/pregenerate/gen_personality.py                  # 12 per sifat
+python tool/pregenerate/gen_personality.py --per-trait 16   # menambah sampai 16
+python tool/pregenerate/gen_personality.py --bundle-only    # setelah mengisi docs/eval/personality_flags.txt
+```
+

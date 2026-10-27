@@ -11,7 +11,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T04 Generator FIG-MTX, solver, property test
 - [x] T05 Generator FIG-MIR, FIG-SEQ, FIG-ODD
 - [x] T06 Generator numerik dan logika
-- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip, validator, dan bank 300 soal selesai dan terdaftar di `pubspec.yaml`; pemeriksaan 10% sampel oleh pemilik belum dilakukan, lihat `docs/eval/verbal_sample.md`; app belum memuat bank ini, lihat pertanyaan terbuka)
+- [x] T07 Skrip pre-generate dan bank verbal 300 soal (skrip, validator, dan bank 300 soal selesai dan terdaftar di `pubspec.yaml` di cabang sebelumnya; pemuat bank, pemilihan soal, dan integrasi ke rencana, sesi, pembahasan, buku kesalahan, dan katalog baru selesai di cabang `fix/pemuat-verbal-dan-ui`, A100; sebelum itu app tidak membaca bank ini. Pemeriksaan 10% sampel oleh pemilik belum dilakukan, lihat `docs/eval/verbal_sample.md`; `docs/eval/verbal_flags.txt` masih kosong, jadi bank belum berubah)
 - [x] T08 Renderer figural dan golden test
 - [x] T09 Database Drift dan repository
 - [x] T10 Kerangka sesi
@@ -29,9 +29,9 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 ## v1.1
 
 - [ ] T21 Tema gelap
-- [ ] T22 Kepribadian Papi/DISC-style: S14
-- [ ] T23 Kraepelin/Pauli penuh
-- [ ] T24 Modul IT: pseudocode, flowchart, Excel
+- [x] T22 Kepribadian Papi/DISC-style: S14 (Papi-style selesai, pool 12 per sifat menunggu pemeriksaan pemilik; DISC-style dan penyimpanan hasil menunggu Q13)
+- [x] T23 Kraepelin/Pauli penuh (penyimpanan hasil dan durasi asli menunggu Q14)
+- [x] T24 Modul IT: pseudocode, flowchart, Excel (engine, katalog, template Mobile Dev; tampilan monospasi menunggu Q11, QA menunggu Q12)
 - [ ] T25 Bank pengetahuan role: S19, S20
 - [ ] T26 Pembuatan isi bank pengetahuan dan bacaan
 
@@ -59,7 +59,42 @@ Kotak T20 belum dicentang karena "Selesai bila" memuat hal yang hanya bisa dilak
 
 Menunggu pemilik: checklist manual di HP, pemeriksaan 30 soal sampel bank verbal (tandai di `docs/eval/verbal_flags.txt`, lalu jalankan `bundle.py` lagi), secret keystore, keputusan Pages untuk repo privat, tag `v1.0.0` (perintah di `docs/RILIS-APK.md`), centang T20 setelah APK terlampir di Releases. Belum dicoba: integration_test di HP atau emulator dan di Chrome (`flutter drive`), APK di perangkat, workflow GitHub di luar CI pull request, desain ikon app.
 
+## Daftar untuk fase pengujian akhir (perbaikan UI skala huruf)
+
+Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subtes mengecil dalam satu baris, gambar soal, test dengan font asli `test/support/app_fonts.dart`) lulus di test widget pada layar 360 x 800, tetapi **belum selesai dan belum diverifikasi di HP**. Yang masih harus diperiksa dan mungkin diperbaiki:
+
+- [ ] Navigasi bawah dan tombol terpotong di skala 1,3 dan 2,0.
+- [ ] Kepala S07 di skala 2,0 (masih memakan banyak tinggi layar).
+- [ ] Label sumbu grafik S11 di skala 2,0.
+- [ ] Tombol Back sistem di langkah 1 wizard tambah profil.
+
+Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
+
+Dari T24 (belum dicoba di HP dan browser):
+
+- [ ] S06 dengan soal Pseudocode, Flowchart, dan Excel di skala 1,0, 1,3, 2,0 (test widget 360 dp dengan font asli lulus). Perhatikan pseudocode yang baris panjangnya terlipat di 2,0: indentasi hilang di baris lanjutan (Q11).
+- [ ] Tabel flowchart dan lembar kerja di S06 dan S09 (TableFigure) di layar sempit.
+- [ ] S02 dengan baris "Modul IT" dan role Mobile Dev; simulasi berisi subtes Modul IT.
+
+Dari T22 (belum dicoba di HP dan browser):
+
+- [ ] S14 Papi-style dari katalog: soal, Sebelumnya, konfirmasi keluar, tombol Back sistem, review panjang (24 baris arti pilihan) di skala 1,0, 1,3, 2,0.
+- [ ] Pool kepribadian termuat di web (aset JSON) dan di APK.
+
+Dari T23 (belum dicoba di HP dan browser):
+
+- [ ] Tes Kraepelin dari katalog (QA: 10 kolom x 60 detik): tombol angka terasa cepat, tidak ada ketukan ganda, pergantian kolom otomatis, timer, keluar di tengah, tombol Back sistem.
+- [ ] App ditinggal ke latar belakang di tengah tes: kolom terlewat saat kembali.
+- [ ] Hasil dan grafik konsistensi di skala 1,0, 1,3, 2,0; grafik dengan 15 kolom (Bank-style).
+- [ ] S02 untuk QA dengan Kraepelin menyala; ringkasan simulasi "Tes terpisah".
+
+## Catatan lanjut
+
+- T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).
+- T22 selesai: pool 96 pernyataan (8 sifat x 12) lewat `claude -p` dengan penyaring istilah klinis, sampel di `docs/eval/personality_sample.md` menunggu pemeriksaan pemilik (catatan: PER-KRS-001 dan PER-PIM-001 mirip), S14 dengan empat kondisi dan review per role, baris Papi-style di katalog terbuka (A103). Terbuka: Q13 (simpan hasil, subtes Kepribadian di simulasi, DISC-style).
+- T23 selesai: `KrpSheet` dan `KrpScore` di engine (test tulisan tangan dan 10.000 seed), `KraepelinRun` dengan pergantian kolom otomatis dari jam monoton, layar dengan input angka cepat, hasil kecepatan, ketelitian, konsistensi, dan grafik `fl_chart`; baris katalog terbuka; QA menyalakan Kraepelin (A104). Ditemukan dan diperbaiki: mengganti role mematikan Kraepelin Bank-style; integration_test profil sampai statistik masih mencari teks S08 lama "Tidak dijawab: n soal" sejak A99, kini membaca baris "Soal tidak dijawab". Terbuka: Q14.
+- Berikutnya: checklist UI, pull request ke main, pantau CI. Lalu jawaban Q11 sampai Q14 dan fase pengujian akhir di HP.
+
 ## Pertanyaan terbuka
 
-- Pemuat bank verbal. `assets/verbal_bank.json` sudah ada dan terdaftar, tetapi tidak ada kode yang membacanya: `availableTypesProvider` (`lib/domain/providers.dart`) hanya memakai `GeneratorRegistry.types`, jadi Sinonim dan Analogi tetap "Segera" di katalog dan tidak masuk diagnostik, simulasi, atau latihan harian (temuan uji perangkat 2). Mana yang dikerjakan: tugas tersendiri (cabang `fitur/Txx-pemuat-bank-verbal`) yang memuat bank ke database atau memori, menambah tipe VRB-SYN dan VRB-ANA ke `availableTypesProvider`, dan membuat soal bank ikut flow sesi dan pembahasan? Saya berhenti di sini dan tidak menulis logikanya.
-- Temuan uji perangkat 2 (Back sistem menutup app dari wizard profil, teks terpotong di skala 1,3 dan 2,0, target waktu 394 dtk di pembahasan, placeholder Wawancara) belum dikerjakan; rincian di `uji-perangkat/LAPORAN-2.md` (lokal, tidak di-commit).
+- Temuan uji perangkat 2: bagian logika selesai di `fix/pemuat-verbal-dan-ui` (pemuat verbal A100, target waktu A98, soal tidak dijawab A99, tab Wawancara, nama tipe). Bagian UI di HP (teks terpotong di skala 1,3 dan 2,0, S07, S11, Back wizard) tercatat di bawah setelah diverifikasi. Pertanyaan baru: Q8 sampai Q10 di `docs/11-asumsi-dan-pertanyaan.md`. Rincian temuan: `uji-perangkat/LAPORAN-2.md` (lokal, tidak di-commit).

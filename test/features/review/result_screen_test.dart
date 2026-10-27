@@ -64,8 +64,9 @@ void main() {
       expect(bars[1].weakest, isFalse);
     });
 
-    testWidgets('empat hitungan kecepatan berupa baris dan menjumlah ke total',
-        (tester) async {
+    testWidgets(
+        'empat hitungan kecepatan berupa baris; yang tidak dijawab terpisah '
+        'dan keduanya menjumlah ke total', (tester) async {
       final sessions = FakeSessionRepository();
       final id = await seedFinished(sessions, mixed);
       await openResult(tester, sessions, id);
@@ -78,14 +79,22 @@ void main() {
         'Salah dan cepat',
         'Salah dan lambat',
       ];
-      var total = 0;
+      final counts = <String, int>{};
       for (final t in titles) {
         final row = find.widgetWithText(ListRow, t);
         expect(row, findsOneWidget, reason: t);
         final count = tester.widget<ListRow>(row).trailing! as Text;
-        total += int.parse(count.data!);
+        counts[t] = int.parse(count.data!);
       }
-      expect(total, 4);
+      expect(counts['Salah dan lambat'], 0,
+          reason: 'soal tidak dijawab bukan "salah dan lambat"');
+      final skipped = find.widgetWithText(ListRow, 'Soal tidak dijawab');
+      expect(skipped, findsOneWidget);
+      final skippedCount = tester.widget<ListRow>(skipped).trailing! as Text;
+      expect(skippedCount.data, '1');
+      expect(
+          counts.values.reduce((a, b) => a + b) + int.parse(skippedCount.data!),
+          4);
       expect(find.text('Terburu-buru'), findsOneWidget);
       expect(find.text('Belum paham pola'), findsOneWidget);
       // Satu angka skor dominan: hanya skor yang berukuran display.
@@ -106,9 +115,11 @@ void main() {
         findsOneWidget,
         reason: 'soal tanpa jawaban tidak membuat kartu',
       );
+      expect(find.text('Tidak dijawab'), findsOneWidget,
+          reason: 'judul bagian terpisah dari kuadran');
       expect(
-        find.text('Tidak dijawab: 1 soal. Dihitung salah pada skor, tidak '
-            'masuk buku kesalahan.'),
+        find.text('Dihitung salah pada skor, tidak masuk buku kesalahan, '
+            'dan tidak masuk empat hitungan di atas.'),
         findsOneWidget,
       );
     });
@@ -123,6 +134,8 @@ void main() {
       expect(find.text('Tidak ada soal salah. Buku kesalahan tidak berubah.'),
           findsOneWidget);
       expect(find.textContaining('tidak dijawab'), findsNothing);
+      expect(find.text('Soal tidak dijawab'), findsNothing,
+          reason: 'tanpa soal kosong, bagian ini tidak tampil');
       await tester.tap(find.text('Lihat pembahasan'));
       await tester.pumpAndSettle();
       expect(app.location, '/hasil/1/soal/1');

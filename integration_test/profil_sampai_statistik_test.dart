@@ -1,5 +1,7 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
+import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
 import 'package:simulator_psikotes_it/core/widgets/number_bubble.dart';
 import 'package:simulator_psikotes_it/features/session/session_widgets.dart';
 import 'package:simulator_psikotes_it/core/widgets/stat_row.dart';
@@ -84,9 +86,13 @@ void main() {
       find.textContaining('$wrong soal salah masuk buku kesalahan'),
       findsOneWidget,
     );
+    // S08 menulis soal tidak dijawab di baris sendiri (A99).
+    final skipped = find.widgetWithText(ListRow, 'Soal tidak dijawab');
+    await tester.ensureVisible(skipped);
     expect(
-        find.textContaining('Tidak dijawab: ${total - correct - wrong} soal'),
-        findsOneWidget);
+      (tester.widget<ListRow>(skipped).trailing! as Text).data,
+      '${total - correct - wrong}',
+    );
     final cards = await app.db.select(app.db.mistakeCardTable).get();
     expect(cards, hasLength(wrong));
 

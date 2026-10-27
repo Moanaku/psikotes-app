@@ -95,7 +95,10 @@ Invarian khusus: tiap aturan yang dipilih berlaku pada semua baris atau kolom ya
 | NUM-ARI | 1 sampai 4 operasi dengan urutan operasi, persen, atau perbandingan; angka bulat atau desimal terkontrol | Salah urutan operasi, salah pembulatan | Evaluasi ekspresi dengan aritmetika pecahan eksak (hindari galat desimal) |
 | NUM-WORD | Templat cerita dengan slot angka; tabel kecil; data pengalih | Memakai data yang salah | Hitung dari model data, bukan dari teks |
 | LOG-SYL | 2 sampai 3 premis dengan kuantor (semua, sebagian, tidak ada); pertanyaan: kesimpulan mana yang pasti benar | Kesimpulan yang tidak pasti | Pemeriksa model himpunan: enumerasi model kecil untuk membuktikan kesimpulan wajib benar di semua model |
-| KRP | Kolom angka 0 sampai 9; tugas menjumlah pasangan berurutan; durasi per kolom | Tidak ada (isian) | Hitung jawaban per pasangan; skor = benar dan konsistensi antar kolom |
+| KRP | Kolom angka 0 sampai 9; tugas menjumlah pasangan berurutan dari atas ke bawah dan menulis angka terakhirnya; durasi per kolom dari subtes profil (A104) | Tidak ada (isian) | Hitung jawaban per pasangan; skor = kecepatan (isian per kolom), ketelitian (persen benar), konsistensi (selisih dan simpangan antar kolom) |
+| IT-PSE | Pseudocode bahasa Indonesia dari templat (cabang, ULANGI, SELAMA, bersarang, digit); pertanyaan: nilai tampil, nilai akhir variabel, atau berapa kali baris dijalankan (A102) | Program yang diubah satu bagian: batas loop plus-minus satu, `<` jadi `<=`, operator tertukar | Interpreter mini buatan sendiri dengan batas langkah; diuji 22 kasus tulisan tangan |
+| IT-FLW | Flowchart sebagai tabel kotak (No, Kotak, Lanjut ke); 1 keputusan (mudah), 2 (sedang), perulangan (sulit) | Jalur cabang lain (satu keputusan dibalik), batas kondisi bergeser | Jalankan dari kotak 1; dibandingkan dengan solver kedua independen |
+| IT-XLS | Tabel lembar kerja A sampai C dan satu rumus di E1: SUM, COUNTIF, IF, VLOOKUP, gabungannya | Rentang sel salah (ujung bergeser, kolom tertukar), kriteria `>=` jadi `>`, kolom VLOOKUP meleset | Evaluasi rumus dengan pecahan eksak; dibandingkan dengan solver kedua independen |
 
 ## Bank verbal (pre-generate)
 

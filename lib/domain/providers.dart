@@ -21,6 +21,7 @@ import 'services/default_daily_planner.dart';
 import 'services/diagnostic_planner.dart';
 import 'services/mistake_book.dart';
 import 'services/secret_store.dart';
+import 'services/verbal_bank.dart';
 import 'services/weakness_model.dart';
 
 /// Membuat penanda waktu berkala; test menggantinya dengan penanda manual.
@@ -60,6 +61,26 @@ Question buildFromRegistry(PlanItem item) {
         item, 'versi generator ${generator.version}, soal ${item.genVersi}');
   }
   return generator.generate(item.seed, item.difficulty);
+}
+
+/// Membuat ulang soal bank dari nomor butir di [item]. Versi bank harus sama
+/// dengan versi saat soal dikerjakan (docs/03-data-model.md).
+Question buildFromBank(VerbalBank? bank, PlanItem item) {
+  final type = item.type;
+  final number = item.refId;
+  if (type == null || number == null) {
+    throw QuestionUnavailable(item, 'butir bank tanpa tipe atau nomor');
+  }
+  if (bank == null) {
+    throw QuestionUnavailable(item, 'bank verbal tidak termuat');
+  }
+  if (bank.versi != item.genVersi) {
+    throw QuestionUnavailable(
+        item, 'versi bank ${bank.versi}, soal ${item.genVersi}');
+  }
+  final q = bank.byRef(type, number);
+  if (q == null) throw QuestionUnavailable(item, 'butir bank tidak ada');
+  return bank.toQuestion(q, seed: item.seed);
 }
 
 /// Pembuat soal untuk satu rencana: soal engine lewat [engine], soal Capture
@@ -112,8 +133,22 @@ class DayNotifier extends Notifier<DateTime> {
 
 final tickerFactoryProvider = Provider<TickerFactory>((ref) => periodicTicker);
 
-final questionBuilderProvider =
-    Provider<QuestionBuilder>((ref) => buildFromRegistry);
+/// Hasil memuat `assets/verbal_bank.json`. `main()` memuatnya sebelum app
+/// berjalan dan mengisi provider ini; nilai bawaan "belum dipasang" membuat
+/// tipe verbal tidak tersedia (test dan integration test tanpa bank).
+final verbalBankStateProvider = Provider<VerbalBankState>(
+  (ref) => const VerbalBankState.absent(),
+);
+
+final verbalBankProvider = Provider<VerbalBank?>(
+  (ref) => ref.watch(verbalBankStateProvider).bank,
+);
+
+final questionBuilderProvider = Provider<QuestionBuilder>((ref) {
+  final bank = ref.watch(verbalBankProvider);
+  return (item) =>
+      item.isBank ? buildFromBank(bank, item) : buildFromRegistry(item);
+});
 
 Never _unbound(String name) => throw UnimplementedError(
     '$name belum diisi; pasang dataProviderOverrides di ProviderScope');
@@ -182,10 +217,14 @@ final activeProfileProvider = Provider<AsyncValue<TestProfile?>>((ref) {
   });
 });
 
-/// Tipe soal yang bisa dikerjakan sekarang: yang punya generator terdaftar.
-/// Bank verbal (T07) dan modul v1.1 menambahkan tipenya lewat provider ini.
+/// Tipe soal yang bisa dikerjakan sekarang: yang punya generator terdaftar,
+/// ditambah tipe bank verbal bila banknya termuat. Modul v1.1 menambahkan
+/// tipenya lewat provider ini.
 final availableTypesProvider = Provider<Set<QuestionType>>(
-  (ref) => GeneratorRegistry.types.toSet(),
+  (ref) => {
+    ...GeneratorRegistry.types,
+    ...?ref.watch(verbalBankProvider)?.types,
+  },
 );
 
 /// Rencana latihan harian dari riwayat 30 hari, kartu jatuh tempo, dan bobot
@@ -195,6 +234,7 @@ final dailyPlannerProvider = Provider<DailyPlanner>(
     answers: ref.watch(answerRepositoryProvider),
     mistakes: ref.watch(mistakeRepositoryProvider),
     available: ref.watch(availableTypesProvider),
+    bank: ref.watch(verbalBankProvider),
   ),
 );
 
@@ -203,6 +243,7 @@ final weaknessModelProvider = Provider<WeaknessModel>(
   (ref) => HistoryWeaknessModel(
     ref.watch(answerRepositoryProvider),
     ref.watch(availableTypesProvider),
+    bank: ref.watch(verbalBankProvider),
   ),
 );
 
@@ -211,6 +252,7 @@ final diagnosticPlannerProvider = Provider<DiagnosticPlanner>(
   (ref) => DiagnosticPlanner(
     answers: ref.watch(answerRepositoryProvider),
     available: ref.watch(availableTypesProvider),
+    bank: ref.watch(verbalBankProvider),
   ),
 );
 

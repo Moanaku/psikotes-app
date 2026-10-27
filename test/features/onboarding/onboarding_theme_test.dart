@@ -36,7 +36,7 @@ void main() {
           brightness: Brightness.dark, overrides: repo());
       expect(tester.takeException(), isNull);
       expect(colorOf(tester, 'Format tes'), AppColors.dark.ink);
-      expect(colorOf(tester, 'Bobot 27% di latihan campuran'),
+      expect(colorOf(tester, 'Bobot 14% di latihan campuran'),
           AppColors.dark.inkMuted);
     });
   });

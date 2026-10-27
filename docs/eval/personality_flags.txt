@@ -1,0 +1,1 @@
+# ID pernyataan kepribadian yang dibuang dari pool, satu per baris (T22).

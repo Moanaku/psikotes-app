@@ -80,6 +80,7 @@ class _MistakeBookScreenState extends ConsumerState<MistakeBookScreen> {
         due,
         now: now,
         available: ref.read(availableTypesProvider),
+        bank: ref.read(verbalBankProvider),
         avoid: await recentSeenKeys(ref),
         difficulty: (c) => difficulties[c.id] ?? Difficulty.medium,
       );
@@ -88,8 +89,7 @@ class _MistakeBookScreenState extends ConsumerState<MistakeBookScreen> {
         setState(() {
           _starting = false;
           _startError = 'Kartu yang jatuh tempo belum bisa diulang di sini. '
-              'Soal bank dan pengetahuan belum bisa dikerjakan dari buku '
-              'kesalahan.';
+              'Soal pengetahuan belum bisa dikerjakan dari buku kesalahan.';
         });
         return;
       }

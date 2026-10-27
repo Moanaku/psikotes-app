@@ -330,6 +330,10 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
         if (s.answers[i]?.opsiDipilih != null) i,
     ];
     final closing = _confirmCloseAt == s.posisi;
+    // Di skala huruf besar kepala dipadatkan supaya soal terlihat tanpa
+    // menggulir jauh: nama profil dibuang (sudah dikenal di sesi ini) dan
+    // keterangan subtes dan soal menjadi satu baris pendek.
+    final large = isLargeText(context);
 
     return OnboardingFrame(
       scrollController: _scroll,
@@ -377,26 +381,29 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
                   ],
                 ),
       children: [
-        if (name != null)
+        if (name != null && !large)
           Padding(
             padding: sessionMargin,
             child: Text(name, style: AppType.label(c.inkMuted)),
           ),
-        if (name != null) const SizedBox(height: AppSpace.s8),
+        if (name != null && !large) const SizedBox(height: AppSpace.s8),
         Padding(
           padding: sessionMargin,
           child: _SubtestSteps(
             subtests: s.subtests,
             current: s.subtestIndex,
-            showNames: !isLargeText(context),
+            showNames: !large,
           ),
         ),
-        const SizedBox(height: AppSpace.s12),
+        SizedBox(height: large ? AppSpace.s8 : AppSpace.s12),
         Padding(
           padding: sessionMargin,
           child: Text(
-            'Subtes ${s.subtestIndex + 1} dari ${s.subtests.length}, soal '
-            '$inSubtest dari ${range.jumlah}',
+            large
+                ? '${ProfileTemplates.categoryName(range.kategori)}, soal '
+                    '$inSubtest dari ${range.jumlah}'
+                : 'Subtes ${s.subtestIndex + 1} dari ${s.subtests.length}, '
+                    'soal $inSubtest dari ${range.jumlah}',
             style: AppType.label(c.inkMuted),
           ),
         ),
@@ -565,15 +572,25 @@ class _SubtestSteps extends StatelessWidget {
                             ),
                             const SizedBox(width: AppSpace.s4),
                           ],
+                          // Satu baris yang mengecil bila perlu: nama subtes tidak
+                          // pernah dipatahkan di tengah kata.
                           Expanded(
-                            child: Text(
-                              ProfileTemplates.categoryName(r.kategori),
-                              style: AppType.label(
-                                r.index > current ? c.inkMuted : c.ink,
-                              ).copyWith(
-                                fontWeight: r.index == current
-                                    ? FontWeight.w700
-                                    : FontWeight.w500,
+                            child: ClampedChromeText(
+                              child: FittedBox(
+                                fit: BoxFit.scaleDown,
+                                alignment: AlignmentDirectional.centerStart,
+                                child: Text(
+                                  ProfileTemplates.categoryName(r.kategori),
+                                  maxLines: 1,
+                                  softWrap: false,
+                                  style: AppType.label(
+                                    r.index > current ? c.inkMuted : c.ink,
+                                  ).copyWith(
+                                    fontWeight: r.index == current
+                                        ? FontWeight.w700
+                                        : FontWeight.w500,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
