@@ -6,6 +6,7 @@ Format mengikuti [Keep a Changelog](https://keepachangelog.com/id-ID/1.1.0/). Ve
 
 ### Ditambahkan
 
+- Ikon app: matriks 3x3 dengan satu sel bersorot, dihasilkan dari `tool/ikon/ikon.svg` (ikon adaptif Android termasuk monokrom, ikon web, favicon). `tool/rilis.sh`: pemeriksaan sebelum rilis (hanya memeriksa dan mencetak).
 - Kraepelin/Pauli (F13, T23): lembar angka dari seed, waktu per kolom dari subtes profil dengan pergantian kolom otomatis, input angka cepat, skor kecepatan, ketelitian, dan konsistensi dengan grafik. Subtes Kraepelin aktif untuk role QA.
 - Kepribadian Papi-style (F12, T22): 96 pernyataan dari 8 sifat kerja, sesi 24 pilihan paksa di S14 tanpa jawaban benar atau salah, review profil kecenderungan, arti tiap pilihan, dan sifat yang umumnya dicari untuk role profil.
 - Modul IT (F14, T24): trace pseudocode dengan interpreter mini buatan sendiri, logika flowchart sebagai tabel kotak, dan rumus Excel (SUM, IF, VLOOKUP, COUNTIF) dengan pecahan eksak. Ketiganya terbuka di katalog dan menjadi subtes "Modul IT" yang aktif untuk role Mobile Dev.

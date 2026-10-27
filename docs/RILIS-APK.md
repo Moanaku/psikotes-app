@@ -66,6 +66,8 @@ Lalu `flutter build apk --release`. Hasil: `build\app\outputs\flutter-apk\app-re
 
 ## 4. Menerbitkan v1.0.0
 
+Jalankan `bash tool/rilis.sh` (atau `bash tool/rilis.sh v1.0.0`) dari `main`. Skrip hanya memeriksa dan mencetak: cabang dan pohon bersih, sinkron dengan origin, versi pubspec cocok dengan tag, pemindaian rahasia di semua revisi, CI main hijau, dan empat secret keystore ada (hanya nama). Di akhir ia mencetak perintah untuk pemilik (repo publik, Pages, tag). Skrip tidak menjalankan satu pun langkah yang tidak bisa dibatalkan.
+
 Lakukan setelah semua kotak di [eval/checklist-v1.0.0.md](eval/checklist-v1.0.0.md) lulus dan tidak ada bug `severity:1` terbuka.
 
 1. Merge pull request T20 ke `main` (CI harus hijau).
@@ -89,4 +91,7 @@ Bila tag salah dan belum dipakai, hapus: `git push origin --delete v1.0.0` dan `
 
 - **GitHub Pages dan repo privat.** Repo ini privat, dan Pages untuk repo privat butuh paket GitHub berbayar. Workflow `pages` sudah ditulis tetapi hanya jalan saat dipicu manual atau pada tag; selama paketnya belum ada, job `deploy` akan gagal (job `build` tetap hijau dan membuktikan web bisa dibangun). Pilihan: (a) jadikan repo publik, (b) tetap privat dan lewati demo web, (c) pakai paket berbayar (melanggar aturan biaya Rp0). Tag `v1.0.0` akan memicu `pages` juga; bila belum memutuskan, kegagalan itu diharapkan.
 - Setelah memilih (a): Settings, Pages, Source: **GitHub Actions**, lalu jalankan workflow `pages` secara manual atau lewat tag.
-- **Ikon app** masih ikon Flutter; desain ikon belum ada.
+
+## Ikon app
+
+Ikon dibuat dari satu sumber, `tool/ikon/ikon.svg` (matriks 3x3, satu sel kosong di pojok kanan bawah bersorot stabilo; warna dari token). Untuk mengubahnya, ubah SVG lalu jalankan `python tool/ikon/gen_ikon.py` (Pillow dibutuhkan; `--preview <folder>` menulis contoh crop lingkaran dan kotak membulat). Skrip menulis ikon adaptif Android (foreground, background, monokrom), PNG untuk Android lama, ikon web, dan favicon. Jangan mengedit PNG-nya langsung.
