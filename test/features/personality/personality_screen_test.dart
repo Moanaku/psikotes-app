@@ -130,6 +130,21 @@ void main() {
   });
 
   group('keluar', () {
+    for (final scale in [1.0, 1.3, 2.0]) {
+      testWidgets('skala $scale: pilihan konfirmasi terlihat penuh',
+          (tester) async {
+        await openS14(tester, textScale: scale);
+        await tap(tester, find.byType(OptionTile).first);
+        await tap(tester, find.byTooltip('Tutup sesi kepribadian'));
+        final h =
+            tester.view.physicalSize.height / tester.view.devicePixelRatio;
+        for (final label in ['Tetap mengerjakan', 'Keluar dari sesi']) {
+          expect(tester.getRect(button(label)).bottom, lessThanOrEqualTo(h),
+              reason: '$label terpotong di skala $scale');
+        }
+      });
+    }
+
     testWidgets('tanpa pilihan: langsung kembali ke katalog', (tester) async {
       final app = await openS14(tester);
       await tap(tester, find.byTooltip('Tutup sesi kepribadian'));

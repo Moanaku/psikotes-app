@@ -133,6 +133,21 @@ void main() {
   });
 
   group('keluar', () {
+    for (final scale in [1.0, 1.3, 2.0]) {
+      testWidgets('skala $scale: pilihan konfirmasi terlihat penuh',
+          (tester) async {
+        await openKrp(tester, textScale: scale);
+        await tap(tester, button('Mulai kolom 1'));
+        await tap(tester, find.byTooltip('Tutup tes Kraepelin'));
+        final h =
+            tester.view.physicalSize.height / tester.view.devicePixelRatio;
+        for (final label in ['Lanjut mengerjakan', 'Keluar dari tes']) {
+          expect(tester.getRect(button(label)).bottom, lessThanOrEqualTo(h),
+              reason: '$label terpotong di skala $scale');
+        }
+      });
+    }
+
     testWidgets('sebelum mulai: langsung kembali', (tester) async {
       final app = await openKrp(tester);
       await tap(tester, find.byTooltip('Tutup tes Kraepelin'));

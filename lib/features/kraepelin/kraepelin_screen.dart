@@ -211,6 +211,8 @@ class _KraepelinScreenState extends ConsumerState<KraepelinScreen> {
     final i = run.index;
     return OnboardingFrame(
       header: header,
+      footerMaxShare:
+          _confirmExit ? confirmFooterMaxShare : defaultFooterMaxShare,
       footer: _confirmExit ? _exitPanel() : _keypad(run),
       children: [
         const SizedBox(height: AppSpace.s8),

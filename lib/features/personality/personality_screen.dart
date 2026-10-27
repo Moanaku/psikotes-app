@@ -147,6 +147,8 @@ class _PersonalityScreenState extends ConsumerState<PersonalityScreen> {
     return OnboardingFrame(
       scrollController: _scroll,
       header: header,
+      footerMaxShare:
+          _confirmExit ? confirmFooterMaxShare : defaultFooterMaxShare,
       footer: _confirmExit
           ? _exitPanel()
           : FooterButtons(
