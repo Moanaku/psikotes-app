@@ -9,12 +9,16 @@ import 'package:simulator_psikotes_it/core/widgets/list_row.dart';
 import 'package:simulator_psikotes_it/core/widgets/score_bar.dart';
 import 'package:simulator_psikotes_it/core/widgets/skeleton_list.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
+import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/providers.dart';
+import 'package:simulator_psikotes_it/features/knowledge/knowledge_providers.dart';
 
 import '../../support/fake_clock.dart';
 import '../../support/fake_repositories.dart';
 import '../../support/fixtures.dart';
+import '../../support/knowledge_fixtures.dart';
 import '../../support/pump_app.dart';
+import '../../support/text_fit.dart';
 
 final nov5 = DateTime.utc(2026, 11, 5);
 
@@ -318,12 +322,25 @@ void main() {
       expect(app.location, '/buku-kesalahan');
     });
 
-    testWidgets('Pengetahuan role nonaktif dengan alasan', (tester) async {
-      await openHome(tester, tanggal: nov5);
+    testWidgets('Pengetahuan role membuka S19', (tester) async {
+      final app = await openHome(
+        tester,
+        tanggal: nov5,
+        overrides: [
+          knowledgeAssetReaderProvider.overrideWithValue(
+            (_) async => bankJson(smallBank().items),
+          ),
+        ],
+      );
       final row = tester
           .widget<ListRow>(find.widgetWithText(ListRow, 'Pengetahuan role'));
-      expect(row.onTap, isNull);
-      expect(find.text('Tersedia di v1.1'), findsOneWidget);
+      expect(row.onTap, isNotNull);
+      expect(find.text('Tersedia di v1.1'), findsNothing);
+      await tester.ensureVisible(find.text('Pengetahuan role'));
+      await tester.tap(find.text('Pengetahuan role'));
+      await tester.pumpAndSettle();
+      expect(app.location, '/pengetahuan');
+      expect(find.text('Level'), findsOneWidget);
     });
 
     testWidgets('ikon Pengaturan berlabel dan membuka S18', (tester) async {
@@ -407,5 +424,114 @@ void main() {
       expect(find.bySemanticsLabel('14 hari lagi'), findsOneWidget);
       handle.dispose();
     });
+  });
+
+  group('soal dikerjakan hari ini', () {
+    FakeSessionRepository withAnswers(int n, {int skipped = 0}) {
+      final repo = FakeSessionRepository();
+      final total = n + skipped;
+      repo.start(NewSession(
+        profileId: 1,
+        mode: SessionMode.latihan,
+        plan: SessionPlan(
+          items: [
+            for (var i = 0; i < total; i++)
+              PlanItem(
+                type: QuestionType.numSeq,
+                seed: i,
+                difficulty: Difficulty.easy,
+                genVersi: 1,
+                subtes: 'numerik',
+              ),
+          ],
+          subtes: [SubtestPlan(kategori: 'numerik', jumlah: total, menit: 5)],
+        ),
+        mulai: appNow,
+      ));
+      for (var i = 0; i < total; i++) {
+        repo.recordAnswer(AnswerRecord(
+          sessionId: 1,
+          posisi: i,
+          tipe: 'NUM-SEQ',
+          kategori: 'numerik',
+          seed: i,
+          kesulitan: Difficulty.easy,
+          genVersi: 1,
+          opsiDipilih: i < n ? 0 : null,
+          benar: true,
+          durasiMs: 1000,
+          label: SpeedLabel.benarCepat,
+          dijawabPada: appNow,
+        ));
+      }
+      return repo;
+    }
+
+    testWidgets('kosong: pesan tanpa angka nol', (tester) async {
+      await openHome(tester, tanggal: nov5);
+      expect(find.text('Belum ada soal dikerjakan hari ini.'), findsOneWidget);
+      expect(find.textContaining('Sudah dikerjakan'), findsNothing);
+    });
+
+    testWidgets('ada jawaban: jumlah soal dijawab, yang dilewati tidak',
+        (tester) async {
+      await openHome(tester,
+          tanggal: nov5, sessions: withAnswers(7, skipped: 3));
+      expect(find.text('Sudah dikerjakan hari ini: 7 soal'), findsOneWidget);
+      expect(find.text('Belum ada soal dikerjakan hari ini.'), findsNothing);
+    });
+
+    testWidgets('memuat: baris belum tampil, skeleton yang tampil',
+        (tester) async {
+      final repo = FakeProfileRepository([activeProfile(tanggalTes: nov5)])
+        ..watchGate = Completer<void>();
+      await pumpApp(tester, profiles: repo, sessions: withAnswers(2));
+      expect(find.byType(SkeletonList), findsNWidgets(3));
+      expect(find.textContaining('hari ini:'), findsNothing);
+      repo.watchGate!.complete();
+      await tester.pumpAndSettle();
+      expect(find.text('Sudah dikerjakan hari ini: 2 soal'), findsOneWidget);
+    });
+
+    testWidgets('galat membaca jumlah: galat beranda dengan Coba lagi',
+        (tester) async {
+      final sessions = FakeSessionRepository()
+        ..failCountWith = StateError('io');
+      await openHome(tester, tanggal: nov5, sessions: sessions);
+      expect(find.text('Rencana latihan tidak bisa disusun'), findsOneWidget);
+      expect(find.textContaining('StateError'), findsNothing);
+      sessions.failCountWith = null;
+      await tester.tap(find.text('Coba lagi'));
+      await tester.pumpAndSettle();
+      expect(find.text('Belum ada soal dikerjakan hari ini.'), findsOneWidget);
+    });
+
+    testWidgets('offline: penghitung tetap tampil karena tanpa jaringan',
+        (tester) async {
+      await openHome(tester, tanggal: nov5, sessions: withAnswers(4));
+      expect(find.text('Sudah dikerjakan hari ini: 4 soal'), findsOneWidget);
+    });
+
+    for (final scale in [1.0, 1.3, 2.0]) {
+      for (final n in [0, 128]) {
+        testWidgets('skala $scale, $n soal: tanpa meluap, tanpa kata terpotong',
+            (tester) async {
+          await openHome(
+            tester,
+            tanggal: nov5,
+            textScale: scale,
+            sessions: n == 0 ? null : withAnswers(n),
+          );
+          expect(tester.takeException(), isNull);
+          expect(
+            find.text(n == 0
+                ? 'Belum ada soal dikerjakan hari ini.'
+                : 'Sudah dikerjakan hari ini: $n soal'),
+            findsOneWidget,
+          );
+          expectNoMidWordBreaks(tester);
+        });
+      }
+    }
   });
 }

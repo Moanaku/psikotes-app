@@ -193,10 +193,6 @@
       },
       "pernyataan": [
         {
-          "id": "PER-KRS-001",
-          "teks": "Saya membagi tugas proyek secara merata agar semua anggota tim memegang bagian yang jelas."
-        },
-        {
           "id": "PER-KRS-002",
           "teks": "Saya menawarkan bantuan kepada rekan yang sedang kewalahan menyelesaikan fitur menjelang tenggat."
         },

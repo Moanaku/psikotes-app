@@ -22,8 +22,19 @@ abstract final class Routes {
   static const wawancaraDialog = '/wawancara/:id'; // S16 (v1.3)
   static const wawancaraLaporan = '/wawancara/:id/laporan'; // S17 (v1.3)
   static const pengaturan = '/pengaturan'; // S18
-  static const pengetahuan = '/pengetahuan'; // S19 (v1.1)
+  static const pengetahuan = '/pengetahuan'; // S19 (v1.1), ?role=qa
   static const pengetahuanSesi = '/pengetahuan/sesi/:id'; // S20 (v1.1)
+
+  /// S19 dengan [role] terpilih (kode role bank), atau role profil aktif.
+  static String pengetahuanPath({String? role}) =>
+      role == null ? pengetahuan : '$pengetahuan?role=$role';
+
+  /// S20 untuk sesi kartu [id].
+  static String pengetahuanSesiPath(int id) => '/pengetahuan/sesi/$id';
+
+  /// S16 dan S17 untuk dialog contoh [id].
+  static String wawancaraDialogPath(int id) => '/wawancara/$id';
+  static String wawancaraLaporanPath(int id) => '/wawancara/$id/laporan';
 
   /// S06 atau S07 untuk sesi [id].
   static String sesiPath(int id) => '/sesi/$id';

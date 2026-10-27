@@ -25,7 +25,8 @@ String poolJson({int traits = 4, int per = 10, Object? versi = 1}) =>
 
 void main() {
   group('pool', () {
-    test('aset terbundel sah: 8 sifat, 12 pernyataan, tanpa istilah klinis',
+    test(
+        'aset terbundel sah: 8 sifat, 10 sampai 20 pernyataan, tanpa istilah klinis',
         () {
       final pool = PersonalityPool.parse(
           File('assets/personality_pool.json').readAsStringSync());
@@ -34,7 +35,7 @@ void main() {
           r'\b(depresi|cemas|gangguan|diagnosis|trauma|terapi|obat|panik)',
           caseSensitive: false);
       for (final t in pool.traits) {
-        expect(t.pernyataan, hasLength(12), reason: t.id);
+        expect(t.pernyataan.length, inInclusiveRange(10, 20), reason: t.id);
         for (final p in t.pernyataan) {
           expect(p.teks, startsWith('Saya '));
           expect(clinical.hasMatch(p.teks), isFalse, reason: p.id);

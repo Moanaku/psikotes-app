@@ -1,6 +1,6 @@
 # Sampel pool kepribadian (T22)
 
-Dibuat 2026-10-27 dari `assets/personality_pool.json` (96 pernyataan, 8 sifat). Untuk diperiksa pemilik: nada netral, tanpa jawaban benar atau salah, tanpa istilah klinis, tidak mirip item tes resmi.
+Dibuat 2026-10-27 dari `assets/personality_pool.json` (95 pernyataan, 8 sifat). Untuk diperiksa pemilik: nada netral, tanpa jawaban benar atau salah, tanpa istilah klinis, tidak mirip item tes resmi.
 Pernyataan yang meragukan: tulis ID-nya satu per baris di `docs/eval/personality_flags.txt`, lalu jalankan `python tool/pregenerate/gen_personality.py --bundle-only`.
 
 ## Keteraturan dan ketelitian (`keteraturan`)
@@ -31,9 +31,9 @@ Kecenderungan memulai sendiri, mencari jalan, dan bekerja tanpa banyak arahan.
 
 Kecenderungan bekerja bersama, berbagi beban, dan menjaga suasana tim.
 
-- `PER-KRS-001` Saya membagi tugas proyek secara merata agar semua anggota tim memegang bagian yang jelas.
 - `PER-KRS-002` Saya menawarkan bantuan kepada rekan yang sedang kewalahan menyelesaikan fitur menjelang tenggat.
 - `PER-KRS-003` Saya menyampaikan ucapan terima kasih kepada rekan setelah ia membantu memperbaiki kode saya.
+- `PER-KRS-004` Saya ikut menyiapkan agenda dan catatan rapat harian agar seluruh tim memiliki acuan yang sama.
 
 ## Komunikasi (`komunikasi`)
 

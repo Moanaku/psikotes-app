@@ -1,0 +1,2950 @@
+{
+  "versi": 1,
+  "dibuat": "2026-10-27",
+  "butir": [
+    {
+      "id": "KB-QA-D-001",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa yang dimaksud dengan test case dalam pengujian perangkat lunak?",
+      "jawabanModel": "Test case adalah sekumpulan kondisi awal, input, langkah eksekusi, dan hasil yang diharapkan yang dirancang untuk memverifikasi satu tujuan pengujian tertentu. Dengan membandingkan hasil aktual dengan hasil yang diharapkan, penguji dapat menentukan apakah perilaku sistem sesuai.",
+      "poinKunci": [
+        "Test case dirancang untuk satu tujuan pengujian tertentu.",
+        "Berisi input, langkah, dan hasil yang diharapkan.",
+        "Hasil aktual dibandingkan dengan hasil yang diharapkan.",
+        "Dari perbandingan itu ditentukan lulus atau gagal."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-002",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa perbedaan utama antara test scenario dan test case?",
+      "jawabanModel": "Test scenario adalah deskripsi tingkat tinggi tentang apa yang akan diuji, misalnya fungsi atau alur pengguna tertentu. Test case lebih rinci karena memuat data, langkah, dan hasil yang diharapkan untuk menguji sebagian dari skenario itu. Satu skenario biasanya dapat dipecah menjadi beberapa test case.",
+      "poinKunci": [
+        "Test scenario bersifat tingkat tinggi, menjelaskan apa yang diuji.",
+        "Test case bersifat rinci, menjelaskan bagaimana menguji.",
+        "Test case memuat data, langkah, dan hasil yang diharapkan.",
+        "Satu skenario dapat memiliki banyak test case."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-003",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Mengapa hasil yang diharapkan (expected result) wajib ada dalam sebuah test case?",
+      "jawabanModel": "Hasil yang diharapkan menjadi acuan untuk menentukan apakah perilaku sistem benar atau salah. Tanpanya, penguji tidak punya dasar objektif untuk menyatakan test case lulus atau gagal.",
+      "poinKunci": [
+        "Hasil yang diharapkan menjadi acuan pembanding.",
+        "Memungkinkan penilaian lulus atau gagal secara objektif.",
+        "Hasil yang diharapkan harus ditentukan sebelum eksekusi, bukan dari apa yang kebetulan terjadi.",
+        "Tanpanya, hasil pengujian bergantung pada tafsiran masing-masing penguji."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-004",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa saja elemen umum yang terdapat dalam test case yang baik?",
+      "jawabanModel": "Test case yang baik umumnya memiliki identitas unik, judul atau tujuan, prakondisi, data uji, langkah eksekusi, dan hasil yang diharapkan. Elemen ini membuat test case jelas, dapat diulang, dan mudah ditelusuri.",
+      "poinKunci": [
+        "Identitas unik dan judul atau tujuan yang jelas.",
+        "Prakondisi yang harus dipenuhi sebelum eksekusi.",
+        "Data uji dan langkah eksekusi yang terurut.",
+        "Hasil yang diharapkan yang spesifik.",
+        "Hasil ini membuat test case dapat diulang oleh siapa pun."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-005",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa fungsi prakondisi (precondition) dalam sebuah test case?",
+      "jawabanModel": "Prakondisi adalah keadaan atau syarat yang harus terpenuhi sebelum test case dijalankan, misalnya akun sudah terdaftar atau data tertentu sudah tersedia. Dengan prakondisi, test case dapat dijalankan dalam keadaan awal yang sama sehingga hasilnya konsisten.",
+      "poinKunci": [
+        "Prakondisi adalah syarat yang harus terpenuhi sebelum eksekusi.",
+        "Contohnya data atau akun yang sudah tersedia.",
+        "Menjamin keadaan awal yang sama setiap kali dijalankan.",
+        "Membantu hasil pengujian konsisten dan dapat diulang."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-006",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Mengapa sebuah test case sebaiknya fokus pada satu tujuan pengujian saja?",
+      "jawabanModel": "Test case yang fokus pada satu tujuan lebih mudah dipahami, dieksekusi, dan dipelihara. Bila gagal, penyebabnya lebih mudah dilacak karena hanya satu hal yang diuji.",
+      "poinKunci": [
+        "Test case yang fokus lebih mudah dipahami dan dieksekusi.",
+        "Lebih mudah dipelihara saat kebutuhan berubah.",
+        "Kegagalan lebih mudah dilacak ke penyebabnya.",
+        "Cakupan pengujian lebih jelas."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-007",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa yang dimaksud dengan test case positif dan negatif?",
+      "jawabanModel": "Test case positif menguji sistem dengan input atau kondisi yang valid untuk memastikan fungsi bekerja sebagaimana mestinya. Test case negatif menguji dengan input atau kondisi tidak valid untuk memastikan sistem menolak atau menangani kesalahan dengan wajar.",
+      "poinKunci": [
+        "Test case positif memakai input atau kondisi yang valid.",
+        "Test case negatif memakai input atau kondisi yang tidak valid.",
+        "Test case negatif memeriksa penanganan kesalahan.",
+        "Keduanya diperlukan untuk cakupan yang baik."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-008",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Mengapa langkah dalam test case harus ditulis jelas dan tidak ambigu?",
+      "jawabanModel": "Langkah yang jelas memastikan siapa pun dapat menjalankan test case dengan cara yang sama tanpa banyak bertanya. Hal ini membuat hasil pengujian konsisten, dapat diulang, dan mengurangi salah tafsir antarpenguji.",
+      "poinKunci": [
+        "Langkah jelas dapat dijalankan oleh penguji mana pun.",
+        "Mengurangi salah tafsir antarpenguji.",
+        "Membuat hasil konsisten dan dapat diulang.",
+        "Memudahkan memperbanyak ulang masalah saat terjadi kegagalan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-009",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa manfaat keterlacakan (traceability) antara test case dan kebutuhan (requirement)?",
+      "jawabanModel": "Keterlacakan menghubungkan setiap test case dengan kebutuhan yang diujinya. Dengan begitu, tim dapat memeriksa apakah semua kebutuhan sudah tercakup dan mengetahui test case mana yang terdampak saat suatu kebutuhan berubah.",
+      "poinKunci": [
+        "Menghubungkan test case dengan kebutuhan yang diuji.",
+        "Membantu memeriksa cakupan pengujian terhadap kebutuhan.",
+        "Menunjukkan test case yang terdampak saat kebutuhan berubah.",
+        "Membantu menemukan kebutuhan yang belum punya test case."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-010",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "test-case",
+      "pertanyaan": "Apa fungsi data uji (test data) dalam sebuah test case?",
+      "jawabanModel": "Data uji adalah nilai masukan yang dipakai saat menjalankan langkah-langkah test case. Dengan data yang dicantumkan secara spesifik, pengujian dapat diulang dengan hasil yang konsisten. Data yang dipilih juga menentukan kondisi apa yang benar-benar diuji, misalnya data valid atau tidak valid.",
+      "poinKunci": [
+        "Data uji adalah masukan yang diberikan ke sistem saat eksekusi.",
+        "Data yang spesifik membuat pengujian dapat diulang oleh siapa saja.",
+        "Pemilihan data menentukan kondisi atau perilaku yang diuji.",
+        "Data uji perlu mencakup variasi valid maupun tidak valid sesuai tujuan."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-016",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Apa yang dimaksud dengan priority pada sebuah defect?",
+      "jawabanModel": "Priority adalah tingkat urgensi atau urutan defect untuk diperbaiki. Priority mempertimbangkan kebutuhan bisnis, jadwal rilis, dan risiko. Karena itu nilainya bisa berubah mengikuti situasi proyek.",
+      "poinKunci": [
+        "Priority menunjukkan seberapa cepat defect perlu diperbaiki.",
+        "Priority dipengaruhi kebutuhan bisnis dan jadwal rilis.",
+        "Priority dapat berubah seiring perubahan kondisi proyek.",
+        "Priority membantu tim mengatur urutan pekerjaan perbaikan."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-017",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Apa perbedaan utama antara severity dan priority?",
+      "jawabanModel": "Severity menilai seberapa besar dampak defect, sedangkan priority menilai seberapa mendesak defect itu diperbaiki. Severity berangkat dari sudut pandang dampak pada sistem dan pengguna. Priority berangkat dari sudut pandang bisnis dan perencanaan.",
+      "poinKunci": [
+        "Severity adalah soal besarnya dampak defect.",
+        "Priority adalah soal urgensi perbaikan.",
+        "Keduanya adalah atribut terpisah pada laporan defect.",
+        "Nilai keduanya tidak selalu searah."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-018",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Siapa yang umumnya menentukan severity dan siapa yang umumnya menentukan priority?",
+      "jawabanModel": "Severity umumnya diusulkan oleh tester karena berkaitan dengan dampak teknis yang diamati. Priority umumnya diputuskan oleh pihak yang memahami kebutuhan bisnis, seperti product owner atau manajer proyek, bersama tim. Pembagian ini bisa berbeda antar organisasi.",
+      "poinKunci": [
+        "Tester biasanya mengusulkan severity berdasarkan dampak yang diamati.",
+        "Priority biasanya diputuskan oleh pihak bisnis atau manajemen proyek.",
+        "Keputusan akhir sering dibahas bersama dalam tim.",
+        "Pembagian peran dapat berbeda di tiap organisasi."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-019",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Mengapa priority sebuah defect dapat berubah meskipun severity-nya tetap?",
+      "jawabanModel": "Priority dipengaruhi faktor bisnis dan jadwal yang dapat berubah, sedangkan severity berkaitan dengan dampak defect itu sendiri. Misalnya, menjelang rilis penting sebuah defect bisa dinaikkan priority-nya walaupun dampaknya tidak berubah. Sebaliknya, fitur yang dibatalkan dapat menurunkan priority defect terkait.",
+      "poinKunci": [
+        "Priority bergantung pada konteks bisnis dan jadwal.",
+        "Severity bergantung pada dampak defect itu sendiri.",
+        "Perubahan rencana rilis dapat menaikkan atau menurunkan priority.",
+        "Severity tidak otomatis berubah ketika priority berubah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-020",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Berikan contoh defect dengan severity tinggi tetapi priority rendah?",
+      "jawabanModel": "Contohnya aplikasi crash pada fitur yang hanya dipakai di kondisi sangat langka, misalnya pada perangkat lama yang hampir tidak ada penggunanya. Dampak teknisnya berat sehingga severity tinggi. Karena peluang terjadinya sangat kecil, perbaikannya boleh dijadwalkan belakangan sehingga priority rendah.",
+      "poinKunci": [
+        "Severity mengukur tingkat keparahan dampak defect pada sistem.",
+        "Crash adalah dampak yang berat sehingga severity-nya tinggi.",
+        "Priority mengukur urgensi perbaikan, bukan keparahan dampak.",
+        "Kondisi pemicu yang sangat langka dapat membuat perbaikan ditunda."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-021",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Berikan contoh defect dengan severity rendah tetapi priority tinggi?",
+      "jawabanModel": "Contohnya salah ketik pada nama perusahaan di halaman utama situs sebelum peluncuran kampanye besar. Secara fungsi tidak ada yang rusak sehingga severity rendah. Namun dampaknya pada citra bisnis besar, sehingga harus segera diperbaiki dan priority-nya tinggi.",
+      "poinKunci": [
+        "Defect kosmetik tidak mengganggu fungsi sistem sehingga severity rendah.",
+        "Priority dipengaruhi kebutuhan bisnis, bukan hanya dampak teknis.",
+        "Defect yang terlihat oleh publik atau pelanggan bisa mendesak diperbaiki.",
+        "Severity rendah tidak berarti priority harus rendah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-022",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Berikan contoh defect dengan severity tinggi dan priority tinggi sekaligus?",
+      "jawabanModel": "Contohnya proses pembayaran gagal total pada aplikasi toko online yang sedang berjalan di produksi. Fungsi utama rusak sehingga severity tinggi. Pengguna tidak bisa bertransaksi dan bisnis kehilangan pendapatan, sehingga perbaikan harus segera dilakukan dan priority tinggi.",
+      "poinKunci": [
+        "Kegagalan fungsi inti menandakan severity tinggi.",
+        "Dampak langsung pada pengguna dan bisnis membuat priority tinggi.",
+        "Defect seperti ini biasanya ditangani lebih dulu sebelum pekerjaan lain.",
+        "Severity dan priority bisa sejalan, tetapi keduanya tetap penilaian terpisah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-023",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Berikan contoh defect dengan severity rendah dan priority rendah sekaligus?",
+      "jawabanModel": "Contohnya perbedaan kecil pada jarak antar elemen di halaman bantuan yang jarang dikunjungi. Fungsi tetap berjalan normal sehingga severity rendah. Tidak ada tekanan bisnis untuk segera memperbaikinya, sehingga priority juga rendah.",
+      "poinKunci": [
+        "Defect kosmetik kecil tidak mengganggu fungsi utama.",
+        "Halaman yang jarang dipakai membuat urgensi perbaikan rendah.",
+        "Defect ini tetap perlu dicatat agar dapat diperbaiki saat ada waktu.",
+        "Severity dan priority rendah tidak berarti defect boleh diabaikan selamanya."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-024",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Apa risikonya jika tim mengurutkan perbaikan defect hanya berdasarkan severity?",
+      "jawabanModel": "Tim bisa memperbaiki defect yang berat tetapi tidak mendesak, sementara defect ringan yang penting bagi bisnis terlambat ditangani. Severity tidak memuat pertimbangan seperti jadwal rilis, kebutuhan pelanggan, atau citra perusahaan. Karena itu urutan perbaikan sebaiknya memakai priority dengan severity sebagai salah satu masukan.",
+      "poinKunci": [
+        "Severity hanya menggambarkan keparahan dampak.",
+        "Urutan perbaikan perlu mempertimbangkan urgensi bisnis.",
+        "Defect ringan tetapi mendesak bisa terlambat ditangani.",
+        "Priority menjadi dasar utama penjadwalan perbaikan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-D-025",
+      "role": "qa",
+      "level": "dasar",
+      "topik": "severity-priority",
+      "pertanyaan": "Faktor apa saja yang biasanya dipertimbangkan saat menilai severity sebuah defect?",
+      "jawabanModel": "Severity dinilai dari dampak defect terhadap fungsi dan pengguna. Faktor yang dilihat antara lain apakah fungsi inti terhenti, apakah ada kehilangan atau kerusakan data, dan apakah ada risiko keamanan. Seberapa luas fungsi yang terpengaruh juga turut dipertimbangkan.",
+      "poinKunci": [
+        "Tingkat gangguan terhadap fungsi sistem menjadi pertimbangan utama.",
+        "Kehilangan atau kerusakan data menaikkan severity.",
+        "Risiko keamanan juga menaikkan severity.",
+        "Ada tidaknya jalan pintas (workaround) dapat ikut dipertimbangkan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-003",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Sebuah kolom isian menerima bilangan bulat dalam rentang tertentu, partisi dan nilai uji apa yang kamu rancang?",
+      "jawabanModel": "Ada tiga partisi: invalid di bawah rentang, valid di dalam rentang, dan invalid di atas rentang. Untuk batas, pilih nilai tepat di batas bawah dan atas, serta nilai satu langkah di luar masing-masing batas. Tambahkan satu nilai representatif dari tengah partisi valid untuk cakupan partisi.",
+      "poinKunci": [
+        "Rentang valid menghasilkan tiga partisi: invalid bawah, valid, dan invalid atas.",
+        "Uji nilai tepat di batas bawah dan batas atas rentang valid.",
+        "Uji nilai satu satuan di luar setiap batas, yang berada di partisi invalid.",
+        "Satu nilai dari tengah partisi valid mewakili anggota partisi lainnya.",
+        "Partisi tambahan seperti input kosong atau bukan angka dapat dipertimbangkan secara terpisah."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-004",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Mengapa nilai dari partisi invalid sebaiknya diuji satu per satu dan tidak digabung dalam satu kasus uji?",
+      "jawabanModel": "Jika beberapa input invalid digabung, sistem bisa menolak setelah memeriksa input pertama dan tidak pernah memeriksa sisanya. Akibatnya, penanganan kesalahan untuk input lain tidak teruji, dan penyebab kegagalan menjadi sulit dipastikan. Menguji satu nilai invalid per kasus uji, dengan input lain tetap valid, membuat hasil mudah dianalisis.",
+      "poinKunci": [
+        "Satu input invalid dapat menutupi pemeriksaan input invalid lainnya.",
+        "Validasi yang gagal lebih awal membuat validasi berikutnya tidak tereksekusi.",
+        "Menjaga input lain tetap valid mengisolasi penyebab kegagalan.",
+        "Penanganan kesalahan setiap partisi invalid tetap terverifikasi."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-005",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Jenis cacat apa yang paling efektif ditemukan oleh boundary value analysis, dan bagaimana contohnya muncul di kode?",
+      "jawabanModel": "Analisis batas paling efektif menemukan kesalahan off-by-one, yaitu kesalahan pada kondisi pembanding di tepi rentang. Contohnya pengembang menulis operator lebih kecil padahal seharusnya lebih kecil atau sama dengan, sehingga nilai tepat di batas salah diproses. Nilai tengah partisi tidak akan memperlihatkan cacat ini karena hasilnya sama di kedua versi kode.",
+      "poinKunci": [
+        "Kesalahan off-by-one terjadi di tepi kondisi pembanding.",
+        "Salah memilih antara operator tegas dan operator sama-dengan adalah sumber umumnya.",
+        "Nilai tepat di batas dan tetangganya membedakan perilaku kedua versi kode.",
+        "Nilai di tengah partisi tidak membedakan kondisi yang benar dan yang salah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-006",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Bagaimana menentukan nilai di luar batas ketika input berupa bilangan desimal, dibandingkan dengan bilangan bulat?",
+      "jawabanModel": "Pada bilangan bulat, nilai tetangga adalah satu satuan di luar batas. Pada bilangan desimal, tetangga ditentukan oleh presisi yang diizinkan spesifikasi, misalnya satuan terkecil yang bisa dimasukkan atau disimpan. Jika presisi tidak jelas, kamu perlu mengonfirmasinya karena salah menetapkan langkah terkecil membuat nilai uji tidak benar-benar berada di sisi lain batas.",
+      "poinKunci": [
+        "Pada bilangan bulat, tetangga berjarak satu satuan dari batas.",
+        "Pada desimal, jarak tetangga bergantung pada presisi yang ditetapkan.",
+        "Satuan terkecil yang diterima sistem menentukan nilai terdekat di luar batas.",
+        "Presisi yang tidak jelas harus diklarifikasi dari spesifikasi atau pemangku kepentingan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-007",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Apa keterbatasan equivalence partitioning dan boundary value analysis saat sebuah fitur memiliki banyak input yang saling memengaruhi?",
+      "jawabanModel": "Kedua teknik umumnya memeriksa input satu per satu, sehingga tidak otomatis mencakup interaksi antar input. Cacat yang hanya muncul pada kombinasi tertentu bisa lolos walaupun semua partisi dan batas sudah teruji. Untuk kasus itu, teknik seperti decision table atau pairwise testing perlu ditambahkan.",
+      "poinKunci": [
+        "Teknik ini berfokus pada nilai tiap input secara terpisah.",
+        "Interaksi antar input tidak dijamin tercakup.",
+        "Menggabungkan semua kombinasi partisi dan batas dapat menimbulkan ledakan jumlah kasus uji.",
+        "Decision table atau pairwise dapat melengkapi untuk menangani kombinasi."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-008",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Bagaimana equivalence partitioning diterapkan pada input non-numerik, misalnya jenis berkas yang diunggah atau panjang teks?",
+      "jawabanModel": "Untuk jenis berkas, partisi dibuat berdasarkan perlakuan sistem, misalnya format yang diizinkan, format yang ditolak, dan berkas tanpa ekstensi. Untuk panjang teks, panjang menjadi besaran terurut sehingga partisi valid dan invalid punya batas yang bisa diuji, seperti teks kosong, panjang minimum, dan panjang maksimum. Analisis batas hanya cocok untuk partisi yang punya urutan, sedangkan kategori tanpa urutan cukup diwakili satu nilai per kategori.",
+      "poinKunci": [
+        "Partisi ditentukan oleh perbedaan perlakuan sistem, bukan oleh tipe data.",
+        "Kategori tanpa urutan cukup diwakili satu nilai per partisi.",
+        "Panjang teks adalah besaran terurut sehingga batasnya bisa diuji.",
+        "Kasus khusus seperti kosong atau tanpa ekstensi layak menjadi partisi sendiri."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-009",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "boundary-value",
+      "pertanyaan": "Apa yang harus kamu lakukan ketika spesifikasi tidak jelas apakah nilai batas termasuk rentang valid, dan mengapa hal itu penting bagi analisis batas?",
+      "jawabanModel": "Klarifikasi ambiguitas itu dengan analis bisnis, pemilik produk, atau pihak yang berwenang atas aturannya sebelum menetapkan hasil yang diharapkan. Posisi batas menentukan partisi mana yang memuat nilai tepat di batas, sehingga asumsi yang salah membuat kasus uji menguji hasil yang keliru. Catat keputusan itu agar kasus uji dan spesifikasi tetap konsisten, dan laporkan ambiguitasnya sebagai temuan.",
+      "poinKunci": [
+        "Ambiguitas batas harus diklarifikasi, bukan ditebak.",
+        "Status nilai tepat di batas menentukan hasil yang diharapkan.",
+        "Asumsi yang salah menghasilkan kasus uji yang salah arah.",
+        "Keputusan yang disepakati perlu didokumentasikan.",
+        "Ambiguitas pada spesifikasi sendiri merupakan temuan yang layak dilaporkan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-010",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Informasi apa saja yang perlu ada dalam laporan bug agar pengembang dapat memahami dan mereproduksinya tanpa bertanya balik?",
+      "jawabanModel": "Laporan bug yang baik memuat judul ringkas yang spesifik, langkah reproduksi yang berurutan, hasil aktual, dan hasil yang diharapkan. Sertakan juga lingkungan pengujian, data uji yang dipakai, serta bukti seperti tangkapan layar, rekaman, atau log. Dengan begitu pengembang bisa mengulang masalahnya dan menilai dampaknya tanpa menebak.",
+      "poinKunci": [
+        "Judul menjelaskan gejala dan lokasi masalah secara singkat.",
+        "Langkah reproduksi berurutan dan dapat diikuti orang lain.",
+        "Hasil aktual dan hasil yang diharapkan ditulis terpisah.",
+        "Lingkungan dan data uji dicantumkan.",
+        "Bukti pendukung dilampirkan, misalnya log atau rekaman layar."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-011",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Apa perbedaan severity dan priority pada sebuah bug, dan siapa yang umumnya menentukan masing-masing?",
+      "jawabanModel": "Severity menyatakan seberapa besar dampak bug terhadap sistem atau pengguna, dan biasanya dinilai oleh penguji. Priority menyatakan urutan kapan bug harus diperbaiki, dan umumnya diputuskan bersama pemilik produk atau manajer berdasarkan kebutuhan bisnis dan jadwal. Keduanya bisa tidak searah, misalnya salah ketik pada nama merek di halaman utama berseverity rendah tetapi berprioritas tinggi.",
+      "poinKunci": [
+        "Severity mengukur tingkat dampak teknis atau fungsional.",
+        "Priority mengatur urutan perbaikan berdasarkan kebutuhan bisnis.",
+        "Penguji biasanya mengusulkan severity.",
+        "Priority diputuskan dengan masukan pemilik produk atau manajemen.",
+        "Nilai keduanya bisa berbeda untuk bug yang sama."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-012",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Bagaimana alur status bug yang lazim dari saat ditemukan sampai ditutup, dan di titik mana QA berperan?",
+      "jawabanModel": "Alur yang lazim dimulai dari status baru, lalu bug ditinjau dan ditugaskan ke pengembang, diperbaiki, dan dikembalikan ke QA untuk diuji ulang. Jika perbaikan terbukti berhasil, bug diverifikasi lalu ditutup, tetapi jika masih muncul bug dibuka kembali. QA berperan saat melaporkan, saat membantu klarifikasi, dan saat memverifikasi perbaikan sebelum penutupan.",
+      "poinKunci": [
+        "Bug dilaporkan, ditinjau, lalu ditugaskan.",
+        "Pengembang memperbaiki dan menandai siap diuji ulang.",
+        "QA menguji ulang perbaikan dengan langkah reproduksi asli.",
+        "Bug ditutup hanya setelah perbaikan terverifikasi.",
+        "Bug dibuka kembali bila masalah masih ada."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-013",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Apa yang sebaiknya kamu lakukan ketika pengembang menyatakan bug yang kamu laporkan tidak dapat direproduksi?",
+      "jawabanModel": "Periksa kembali langkah reproduksi dan bandingkan lingkungan, data, serta konfigurasi antara pengujimu dan pengembang. Tambahkan informasi yang kurang seperti log, rekaman, waktu kejadian, dan frekuensi muncul, lalu coba reproduksi bersama bila perlu. Jika masalah memang sporadis, catat kondisinya dan biarkan tiket tetap terbuka atau ditandai khusus sampai ada bukti tambahan.",
+      "poinKunci": [
+        "Verifikasi ulang langkah dan kondisi awal yang dipakai.",
+        "Bandingkan lingkungan, data uji, dan konfigurasi.",
+        "Lampirkan log atau rekaman yang menangkap kejadian.",
+        "Catat bila bug bersifat sporadis dan kapan terakhir terjadi.",
+        "Berkolaborasi langsung dengan pengembang untuk mereproduksi bersama."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-014",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Apa beda pengujian konfirmasi dan pengujian regresi setelah sebuah bug dinyatakan sudah diperbaiki?",
+      "jawabanModel": "Pengujian konfirmasi memeriksa bahwa bug yang dilaporkan benar-benar sudah hilang dengan mengulang langkah reproduksi aslinya. Pengujian regresi memeriksa bahwa perubahan untuk perbaikan itu tidak merusak fungsi lain yang sebelumnya berjalan baik. Keduanya dibutuhkan sebelum bug layak ditutup dengan percaya diri.",
+      "poinKunci": [
+        "Pengujian konfirmasi menargetkan bug yang diperbaiki.",
+        "Langkah reproduksi asli dipakai ulang untuk konfirmasi.",
+        "Pengujian regresi menargetkan efek samping di area terkait.",
+        "Perbaikan bisa lolos konfirmasi tetapi gagal regresi.",
+        "Keduanya saling melengkapi, bukan saling menggantikan."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-015",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Bagaimana sebaiknya QA menangani bug yang ternyata duplikat dari laporan yang sudah ada?",
+      "jawabanModel": "Tandai laporan baru sebagai duplikat dan tautkan ke laporan induk, lalu pindahkan informasi tambahan yang berguna ke laporan induk. Dengan begitu pelacakan perbaikan terpusat di satu tiket dan tidak ada pekerjaan ganda. Pantau tiket induk karena status akhirnya berlaku untuk semua laporan duplikat.",
+      "poinKunci": [
+        "Cari laporan serupa sebelum membuat tiket baru.",
+        "Tautkan duplikat ke laporan induk.",
+        "Tambahkan data baru yang bermanfaat ke laporan induk.",
+        "Pelacakan dan keputusan berpusat di satu tiket.",
+        "Pastikan duplikat ditutup sesuai hasil laporan induk."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-016",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "siklus-bug",
+      "pertanyaan": "Kapan sebuah bug sebaiknya dibuka kembali, dan kapan lebih tepat membuat laporan bug baru?",
+      "jawabanModel": "Buka kembali bug bila gejala yang sama masih muncul dengan langkah reproduksi yang sama setelah diklaim diperbaiki. Buat laporan baru bila yang ditemukan adalah masalah berbeda, termasuk efek samping dari perbaikan, dan tautkan ke tiket lama sebagai referensi. Cara ini menjaga riwayat tiket tetap jelas dan mudah dilacak.",
+      "poinKunci": [
+        "Buka kembali bila gejala asli tetap ada setelah perbaikan.",
+        "Sertakan bukti dan versi build tempat bug masih muncul.",
+        "Gunakan laporan baru untuk masalah yang berbeda.",
+        "Tautkan laporan baru ke tiket lama bila berhubungan.",
+        "Riwayat tiket tetap bersih dan mudah ditelusuri."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-019",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "pengujian-api",
+      "pertanyaan": "Bagaimana kamu membedakan dan menguji skenario yang seharusnya menghasilkan status 401 dengan yang seharusnya menghasilkan status 403?",
+      "jawabanModel": "Status 401 dipakai ketika identitas klien tidak berhasil dibuktikan, misalnya kredensial tidak ada, salah, atau kedaluwarsa. Status 403 dipakai ketika identitas sudah dikenali tetapi tidak punya izin untuk tindakan atau sumber daya itu. Pengujian mencakup permintaan tanpa kredensial, dengan kredensial tidak valid, dan dengan pengguna valid yang perannya tidak berhak.",
+      "poinKunci": [
+        "401 berkaitan dengan autentikasi yang gagal atau tidak ada.",
+        "403 berkaitan dengan otorisasi: pengguna dikenali tetapi tidak berhak.",
+        "Uji token kedaluwarsa dan token rusak sebagai kasus terpisah dari tanpa token.",
+        "Uji pengguna dengan peran berbeda pada endpoint yang sama untuk memastikan batas izin.",
+        "Pastikan respons tidak membocorkan detail internal tentang alasan penolakan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-020",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "pengujian-api",
+      "pertanyaan": "Saat menguji validasi input pada endpoint pembuatan data, bagaimana kamu menentukan status code yang diharapkan untuk permintaan yang tidak valid?",
+      "jawabanModel": "Rujukan utamanya adalah kontrak API atau spesifikasi yang disepakati, bukan asumsi pribadi. Umumnya kesalahan dari sisi klien memakai kelompok status 4xx, misalnya 400 untuk permintaan cacat atau 422 untuk data yang tidak lolos aturan bisnis, tergantung konvensi tim. Yang penting adalah konsistensi dan bahwa server tidak mengembalikan 5xx untuk input buruk.",
+      "poinKunci": [
+        "Status yang diharapkan diturunkan dari kontrak atau spesifikasi API.",
+        "Input tidak valid dari klien seharusnya menghasilkan kelompok 4xx.",
+        "Respons 5xx pada input buruk menandakan cacat penanganan error di server.",
+        "Konvensi antara 400 dan 422 harus konsisten di seluruh endpoint.",
+        "Pastikan tidak ada data yang tersimpan ketika validasi gagal."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-021",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "pengujian-api",
+      "pertanyaan": "Bagaimana kamu menguji bahwa endpoint PUT bersifat idempoten sedangkan POST untuk membuat resource biasanya tidak?",
+      "jawabanModel": "Kirim permintaan PUT yang sama berulang kali lalu pastikan keadaan akhir resource identik dengan setelah permintaan pertama dan tidak muncul data baru. Pada POST pembuatan, pengiriman berulang umumnya menghasilkan resource baru atau konflik, sehingga hasilnya berbeda. Verifikasi dilakukan lewat GET setelah setiap pengiriman, bukan hanya dari status code.",
+      "poinKunci": [
+        "Idempoten berarti pengulangan permintaan identik menghasilkan keadaan server yang sama.",
+        "Uji PUT dengan mengirim payload sama beberapa kali lalu membandingkan hasil GET.",
+        "POST pembuatan yang diulang biasanya membuat resource tambahan kecuali ada mekanisme pencegah duplikasi.",
+        "Verifikasi keadaan data, jangan hanya mengandalkan status code respons."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-022",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "pengujian-api",
+      "pertanyaan": "Mengapa validasi skema respons saja tidak cukup, dan apa yang perlu ditambahkan pada pengujian respons API?",
+      "jawabanModel": "Validasi skema hanya memastikan struktur, tipe data, dan field wajib sesuai kontrak, tetapi tidak membuktikan nilainya benar. Perlu ditambahkan pemeriksaan nilai bisnis yang spesifik, header penting seperti tipe konten, serta verifikasi keadaan data lewat permintaan lanjutan. Dengan begitu respons yang berbentuk benar namun berisi data salah tetap terdeteksi.",
+      "poinKunci": [
+        "Skema memeriksa struktur, tipe, dan field wajib, bukan kebenaran nilai.",
+        "Tambahkan asersi pada nilai yang bermakna secara bisnis.",
+        "Periksa header respons seperti tipe konten.",
+        "Verifikasi efek samping pada data dengan permintaan lanjutan.",
+        "Hindari asersi pada nilai yang berubah-ubah seperti id atau waktu yang dibuat otomatis."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-023",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "pengujian-api",
+      "pertanyaan": "Bagaimana teknik partisi ekivalen dan analisis nilai batas membantu merancang kasus negatif untuk field numerik pada request API?",
+      "jawabanModel": "Partisi ekivalen membagi input menjadi kelompok valid dan tidak valid sehingga cukup satu wakil per kelompok. Analisis nilai batas menambah kasus tepat di, tepat di bawah, dan tepat di atas batas yang diizinkan karena cacat sering muncul di sana. Untuk kasus negatif, tambahkan juga tipe data salah, nilai kosong, dan field yang hilang.",
+      "poinKunci": [
+        "Partisi ekivalen mengelompokkan input yang diperlakukan sama oleh sistem.",
+        "Ambil satu wakil dari tiap partisi valid maupun tidak valid.",
+        "Nilai batas diuji pada batas itu sendiri dan di kedua sisinya.",
+        "Kasus negatif mencakup tipe salah, null, kosong, dan field tidak ada.",
+        "Hasil yang diharapkan untuk tiap kasus adalah penolakan dengan error 4xx yang jelas."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-M-024",
+      "role": "qa",
+      "level": "menengah",
+      "topik": "pengujian-api",
+      "pertanyaan": "Bagaimana kamu menguji bahwa pengguna A tidak dapat mengakses atau mengubah resource milik pengguna B lewat API?",
+      "jawabanModel": "Buat resource dengan akun B, lalu coba baca, ubah, dan hapus resource itu memakai token akun A dengan mengganti identifier di path atau body. Hasil yang diharapkan adalah penolakan, misalnya 403 atau 404 sesuai kebijakan API, dan data milik B tidak berubah. Pastikan juga respons penolakan tidak membocorkan isi atau keberadaan data B.",
+      "poinKunci": [
+        "Gunakan dua akun berbeda dengan resource milik masing-masing.",
+        "Coba semua operasi: baca, ubah, dan hapus.",
+        "Ganti identifier resource pada permintaan memakai token pengguna lain.",
+        "Konfirmasi data pemilik asli tidak berubah setelah percobaan.",
+        "Respons penolakan tidak boleh memuat data milik pengguna lain."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-001",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "strategi-tes",
+      "pertanyaan": "Bagaimana Anda menyusun strategi tes untuk sebuah rilis ketika waktu terbatas dan tidak semua fitur bisa diuji sama dalam?",
+      "jawabanModel": "Saya mulai dari analisis risiko: menilai kemungkinan terjadinya cacat dan dampaknya terhadap bisnis serta pengguna, lalu mengalokasikan upaya tes sebanding dengan tingkat risiko. Area berisiko tinggi mendapat tes lebih dalam dan lebih awal, sedangkan area berisiko rendah cukup dengan tes ringan. Keputusan ini saya komunikasikan kepada pemangku kepentingan agar risiko yang diterima disepakati bersama.",
+      "poinKunci": [
+        "Prioritas tes ditentukan oleh tingkat risiko, yaitu kombinasi kemungkinan dan dampak.",
+        "Area berisiko tinggi diuji lebih dalam dan lebih awal.",
+        "Area berisiko rendah boleh diuji lebih ringan, dan keputusan itu didokumentasikan.",
+        "Risiko residual dikomunikasikan kepada pemangku kepentingan agar diterima secara sadar."
+      ],
+      "sumber": "ISTQB Foundation Level Syllabus",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-002",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "strategi-tes",
+      "pertanyaan": "Bagaimana Anda menjelaskan dan menerapkan piramida tes pada tim yang sebagian besar tesnya berupa tes UI end-to-end yang lambat dan sering gagal tanpa sebab jelas?",
+      "jawabanModel": "Piramida tes menganjurkan banyak tes kecil dan cepat di level bawah (unit), lebih sedikit di level integrasi, dan paling sedikit di level UI end-to-end. Tes UI yang mahal dan rapuh sebaiknya dipertahankan hanya untuk alur bisnis kritis, sedangkan logika dan aturan dipindahkan ke tes yang lebih rendah. Migrasi dilakukan bertahap, dan setiap tes dinilai: apakah risiko yang sama bisa ditangkap di level lebih murah.",
+      "poinKunci": [
+        "Tes di level bawah lebih cepat, lebih stabil, dan memberi umpan balik lebih dekat ke penyebab cacat.",
+        "Tes end-to-end dibatasi pada alur kritis karena mahal dan rentan tidak stabil.",
+        "Setiap tes ditinjau untuk dipindahkan ke level terendah yang masih menangkap risiko yang sama.",
+        "Perubahan dilakukan bertahap, bukan dengan membuang tes begitu saja."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-003",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "strategi-tes",
+      "pertanyaan": "Mengapa persentase cakupan kode yang tinggi tidak cukup untuk menyimpulkan bahwa strategi tes sudah memadai?",
+      "jawabanModel": "Cakupan kode hanya mengukur bagian kode yang dieksekusi tes, bukan apakah tes memeriksa hasil yang benar. Tes tanpa asersi bermakna bisa memberi cakupan tinggi tetapi tidak menemukan cacat. Cakupan juga tidak menunjukkan kebutuhan atau perilaku yang belum diimplementasikan, sehingga perlu dilengkapi cakupan terhadap risiko dan persyaratan serta tinjauan kualitas tes.",
+      "poinKunci": [
+        "Cakupan kode mengukur eksekusi, bukan ketepatan pemeriksaan hasil.",
+        "Kode yang tidak ada, misalnya persyaratan yang terlewat, tidak terlihat oleh metrik cakupan kode.",
+        "Cakupan persyaratan dan risiko memberi sudut pandang yang melengkapi.",
+        "Metrik lebih baik dipakai untuk menemukan celah daripada sebagai target yang dikejar mutlak."
+      ],
+      "sumber": "ISTQB Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-004",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "strategi-tes",
+      "pertanyaan": "Bagaimana Anda memutuskan apa yang masuk ke rangkaian tes regresi otomatis dan apa yang tetap dilakukan manual?",
+      "jawabanModel": "Saya mengotomatiskan tes yang sering dijalankan, deterministik, stabil, dan menguji fungsi berisiko tinggi, karena di situ nilai pengulangannya terbesar. Tes yang jarang dijalankan, sering berubah, atau butuh penilaian manusia, seperti eksplorasi dan kegunaan, tetap manual. Saya juga mempertimbangkan biaya pemeliharaan, karena otomatisasi yang mahal dirawat bisa menjadi beban.",
+      "poinKunci": [
+        "Kandidat otomatisasi adalah tes yang berulang, deterministik, dan mencakup risiko tinggi.",
+        "Tes yang butuh penilaian manusia atau sering berubah lebih cocok manual.",
+        "Biaya pemeliharaan tes otomatis harus dihitung sejak awal.",
+        "Keputusan ditinjau berkala seiring perubahan produk dan risiko."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-005",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "strategi-tes",
+      "pertanyaan": "Bagaimana Anda menangani tes yang tidak stabil, yang kadang lulus dan kadang gagal tanpa perubahan kode, dalam strategi tes jangka panjang?",
+      "jawabanModel": "Tes tidak stabil merusak kepercayaan pada hasil otomatisasi, sehingga kegagalan nyata mudah diabaikan. Saya menelusuri akar penyebabnya, misalnya ketergantungan waktu, data bersama, urutan eksekusi, atau lingkungan, lalu memperbaikinya atau menghapus tes yang nilainya rendah. Sambil menunggu perbaikan, tes tersebut dapat dikarantina dari gerbang rilis dengan pelacakan yang jelas agar tidak terlupakan.",
+      "poinKunci": [
+        "Tes tidak stabil mengikis kepercayaan terhadap seluruh rangkaian tes.",
+        "Akar penyebab dicari, misalnya sinkronisasi, data bersama, dependensi eksternal, atau lingkungan.",
+        "Karantina sementara boleh dilakukan asalkan dilacak dan memiliki pemilik.",
+        "Mengulang otomatis sampai lulus hanya menyembunyikan masalah dan bukan solusi."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-008",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "flaky-test",
+      "pertanyaan": "Bagaimana Anda membedakan flaky test yang disebabkan oleh kondisi balapan (race condition) di kode produk dari yang disebabkan oleh kelemahan pada kode tes itu sendiri?",
+      "jawabanModel": "Mulai dengan mereproduksi kegagalan berulang kali dalam kondisi terkendali, lalu amati apakah kegagalan muncul pada tes lain yang menjalankan jalur kode produk yang sama. Jika kegagalan mengikuti jalur kode produk di berbagai tes dan konteks, kemungkinan besar ada cacat konkurensi nyata di produk. Jika hanya satu tes yang gagal dan perbaikan pada sinkronisasi atau data tesnya menghilangkan masalah, penyebabnya ada di kode tes.",
+      "poinKunci": [
+        "Reproduksi kegagalan secara berulang dengan log dan kondisi eksekusi yang direkam.",
+        "Periksa apakah kegagalan terjadi pada banyak tes yang melewati jalur produk yang sama.",
+        "Race condition di produk bisa juga muncul bagi pengguna nyata, sehingga tidak boleh diabaikan sebagai masalah tes.",
+        "Kelemahan tes biasanya terlihat dari asumsi waktu, urutan, atau data yang tidak dijamin.",
+        "Jangan menyimpulkan penyebab sebelum ada bukti dari reproduksi atau isolasi."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-009",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "flaky-test",
+      "pertanyaan": "Tim Anda mulai mengandalkan percobaan ulang otomatis (retry) untuk tes yang gagal; apa pertimbangan Anda tentang praktik ini?",
+      "jawabanModel": "Retry bisa menjadi mitigasi sementara agar pipeline tidak terhambat, tetapi ia menyembunyikan sinyal dan tidak menyelesaikan akar masalah. Retry harus dicatat dan dilaporkan, sehingga tes yang sering lulus hanya setelah diulang tetap terlihat dan ditindaklanjuti. Tanpa kebijakan yang jelas, retry dapat menutupi cacat produk yang sungguhan.",
+      "poinKunci": [
+        "Retry adalah mitigasi, bukan perbaikan akar masalah.",
+        "Setiap hasil lulus-setelah-retry harus dicatat dan terlihat di laporan.",
+        "Retry tanpa batas atau tanpa pelacakan dapat menyembunyikan cacat produk yang intermiten.",
+        "Perlu ada batas jumlah retry dan target untuk memperbaiki tes yang sering memerlukannya.",
+        "Retry juga menambah waktu eksekusi dan beban sumber daya pipeline."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-010",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "flaky-test",
+      "pertanyaan": "Bagaimana Anda menangani tes yang bergantung pada urutan eksekusi atau berbagi keadaan (state) dengan tes lain sehingga hasilnya tidak konsisten?",
+      "jawabanModel": "Tes yang baik harus independen: tiap tes menyiapkan data dan kondisi awalnya sendiri, lalu membersihkannya setelah selesai. Untuk menemukan ketergantungan tersembunyi, jalankan tes dengan urutan acak atau secara terisolasi dan lihat mana yang gagal. Setelah ditemukan, hilangkan keadaan bersama atau pindahkan penyiapannya ke dalam tes itu sendiri.",
+      "poinKunci": [
+        "Setiap tes harus dapat dijalankan sendiri dan dalam urutan apa pun.",
+        "Menjalankan tes dengan urutan acak membantu mengungkap ketergantungan tersembunyi.",
+        "Penyiapan dan pembersihan data harus eksplisit dan menjadi bagian dari tes atau fixture-nya.",
+        "Keadaan global atau data bersama yang dapat diubah adalah sumber umum ketidakkonsistenan.",
+        "Menetapkan urutan eksekusi tetap hanya menyembunyikan masalah, bukan menyelesaikannya."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-011",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "flaky-test",
+      "pertanyaan": "Mengapa penggunaan jeda tetap (sleep) untuk menunggu operasi asinkron sering menimbulkan flaky test, dan apa alternatif yang lebih baik?",
+      "jawabanModel": "Jeda tetap mengasumsikan operasi selesai dalam waktu tertentu, padahal waktu sebenarnya bervariasi menurut beban sistem dan lingkungan. Akibatnya tes bisa gagal saat sistem lambat atau membuang waktu saat sistem cepat. Alternatifnya adalah menunggu berdasarkan kondisi yang dapat diamati, dengan batas waktu maksimum yang wajar.",
+      "poinKunci": [
+        "Waktu penyelesaian operasi asinkron tidak deterministik dan bergantung pada lingkungan.",
+        "Jeda tetap yang pendek menyebabkan kegagalan palsu, sedangkan yang panjang memperlambat suite.",
+        "Tunggu berdasarkan kondisi atau peristiwa yang dapat diamati, bukan berdasarkan durasi.",
+        "Tetap pasang batas waktu maksimum agar tes tidak menggantung selamanya.",
+        "Bila memungkinkan, sediakan pengait (hook) atau sinyal penyelesaian yang eksplisit dari sistem yang diuji."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-012",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "flaky-test",
+      "pertanyaan": "Bagaimana Anda memutuskan apakah flaky test sebaiknya dikarantina, diperbaiki segera, atau dihapus?",
+      "jawabanModel": "Pertimbangkan nilai tes terhadap risiko yang dilindunginya, frekuensi dan dampak kegagalannya, serta biaya perbaikan. Tes bernilai tinggi sebaiknya diperbaiki segera atau dikarantina dengan pemilik dan tenggat yang jelas. Tes yang nilainya rendah atau tumpang tindih dengan tes lain dapat dihapus setelah ditinjau.",
+      "poinKunci": [
+        "Nilai tes diukur dari risiko yang dilindungi dan keunikan cakupannya.",
+        "Karantina memisahkan tes dari gerbang pipeline tetapi harus punya pemilik dan batas waktu.",
+        "Karantina tanpa tindak lanjut sama saja dengan kehilangan cakupan secara diam-diam.",
+        "Tes yang redundan atau berbiaya perbaikan jauh melebihi manfaatnya layak dipertimbangkan untuk dihapus.",
+        "Keputusan sebaiknya didokumentasikan dan disepakati bersama tim."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-015",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "ci",
+      "pertanyaan": "Bagaimana Anda menyusun urutan tahapan pengujian dalam pipeline CI agar umpan balik cepat tetapi risiko tetap terkendali?",
+      "jawabanModel": "Susun tahapan dari yang tercepat dan paling murah ke yang paling lambat dan mahal, sehingga kegagalan terdeteksi sedini mungkin. Pemeriksaan statis dan uji unit dijalankan lebih dulu pada setiap perubahan, lalu uji integrasi, dan uji end-to-end serta uji non-fungsional yang berat dijalankan belakangan atau pada jadwal tertentu. Pendekatan ini menghemat sumber daya karena build yang sudah gagal di tahap awal tidak menghabiskan waktu di tahap mahal.",
+      "poinKunci": [
+        "Tahap cepat dan murah dijalankan lebih dulu.",
+        "Kegagalan awal menghentikan tahap berikutnya agar sumber daya tidak terbuang.",
+        "Uji unit dan analisis statis memberi umpan balik paling cepat pada setiap perubahan.",
+        "Uji end-to-end dan uji berat ditempatkan di tahap akhir atau dijadwalkan terpisah.",
+        "Urutan perlu ditinjau ulang berdasarkan data kegagalan dan durasi nyata."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-016",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "ci",
+      "pertanyaan": "Sebuah uji kadang lulus dan kadang gagal tanpa perubahan kode; bagaimana Anda menangani uji flaky tersebut di pipeline CI?",
+      "jawabanModel": "Uji flaky merusak kepercayaan pada pipeline, jadi harus diidentifikasi, dikarantina sementara, dan diperbaiki pada akarnya. Penyebab umum meliputi ketergantungan waktu, urutan eksekusi, data bersama, dan lingkungan yang tidak stabil. Menjalankan ulang otomatis hanya boleh menjadi tambalan sementara yang tetap dicatat, bukan solusi permanen.",
+      "poinKunci": [
+        "Uji flaky menurunkan kepercayaan tim pada hasil pipeline.",
+        "Identifikasi uji flaky dengan data riwayat hasil, bukan dugaan.",
+        "Karantina memisahkan uji flaky dari gerbang kualitas sementara, dengan pemilik dan tenggat perbaikan.",
+        "Cari akar masalah seperti ketergantungan waktu, data bersama, urutan, atau lingkungan.",
+        "Retry otomatis harus dicatat agar tidak menyembunyikan masalah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-017",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "ci",
+      "pertanyaan": "Bagaimana Anda mengurangi waktu eksekusi suite uji yang sudah terlalu lama di pipeline CI tanpa mengorbankan cakupan risiko?",
+      "jawabanModel": "Mulailah dengan mengukur tahap dan uji mana yang paling lama, lalu optimalkan berdasarkan data. Uji dapat dijalankan paralel, dipindahkan ke level yang lebih rendah bila memungkinkan, dan dipilih berdasarkan dampak perubahan. Uji yang berulang atau bernilai rendah ditinjau ulang, bukan sekadar dihapus demi kecepatan.",
+      "poinKunci": [
+        "Ukur durasi per tahap dan per uji sebelum mengoptimalkan.",
+        "Paralelkan uji yang independen satu sama lain.",
+        "Pindahkan verifikasi ke level uji yang lebih rendah dan lebih cepat bila memungkinkan.",
+        "Pilih uji berdasarkan area yang terdampak perubahan, dengan uji penuh tetap dijalankan berkala.",
+        "Hapus uji hanya setelah menilai risiko yang ditutupnya."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-018",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "ci",
+      "pertanyaan": "Kapan sebuah kegagalan uji sebaiknya memblokir merge, dan kapan cukup menjadi peringatan?",
+      "jawabanModel": "Kegagalan yang menunjukkan regresi pada perilaku penting, atau dari uji yang andal dan bernilai tinggi, sebaiknya memblokir merge. Kegagalan dari uji yang belum stabil, informasional, atau mengukur kualitas yang belum disepakati ambangnya lebih cocok sebagai peringatan. Kebijakan ini perlu disepakati tim dan ditinjau berkala agar gerbang tetap bermakna.",
+      "poinKunci": [
+        "Gerbang yang memblokir harus berisi uji yang andal dan deterministik.",
+        "Regresi pada fungsi kritis layak memblokir merge.",
+        "Uji yang belum stabil atau bersifat informasional cukup menjadi peringatan.",
+        "Kebijakan gerbang disepakati bersama oleh tim, bukan diputuskan sepihak.",
+        "Tinjau kebijakan secara berkala agar peringatan tidak diabaikan menjadi kebiasaan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-019",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "ci",
+      "pertanyaan": "Bagaimana Anda mengelola data uji dan lingkungan agar hasil uji di pipeline CI dapat direproduksi?",
+      "jawabanModel": "Setiap eksekusi sebaiknya berjalan di lingkungan yang bersih dan didefinisikan sebagai kode, dengan data uji yang dibuat atau dipulihkan ke keadaan yang diketahui. Uji tidak boleh bergantung pada keadaan sisa dari eksekusi sebelumnya atau pada uji lain. Dengan begitu, kegagalan dapat diulang secara lokal dan tidak bergantung pada kebetulan.",
+      "poinKunci": [
+        "Definisikan lingkungan sebagai kode agar dapat dibuat ulang secara konsisten.",
+        "Mulai tiap eksekusi dari keadaan bersih atau keadaan awal yang diketahui.",
+        "Uji harus mandiri dan tidak bergantung pada urutan atau data uji lain.",
+        "Hindari data produksi nyata yang sensitif; gunakan data sintetis atau yang dianonimkan.",
+        "Isolasi atau tiru layanan eksternal yang tidak dapat dikendalikan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-022",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "analisis-skenario",
+      "pertanyaan": "Sebuah fitur kupon diskon di halaman pembayaran memberi potongan harga bila total belanja mencapai batas minimum dan kupon masih berlaku; area bug apa saja yang akan kamu selidiki?",
+      "jawabanModel": "Saya memeriksa batas nilai minimum, masa berlaku, dan pembulatan potongan, karena di sanalah kesalahan hitung sering muncul. Saya juga menguji pemakaian kupon yang sama secara bersamaan atau berulang, serta interaksinya dengan perubahan keranjang setelah kupon dipasang. Terakhir, saya memeriksa kombinasi dengan promo lain dan konsistensi total antara tampilan, tagihan, dan catatan transaksi.",
+      "poinKunci": [
+        "Uji nilai tepat di batas minimum, sedikit di bawah, dan sedikit di atasnya.",
+        "Periksa pemakaian kupon ganda lewat klik berulang, dua sesi paralel, atau permintaan yang diulang.",
+        "Ubah isi keranjang setelah kupon terpasang, lalu pastikan syarat dievaluasi ulang.",
+        "Periksa pembulatan, potongan yang melebihi total, dan hasil negatif.",
+        "Uji masa berlaku di sekitar waktu kedaluwarsa dengan memperhatikan zona waktu."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-023",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "analisis-skenario",
+      "pertanyaan": "Pada fitur lupa kata sandi yang mengirim tautan pemulihan lewat email, celah dan bug apa yang akan kamu cari dalam skenario tersebut?",
+      "jawabanModel": "Saya fokus pada siklus hidup tautan: apakah kedaluwarsa, apakah hanya bisa dipakai sekali, dan apakah permintaan baru membatalkan yang lama. Saya juga memeriksa apakah respons membocorkan keberadaan akun dan apakah sesi aktif dicabut setelah kata sandi diganti. Kebijakan kata sandi baru dan ketahanan terhadap permintaan beruntun ikut diuji.",
+      "poinKunci": [
+        "Tautan harus kedaluwarsa dan tidak bisa dipakai lagi setelah berhasil digunakan.",
+        "Permintaan pemulihan baru sebaiknya membatalkan tautan lama.",
+        "Pesan respons harus sama untuk email terdaftar dan tidak terdaftar agar akun tidak bisa ditebak.",
+        "Sesi dan token lama harus dicabut setelah kata sandi berubah.",
+        "Permintaan berulang dalam waktu singkat perlu dibatasi agar tidak disalahgunakan untuk membanjiri kotak surat."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-024",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "analisis-skenario",
+      "pertanyaan": "Pada fitur transfer dana antar rekening, bug integritas data apa yang kamu cari ketika koneksi terputus atau pengguna menekan tombol kirim berkali-kali?",
+      "jawabanModel": "Saya memeriksa apakah pemotongan dan penambahan saldo bersifat atomik, sehingga kegagalan di tengah proses tidak meninggalkan data setengah jadi. Saya menguji idempotensi agar klik ganda atau percobaan ulang tidak menghasilkan transfer ganda. Saya juga menguji transaksi paralel terhadap saldo yang sama untuk mengungkap kondisi balapan.",
+      "poinKunci": [
+        "Pemotongan dan penambahan saldo harus berhasil bersama atau dibatalkan bersama.",
+        "Permintaan yang diulang harus menghasilkan satu transaksi saja.",
+        "Dua transfer bersamaan dari saldo yang sama tidak boleh membuat saldo menjadi negatif.",
+        "Status transaksi yang tampil harus konsisten dengan kondisi akhir sebenarnya saat timeout.",
+        "Kasus tepi seperti rekening asal sama dengan tujuan dan nominal nol atau sangat kecil harus ditolak atau ditangani jelas."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-025",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "analisis-skenario",
+      "pertanyaan": "Pada fitur unggah foto profil yang membatasi jenis dan ukuran berkas, skenario bug apa yang akan kamu uji di luar unggahan gambar normal?",
+      "jawabanModel": "Saya menguji apakah validasi hanya mengandalkan ekstensi, misalnya dengan berkas berjenis lain yang diberi nama seperti gambar. Saya juga menguji ukuran tepat di batas, nama berkas dengan karakter khusus, dan unggahan yang terputus di tengah. Dampak pada foto lama dan keamanan berkas yang tersimpan juga saya periksa.",
+      "poinKunci": [
+        "Validasi harus memeriksa isi berkas, bukan hanya ekstensi atau tipe yang dilaporkan klien.",
+        "Uji ukuran tepat di batas, sedikit di bawah, dan sedikit di atasnya.",
+        "Nama berkas dengan spasi, karakter khusus, atau sangat panjang tidak boleh merusak penyimpanan atau tampilan.",
+        "Unggahan yang gagal di tengah tidak boleh menimpa atau menghapus foto lama.",
+        "Berkas yang diunggah tidak boleh bisa dieksekusi atau menampilkan konten berbahaya saat diakses."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-QA-L-026",
+      "role": "qa",
+      "level": "lanjut",
+      "topik": "analisis-skenario",
+      "pertanyaan": "Sebuah daftar produk memiliki pencarian, filter, pengurutan, dan paginasi; bug apa yang mungkin muncul ketika kombinasi fitur itu dipakai bersama?",
+      "jawabanModel": "Saya memeriksa apakah filter dan urutan tetap terjaga saat berpindah halaman, dan apakah jumlah total sesuai dengan hasil yang tampil. Pengurutan pada nilai yang sama bisa membuat item muncul ganda atau hilang antar halaman bila urutannya tidak deterministik. Data yang berubah saat pengguna menelusuri halaman dan hasil kosong juga perlu diuji.",
+      "poinKunci": [
+        "Filter dan pengurutan harus bertahan saat pindah halaman.",
+        "Urutan pada nilai yang sama harus stabil agar item tidak ganda atau terlewat antar halaman.",
+        "Mengubah filter harus mengembalikan penelusuran ke halaman awal, bukan halaman yang kini tidak ada.",
+        "Jumlah total dan jumlah halaman harus cocok dengan hasil yang terfilter.",
+        "Hasil kosong dan masukan pencarian dengan karakter khusus harus ditangani dengan pesan yang jelas."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-001",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Apa yang dimaksud dengan siklus hidup layar pada aplikasi mobile?",
+      "jawabanModel": "Siklus hidup layar adalah rangkaian tahap yang dilalui sebuah layar, mulai dari dibuat, tampil, tidak aktif, sampai dihancurkan. Pada setiap perubahan tahap, sistem atau framework memanggil fungsi tertentu sehingga developer bisa menjalankan kode yang sesuai.",
+      "poinKunci": [
+        "Layar melewati tahap dibuat, tampil, tidak aktif, dan dihancurkan.",
+        "Sistem atau framework memanggil fungsi khusus pada setiap perubahan tahap.",
+        "Developer menaruh kode di fungsi yang tepat sesuai kebutuhan tiap tahap.",
+        "Perpindahan tahap dipicu oleh tindakan pengguna maupun keputusan sistem."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-002",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Mengapa developer pemula perlu memahami siklus hidup layar?",
+      "jawabanModel": "Dengan memahami siklus hidup, developer tahu kapan harus menyiapkan, menghentikan, dan membersihkan sesuatu. Ini mencegah bug seperti data hilang, tampilan tidak diperbarui, dan pemborosan baterai atau memori.",
+      "poinKunci": [
+        "Kode harus berjalan pada tahap yang tepat agar perilakunya benar.",
+        "Pemahaman siklus hidup membantu mencegah kebocoran memori.",
+        "Pekerjaan yang tidak perlu saat layar tidak terlihat bisa menguras baterai.",
+        "Aplikasi menjadi lebih stabil saat berpindah layar atau ke latar belakang."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-003",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Di tahap siklus hidup mana sebaiknya inisialisasi yang hanya perlu dilakukan sekali untuk sebuah layar ditempatkan?",
+      "jawabanModel": "Inisialisasi sekali jalan sebaiknya ditempatkan pada tahap pembuatan layar, misalnya menyiapkan variabel, objek pendukung, dan tampilan awal. Tahap ini hanya berjalan sekali untuk setiap instans layar, sehingga cocok untuk persiapan awal.",
+      "poinKunci": [
+        "Tahap pembuatan berjalan sekali untuk setiap instans layar.",
+        "Tempat yang cocok untuk menyiapkan objek dan struktur tampilan awal.",
+        "Menaruh persiapan di tahap yang berulang membuatnya dijalankan berkali-kali tanpa perlu."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-004",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Apa yang sebaiknya dilakukan saat layar akan masuk ke latar belakang atau tidak lagi terlihat?",
+      "jawabanModel": "Hentikan pekerjaan yang hanya berguna saat layar terlihat, seperti animasi, pembaruan lokasi, atau pemutaran media. Simpan juga data penting yang belum tersimpan karena sistem bisa menghentikan aplikasi kapan saja setelah itu.",
+      "poinKunci": [
+        "Hentikan animasi dan pembaruan yang hanya relevan saat layar terlihat.",
+        "Simpan perubahan penting yang belum tersimpan.",
+        "Sistem dapat menghentikan aplikasi di latar belakang tanpa peringatan tambahan.",
+        "Pekerjaan di tahap ini harus ringan dan cepat."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-005",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Mengapa listener, timer, atau stream harus dilepas saat layar dihancurkan?",
+      "jawabanModel": "Jika tidak dilepas, objek tersebut bisa tetap berjalan dan menahan referensi ke layar yang sudah tidak dipakai. Akibatnya terjadi kebocoran memori, pekerjaan sia-sia, atau kesalahan saat mencoba memperbarui tampilan yang sudah tidak ada.",
+      "poinKunci": [
+        "Listener, timer, dan stream yang tertinggal tetap aktif setelah layar hilang.",
+        "Referensi yang tertahan mencegah memori layar dibebaskan.",
+        "Callback bisa mencoba memperbarui tampilan yang sudah tidak ada dan memicu error.",
+        "Pelepasan dilakukan pada tahap penghancuran atau pembersihan."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-006",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Mengapa state sebuah layar bisa hilang ketika sistem menghancurkan lalu membuat ulang layar itu?",
+      "jawabanModel": "Saat layar dibuat ulang, instans yang baru dimulai dari kondisi awal, sehingga nilai di instans lama ikut hilang. Karena itu state penting perlu disimpan di tempat yang bertahan, atau dipulihkan lewat mekanisme penyimpanan state yang disediakan platform.",
+      "poinKunci": [
+        "Sistem dapat menghancurkan layar, misalnya saat konfigurasi berubah atau memori menipis.",
+        "Instans baru dimulai dari kondisi awal, bukan dari nilai instans lama.",
+        "State penting perlu disimpan di penyimpanan yang bertahan atau mekanisme pemulihan state.",
+        "Pengguna mengharapkan layar pulih seperti terakhir mereka lihat."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-007",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "siklus-hidup-layar",
+      "pertanyaan": "Apa perbedaan antara layar yang tidak terlihat dan layar yang dihancurkan?",
+      "jawabanModel": "Layar yang tidak terlihat hanya tertutup atau berpindah ke belakang, tetapi instans dan state-nya biasanya masih ada di memori. Layar yang dihancurkan sudah dibuang sehingga harus dibuat ulang dari awal bila dibutuhkan lagi.",
+      "poinKunci": [
+        "Layar tidak terlihat masih bisa kembali tampil dengan cepat.",
+        "State layar yang tidak terlihat biasanya masih tersimpan di memori.",
+        "Layar yang dihancurkan harus dibuat ulang dari awal.",
+        "Sistem dapat menghancurkan layar yang tidak terlihat bila membutuhkan memori."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-010",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Apa yang dimaksud dengan state pada sebuah aplikasi?",
+      "jawabanModel": "State adalah data yang dapat berubah seiring waktu dan memengaruhi apa yang ditampilkan atau dilakukan aplikasi. Contohnya teks yang diketik pengguna, status sakelar, atau daftar hasil dari server. Saat state berubah, tampilan harus menyesuaikan diri dengan nilai terbarunya.",
+      "poinKunci": [
+        "State adalah data yang bisa berubah selama aplikasi berjalan.",
+        "State menentukan isi dan kondisi tampilan pada saat tertentu.",
+        "Contohnya input teks, status muat, dan data dari jaringan.",
+        "Perubahan state harus tercermin pada tampilan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-011",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Mengapa perubahan state dapat memicu pembaruan tampilan?",
+      "jawabanModel": "Pada pendekatan deklaratif, tampilan dipandang sebagai hasil dari state saat ini. Ketika state berubah, kerangka kerja menjalankan ulang bagian tampilan yang bergantung padanya sehingga hasilnya sesuai dengan state baru. Pengembang cukup mengubah state, bukan mengubah elemen tampilan satu per satu.",
+      "poinKunci": [
+        "Tampilan adalah fungsi dari state saat ini.",
+        "Kerangka kerja mendeteksi perubahan state yang diamati.",
+        "Bagian tampilan yang bergantung pada state itu dibangun ulang.",
+        "Pengembang tidak perlu memperbarui elemen tampilan secara manual."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-012",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Apa perbedaan state lokal pada satu komponen dengan state yang dipakai bersama banyak layar?",
+      "jawabanModel": "State lokal hanya dibutuhkan oleh satu komponen, misalnya status kotak centang atau posisi animasi sesaat, sehingga cukup disimpan di dekat komponen itu. State bersama dibutuhkan banyak bagian aplikasi, misalnya data pengguna yang masuk, sehingga perlu ditempatkan di tingkat yang bisa diakses semuanya.",
+      "poinKunci": [
+        "State lokal dipakai oleh satu komponen saja.",
+        "State bersama dibutuhkan oleh beberapa komponen atau layar.",
+        "State lokal sebaiknya disimpan sedekat mungkin dengan pemakainya.",
+        "State bersama ditempatkan di pemilik yang dapat dijangkau semua pemakainya."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-013",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Mengapa sebaiknya kita mengubah state dan bukan mengubah elemen tampilan secara langsung?",
+      "jawabanModel": "Jika state menjadi satu-satunya sumber kebenaran, tampilan selalu konsisten dengan datanya. Mengubah elemen tampilan secara langsung membuat data dan tampilan bisa tidak sinkron, sehingga memunculkan bug yang sulit dilacak. Dengan mengubah state, logika pembaruan tampilan cukup ditulis di satu tempat.",
+      "poinKunci": [
+        "State sebaiknya menjadi sumber kebenaran tunggal.",
+        "Mengubah tampilan langsung dapat membuat data dan tampilan tidak sinkron.",
+        "Logika tampilan terpusat sehingga lebih mudah dipahami dan diuji.",
+        "Bug akibat tampilan yang usang menjadi lebih jarang."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-014",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Apa yang dimaksud dengan mengangkat state (state hoisting) ke komponen induk?",
+      "jawabanModel": "Mengangkat state berarti memindahkan state dari komponen anak ke induk terdekat yang dipakai bersama. Anak menerima nilai state lewat parameter dan memberi tahu induk lewat callback ketika ada perubahan. Cara ini membuat komponen anak lebih mudah dipakai ulang dan diuji.",
+      "poinKunci": [
+        "State dipindahkan ke induk bersama terdekat.",
+        "Anak menerima nilai melalui parameter.",
+        "Anak mengirim kejadian perubahan ke induk lewat callback.",
+        "Komponen anak menjadi lebih mudah dipakai ulang dan diuji."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-015",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Mengapa state sebaiknya diperlakukan sebagai data yang tidak diubah langsung (immutable)?",
+      "jawabanModel": "Dengan state immutable, setiap perubahan dilakukan dengan membuat objek state baru, bukan memodifikasi objek lama. Kerangka kerja lalu mudah menyadari bahwa ada perubahan dan memperbarui tampilan. Pola ini juga mengurangi efek samping tak terduga karena objek yang dipakai bagian lain tidak berubah diam-diam.",
+      "poinKunci": [
+        "Perubahan dilakukan dengan membuat objek state baru.",
+        "Kerangka kerja lebih mudah mendeteksi bahwa state berubah.",
+        "Objek lama tidak berubah diam-diam sehingga efek samping berkurang.",
+        "Perilaku aplikasi lebih mudah dilacak dan diuji."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-016",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "state",
+      "pertanyaan": "Apa yang bisa terjadi pada state yang hanya disimpan di memori ketika layar dibuat ulang, misalnya saat perangkat diputar?",
+      "jawabanModel": "Pada beberapa platform, layar dapat dibuat ulang saat konfigurasi berubah, dan state yang hanya ada di variabel komponen bisa hilang. Akibatnya input pengguna atau posisi gulir kembali ke awal. Untuk mencegahnya, state penting disimpan di tempat yang bertahan atau dipulihkan dengan mekanisme penyimpanan state dari platform.",
+      "poinKunci": [
+        "Pembuatan ulang layar dapat menghapus state yang hanya ada di komponen.",
+        "Pengguna bisa kehilangan input atau posisi tampilan.",
+        "State penting perlu disimpan di pemegang yang bertahan atau dipulihkan.",
+        "Platform menyediakan mekanisme untuk menyimpan dan memulihkan state."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-019",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "layout",
+      "pertanyaan": "Mengapa pengembang sebaiknya memakai satuan independen kepadatan piksel, bukan piksel fisik, untuk ukuran elemen antarmuka?",
+      "jawabanModel": "Perangkat punya kepadatan piksel berbeda, jadi ukuran dalam piksel fisik tampak besar di satu layar dan kecil di layar lain. Satuan independen kepadatan diskalakan oleh sistem sehingga ukuran fisik elemen tampak kurang lebih sama di berbagai perangkat. Dengan begitu tampilan lebih konsisten tanpa pengaturan manual per perangkat.",
+      "poinKunci": [
+        "Kepadatan piksel berbeda antar perangkat.",
+        "Piksel fisik membuat ukuran tampak tidak konsisten.",
+        "Satuan independen kepadatan diskalakan otomatis oleh sistem.",
+        "Ukuran fisik elemen jadi mirip di banyak layar."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-020",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "layout",
+      "pertanyaan": "Apa yang perlu dipertimbangkan pengembang agar layout tetap baik saat orientasi layar berubah dari potret ke lanskap?",
+      "jawabanModel": "Ruang horizontal dan vertikal saling bertukar, sehingga layout harus mampu menyesuaikan diri, misalnya lewat ukuran fleksibel atau layout alternatif untuk lanskap. Konten juga tidak boleh terpotong atau tumpang tindih. Status tampilan seperti teks yang sedang diisi pengguna sebaiknya tetap terjaga.",
+      "poinKunci": [
+        "Lebar dan tinggi yang tersedia saling bertukar.",
+        "Gunakan ukuran fleksibel atau layout alternatif untuk lanskap.",
+        "Konten tidak boleh terpotong atau saling menimpa.",
+        "Status tampilan perlu dipertahankan saat orientasi berubah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-021",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "layout",
+      "pertanyaan": "Apa itu area aman (safe area) pada layar dan mengapa konten penting perlu ditempatkan di dalamnya?",
+      "jawabanModel": "Area aman adalah bagian layar yang tidak tertutup elemen sistem atau perangkat keras, seperti lekukan kamera, sudut layar membulat, atau bilah status dan navigasi. Menempatkan konten penting di dalamnya mencegah teks atau tombol terpotong atau sulit disentuh. Latar boleh membentang sampai tepi layar.",
+      "poinKunci": [
+        "Area aman menghindari lekukan kamera, sudut membulat, dan bilah sistem.",
+        "Konten interaktif di luar area aman bisa terpotong atau tertutup.",
+        "Latar visual boleh melebar sampai tepi layar.",
+        "Ukuran area aman bisa berbeda antar perangkat dan orientasi."
+      ],
+      "sumber": "Dokumentasi Apple Developer",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-022",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "layout",
+      "pertanyaan": "Mengapa konten yang lebih panjang dari layar biasanya perlu ditempatkan di dalam wadah yang bisa digulir?",
+      "jawabanModel": "Layar ponsel terbatas, sedangkan konten seperti daftar atau formulir bisa melebihi ruang yang tersedia. Tanpa wadah yang bisa digulir, bagian yang berlebih terpotong atau menimbulkan kesalahan tata letak. Wadah gulir memungkinkan pengguna mengakses seluruh konten dengan menggeser.",
+      "poinKunci": [
+        "Ruang layar terbatas.",
+        "Konten berlebih tanpa gulir akan terpotong atau bermasalah.",
+        "Wadah gulir membuat seluruh konten dapat dijangkau.",
+        "Ukuran teks besar atau orientasi lanskap makin membutuhkan gulir."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-023",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "layout",
+      "pertanyaan": "Apa perbedaan antara ukuran yang mengikuti isi (wrap content) dan ukuran yang mengisi ruang induk (fill parent)?",
+      "jawabanModel": "Ukuran mengikuti isi membuat elemen hanya sebesar yang dibutuhkan kontennya. Ukuran mengisi induk membuat elemen melebar atau meninggi hingga memenuhi ruang yang disediakan induknya. Pilihan ini menentukan bagaimana elemen bereaksi terhadap perubahan isi dan ukuran layar.",
+      "poinKunci": [
+        "Mengikuti isi berarti ukuran sesuai kebutuhan konten.",
+        "Mengisi induk berarti memenuhi ruang yang diberikan induk.",
+        "Induk memengaruhi ukuran akhir elemen anak.",
+        "Pilihan ukuran memengaruhi adaptasi terhadap layar berbeda."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-D-024",
+      "role": "mobile",
+      "level": "dasar",
+      "topik": "layout",
+      "pertanyaan": "Mengapa menumpuk terlalu banyak layout bersarang (nested) sebaiknya dihindari?",
+      "jawabanModel": "Setiap tingkat layout menambah pekerjaan pengukuran dan penataan, sehingga hierarki yang dalam bisa memperlambat tampilan. Struktur bersarang juga lebih sulit dibaca dan dirawat. Sebisa mungkin gunakan hierarki yang datar dan sederhana.",
+      "poinKunci": [
+        "Hierarki dalam menambah beban pengukuran dan penataan.",
+        "Tampilan bisa menjadi lebih lambat.",
+        "Kode atau berkas layout menjadi sulit dibaca dan dirawat.",
+        "Hierarki yang lebih datar umumnya lebih baik."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-001",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Mengapa ViewModel sebaiknya tidak menyimpan referensi langsung ke objek tampilan seperti Activity, Fragment, ViewController, atau Widget?",
+      "jawabanModel": "ViewModel yang memegang referensi ke tampilan membuat logika terikat pada siklus hidup UI, sehingga berisiko menyebabkan kebocoran memori dan sulit diuji tanpa lingkungan UI. Dengan hanya mengekspos state yang diamati oleh tampilan, ViewModel tetap independen dan bisa diuji sebagai unit biasa. Arah ketergantungan yang benar adalah tampilan mengetahui ViewModel, bukan sebaliknya.",
+      "poinKunci": [
+        "Tampilan bergantung pada ViewModel, bukan sebaliknya.",
+        "Referensi ke tampilan dapat bocor ketika tampilan dihancurkan tetapi ViewModel masih hidup.",
+        "ViewModel tanpa dependensi UI bisa diuji sebagai unit test biasa.",
+        "ViewModel berkomunikasi lewat state atau event yang diamati."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-002",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Apa perbedaan peran antara ViewModel dan Repository dalam arsitektur aplikasi mobile berlapis?",
+      "jawabanModel": "Repository bertugas mengabstraksi sumber data seperti jaringan dan penyimpanan lokal serta menyediakan data ke lapisan di atasnya. ViewModel mengambil data dari Repository lalu mengubahnya menjadi state yang siap ditampilkan dan menangani aksi pengguna. Pemisahan ini membuat sumber data bisa diganti tanpa mengubah logika presentasi.",
+      "poinKunci": [
+        "Repository mengabstraksi dan mengoordinasikan sumber data.",
+        "ViewModel mengubah data menjadi state presentasi untuk tampilan.",
+        "ViewModel menangani aksi pengguna dan memanggil Repository.",
+        "Sumber data dapat diganti tanpa memengaruhi tampilan."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-003",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Bagaimana cara merepresentasikan state layar secara tunggal dan konsisten dari ViewModel, dan apa keuntungannya dibanding banyak variabel terpisah?",
+      "jawabanModel": "State layar dapat dibungkus dalam satu objek tidak berubah yang memuat semua data yang dibutuhkan tampilan, misalnya status memuat, data, dan pesan galat. Tampilan cukup merender objek itu sehingga hasilnya dapat diprediksi. Pendekatan ini mengurangi kombinasi state yang tidak valid dan memudahkan pengujian.",
+      "poinKunci": [
+        "Satu objek state menggambarkan seluruh kondisi layar.",
+        "Objek state bersifat tidak berubah, perubahan dilakukan dengan membuat salinan baru.",
+        "Tampilan hanya merender state sehingga hasilnya dapat diprediksi.",
+        "Mengurangi kombinasi state yang bertentangan, misalnya memuat dan galat bersamaan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-004",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Mengapa event sekali pakai seperti menampilkan snackbar atau berpindah layar perlu diperlakukan berbeda dari state layar biasa?",
+      "jawabanModel": "State menggambarkan kondisi yang terus berlaku, sehingga boleh dirender ulang kapan saja. Event sekali pakai seharusnya hanya diproses satu kali; jika disimpan sebagai state biasa, event bisa terulang saat rotasi layar atau saat tampilan berlangganan kembali. Karena itu event perlu ditandai sudah dikonsumsi atau disalurkan lewat mekanisme khusus.",
+      "poinKunci": [
+        "State bersifat persisten dan aman dirender ulang.",
+        "Event sekali pakai tidak boleh dijalankan ulang saat tampilan dibuat ulang.",
+        "Event yang tersimpan sebagai state dapat memicu aksi ganda.",
+        "Event perlu mekanisme konsumsi atau saluran terpisah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-005",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Apa kelebihan dan kekurangan MVVM dibanding MVC klasik pada aplikasi mobile?",
+      "jawabanModel": "MVVM memindahkan logika presentasi ke ViewModel yang tidak bergantung pada UI, sehingga lebih mudah diuji dan tampilan menjadi tipis. Kekurangannya adalah tambahan kode pendukung dan kerumitan pengelolaan binding atau pengamatan state. Pada MVC klasik di mobile, controller sering menyatu dengan komponen tampilan sehingga cenderung membengkak.",
+      "poinKunci": [
+        "MVVM memisahkan logika presentasi dari komponen UI.",
+        "ViewModel lebih mudah diuji tanpa lingkungan UI.",
+        "Tampilan menjadi tipis dan hanya merender state.",
+        "Biayanya adalah kode tambahan dan kompleksitas pengamatan state.",
+        "Pada MVC klasik, controller sering menyatu dengan tampilan dan menjadi besar."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-006",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Logika apa saja yang sebaiknya berada di ViewModel dan apa yang sebaiknya tetap di tampilan?",
+      "jawabanModel": "ViewModel menampung logika presentasi seperti validasi input, transformasi data menjadi state, dan penanganan aksi pengguna. Tampilan menangani hal yang terkait platform seperti merender elemen, animasi, dan meminta izin lewat API sistem. Batasnya: jika logika tidak memerlukan API UI, pertimbangkan menaruhnya di ViewModel agar dapat diuji.",
+      "poinKunci": [
+        "Validasi dan transformasi data presentasi cocok di ViewModel.",
+        "Penanganan aksi pengguna dikoordinasikan oleh ViewModel.",
+        "Perenderan, animasi, dan interaksi API platform tetap di tampilan.",
+        "Kriteria praktis: logika tanpa kebutuhan API UI layak dipindahkan ke ViewModel."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-007",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "arsitektur-mvvm",
+      "pertanyaan": "Bagaimana ViewModel menjaga state tetap aman ketika tampilan dibuat ulang akibat perubahan konfigurasi atau pembersihan sementara oleh sistem?",
+      "jawabanModel": "State yang disimpan di ViewModel atau objek penyimpan state yang hidup lebih lama dari tampilan tidak ikut hilang ketika tampilan dibuat ulang. Namun jika proses aplikasi dimatikan sistem, memori ViewModel ikut hilang, sehingga data penting kecil perlu disimpan lewat mekanisme pemulihan state atau penyimpanan persisten. Karena itu perlu dibedakan state yang cukup bertahan saat tampilan dibuat ulang dengan state yang harus bertahan setelah proses mati.",
+      "poinKunci": [
+        "State di objek yang hidup lebih lama dari tampilan bertahan saat tampilan dibuat ulang.",
+        "Kematian proses menghapus memori ViewModel.",
+        "Data penting perlu mekanisme pemulihan state atau penyimpanan persisten.",
+        "Bedakan state sementara dari state yang harus dipulihkan."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-010",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Mengapa pemanggilan jaringan tidak boleh dijalankan langsung di thread utama aplikasi mobile?",
+      "jawabanModel": "Thread utama bertugas menggambar antarmuka dan menangani input pengguna. Jika diblokir oleh operasi yang menunggu lama seperti jaringan, layar membeku dan sistem bisa menganggap aplikasi tidak responsif. Operasi semacam itu harus dijalankan secara asinkron, lalu hasilnya dikembalikan ke thread utama untuk memperbarui tampilan.",
+      "poinKunci": [
+        "Thread utama menangani rendering dan input pengguna.",
+        "Pekerjaan yang memblokir membuat UI membeku dan tidak merespons sentuhan.",
+        "Sistem dapat menandai aplikasi sebagai tidak responsif atau mematikannya.",
+        "Operasi lambat dijalankan secara asinkron di luar thread utama.",
+        "Hasilnya dikembalikan ke thread utama untuk memperbarui UI."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-011",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Apa keunggulan penggunaan future atau promise dibandingkan callback bersarang untuk rangkaian operasi asinkron yang saling bergantung?",
+      "jawabanModel": "Future membuat alur asinkron dapat ditulis berurutan dan mudah dibaca, sehingga menghindari callback bersarang yang dalam. Penanganan error juga bisa dipusatkan, dan beberapa operasi dapat digabungkan atau ditunggu bersama. Hasilnya kode lebih mudah dirawat dan diuji.",
+      "poinKunci": [
+        "Future mewakili hasil yang akan tersedia di kemudian hari.",
+        "Rangkaian operasi dapat ditulis datar, tidak menjorok bersarang.",
+        "Error dapat ditangani di satu tempat, tidak di setiap callback.",
+        "Beberapa future dapat digabungkan atau ditunggu bersamaan.",
+        "Dengan sintaks await, kode asinkron terbaca seperti kode sinkron."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-012",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Apa perbedaan utama antara coroutine dan thread dalam hal penggunaan sumber daya dan perilaku saat menunggu?",
+      "jawabanModel": "Thread dikelola oleh sistem operasi dan relatif mahal, sedangkan coroutine adalah unit kerja ringan yang dijadwalkan di atas sejumlah thread. Saat menunggu, coroutine dapat ditangguhkan sehingga thread yang dipakainya bebas mengerjakan hal lain. Karena itu ribuan coroutine bisa berjalan tanpa membutuhkan ribuan thread.",
+      "poinKunci": [
+        "Thread dikelola sistem operasi dan memakan memori serta biaya pengalihan.",
+        "Coroutine ringan dan dijadwalkan di atas kumpulan thread.",
+        "Coroutine yang menunggu ditangguhkan tanpa memblokir thread.",
+        "Jumlah coroutine yang aktif bisa jauh lebih banyak daripada jumlah thread."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-013",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Bagaimana cara yang benar memperbarui tampilan setelah pekerjaan di thread latar belakang selesai?",
+      "jawabanModel": "Komponen antarmuka umumnya hanya aman diakses dari thread utama. Setelah pekerjaan latar belakang selesai, hasilnya harus dikirim kembali ke thread utama, misalnya lewat mekanisme dispatch atau konteks eksekusi utama. Baru di sana state UI diperbarui.",
+      "poinKunci": [
+        "Objek UI umumnya tidak aman diakses dari thread selain thread utama.",
+        "Hasil dari thread latar belakang dikirim kembali ke thread utama.",
+        "Pembaruan state atau tampilan dilakukan di thread utama.",
+        "Mengubah UI dari thread lain dapat menyebabkan crash atau tampilan rusak."
+      ],
+      "sumber": "Dokumentasi Apple Developer",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-014",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Mengapa pekerjaan asinkron yang terkait dengan sebuah layar sebaiknya dibatalkan ketika layar itu ditutup?",
+      "jawabanModel": "Pekerjaan yang terus berjalan setelah layarnya hilang membuang baterai, data, dan memori. Hasilnya juga mungkin dikirim ke komponen yang sudah tidak ada sehingga memicu crash atau kebocoran memori. Mengikat pekerjaan ke siklus hidup komponen membuatnya dibatalkan otomatis.",
+      "poinKunci": [
+        "Pekerjaan yatim membuang baterai, jaringan, dan memori.",
+        "Callback ke layar yang sudah hilang dapat menyebabkan crash.",
+        "Referensi yang tertahan oleh tugas berjalan dapat menyebabkan kebocoran memori.",
+        "Pekerjaan sebaiknya terikat pada siklus hidup pemiliknya agar dibatalkan otomatis."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-015",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Apa risiko menjalankan tugas asinkron tanpa menangani kegagalannya, dan bagaimana mengatasinya?",
+      "jawabanModel": "Error di tugas yang dilepas tanpa penanganan bisa hilang diam-diam atau malah menjatuhkan aplikasi, tergantung mekanismenya. Pengguna lalu melihat spinner tanpa akhir atau data kosong tanpa penjelasan. Solusinya adalah menangkap error di titik yang tepat, memetakannya ke state kegagalan, dan menampilkannya atau mencatatnya.",
+      "poinKunci": [
+        "Error pada tugas yang tidak diawasi bisa hilang tanpa jejak.",
+        "Pada kasus lain error tak tertangani dapat membuat aplikasi crash.",
+        "Tangkap error di sekitar await atau di batas operasi.",
+        "Ubah kegagalan menjadi state yang bisa ditampilkan kepada pengguna.",
+        "Catat error agar bisa dianalisis."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-016",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "async",
+      "pertanyaan": "Kapan beberapa permintaan asinkron sebaiknya dijalankan bersamaan, dan kapan harus berurutan?",
+      "jawabanModel": "Permintaan yang saling independen sebaiknya dijalankan bersamaan lalu ditunggu bersama, karena total waktunya mendekati yang paling lambat. Jika permintaan kedua membutuhkan hasil yang pertama, keduanya harus berurutan. Menunggu satu per satu padahal tidak saling bergantung hanya memperlambat aplikasi.",
+      "poinKunci": [
+        "Operasi independen cocok dijalankan bersamaan.",
+        "Total waktu paralel mendekati operasi terlambat, bukan jumlah semuanya.",
+        "Operasi yang bergantung pada hasil sebelumnya harus berurutan.",
+        "Await satu per satu pada tugas independen menambah latensi tanpa alasan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-019",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "penyimpanan-lokal",
+      "pertanyaan": "Bagaimana kamu memutuskan apakah suatu data cukup disimpan sebagai preferensi key-value atau perlu dimasukkan ke database?",
+      "jawabanModel": "Preferensi key-value cocok untuk data kecil, sederhana, dan diakses lewat satu kunci, seperti tema atau status onboarding. Database dipilih bila data berjumlah banyak, berstruktur, saling berhubungan, atau perlu dicari, difilter, dan diurutkan. Memaksakan data berskala besar ke preferensi membuat pembacaan lambat dan sulit dikelola.",
+      "poinKunci": [
+        "Preferensi cocok untuk pengaturan kecil dengan nilai sederhana.",
+        "Database cocok untuk data berjumlah banyak dan berstruktur.",
+        "Kebutuhan query, filter, dan relasi mengarah ke database.",
+        "Preferensi bukan tempat untuk daftar besar atau data yang terus bertambah."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-021",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "penyimpanan-lokal",
+      "pertanyaan": "Di mana sebaiknya token autentikasi disimpan di perangkat, dan mengapa preferensi biasa kurang tepat?",
+      "jawabanModel": "Token sebaiknya disimpan di penyimpanan aman yang disediakan platform, yang melindungi data dengan enkripsi berbasis perangkat keras atau sistem. Preferensi biasa umumnya tersimpan sebagai teks yang bisa dibaca pada perangkat yang di-root, di-jailbreak, atau lewat backup. Dengan begitu kebocoran token dapat dicegah atau dipersulit.",
+      "poinKunci": [
+        "Rahasia seperti token perlu penyimpanan terenkripsi milik platform.",
+        "Preferensi biasa tidak dirancang untuk melindungi data sensitif.",
+        "Perangkat yang dimodifikasi atau backup dapat membuka data yang tidak terlindungi.",
+        "Token tidak boleh ditulis di kode sumber atau log."
+      ],
+      "sumber": "Dokumentasi Apple Developer",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-022",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "penyimpanan-lokal",
+      "pertanyaan": "Mengapa operasi baca dan tulis database sebaiknya tidak dijalankan di thread utama?",
+      "jawabanModel": "Thread utama bertugas menggambar antarmuka dan merespons sentuhan, sehingga operasi disk yang lambat akan membuat tampilan tersendat atau tampak membeku. Query besar atau penulisan berulang dijalankan di thread latar atau lewat mekanisme asinkron, lalu hasilnya dikirim kembali ke antarmuka. Beberapa pustaka bahkan menolak query di thread utama secara bawaan.",
+      "poinKunci": [
+        "Thread utama dipakai untuk menggambar UI dan menangani input.",
+        "Akses disk bisa lambat dan tidak dapat diprediksi.",
+        "Operasi blocking di thread utama menyebabkan jank atau aplikasi tidak responsif.",
+        "Gunakan eksekusi asinkron lalu perbarui UI dengan hasilnya."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-023",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "penyimpanan-lokal",
+      "pertanyaan": "Kapan kamu membungkus beberapa penulisan database dalam satu transaksi, dan apa manfaat utamanya?",
+      "jawabanModel": "Transaksi dipakai saat beberapa penulisan saling bergantung dan harus berhasil semuanya atau gagal semuanya, misalnya memindahkan saldo antar tabel. Bila ada langkah yang gagal, seluruh perubahan dibatalkan sehingga data tidak berada dalam keadaan setengah jadi. Transaksi juga sering mempercepat penyisipan banyak baris sekaligus.",
+      "poinKunci": [
+        "Transaksi menjamin sifat semua-atau-tidak-sama-sekali.",
+        "Kegagalan di tengah proses membatalkan seluruh perubahan.",
+        "Data tetap konsisten walau aplikasi tertutup mendadak.",
+        "Penulisan massal dalam satu transaksi biasanya lebih efisien."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-024",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "penyimpanan-lokal",
+      "pertanyaan": "Apa yang dimaksud pendekatan offline-first, dan bagaimana database lokal berperan di dalamnya?",
+      "jawabanModel": "Pada offline-first, antarmuka membaca data dari database lokal yang menjadi sumber kebenaran, sementara sinkronisasi dengan server berjalan terpisah di latar. Perubahan dari server ditulis ke database lokal, lalu antarmuka diperbarui otomatis dari sana. Dengan begitu aplikasi tetap bisa dipakai tanpa koneksi dan terasa cepat.",
+      "poinKunci": [
+        "Database lokal menjadi sumber data utama bagi antarmuka.",
+        "Sinkronisasi dengan server berjalan terpisah dari tampilan.",
+        "Aplikasi tetap berfungsi saat tidak ada koneksi.",
+        "Perlu strategi menangani konflik antara data lokal dan data server."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-M-025",
+      "role": "mobile",
+      "level": "menengah",
+      "topik": "penyimpanan-lokal",
+      "pertanyaan": "Bagaimana sebaiknya aplikasi menyimpan berkas besar seperti gambar atau video yang berkaitan dengan data di database?",
+      "jawabanModel": "Berkas besar umumnya disimpan sebagai file di direktori milik aplikasi, sedangkan database hanya menyimpan path atau pengenal beserta metadata seperti ukuran dan waktu. Cara ini menjaga database tetap kecil dan cepat dibaca. Aplikasi juga perlu menghapus file bila baris terkait dihapus agar tidak ada sisa yang memakan ruang.",
+      "poinKunci": [
+        "File besar disimpan di direktori khusus aplikasi.",
+        "Database menyimpan referensi dan metadata, bukan isi berkas.",
+        "Database yang membengkak memperlambat query dan backup.",
+        "Hapus file dan baris terkait secara konsisten untuk menghindari berkas yatim."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-001",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Waktu start dingin aplikasi terasa lambat setelah beberapa fitur ditambahkan, bagaimana kamu mendiagnosis dan mengurangi penyebabnya secara sistematis?",
+      "jawabanModel": "Mulai dengan mengukur, bukan menebak: rekam jejak (trace) proses start di perangkat nyata untuk melihat pekerjaan apa yang memblokir frame pertama. Setelah itu pindahkan atau tunda semua pekerjaan yang tidak dibutuhkan untuk tampilan pertama, seperti inisialisasi pustaka, pembacaan disk, dan jaringan. Ukur ulang setelah tiap perubahan agar dampaknya terbukti.",
+      "poinKunci": [
+        "Ukur dulu dengan profiling atau tracing sebelum mengoptimalkan.",
+        "Fokus pada jalur kritis menuju frame pertama yang bermakna.",
+        "Tunda atau pindahkan pekerjaan non-esensial dari thread utama.",
+        "Perhatikan inisialisasi eager di titik masuk aplikasi, yang sering menumpuk diam-diam.",
+        "Ukur ulang pada perangkat kelas bawah untuk memastikan perbaikan nyata."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-002",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Daftar panjang di aplikasimu tersendat saat di-scroll, pertimbangan apa yang kamu gunakan untuk menemukan dan memperbaiki penyebabnya?",
+      "jawabanModel": "Pastikan daftar dibangun secara lazy sehingga hanya item yang terlihat (dan sedikit di sekitarnya) yang dibuat atau didaur ulang. Lalu cari kerja mahal per item, seperti layout kompleks, dekode gambar, atau komputasi di dalam proses pembuatan tampilan, dan pindahkan keluar dari jalur scroll. Verifikasi dengan profiler pada perangkat nyata.",
+      "poinKunci": [
+        "Gunakan pembuatan atau daur ulang item secara lazy, bukan membangun seluruh daftar sekaligus.",
+        "Jaga proses pembuatan tampilan per item tetap murah dan bebas efek samping.",
+        "Hindari komputasi, I/O, atau parsing di dalam jalur scroll.",
+        "Struktur tampilan item yang lebih datar biasanya lebih murah untuk di-layout.",
+        "Gunakan profiler untuk mengonfirmasi frame mana yang melewati anggaran waktu."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-003",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Kapan memindahkan pekerjaan dari thread utama ke thread latar belakang justru tidak menyelesaikan masalah performa tampilan?",
+      "jawabanModel": "Memindahkan kerja ke latar belakang hanya membantu bila kerja itu memang bisa dipisahkan dari pembaruan UI. Bila hasilnya harus segera ditampilkan, bila biaya serialisasi atau penyalinan data antar thread besar, atau bila kerja UI itu sendiri yang berat (layout dan render), concurrency tidak menolong. Selain itu, konkurensi menambah kompleksitas seperti balapan data dan pembatalan.",
+      "poinKunci": [
+        "Thread utama tetap harus menjalankan layout dan penggambaran UI.",
+        "Biaya memindahkan atau menyalin data antar thread bisa menghapus keuntungannya.",
+        "Kerja yang hasilnya dibutuhkan sebelum bisa menampilkan apa pun tetap menunda tampilan.",
+        "Konkurensi menambah risiko balapan data dan hasil usang jika tidak dibatalkan dengan benar.",
+        "Mengurangi atau menyederhanakan kerjanya sering lebih baik daripada sekadar memindahkannya."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-004",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Bagaimana kamu mengendalikan rebuild atau pembaruan tampilan yang berlebihan ketika satu perubahan state membuat banyak bagian layar digambar ulang?",
+      "jawabanModel": "Perkecil cakupan tampilan yang bergantung pada state, sehingga hanya bagian yang benar-benar berubah yang diperbarui. Pisahkan state menurut siapa yang membutuhkannya, hindari menaruh state di level terlalu tinggi, dan jaga agar komponen yang tidak berubah dapat dilewati. Buktikan dengan alat inspeksi bahwa jumlah pembaruan memang turun.",
+      "poinKunci": [
+        "State yang terlalu tinggi di hierarki memicu pembaruan yang tidak perlu pada turunannya.",
+        "Pecah tampilan menjadi bagian kecil dengan ketergantungan state yang sempit.",
+        "Gunakan data yang stabil dan dapat dibandingkan agar pembaruan bisa dilewati.",
+        "Jangan lakukan kerja berat di dalam fungsi yang menyusun tampilan.",
+        "Verifikasi dengan alat yang menampilkan frekuensi rebuild, bukan dugaan."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-005",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Aplikasi menampilkan banyak gambar dari sumber beresolusi besar dan memori serta kelancaran menurun, strategi apa yang kamu terapkan?",
+      "jawabanModel": "Dekode gambar pada ukuran yang sesuai dengan area tampilnya, bukan ukuran aslinya, karena memori bitmap bergantung pada dimensi terdekode. Gunakan cache memori dan disk dengan batas yang jelas, lakukan dekode di luar thread utama, dan batalkan pemuatan untuk tampilan yang sudah tidak terlihat. Format dan kompresi yang sesuai juga mengurangi beban jaringan.",
+      "poinKunci": [
+        "Memori gambar terdekode ditentukan oleh dimensi piksel, bukan ukuran file.",
+        "Perkecil (downsample) gambar sesuai ukuran tampilan sebelum atau saat dekode.",
+        "Cache perlu batas ukuran dan kebijakan pembuangan agar tidak memicu tekanan memori.",
+        "Dekode dan pemuatan sebaiknya tidak memblokir thread utama.",
+        "Batalkan permintaan untuk item yang sudah keluar dari layar, terutama dalam daftar."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-006",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Mengapa pengukuran performa sebaiknya dilakukan pada build yang mendekati rilis di perangkat nyata kelas bawah, dan apa risikonya jika hanya mengandalkan emulator atau build debug?",
+      "jawabanModel": "Build debug biasanya menambahkan pemeriksaan dan menonaktifkan optimasi, sehingga angkanya tidak mewakili pengalaman pengguna. Emulator memiliki karakteristik CPU, GPU, dan I/O yang berbeda dari perangkat sungguhan. Perangkat kelas bawah menunjukkan masalah yang tersembunyi di perangkat kencang, dan pengukuran yang berulang mengurangi kebisingan.",
+      "poinKunci": [
+        "Build debug mengandung overhead yang tidak ada di build rilis.",
+        "Emulator tidak mencerminkan perilaku termal, GPU, dan penyimpanan perangkat nyata.",
+        "Perangkat kelas bawah mengungkap batas kinerja yang sebenarnya.",
+        "Ulangi pengukuran dan bandingkan sebelum serta sesudah perubahan.",
+        "Tetapkan anggaran performa yang jelas agar regresi mudah terdeteksi."
+      ],
+      "sumber": "Dokumentasi Flutter",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-007",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "performa",
+      "pertanyaan": "Tim ingin menunda inisialisasi sejumlah SDK pihak ketiga dari saat aplikasi diluncurkan, apa pertimbangan keuntungan dan risikonya?",
+      "jawabanModel": "Menunda inisialisasi memperpendek jalur menuju tampilan pertama, sehingga start terasa lebih cepat. Risikonya, biaya itu berpindah ke saat pertama komponen dipakai dan bisa menimbulkan jank di momen yang penting, atau kehilangan data jika SDK perlu aktif sejak awal, misalnya untuk pelaporan crash. Karena itu tiap SDK perlu dinilai: wajib di awal, bisa lazy, atau bisa dijalankan di latar belakang setelah tampilan siap.",
+      "poinKunci": [
+        "Inisialisasi eager di titik masuk aplikasi menambah waktu sebelum frame pertama.",
+        "Penundaan memindahkan biaya, bukan menghilangkannya.",
+        "SDK yang perlu menangkap kejadian sejak awal mungkin tidak boleh ditunda.",
+        "Inisialisasi lazy sebaiknya dipicu sebelum pengguna benar-benar membutuhkannya.",
+        "Klasifikasikan tiap dependensi berdasarkan kebutuhan awal, lalu ukur dampaknya."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-010",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Bagaimana Anda membedakan kebocoran memori sejati dari pertumbuhan memori yang wajar akibat cache saat aplikasi terlihat makin berat setelah dipakai lama?",
+      "jawabanModel": "Kebocoran sejati ditandai objek yang tidak lagi dibutuhkan tetapi tetap terjangkau dari akar referensi, sehingga memori tidak turun meski ada tekanan memori dan pengumpulan sampah. Cache yang wajar bertumbuh lalu stabil atau dilepas saat sistem meminta. Bandingkan snapshot heap sebelum dan sesudah skenario berulang untuk melihat jumlah instance yang terus bertambah.",
+      "poinKunci": [
+        "Kebocoran berarti objek tak berguna masih terjangkau dari akar referensi.",
+        "Pola yang berulang pada skenario yang sama membuat jumlah instance terus naik.",
+        "Cache yang sehat punya batas ukuran atau kebijakan pelepasan.",
+        "Memori cache seharusnya turun saat sistem memberi peringatan tekanan memori.",
+        "Perbandingan snapshot heap sebelum dan sesudah skenario mengungkap objek yang menumpuk."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-011",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Mengapa closure atau callback yang menangkap referensi ke layar atau view controller sering menjadi sumber kebocoran, dan bagaimana Anda mencegahnya?",
+      "jawabanModel": "Closure yang disimpan oleh objek berumur panjang menjaga semua objek yang ditangkapnya tetap hidup, termasuk layar yang sudah ditutup. Siklus referensi terjadi bila layar memegang objek tersebut dan closure memegang balik layar. Cegah dengan referensi lemah atau tak dimiliki pada penangkapan, membatalkan callback saat layar dihancurkan, dan menghindari penyimpanan closure yang tidak perlu.",
+      "poinKunci": [
+        "Closure yang disimpan menangkap objek di dalamnya dan menjaganya tetap hidup.",
+        "Siklus referensi kuat antara pemilik dan closure mencegah pelepasan pada sistem berbasis penghitungan referensi.",
+        "Penangkapan lemah memutus siklus, tetapi harus menangani kemungkinan objek sudah hilang.",
+        "Callback dan listener perlu dibatalkan atau dilepas saat siklus hidup layar berakhir.",
+        "Objek berumur panjang seperti singleton tidak boleh menyimpan referensi kuat ke layar."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-012",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Bagaimana Anda melacak kebocoran yang hanya muncul setelah pengguna berpindah antarlayar berulang kali?",
+      "jawabanModel": "Buat skenario yang bisa diulang, misalnya membuka dan menutup layar yang sama beberapa kali, lalu ambil snapshot heap sebelum dan sesudahnya. Cari kelas layar atau komponen terkait yang jumlah instance-nya terus bertambah, lalu telusuri rantai referensi menuju akar untuk menemukan penahannya. Perbaiki penyebabnya, kemudian ulangi skenario yang sama untuk memastikan jumlah instance kembali normal.",
+      "poinKunci": [
+        "Skenario yang bisa diulang membuat perbandingan antar snapshot bermakna.",
+        "Jumlah instance yang naik seiring pengulangan menunjuk kelas yang bocor.",
+        "Rantai referensi menuju akar menunjukkan siapa yang menahan objek.",
+        "Setelah perbaikan, skenario yang sama harus diulang untuk verifikasi.",
+        "Pemicu pengumpulan sampah sebelum snapshot mengurangi noise dari objek yang memang sudah tak terpakai."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-013",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Mengapa listener, observer, atau langganan stream yang tidak dilepas bisa membocorkan memori, dan bagaimana Anda menyusun disiplin pelepasannya?",
+      "jawabanModel": "Sumber peristiwa menyimpan referensi ke pendengarnya, sehingga pendengar beserta objek yang ditangkapnya tidak bisa dilepas selama sumber masih hidup. Pasangkan setiap pendaftaran dengan pelepasan pada titik siklus hidup yang sepadan, misalnya mendaftar saat mulai tampil dan melepas saat selesai. Gunakan mekanisme yang terikat siklus hidup agar pelepasan tidak bergantung pada ingatan pengembang.",
+      "poinKunci": [
+        "Sumber peristiwa memegang referensi ke pendengar selama langganan aktif.",
+        "Pendaftaran dan pelepasan harus berpasangan pada tahap siklus hidup yang sepadan.",
+        "Sumber berumur lebih panjang daripada pendengar adalah pola risiko tertinggi.",
+        "Komponen yang sadar siklus hidup mengurangi risiko lupa melepas.",
+        "Review kode perlu memeriksa setiap pendaftaran punya pelepasan yang jelas."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-014",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Bagaimana Anda menilai risiko kebocoran pada singleton atau objek global yang menyimpan data sesi pengguna?",
+      "jawabanModel": "Singleton hidup selama proses berjalan, jadi apa pun yang direferensikannya ikut hidup selamanya. Risikonya naik bila ia menyimpan koleksi yang terus tumbuh, konteks layar, atau callback tanpa mekanisme pembersihan. Batasi isinya pada data ringan, berikan titik pembersihan yang jelas seperti saat keluar akun, dan hindari menyimpan referensi ke komponen antarmuka.",
+      "poinKunci": [
+        "Objek global bertahan sepanjang proses sehingga referensinya tidak pernah dilepas sendiri.",
+        "Koleksi tanpa batas di objek global tumbuh terus tanpa pembersihan.",
+        "Menyimpan referensi ke layar atau konteks antarmuka di objek global adalah pola bocor klasik.",
+        "Titik pembersihan eksplisit, misalnya saat keluar akun, perlu dirancang.",
+        "Referensi lemah atau penyimpanan terbatas bisa mengurangi risiko untuk data yang boleh hilang."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-015",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Mengapa gambar dan bitmap besar sering menjadi penyebab lonjakan atau kebocoran memori, dan apa strategi mitigasinya?",
+      "jawabanModel": "Memori gambar ditentukan oleh dimensi terdekode, bukan ukuran berkas terkompresi, sehingga gambar beresolusi besar yang ditampilkan kecil tetap boros. Kebocoran muncul bila gambar ditahan oleh cache tanpa batas atau oleh referensi yang tidak dilepas. Dekode sesuai ukuran tampilan, gunakan cache dengan batas dan kebijakan pelepasan, serta lepas sumber daya saat tidak terlihat.",
+      "poinKunci": [
+        "Memori gambar bergantung pada dimensi piksel terdekode, bukan ukuran berkas.",
+        "Mendekode gambar sesuai ukuran tampilan menghemat memori.",
+        "Cache gambar harus punya batas ukuran dan pelepasan saat tekanan memori.",
+        "Daftar yang menggulir perlu mendaur ulang atau melepas gambar yang keluar layar.",
+        "Referensi tertahan ke gambar besar mencegah pelepasannya."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-016",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "kebocoran-memori",
+      "pertanyaan": "Bagaimana pekerjaan asinkron seperti tugas latar belakang atau timer dapat membocorkan komponen antarmuka, dan bagaimana Anda mengatasinya?",
+      "jawabanModel": "Tugas atau timer yang masih berjalan setelah layar ditutup menahan referensi ke layar melalui penangkapan atau pemilik tugas. Layar pun tidak bisa dilepas sampai tugas selesai, atau selamanya bila timer berulang. Kaitkan tugas dengan siklus hidup komponen, batalkan saat komponen dihancurkan, dan periksa apakah komponen masih valid sebelum memperbarui antarmuka.",
+      "poinKunci": [
+        "Tugas yang hidup lebih lama dari layar dapat menahan layar lewat referensi tertangkap.",
+        "Timer berulang yang tidak dihentikan bisa menahan objek tanpa batas waktu.",
+        "Pembatalan tugas harus terikat pada akhir siklus hidup komponen.",
+        "Hasil tugas perlu diperiksa validitas komponennya sebelum menyentuh antarmuka.",
+        "Cakupan tugas yang mengikuti siklus hidup menggantikan tugas yang berdiri sendiri."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-019",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "desain-offline-first",
+      "pertanyaan": "Dalam aplikasi offline-first, mengapa database lokal sebaiknya dijadikan sumber kebenaran (source of truth) bagi UI, dan apa konsekuensi desainnya?",
+      "jawabanModel": "UI hanya membaca dari penyimpanan lokal, sedangkan jaringan hanya berperan memperbarui penyimpanan itu. Dengan begitu aplikasi berperilaku sama saat online maupun offline, dan UI tidak perlu bercabang menurut kondisi koneksi. Konsekuensinya, kamu harus merancang lapisan sinkronisasi yang eksplisit, menangani data yang sudah usang, dan memperlihatkan status sinkronisasi ke pengguna bila perlu.",
+      "poinKunci": [
+        "UI mengamati data lokal secara reaktif, bukan memanggil jaringan langsung.",
+        "Respons jaringan ditulis ke penyimpanan lokal, lalu UI diperbarui dari sana.",
+        "Perilaku yang konsisten di semua kondisi koneksi menyederhanakan logika UI.",
+        "Perlu lapisan sinkronisasi terpisah yang menangani konflik dan kegagalan.",
+        "Data lokal bisa usang sehingga perlu penanda kesegaran atau status sinkronisasi."
+      ],
+      "sumber": "Dokumentasi Android Developers",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-020",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "desain-offline-first",
+      "pertanyaan": "Bagaimana kamu memilih antara last-write-wins dan penggabungan tingkat field saat dua perangkat mengubah rekaman yang sama secara offline?",
+      "jawabanModel": "Last-write-wins mudah diimplementasikan, tetapi diam-diam membuang perubahan salah satu pihak sehingga cocok hanya untuk data yang kehilangannya murah. Penggabungan tingkat field mempertahankan lebih banyak perubahan pengguna, tetapi butuh pelacakan perubahan per field dan aturan untuk bentrokan pada field yang sama. Pilihannya bergantung pada nilai data bagi pengguna dan seberapa sering edit bersamaan benar-benar terjadi.",
+      "poinKunci": [
+        "Last-write-wins sederhana, tetapi dapat menghilangkan edit yang sah tanpa peringatan.",
+        "Penggabungan per field mempertahankan perubahan yang tidak saling bertabrakan.",
+        "Bentrokan pada field yang sama tetap butuh aturan, misalnya prioritas, penggabungan khusus, atau keputusan pengguna.",
+        "Pilihan strategi mengikuti sifat data, bukan satu strategi untuk semua entitas.",
+        "Konflik yang berdampak besar bisa ditampilkan kepada pengguna untuk diselesaikan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-021",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "desain-offline-first",
+      "pertanyaan": "Mengapa menggunakan timestamp jam perangkat untuk menentukan urutan perubahan berisiko, dan alternatif apa yang bisa dipertimbangkan?",
+      "jawabanModel": "Jam perangkat dapat salah, bergeser, atau diubah pengguna, sehingga urutan berdasarkan waktu dinding bisa menghasilkan keputusan konflik yang keliru. Alternatifnya adalah nomor versi yang dikeluarkan server, jam logis seperti Lamport atau vector clock, atau struktur data yang menyatu otomatis seperti CRDT. Setiap alternatif menukar kesederhanaan dengan kemampuan mendeteksi perubahan yang benar-benar konkuren.",
+      "poinKunci": [
+        "Jam perangkat tidak dijamin akurat atau sinkron antarperangkat.",
+        "Nomor versi dari server memberi urutan yang konsisten untuk satu rekaman.",
+        "Jam logis dan vector clock dapat mendeteksi perubahan yang konkuren, bukan sekadar mengurutkan.",
+        "CRDT menjamin penggabungan menyatu tanpa koordinasi pusat, dengan biaya kompleksitas dan ukuran data.",
+        "Timestamp tetap berguna sebagai informasi tambahan, tetapi bukan dasar tunggal penentuan pemenang."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-022",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "desain-offline-first",
+      "pertanyaan": "Bagaimana kamu merancang antrean operasi tulis (outbox) agar perubahan offline terkirim dengan andal tanpa menduplikasi data di server?",
+      "jawabanModel": "Setiap perubahan dicatat secara atomik bersama data lokalnya sebagai operasi di antrean persisten, lalu dikirim berurutan oleh proses sinkronisasi. Karena pengiriman bisa diulang saat respons hilang, setiap operasi membawa kunci idempotensi yang dibuat di klien agar server dapat mengenali pengulangan. Operasi dihapus dari antrean hanya setelah ada konfirmasi dari server.",
+      "poinKunci": [
+        "Tulis data lokal dan entri antrean dalam satu transaksi agar tidak ada yang terlewat.",
+        "Antrean harus persisten agar bertahan saat aplikasi ditutup atau proses dimatikan.",
+        "Kunci idempotensi dari klien membuat pengiriman ulang aman.",
+        "Hapus entri hanya setelah konfirmasi server, bukan saat dikirim.",
+        "Jaga urutan operasi yang saling bergantung pada entitas yang sama."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-023",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "desain-offline-first",
+      "pertanyaan": "Mengapa sinkronisasi inkremental dengan cursor atau token lebih baik daripada mengunduh ulang seluruh data, dan hal apa yang harus diwaspadai?",
+      "jawabanModel": "Sinkronisasi inkremental hanya mengambil perubahan sejak titik terakhir yang diketahui klien, sehingga menghemat data, baterai, dan waktu. Cursor harus berasal dari server dan disimpan hanya setelah perubahan berhasil diterapkan secara lokal, supaya tidak ada perubahan yang terlewat. Klien juga butuh jalur cadangan berupa sinkronisasi penuh ketika cursor kedaluwarsa atau data lokal rusak.",
+      "poinKunci": [
+        "Hanya perubahan sejak cursor terakhir yang ditransfer, sehingga hemat bandwidth dan baterai.",
+        "Cursor sebaiknya dikeluarkan server, bukan diturunkan dari jam klien.",
+        "Simpan cursor baru hanya setelah perubahan diterapkan lokal dengan sukses.",
+        "Penerapan perubahan harus idempotensi agar pengambilan ulang halaman yang sama aman.",
+        "Sediakan sinkronisasi penuh sebagai pemulihan bila cursor tidak valid."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-MOB-L-024",
+      "role": "mobile",
+      "level": "lanjut",
+      "topik": "desain-offline-first",
+      "pertanyaan": "Bagaimana kamu menangani penghapusan data dalam sistem sinkronisasi multi-perangkat, dan mengapa menghapus baris begitu saja bermasalah?",
+      "jawabanModel": "Jika baris langsung dihapus, perangkat lain yang belum sinkron tidak tahu bahwa data itu dihapus dan bahkan bisa mengunggahnya kembali seolah data baru. Solusi umumnya adalah tombstone atau penanda hapus yang ikut disinkronkan sebagai perubahan biasa. Tombstone dibersihkan kemudian melalui kebijakan retensi setelah semua klien yang relevan diperkirakan sudah menerimanya.",
+      "poinKunci": [
+        "Penghapusan harus dikomunikasikan sebagai perubahan, bukan sekadar hilangnya baris.",
+        "Tombstone atau soft delete memungkinkan perangkat lain menerapkan penghapusan.",
+        "Tanpa penanda, data yang dihapus dapat muncul kembali dari perangkat yang tertinggal.",
+        "Perlu aturan untuk konflik antara edit dan hapus pada rekaman yang sama.",
+        "Bersihkan tombstone lewat kebijakan retensi agar penyimpanan tidak membengkak."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-001",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Apa yang dimaksud dengan requirement dalam analisis bisnis?",
+      "jawabanModel": "Requirement adalah kebutuhan yang dinyatakan secara jelas tentang apa yang harus dipenuhi oleh suatu solusi agar memberi nilai bagi pemangku kepentingan. Requirement bisa berupa kondisi atau kemampuan yang dibutuhkan untuk menyelesaikan masalah atau mencapai tujuan. Requirement menjadi dasar bagi desain, pengembangan, dan pengujian solusi.",
+      "poinKunci": [
+        "Requirement menyatakan kebutuhan yang harus dipenuhi solusi.",
+        "Requirement berasal dari kebutuhan pemangku kepentingan.",
+        "Requirement terkait masalah atau tujuan yang ingin dicapai.",
+        "Requirement menjadi dasar desain, pengembangan, dan pengujian."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-002",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Apa perbedaan requirement fungsional dan non-fungsional?",
+      "jawabanModel": "Requirement fungsional menjelaskan apa yang harus dilakukan sistem, yaitu perilaku, fitur, atau proses yang didukungnya. Requirement non-fungsional menjelaskan seberapa baik atau dalam kondisi apa sistem bekerja, misalnya kinerja, keamanan, dan kemudahan penggunaan.",
+      "poinKunci": [
+        "Fungsional menjelaskan perilaku atau kemampuan sistem.",
+        "Non-fungsional menjelaskan kualitas atau batasan kerja sistem.",
+        "Contoh non-fungsional: kinerja, keamanan, ketersediaan, kemudahan penggunaan.",
+        "Keduanya sama-sama perlu dipenuhi agar solusi berguna."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-003",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Apa yang dimaksud dengan business requirement?",
+      "jawabanModel": "Business requirement adalah pernyataan tujuan, sasaran, atau kebutuhan tingkat tinggi dari organisasi secara keseluruhan. Ia menjelaskan mengapa suatu inisiatif dijalankan, bukan bagaimana solusinya dibangun.",
+      "poinKunci": [
+        "Business requirement berada pada tingkat organisasi.",
+        "Ia menyatakan tujuan, sasaran, atau kebutuhan bisnis.",
+        "Ia menjawab mengapa inisiatif diperlukan.",
+        "Ia tidak menetapkan cara teknis membangun solusi."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-004",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Apa yang dimaksud dengan stakeholder requirement?",
+      "jawabanModel": "Stakeholder requirement menggambarkan kebutuhan pemangku kepentingan tertentu yang harus dipenuhi untuk mencapai tujuan bisnis. Ia menjembatani tujuan bisnis yang luas dengan requirement solusi yang lebih rinci.",
+      "poinKunci": [
+        "Stakeholder requirement menyatakan kebutuhan pihak tertentu.",
+        "Ia menjadi penghubung antara kebutuhan bisnis dan solusi.",
+        "Ia lebih spesifik daripada business requirement.",
+        "Ia perlu ditelusuri hingga requirement solusi."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-005",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Apa yang dimaksud dengan solution requirement?",
+      "jawabanModel": "Solution requirement menjelaskan kemampuan dan kualitas yang harus dimiliki solusi untuk memenuhi kebutuhan pemangku kepentingan. Ia biasanya dibagi menjadi requirement fungsional dan non-fungsional.",
+      "poinKunci": [
+        "Solution requirement menjelaskan apa yang harus dimiliki atau dilakukan solusi.",
+        "Ia dibagi menjadi fungsional dan non-fungsional.",
+        "Ia diturunkan dari kebutuhan pemangku kepentingan.",
+        "Ia lebih rinci daripada business requirement."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-006",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Mengapa requirement yang baik harus jelas dan tidak ambigu?",
+      "jawabanModel": "Requirement yang ambigu dapat ditafsirkan berbeda oleh tiap pihak sehingga hasilnya tidak sesuai harapan. Requirement yang jelas menggunakan bahasa sederhana dan satu makna, sehingga mengurangi salah paham dan pengerjaan ulang.",
+      "poinKunci": [
+        "Ambiguitas menimbulkan penafsiran yang berbeda-beda.",
+        "Requirement jelas memakai bahasa sederhana dengan satu makna.",
+        "Kejelasan mengurangi salah paham dan pengerjaan ulang.",
+        "Kata subjektif seperti cepat atau mudah perlu diperjelas."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-007",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "requirement",
+      "pertanyaan": "Mengapa requirement yang baik harus dapat diuji atau diverifikasi?",
+      "jawabanModel": "Requirement yang dapat diuji memiliki kriteria yang jelas untuk menentukan apakah sudah terpenuhi atau belum. Tanpa hal itu, tim tidak bisa membuktikan bahwa solusi sesuai kebutuhan, sehingga muncul perdebatan saat penerimaan.",
+      "poinKunci": [
+        "Requirement harus punya kriteria pemenuhan yang jelas.",
+        "Kemampuan diuji memungkinkan pembuktian bahwa solusi sesuai.",
+        "Pernyataan yang tidak terukur sulit diverifikasi.",
+        "Ini membantu menghindari perdebatan saat penerimaan."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-010",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Apa yang dimaksud dengan user story dalam analisis kebutuhan?",
+      "jawabanModel": "User story adalah deskripsi singkat sebuah kebutuhan dari sudut pandang pengguna atau pemangku kepentingan. Ia menjelaskan siapa yang membutuhkan, apa yang diinginkan, dan mengapa hal itu bernilai. User story menjadi bahan awal percakapan, bukan spesifikasi lengkap.",
+      "poinKunci": [
+        "User story ditulis dari sudut pandang pengguna.",
+        "Isinya mencakup siapa, apa, dan alasan atau nilai.",
+        "Bentuknya singkat dan mudah dipahami semua pihak.",
+        "Ia mengundang diskusi, bukan menggantikan percakapan."
+      ],
+      "sumber": "Agile Alliance Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-011",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Apa yang dimaksud dengan kriteria penerimaan (acceptance criteria) pada sebuah user story?",
+      "jawabanModel": "Kriteria penerimaan adalah kondisi yang harus dipenuhi agar sebuah user story dianggap selesai dan dapat diterima oleh pemangku kepentingan. Kriteria ini membuat harapan menjadi jelas dan dapat diuji. Ia menjadi dasar bagi tim pengembang dan penguji.",
+      "poinKunci": [
+        "Kriteria penerimaan menentukan kondisi agar story dianggap selesai dan diterima.",
+        "Kriteria harus jelas dan dapat diuji.",
+        "Ia menyamakan pemahaman antara bisnis dan tim.",
+        "Ia menjadi dasar pembuatan skenario uji."
+      ],
+      "sumber": "Agile Alliance Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-012",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Apa kegunaan prinsip INVEST dalam menulis user story?",
+      "jawabanModel": "INVEST adalah daftar periksa untuk menilai kualitas user story. Singkatan ini mewakili Independent, Negotiable, Valuable, Estimable, Small, dan Testable. Story yang memenuhinya lebih mudah direncanakan, dikerjakan, dan diuji.",
+      "poinKunci": [
+        "INVEST adalah daftar periksa kualitas user story.",
+        "Independent berarti story sebisa mungkin tidak bergantung pada story lain.",
+        "Valuable berarti story memberi nilai bagi pengguna atau bisnis.",
+        "Small dan Estimable berarti story cukup kecil untuk diperkirakan usahanya.",
+        "Testable berarti hasilnya dapat diverifikasi."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-013",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Mengapa user story sebaiknya berfokus pada nilai bagi pengguna dan bukan pada solusi teknis?",
+      "jawabanModel": "Fokus pada nilai menjaga tim tetap memahami masalah yang ingin diselesaikan. Dengan begitu, tim bebas mencari solusi terbaik dan tidak terkunci pada satu cara implementasi. Story yang menentukan solusi teknis terlalu dini membatasi pilihan.",
+      "poinKunci": [
+        "Nilai bagi pengguna menjelaskan mengapa story dikerjakan.",
+        "Fokus pada masalah memberi ruang untuk memilih solusi terbaik.",
+        "Menetapkan solusi teknis terlalu dini membatasi pilihan tim.",
+        "Story tetap dapat dipahami oleh pihak non-teknis."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-014",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Apa itu format Given-When-Then dalam kriteria penerimaan?",
+      "jawabanModel": "Given-When-Then adalah cara menulis kriteria penerimaan sebagai skenario. Given menyatakan kondisi awal, When menyatakan tindakan atau peristiwa, dan Then menyatakan hasil yang diharapkan. Format ini membuat kriteria jelas dan mudah diubah menjadi uji.",
+      "poinKunci": [
+        "Given menggambarkan kondisi atau konteks awal.",
+        "When menggambarkan tindakan atau peristiwa yang terjadi.",
+        "Then menggambarkan hasil yang dapat diamati.",
+        "Format ini membantu membuat kriteria dapat diuji."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-015",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Mengapa user story yang terlalu besar sebaiknya dipecah?",
+      "jawabanModel": "Story yang terlalu besar sulit diperkirakan, dikerjakan dalam satu iterasi, dan diuji. Memecahnya menjadi story yang lebih kecil membuat nilai dapat diserahkan lebih cepat dan risiko lebih mudah dikelola. Setiap potongan tetap harus memberi nilai bagi pengguna.",
+      "poinKunci": [
+        "Story besar sulit diperkirakan usahanya.",
+        "Story kecil lebih mudah diselesaikan dalam satu iterasi.",
+        "Pemecahan memungkinkan umpan balik lebih cepat.",
+        "Setiap potongan idealnya tetap memberi nilai bagi pengguna."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-016",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "user-story",
+      "pertanyaan": "Siapa yang terlibat dalam menyusun dan menyepakati user story beserta kriteria penerimaannya?",
+      "jawabanModel": "User story disusun melalui kolaborasi antara perwakilan bisnis atau pemilik produk, analis bisnis, dan tim pengembang termasuk penguji. Bisnis menjelaskan kebutuhan dan nilai, sedangkan tim memberi masukan tentang kelayakan dan kejelasan. Kesepakatan bersama mengurangi salah paham.",
+      "poinKunci": [
+        "Perwakilan bisnis atau pemilik produk menjelaskan kebutuhan dan nilai.",
+        "Analis bisnis membantu menggali dan merumuskan kebutuhan.",
+        "Tim pengembang dan penguji memberi masukan tentang kejelasan dan kelayakan.",
+        "Kolaborasi mengurangi salah paham."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-019",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "use-case",
+      "pertanyaan": "Apa yang dimaksud dengan use case dalam analisis bisnis?",
+      "jawabanModel": "Use case menggambarkan bagaimana seorang aktor berinteraksi dengan sebuah sistem untuk mencapai tujuan tertentu yang bernilai. Ia dituliskan sebagai rangkaian langkah interaksi dan respons sistem. Use case membantu menjelaskan kebutuhan fungsional dari sudut pandang pengguna.",
+      "poinKunci": [
+        "Use case berfokus pada tujuan yang ingin dicapai aktor.",
+        "Use case menggambarkan interaksi antara aktor dan sistem.",
+        "Hasil akhirnya harus memberi nilai bagi aktor.",
+        "Use case dipakai untuk menggali dan mendokumentasikan kebutuhan fungsional."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-020",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "use-case",
+      "pertanyaan": "Siapa yang disebut aktor dalam sebuah use case?",
+      "jawabanModel": "Aktor adalah pihak di luar sistem yang berinteraksi dengan sistem untuk mencapai tujuan. Aktor bisa berupa orang dengan peran tertentu, sistem lain, atau perangkat. Aktor ditentukan berdasarkan peran, bukan nama individu.",
+      "poinKunci": [
+        "Aktor berada di luar batas sistem yang dibahas.",
+        "Aktor dapat berupa manusia, sistem lain, atau perangkat.",
+        "Aktor mewakili peran, bukan orang tertentu.",
+        "Satu orang bisa memainkan beberapa peran aktor."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-021",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "use-case",
+      "pertanyaan": "Apa yang dimaksud dengan alur utama dalam sebuah use case?",
+      "jawabanModel": "Alur utama adalah urutan langkah ideal ketika semuanya berjalan lancar dan aktor berhasil mencapai tujuannya. Alur ini tidak memuat percabangan atau kesalahan. Variasi dan kegagalan dijelaskan terpisah di alur alternatif.",
+      "poinKunci": [
+        "Alur utama menggambarkan skenario sukses yang paling umum.",
+        "Langkahnya berurutan dan menyebut tindakan aktor serta respons sistem.",
+        "Alur utama berakhir ketika tujuan aktor tercapai.",
+        "Percabangan dan kesalahan tidak dicampur di dalamnya."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-022",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "use-case",
+      "pertanyaan": "Apa yang dimaksud dengan alur alternatif dalam sebuah use case?",
+      "jawabanModel": "Alur alternatif menjelaskan variasi atau penyimpangan dari alur utama yang masih bisa berujung pada tercapainya tujuan, atau berakhir dengan cara lain. Setiap alur alternatif punya kondisi pemicu dan menunjuk pada langkah di alur utama tempat ia bercabang. Dengan begitu, kebutuhan di luar skenario ideal tetap terdokumentasi.",
+      "poinKunci": [
+        "Alur alternatif adalah variasi dari alur utama.",
+        "Ia dipicu oleh kondisi tertentu yang jelas.",
+        "Ia mengacu pada langkah alur utama tempat percabangan terjadi.",
+        "Ia menyebut ke mana alur berlanjut atau bagaimana berakhir."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-023",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "use-case",
+      "pertanyaan": "Apa perbedaan alur alternatif dan alur pengecualian dalam use case?",
+      "jawabanModel": "Alur alternatif adalah pilihan atau variasi yang sah dalam mencapai tujuan. Alur pengecualian menangani kondisi gagal atau kesalahan, seperti data tidak valid atau layanan tidak tersedia, sehingga tujuan sering tidak tercapai. Keduanya sama-sama bercabang dari alur utama.",
+      "poinKunci": [
+        "Alur alternatif menggambarkan variasi yang wajar.",
+        "Alur pengecualian menggambarkan kegagalan atau kondisi error.",
+        "Alur pengecualian perlu menyebut respons sistem terhadap masalah.",
+        "Keduanya bercabang dari langkah tertentu di alur utama."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-D-024",
+      "role": "ba",
+      "level": "dasar",
+      "topik": "use-case",
+      "pertanyaan": "Apa fungsi prakondisi dan pascakondisi pada sebuah use case?",
+      "jawabanModel": "Prakondisi adalah keadaan yang harus benar sebelum use case boleh dimulai, misalnya pengguna sudah masuk ke sistem. Pascakondisi adalah keadaan sistem setelah use case selesai, misalnya pesanan tersimpan. Keduanya memperjelas batas dan hasil dari use case.",
+      "poinKunci": [
+        "Prakondisi harus terpenuhi sebelum use case dijalankan.",
+        "Pascakondisi menyatakan keadaan sistem setelah use case selesai.",
+        "Keduanya membantu menetapkan batas use case.",
+        "Pascakondisi dapat dipakai sebagai dasar menyusun uji penerimaan."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-001",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Apa perbedaan sequence flow dan message flow dalam diagram BPMN, dan kapan masing-masing dipakai?",
+      "jawabanModel": "Sequence flow menunjukkan urutan eksekusi elemen di dalam satu proses, sehingga tidak boleh melintasi batas pool. Message flow menggambarkan pertukaran pesan antara dua partisipan yang terpisah, misalnya antar pool. Jadi interaksi dengan pihak lain, seperti pelanggan atau sistem eksternal, digambarkan dengan message flow.",
+      "poinKunci": [
+        "Sequence flow mengatur urutan aktivitas dalam satu pool.",
+        "Sequence flow tidak boleh menyeberangi batas pool.",
+        "Message flow menghubungkan dua partisipan yang berbeda, misalnya antar pool.",
+        "Message flow tidak dipakai untuk menghubungkan elemen dalam pool yang sama."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-002",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Apa perbedaan perilaku exclusive gateway dan parallel gateway saat proses bercabang dan bergabung kembali?",
+      "jawabanModel": "Exclusive gateway memilih tepat satu jalur keluar berdasarkan kondisi, dan saat menggabungkan ia meneruskan token dari jalur mana pun yang tiba. Parallel gateway mengaktifkan semua jalur keluar secara bersamaan tanpa evaluasi kondisi, dan saat menggabungkan ia menunggu token dari semua jalur masuk. Salah memasangkan keduanya dapat membuat proses macet atau berjalan ganda.",
+      "poinKunci": [
+        "Exclusive gateway hanya mengikuti satu jalur sesuai kondisi.",
+        "Parallel gateway mengaktifkan semua jalur keluar sekaligus.",
+        "Parallel gateway pada penggabungan menunggu semua jalur masuk.",
+        "Menggabungkan cabang paralel dengan exclusive gateway dapat membuat langkah setelahnya berjalan berulang."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-004",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Bagaimana membedakan pool dan lane saat memodelkan proses lintas peran dan lintas organisasi dalam BPMN?",
+      "jawabanModel": "Pool merepresentasikan satu partisipan, misalnya organisasi atau pihak eksternal, dan membungkus satu proses. Lane adalah pembagian di dalam pool untuk mengelompokkan aktivitas berdasarkan peran, unit, atau sistem. Aliran antar-pool memakai message flow, sedangkan perpindahan antar-lane tetap memakai sequence flow.",
+      "poinKunci": [
+        "Pool mewakili satu partisipan dalam kolaborasi.",
+        "Lane membagi pool menurut peran, departemen, atau sistem.",
+        "Perpindahan tugas antar-lane dalam satu pool memakai sequence flow.",
+        "Interaksi antar-pool memakai message flow."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-005",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Apa perbedaan none start event dan message start event, dan bagaimana memilihnya saat memodelkan pemicu proses?",
+      "jawabanModel": "None start event dipakai ketika pemicu proses tidak ditentukan atau proses dimulai secara manual. Message start event dipakai ketika proses dimulai karena menerima pesan dari partisipan lain. Pemilihan yang tepat membuat pemicu proses eksplisit dan konsisten dengan message flow yang masuk.",
+      "poinKunci": [
+        "None start event tidak menyatakan pemicu tertentu.",
+        "Message start event menandakan proses dimulai oleh pesan yang diterima.",
+        "Message start event biasanya mendapat message flow masuk dari partisipan lain.",
+        "Menyatakan pemicu dengan jelas membantu pembaca memahami awal proses."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-006",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Mengapa analis bisnis memakai subprocess, dan apa bedanya dengan task biasa?",
+      "jawabanModel": "Task adalah satu unit kerja yang tidak dirinci lebih lanjut pada diagram tersebut. Subprocess adalah aktivitas yang memuat alur internalnya sendiri, dan dapat ditampilkan collapsed untuk menyederhanakan diagram atau expanded untuk memperlihatkan rinciannya. Dengan begitu analis dapat menyajikan tingkat abstraksi berbeda bagi audiens yang berbeda.",
+      "poinKunci": [
+        "Task adalah unit kerja atomik pada tingkat diagram itu.",
+        "Subprocess memuat alur proses di dalamnya.",
+        "Subprocess collapsed menyembunyikan rincian agar diagram ringkas.",
+        "Subprocess membantu menyajikan abstraksi sesuai kebutuhan audiens."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-007",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Apa perbedaan interrupting dan non-interrupting boundary event pada sebuah aktivitas?",
+      "jawabanModel": "Boundary event yang interrupting menghentikan aktivitas yang sedang berjalan begitu event terjadi, lalu proses melanjutkan lewat jalur dari event tersebut. Boundary event non-interrupting membiarkan aktivitas utama tetap berjalan sementara jalur tambahan dimulai secara paralel. Pilihan ini bergantung pada apakah kejadian tersebut membatalkan pekerjaan atau hanya memicu tindakan tambahan.",
+      "poinKunci": [
+        "Interrupting boundary event membatalkan aktivitas yang sedang berjalan.",
+        "Non-interrupting boundary event tidak menghentikan aktivitas utama.",
+        "Non-interrupting memulai jalur tambahan secara paralel.",
+        "Notasi garis putus-putus pada lingkaran event menandakan non-interrupting."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-008",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "bpmn",
+      "pertanyaan": "Kapan event-based gateway lebih tepat dipakai daripada exclusive gateway?",
+      "jawabanModel": "Event-based gateway dipakai ketika keputusan jalur ditentukan oleh kejadian yang tiba lebih dahulu, seperti pesan diterima atau batas waktu habis. Exclusive gateway memilih jalur berdasarkan kondisi data yang sudah tersedia pada proses. Jadi event-based cocok untuk menunggu respons, sedangkan exclusive cocok untuk keputusan berbasis data.",
+      "poinKunci": [
+        "Event-based gateway memilih jalur berdasarkan event yang terjadi lebih dulu.",
+        "Jalur keluarnya mengarah ke intermediate event atau receive task.",
+        "Exclusive gateway memilih jalur berdasarkan kondisi data.",
+        "Event-based cocok untuk menunggu balasan dengan batas waktu."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-010",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Kapan seorang Business Analyst lebih tepat memakai MoSCoW daripada pemeringkatan urut numerik untuk memprioritaskan requirement?",
+      "jawabanModel": "MoSCoW cocok ketika stakeholder perlu cepat sepakat tentang batas lingkup suatu rilis atau periode kerja. Teknik ini mengelompokkan requirement ke kategori wajib, penting, diinginkan, dan tidak dikerjakan sekarang. Pemeringkatan urut numerik lebih cocok bila jumlah item terbatas dan urutan pengerjaan yang presisi memang diperlukan.",
+      "poinKunci": [
+        "MoSCoW mengelompokkan requirement ke kategori, bukan mengurutkannya satu per satu.",
+        "Teknik ini efektif untuk menyepakati batas lingkup suatu rilis.",
+        "Kategori Won't have berarti tidak dikerjakan pada periode ini, bukan dibuang selamanya.",
+        "Pemeringkatan numerik memberi urutan yang tegas tetapi sulit dipertahankan jika itemnya sangat banyak."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-011",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Apa yang sebaiknya dilakukan BA ketika hampir semua requirement diklaim stakeholder sebagai Must have dalam sesi MoSCoW?",
+      "jawabanModel": "BA perlu menetapkan kriteria yang jelas untuk kategori Must, misalnya tanpa requirement itu solusi tidak dapat dipakai, melanggar kewajiban hukum, atau tidak memberi nilai bisnis minimum. Setelah itu setiap klaim diuji terhadap kriteria tersebut dan terhadap kapasitas yang tersedia. Hasil yang masih melebihi kapasitas dieskalasi ke pengambil keputusan untuk dinegosiasikan.",
+      "poinKunci": [
+        "Kriteria Must harus disepakati lebih dulu sebelum item dikategorikan.",
+        "Uji setiap item dengan pertanyaan apa dampaknya jika item itu tidak ada pada rilis ini.",
+        "Bandingkan total kebutuhan dengan kapasitas dan batasan yang tersedia.",
+        "Konflik yang tidak selesai dibawa ke pemegang keputusan yang berwenang."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-012",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Apa kelebihan weighted scoring dibandingkan MoSCoW, dan apa risikonya jika bobot kriteria ditetapkan sembarangan?",
+      "jawabanModel": "Weighted scoring menilai setiap requirement terhadap beberapa kriteria berbobot, sehingga hasilnya lebih transparan dan dapat dibandingkan antaritem. Namun jika bobot ditentukan tanpa kesepakatan atau dasar yang jelas, skor akhir hanya tampak objektif padahal mencerminkan bias. Karena itu bobot dan skala penilaian perlu disepakati stakeholder utama dan didokumentasikan.",
+      "poinKunci": [
+        "Weighted scoring memakai beberapa kriteria, misalnya nilai bisnis, risiko, dan biaya.",
+        "Hasilnya berupa skor yang memungkinkan perbandingan dan pengurutan antaritem.",
+        "Bobot yang tidak disepakati menghasilkan skor yang tampak objektif tetapi bias.",
+        "Asumsi bobot dan skala harus transparan agar keputusan dapat ditelusuri."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-013",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Bagaimana model Kano membantu BA memprioritaskan fitur dibandingkan sekadar menanyakan fitur mana yang paling diinginkan pengguna?",
+      "jawabanModel": "Model Kano membedakan fitur menurut hubungan antara tingkat pemenuhannya dan kepuasan pengguna, yaitu kebutuhan dasar, kebutuhan kinerja, dan pemikat. Kebutuhan dasar harus ada karena ketiadaannya menimbulkan ketidakpuasan, sedangkan pemikat memberi nilai tambah tetapi tidak diharapkan. Dengan begitu BA tidak hanya mengikuti permintaan terbanyak, melainkan menyeimbangkan investasi antarkategori.",
+      "poinKunci": [
+        "Fitur dasar tidak menambah kepuasan bila ada, tetapi sangat mengecewakan bila tidak ada.",
+        "Fitur kinerja meningkatkan kepuasan secara bertahap seiring tingkat pemenuhannya.",
+        "Fitur pemikat tidak diharapkan, tetapi menciptakan kesan positif yang kuat.",
+        "Kategori suatu fitur dapat bergeser seiring waktu dan ekspektasi pengguna."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-014",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Mengapa cost of delay berguna sebagai pertimbangan prioritas, dan apa bedanya dengan hanya melihat besarnya nilai bisnis?",
+      "jawabanModel": "Cost of delay menggambarkan nilai yang hilang untuk setiap satuan waktu penundaan suatu requirement. Dua item bernilai sama bisa berbeda urgensinya, misalnya karena satu terikat peluang pasar yang cepat menghilang. Dengan mempertimbangkan cost of delay, BA dapat mendahulukan item yang kerugian akibat penundaannya paling besar.",
+      "poinKunci": [
+        "Cost of delay mengukur kerugian akibat penundaan, bukan hanya besar nilai total.",
+        "Item bernilai sama dapat memiliki urgensi berbeda.",
+        "Tenggat eksternal atau peluang yang menyempit meningkatkan cost of delay.",
+        "Dapat dikombinasikan dengan ukuran usaha agar pengurutan lebih seimbang."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-015",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Bagaimana BA menangani requirement bernilai tinggi yang bergantung pada requirement lain yang berprioritas rendah?",
+      "jawabanModel": "BA perlu memetakan ketergantungan antarrequirement sebelum memfinalkan urutan, karena prioritas nilai saja tidak cukup. Requirement berprioritas rendah yang menjadi prasyarat harus dinaikkan atau dikerjakan lebih awal sebatas yang diperlukan. Keputusan ini dikomunikasikan kepada stakeholder agar perubahan urutan dapat dipahami.",
+      "poinKunci": [
+        "Ketergantungan teknis dan bisnis memengaruhi urutan pengerjaan.",
+        "Prasyarat dapat dikerjakan lebih awal meski nilainya sendiri rendah.",
+        "Kerjakan prasyarat hanya sebatas yang dibutuhkan item bernilai tinggi.",
+        "Alasan perubahan urutan perlu dijelaskan kepada stakeholder."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-016",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "prioritisasi",
+      "pertanyaan": "Bagaimana pendekatan BA ketika dua stakeholder senior memberikan prioritas yang bertentangan untuk requirement yang sama?",
+      "jawabanModel": "BA mulai dengan menggali alasan di balik masing-masing prioritas dan menautkannya ke tujuan bisnis yang disepakati. Kriteria prioritas yang eksplisit dipakai agar diskusi berfokus pada dasar penilaian, bukan pada jabatan. Jika tetap buntu, keputusan dieskalasi ke pihak yang berwenang dan hasilnya didokumentasikan.",
+      "poinKunci": [
+        "Gali kepentingan dan alasan di balik setiap prioritas.",
+        "Hubungkan prioritas dengan tujuan dan nilai bisnis yang disepakati.",
+        "Gunakan kriteria penilaian yang eksplisit dan sama bagi semua pihak.",
+        "Eskalasi ke pemegang keputusan bila kesepakatan tidak tercapai.",
+        "Dokumentasikan keputusan beserta alasannya."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-019",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "uat",
+      "pertanyaan": "Apa perbedaan utama antara system testing dan UAT, dan mengapa keduanya tidak bisa saling menggantikan?",
+      "jawabanModel": "System testing memverifikasi bahwa sistem berfungsi sesuai spesifikasi teknis dan fungsional, biasanya dijalankan oleh tim penguji. UAT memvalidasi bahwa solusi benar-benar memenuhi kebutuhan bisnis dan layak dipakai dalam pekerjaan nyata, dijalankan oleh pengguna atau perwakilan bisnis. Sistem bisa lolos semua uji teknis tetapi tetap ditolak pengguna karena tidak sesuai kebutuhan, sehingga keduanya saling melengkapi.",
+      "poinKunci": [
+        "System testing berfokus pada verifikasi terhadap spesifikasi.",
+        "UAT berfokus pada validasi terhadap kebutuhan dan tujuan bisnis.",
+        "Pelaksana UAT adalah pengguna atau perwakilan bisnis, bukan hanya tim penguji.",
+        "Lolos system testing tidak menjamin solusi diterima pengguna."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-020",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "uat",
+      "pertanyaan": "Bagaimana seorang analis bisnis menyusun skenario UAT yang mencakup kebutuhan bisnis secara memadai?",
+      "jawabanModel": "Analis menurunkan skenario dari kebutuhan, kriteria penerimaan, dan alur proses bisnis, termasuk jalur utama, jalur alternatif, dan kondisi pengecualian. Skenario ditulis dalam bahasa bisnis yang dipahami pengguna, dengan hasil yang diharapkan yang jelas. Analis lalu memeriksa bahwa setiap kebutuhan penting terwakili oleh setidaknya satu skenario.",
+      "poinKunci": [
+        "Skenario diturunkan dari kebutuhan, kriteria penerimaan, dan alur proses.",
+        "Cakupan harus meliputi jalur utama, jalur alternatif, dan pengecualian.",
+        "Bahasa skenario mengikuti bahasa bisnis pengguna.",
+        "Setiap skenario punya hasil yang diharapkan yang dapat diperiksa."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-021",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "uat",
+      "pertanyaan": "Mengapa kriteria masuk dan kriteria keluar UAT perlu disepakati sebelum UAT dimulai?",
+      "jawabanModel": "Kriteria masuk memastikan UAT hanya dimulai ketika solusi dan lingkungan cukup stabil, sehingga waktu pengguna tidak terbuang untuk masalah dasar. Kriteria keluar menetapkan kondisi objektif untuk menyatakan UAT selesai, misalnya skenario kritis lulus dan tidak ada cacat berat yang terbuka. Dengan kesepakatan awal, keputusan penerimaan tidak diperdebatkan secara subjektif di akhir.",
+      "poinKunci": [
+        "Kriteria masuk mencegah UAT dimulai pada solusi yang belum stabil.",
+        "Contoh kriteria masuk: system testing selesai, data uji dan akses siap.",
+        "Kriteria keluar memberi ukuran objektif kapan UAT dianggap selesai.",
+        "Kesepakatan di awal mengurangi perdebatan saat keputusan penerimaan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-022",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "uat",
+      "pertanyaan": "Bagaimana analis membedakan cacat (defect) dari permintaan perubahan (change request) ketika pengguna melaporkan temuan saat UAT?",
+      "jawabanModel": "Analis membandingkan temuan dengan kebutuhan atau kriteria penerimaan yang sudah disepakati. Jika solusi menyimpang dari kebutuhan yang disetujui, itu cacat dan diperbaiki. Jika pengguna meminta perilaku yang tidak pernah disepakati, itu permintaan perubahan yang harus melalui proses kendali perubahan dan dinilai dampaknya terhadap lingkup, jadwal, dan biaya.",
+      "poinKunci": [
+        "Patokan pembeda adalah kebutuhan dan kriteria penerimaan yang sudah disetujui.",
+        "Penyimpangan dari kebutuhan disetujui adalah cacat.",
+        "Perilaku baru di luar kesepakatan adalah permintaan perubahan.",
+        "Permintaan perubahan dinilai dampaknya sebelum diputuskan."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-023",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "uat",
+      "pertanyaan": "Apa manfaat matriks keterlacakan (traceability) bagi analis dalam mengelola UAT?",
+      "jawabanModel": "Matriks keterlacakan menghubungkan kebutuhan dengan kasus uji dan hasilnya, sehingga analis dapat memastikan tidak ada kebutuhan yang terlewat. Ketika kasus uji gagal, analis cepat melihat kebutuhan mana yang terdampak. Saat kebutuhan berubah, analis tahu kasus uji mana yang perlu diperbarui.",
+      "poinKunci": [
+        "Matriks menghubungkan kebutuhan, kasus uji, dan hasil uji.",
+        "Membantu mendeteksi kebutuhan yang belum punya kasus uji.",
+        "Membantu menilai dampak kegagalan uji terhadap kebutuhan.",
+        "Membantu menentukan kasus uji yang terdampak ketika kebutuhan berubah."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-M-024",
+      "role": "ba",
+      "level": "menengah",
+      "topik": "uat",
+      "pertanyaan": "Bagaimana analis memilih peserta UAT yang tepat dan apa risikonya bila pemilihannya keliru?",
+      "jawabanModel": "Peserta sebaiknya pengguna nyata atau ahli bidang yang mewakili peran dan proses yang terdampak, serta punya waktu dan wewenang untuk menilai. Jika pesertanya hanya manajer yang jarang memakai sistem atau orang yang tidak memahami proses, cacat dan kesenjangan penting tidak terdeteksi. Akibatnya masalah baru muncul setelah solusi dipakai secara luas.",
+      "poinKunci": [
+        "Peserta harus mewakili peran dan proses yang terdampak.",
+        "Pengguna harian dan ahli bidang lebih tepat daripada sekadar pejabat senior.",
+        "Peserta perlu waktu dan wewenang untuk memberi penilaian.",
+        "Pemilihan keliru membuat masalah baru terlihat setelah solusi dipakai."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-001",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Ketika sponsor meminta perubahan requirement di tengah proyek, langkah apa yang kamu lakukan sebelum memberi estimasi dampak?",
+      "jawabanModel": "Pertama, pastikan kebutuhan di balik permintaan itu dipahami: masalah bisnis apa yang ingin diselesaikan, bukan hanya solusi yang diminta. Setelah itu, identifikasi requirement, komponen, dan pemangku kepentingan yang terkait, lalu nilai dampaknya terhadap lingkup, jadwal, biaya, dan risiko. Estimasi baru diberikan setelah dampak tersebut dipetakan, bukan sebelumnya.",
+      "poinKunci": [
+        "Klarifikasi tujuan bisnis di balik perubahan, bukan hanya bentuk solusinya.",
+        "Petakan requirement dan komponen yang terkait dengan perubahan.",
+        "Identifikasi pemangku kepentingan yang terdampak.",
+        "Nilai dampak pada lingkup, jadwal, biaya, dan risiko.",
+        "Tunda estimasi sampai dependensi dipahami."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-002",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Bagaimana traceability requirement membantu analisis dampak, dan apa risikonya jika traceability tidak dijaga?",
+      "jawabanModel": "Traceability menghubungkan requirement dengan tujuan bisnis, requirement turunan, desain, pengujian, dan solusi, sehingga elemen yang terdampak dapat ditemukan dengan cepat. Tanpa traceability yang terjaga, dampak mudah terlewat dan analisis bergantung pada ingatan individu. Biaya memeliharanya perlu diseimbangkan dengan kompleksitas dan risiko proyek.",
+      "poinKunci": [
+        "Traceability menunjukkan hubungan ke atas dan ke bawah antar artefak.",
+        "Dengan itu, elemen yang terdampak perubahan bisa ditelusuri lebih cepat.",
+        "Tanpa traceability, uji dan dokumentasi terkait mudah terlewat.",
+        "Tingkat kedalaman traceability disesuaikan dengan kompleksitas dan risiko."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-003",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Perubahan yang tampak kecil pada tampilan layar ternyata menyentuh aturan bisnis dan integrasi, bagaimana kamu menemukan dampak tersembunyi seperti itu?",
+      "jawabanModel": "Telusuri perubahan melampaui lapisan yang terlihat: periksa aturan bisnis, data, antarmuka dengan sistem lain, laporan, dan peran pengguna yang bergantung pada elemen tersebut. Libatkan pemilik proses dan perwakilan teknis dalam sesi telaah bersama, karena dampak lintas area jarang terlihat dari satu sudut pandang. Catat asumsi yang belum terverifikasi sebagai risiko.",
+      "poinKunci": [
+        "Ukuran perubahan di permukaan tidak mencerminkan luas dampaknya.",
+        "Periksa aturan bisnis, data, antarmuka, dan laporan yang bergantung padanya.",
+        "Libatkan pemilik proses dan perwakilan teknis dalam telaah bersama.",
+        "Catat asumsi yang belum terverifikasi sebagai risiko."
+      ],
+      "sumber": null,
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-004",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Bagaimana kamu menyajikan hasil analisis dampak agar pengambil keputusan dapat memilih antara menerima, menunda, atau menolak perubahan?",
+      "jawabanModel": "Sajikan opsi yang jelas beserta konsekuensi masing-masing terhadap nilai bisnis, biaya, jadwal, risiko, dan requirement lain. Hubungkan perubahan dengan tujuan bisnis agar keputusan dinilai dari nilai yang didapat, bukan dari siapa yang meminta. Sertakan rekomendasi dengan alasannya, tetapi keputusan akhir tetap pada pihak yang berwenang.",
+      "poinKunci": [
+        "Tampilkan beberapa opsi, termasuk menunda atau tidak melakukan perubahan.",
+        "Jelaskan konsekuensi tiap opsi pada nilai, biaya, jadwal, dan risiko.",
+        "Kaitkan perubahan dengan tujuan bisnis.",
+        "Berikan rekomendasi beralasan, tetapi hormati kewenangan pengambil keputusan."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-005",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Bagaimana kamu menangani perubahan requirement yang datang saat tim agile sedang berada di tengah iterasi?",
+      "jawabanModel": "Lindungi komitmen iterasi yang sedang berjalan, kecuali perubahan itu begitu mendesak sehingga tujuan iterasi tidak lagi relevan. Umumnya perubahan dicatat di backlog, dianalisis dampaknya, lalu diprioritaskan ulang bersama pemilik produk untuk iterasi berikutnya. Jika harus masuk lebih awal, sesuaikan isi iterasi secara terbuka bersama tim.",
+      "poinKunci": [
+        "Tujuan iterasi yang berjalan perlu dilindungi dari gangguan.",
+        "Perubahan dicatat di backlog dan dianalisis dampaknya.",
+        "Pemilik produk menentukan prioritas ulang.",
+        "Jika harus masuk lebih awal, ruang lingkup iterasi disesuaikan secara terbuka bersama tim."
+      ],
+      "sumber": "Agile Alliance Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-006",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Perubahan aturan persetujuan membuat alur proses bisnis berubah, bagaimana model proses membantu menilai dampaknya?",
+      "jawabanModel": "Bandingkan model proses kondisi saat ini dengan model setelah perubahan untuk melihat aktivitas, gerbang keputusan, peserta, dan alur pesan yang bergeser. Dari perbedaan itu, tentukan peran, sistem, dan pengukuran proses yang terpengaruh serta pengecualian yang perlu dimodelkan. Hasilnya dipakai untuk mengonfirmasi dengan pemilik proses sebelum perubahan dilaksanakan.",
+      "poinKunci": [
+        "Bandingkan model kondisi saat ini dengan model setelah perubahan.",
+        "Soroti aktivitas, gerbang keputusan, dan peserta yang berubah.",
+        "Telusuri peran, sistem, dan pengukuran proses yang terdampak.",
+        "Validasi hasilnya dengan pemilik proses."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-007",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "analisis-dampak",
+      "pertanyaan": "Mengapa perubahan requirement fungsional perlu ditinjau terhadap requirement non-fungsional, dan apa contoh dampaknya?",
+      "jawabanModel": "Fungsi baru dapat mengubah beban sistem, waktu respons, kebutuhan keamanan, hak akses, atau kebutuhan audit, sehingga requirement non-fungsional yang sudah disepakati bisa tidak terpenuhi. Misalnya, penambahan fitur ekspor data massal dapat menekan kinerja dan membuka risiko kebocoran data. Karena itu, tinjauan dampak harus mencakup kedua jenis requirement sebelum keputusan diambil.",
+      "poinKunci": [
+        "Perubahan fungsional dapat melanggar requirement non-fungsional yang ada.",
+        "Kinerja, keamanan, dan hak akses adalah area yang sering terdampak.",
+        "Requirement non-fungsional baru mungkin muncul akibat perubahan.",
+        "Tinjauan dilakukan sebelum keputusan, bukan saat pengujian akhir."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-010",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang pilihan antara membeli solusi siap pakai dan membangun solusi kustom ketika kebutuhan bisnis sebagian besar standar tetapi ada satu proses yang menjadi pembeda kompetitif?",
+      "jawabanModel": "Saya akan menilai kesesuaian solusi siap pakai terhadap kebutuhan, lalu menimbang total biaya kepemilikan jangka panjang, kecepatan implementasi, dan risiko ketergantungan pada vendor. Untuk bagian standar, solusi siap pakai biasanya lebih efisien, sedangkan proses pembeda kompetitif layak dibangun atau dikustomisasi agar nilai strategisnya terjaga. Pendekatan hibrida sering menjadi kompromi terbaik, dan keputusan akhir harus disepakati bersama pemangku kepentingan berdasarkan kriteria yang eksplisit.",
+      "poinKunci": [
+        "Bandingkan total biaya kepemilikan, bukan hanya biaya awal.",
+        "Fungsi standar cocok dipenuhi solusi siap pakai karena lebih cepat dan murah dipelihara.",
+        "Proses pembeda kompetitif layak mendapat kontrol dan fleksibilitas lebih besar.",
+        "Pertimbangkan risiko ketergantungan pada vendor dan kemampuan tim memelihara solusi kustom.",
+        "Gunakan kriteria keputusan yang disepakati pemangku kepentingan."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-011",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menyikapi dua pemangku kepentingan senior yang prioritas fiturnya saling bertentangan padahal anggaran dan waktu proyek terbatas?",
+      "jawabanModel": "Saya akan mengaitkan kedua permintaan dengan tujuan bisnis dan nilai yang dihasilkan, bukan dengan posisi atau senioritas peminatnya. Setelah itu saya memfasilitasi diskusi dengan kriteria prioritisasi yang transparan, memaparkan konsekuensi tiap pilihan, dan bila tidak tercapai kesepakatan, mengeskalasi ke pemilik keputusan yang berwenang.",
+      "poinKunci": [
+        "Tarik percakapan dari posisi ke kebutuhan dan tujuan bisnis yang mendasarinya.",
+        "Gunakan kriteria prioritisasi yang eksplisit dan disepakati bersama.",
+        "Paparkan konsekuensi, biaya, dan risiko dari tiap pilihan secara transparan.",
+        "Eskalasi ke pemilik keputusan yang berwenang bila konflik tidak terselesaikan.",
+        "Dokumentasikan keputusan beserta alasannya."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-012",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang kelengkapan dokumentasi kebutuhan terhadap kecepatan pengiriman pada proyek dengan tingkat ketidakpastian tinggi?",
+      "jawabanModel": "Tingkat detail dokumentasi sebaiknya disesuaikan dengan risiko, kompleksitas, dan kebutuhan komunikasi proyek. Pada ketidakpastian tinggi, dokumentasi ringan yang diperbarui sering lebih berguna daripada spesifikasi lengkap yang cepat usang. Namun area berisiko tinggi seperti kepatuhan atau integrasi tetap membutuhkan dokumentasi yang lebih rinci dan dapat ditelusuri.",
+      "poinKunci": [
+        "Sesuaikan kedalaman dokumentasi dengan risiko dan kompleksitas, bukan satu standar untuk semua.",
+        "Dokumentasi terlalu detail di awal berisiko cepat usang ketika kebutuhan berubah.",
+        "Area dengan kewajiban regulasi atau banyak dependensi tetap memerlukan dokumentasi yang kuat.",
+        "Dokumentasi ada untuk tujuan komunikasi dan pelacakan, sehingga audiensnya perlu dipertimbangkan."
+      ],
+      "sumber": "Agile Alliance Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-013",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang otomatisasi penuh sebuah proses terhadap mempertahankan langkah persetujuan manual oleh manusia?",
+      "jawabanModel": "Saya menilai volume, tingkat kesalahan, dampak dari keputusan yang salah, serta kebutuhan kontrol dan audit. Proses berulang, berisiko rendah, dan berbasis aturan jelas cocok diotomatisasi penuh. Keputusan yang berdampak besar, ambigu, atau berkaitan dengan regulasi sebaiknya tetap melibatkan manusia, mungkin dengan otomatisasi parsial yang menangani kasus rutin dan meneruskan pengecualian.",
+      "poinKunci": [
+        "Otomatisasi paling cocok untuk proses bervolume tinggi, berulang, dan berbasis aturan jelas.",
+        "Dampak keputusan yang salah menentukan seberapa perlu pengawasan manusia.",
+        "Kebutuhan kontrol internal dan jejak audit dapat mempertahankan langkah manual.",
+        "Penanganan pengecualian secara terpisah memungkinkan otomatisasi parsial yang seimbang."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-014",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang perbaikan cepat jangka pendek terhadap perubahan struktural jangka panjang ketika bisnis menekan agar masalah segera teratasi?",
+      "jawabanModel": "Saya akan memisahkan penanganan gejala dari akar masalah, lalu menawarkan solusi sementara yang jelas batasnya sambil merencanakan perbaikan struktural. Pemangku kepentingan perlu memahami biaya menunda perbaikan permanen, seperti utang teknis atau pekerjaan manual berulang. Solusi sementara harus punya pemilik, batas waktu, dan kriteria penggantian agar tidak menjadi permanen tanpa disadari.",
+      "poinKunci": [
+        "Bedakan gejala dari akar masalah sebelum memilih solusi.",
+        "Solusi sementara dapat meredakan tekanan bisnis, asalkan batasnya dinyatakan terbuka.",
+        "Tunjukkan biaya jangka panjang dari menunda perbaikan struktural.",
+        "Tetapkan pemilik, tenggat, dan kriteria pengganti untuk solusi sementara."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-015",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang pelibatan banyak pemangku kepentingan dalam elisitasi terhadap risiko keterlambatan dan kebutuhan yang saling bertabrakan?",
+      "jawabanModel": "Saya memetakan pemangku kepentingan berdasarkan pengaruh, kepentingan, dan keterlibatannya dengan solusi, lalu menyesuaikan intensitas pelibatan tiap kelompok. Pihak yang berdampak besar dilibatkan mendalam, sedangkan pihak lain cukup diinformasikan atau dimintai konfirmasi. Dengan begitu cakupan perspektif tetap memadai tanpa memperlambat proses secara berlebihan.",
+      "poinKunci": [
+        "Analisis pemangku kepentingan membantu menentukan siapa yang perlu dilibatkan dan seberapa dalam.",
+        "Melewatkan kelompok yang terdampak berisiko menghasilkan kebutuhan yang tidak lengkap atau penolakan saat implementasi.",
+        "Pelibatan berlebihan menambah waktu dan konflik tanpa selalu menambah nilai.",
+        "Kebutuhan yang bertabrakan perlu dirundingkan dan diselesaikan secara terbuka."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-016",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang perluasan cakupan atas permintaan perubahan di tengah proyek terhadap dampaknya pada jadwal, biaya, dan kualitas?",
+      "jawabanModel": "Saya menganalisis dampak perubahan terhadap tujuan, jadwal, biaya, risiko, dan dependensi, lalu menyajikannya kepada pengambil keputusan lewat proses kendali perubahan. Perubahan yang bernilai tinggi dapat diterima dengan menyesuaikan sumber daya atau mengganti item lain yang bernilai lebih rendah. Menyerap perubahan diam-diam tanpa penyesuaian merusak kepercayaan dan kualitas.",
+      "poinKunci": [
+        "Nilai perubahan terhadap tujuan bisnis, bukan hanya siapa yang meminta.",
+        "Analisis dampak mencakup jadwal, biaya, kualitas, risiko, dan dependensi.",
+        "Keputusan diambil oleh pihak berwenang melalui proses kendali perubahan.",
+        "Perubahan dapat diakomodasi dengan menukar prioritas atau menyesuaikan sumber daya."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-019",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "kasus-end-to-end",
+      "pertanyaan": "Dalam proyek yang pemangku kepentingannya punya kepentingan saling bertentangan, bagaimana kamu mengelola mereka agar kebutuhan dapat disepakati dari awal sampai akhir proyek?",
+      "jawabanModel": "Saya memetakan pemangku kepentingan berdasarkan pengaruh, kepentingan, dan dampak, lalu menggali kebutuhan di balik posisi masing-masing. Konflik diselesaikan dengan merujuk pada tujuan bisnis dan kriteria prioritas yang disepakati, serta melibatkan pengambil keputusan yang berwenang bila perlu. Komunikasi dan persetujuan dijaga sepanjang proyek, bukan hanya di awal.",
+      "poinKunci": [
+        "Petakan pemangku kepentingan menurut pengaruh, kepentingan, dan dampak.",
+        "Gali kebutuhan yang mendasari, bukan hanya posisi yang dinyatakan.",
+        "Gunakan tujuan bisnis dan kriteria prioritas yang disepakati sebagai dasar keputusan.",
+        "Eskalasi ke pengambil keputusan yang berwenang bila kesepakatan tidak tercapai.",
+        "Pertahankan komunikasi berkelanjutan dan catat keputusan yang diambil."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-020",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "kasus-end-to-end",
+      "pertanyaan": "Bagaimana kamu memodelkan proses bisnis yang melibatkan beberapa departemen dan serah terima antarbagian untuk menemukan sumber keterlambatan, lalu mengubahnya menjadi perbaikan?",
+      "jawabanModel": "Saya memodelkan proses kondisi saat ini dengan notasi standar yang menampilkan peran atau jalur tanggung jawab, aktivitas, keputusan, dan serah terima. Model divalidasi bersama pelaksana proses, lalu dianalisis untuk menemukan penantian, pengerjaan ulang, dan hambatan. Hasilnya menjadi dasar rancangan proses masa depan beserta ukuran perbaikannya.",
+      "poinKunci": [
+        "Modelkan kondisi saat ini dengan notasi standar yang menunjukkan peran dan serah terima.",
+        "Validasi model bersama orang yang benar-benar menjalankan proses.",
+        "Cari waktu tunggu, pengerjaan ulang, dan hambatan pada titik serah terima.",
+        "Rancang proses masa depan yang menangani penyebab, bukan gejala.",
+        "Tentukan indikator kinerja untuk membandingkan sebelum dan sesudah perbaikan."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-021",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "kasus-end-to-end",
+      "pertanyaan": "Bagaimana kamu menyusun dan memprioritaskan kebutuhan ketika anggaran dan waktu hanya cukup untuk sebagian dari seluruh permintaan?",
+      "jawabanModel": "Saya menyusun kebutuhan yang jelas dan dapat ditelusuri ke tujuan bisnis, lalu memprioritaskannya bersama pemangku kepentingan dengan kriteria eksplisit seperti nilai bisnis, risiko, dan ketergantungan. Hasilnya berupa cakupan minimum yang tetap memberi nilai, dengan sisanya dijadwalkan atau dikeluarkan secara terbuka. Prioritas ditinjau ulang bila konteks berubah.",
+      "poinKunci": [
+        "Telusuri setiap kebutuhan ke tujuan bisnis agar relevansinya jelas.",
+        "Gunakan kriteria prioritas eksplisit seperti nilai, risiko, biaya, dan ketergantungan.",
+        "Identifikasi cakupan minimum yang masih memberi nilai bisnis.",
+        "Komunikasikan secara terbuka apa yang ditunda atau dikeluarkan.",
+        "Tinjau ulang prioritas ketika kondisi bisnis berubah."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-022",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "kasus-end-to-end",
+      "pertanyaan": "Bagaimana kamu memastikan solusi yang sudah dibangun benar-benar menjawab masalah bisnis awal sebelum dirilis penuh?",
+      "jawabanModel": "Saya menjaga keterlacakan dari tujuan bisnis ke kebutuhan, rancangan, dan pengujian, lalu memastikan kriteria penerimaan yang disepakati diuji bersama pengguna dan pemilik bisnis. Temuan dinilai dampaknya terhadap tujuan, dan keputusan rilis diambil berdasarkan bukti, termasuk kemungkinan rilis bertahap.",
+      "poinKunci": [
+        "Jaga keterlacakan dari tujuan bisnis sampai pengujian.",
+        "Sepakati kriteria penerimaan sebelum pengujian dimulai.",
+        "Libatkan pengguna nyata dan pemilik bisnis dalam validasi.",
+        "Nilai temuan berdasarkan dampaknya pada tujuan bisnis.",
+        "Pertimbangkan rilis bertahap untuk mengurangi risiko."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-023",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "kasus-end-to-end",
+      "pertanyaan": "Bagaimana kamu mengelola perubahan kebutuhan yang datang di tengah pengembangan tanpa merusak jadwal dan nilai yang dijanjikan?",
+      "jawabanModel": "Saya menilai setiap perubahan terhadap tujuan bisnis, dampaknya pada cakupan, biaya, jadwal, dan risiko, lalu membawanya ke pihak berwenang untuk diputuskan secara transparan. Pada pendekatan adaptif, perubahan masuk ke daftar prioritas dan ditukar dengan item lain bila kapasitas terbatas. Keputusan dan alasannya dicatat.",
+      "poinKunci": [
+        "Nilai dampak perubahan pada cakupan, biaya, jadwal, dan risiko.",
+        "Hubungkan perubahan dengan tujuan bisnis sebelum menerimanya.",
+        "Putuskan lewat mekanisme persetujuan yang jelas dan transparan.",
+        "Pada pendekatan adaptif, masukkan perubahan ke daftar prioritas dan pertimbangkan penukaran item.",
+        "Catat keputusan agar keterlacakan tetap terjaga."
+      ],
+      "sumber": "Agile Alliance Glossary",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-024",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "kasus-end-to-end",
+      "pertanyaan": "Bagaimana kamu menilai apakah sebuah investasi solusi layak dilanjutkan, saat membangun usulan bisnis untuk masalah yang sudah dianalisis?",
+      "jawabanModel": "Saya membandingkan beberapa opsi solusi dengan menimbang manfaat, biaya, risiko, dan asumsi, serta kesesuaiannya dengan strategi organisasi. Opsi tidak berbuat apa-apa juga dimasukkan sebagai pembanding. Asumsi yang paling berpengaruh diuji lewat analisis sensitivitas atau pembuktian kecil sebelum rekomendasi diajukan.",
+      "poinKunci": [
+        "Bandingkan beberapa opsi, termasuk tidak melakukan perubahan apa pun.",
+        "Timbang manfaat, biaya total, risiko, dan kesesuaian dengan strategi.",
+        "Nyatakan asumsi secara eksplisit.",
+        "Uji asumsi paling berpengaruh dengan analisis sensitivitas atau percobaan kecil.",
+        "Sertakan manfaat dan biaya yang tidak berwujud secara terpisah dan jujur."
+      ],
+      "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    }
+  ]
+}

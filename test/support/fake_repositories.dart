@@ -468,6 +468,9 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
   /// Bila diisi, `since` melempar ini (menguji kondisi galat).
   Object? failSinceWith;
 
+  /// Bila diisi, `countAnswered` melempar ini.
+  Object? failCountWith;
+
   /// Bila diisi, `byId` melempar ini.
   Object? failByIdWith;
 
@@ -573,6 +576,17 @@ class FakeSessionRepository implements SessionRepository, AnswerRepository {
       for (final s in sessions.values)
         if (s.selesai != null) s,
     ]..sort((a, b) => a.selesai!.compareTo(b.selesai!));
+  }
+
+  @override
+  Future<int> countAnswered(DateTime from, DateTime to) async {
+    if (failCountWith != null) throw failCountWith!;
+    var n = 0;
+    for (final a in _log) {
+      final at = a.dijawabPada ?? sessions[a.sessionId]!.mulai;
+      if (a.opsiDipilih != null && !at.isBefore(from) && at.isBefore(to)) n++;
+    }
+    return n;
   }
 
   @override

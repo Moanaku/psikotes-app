@@ -16,6 +16,7 @@ import 'package:simulator_psikotes_it/domain/services/session_controller.dart';
 
 import 'fake_clock.dart';
 import 'fake_repositories.dart';
+import 'knowledge_fixtures.dart';
 import 'manual_ticker.dart';
 
 final DateTime appNow = DateTime.utc(2026, 10, 22, 8);
@@ -105,6 +106,7 @@ Future<AppHarness> pumpApp(
   MemoryPhotoStore? photos,
   FakeClock? clock,
   ManualTicker? ticker,
+  FakeKnowledgeRepository? knowledge,
   double width = 360,
   double height = 800,
   double textScale = 1,
@@ -135,6 +137,8 @@ Future<AppHarness> pumpApp(
       answerRepositoryProvider.overrideWithValue(sessionRepo),
       clockProvider.overrideWithValue(fake),
       tickerFactoryProvider.overrideWithValue(manual.factory),
+      knowledgeRepositoryProvider
+          .overrideWithValue(knowledge ?? FakeKnowledgeRepository()),
       ...overrides,
     ],
     child: const PsikotesApp(),

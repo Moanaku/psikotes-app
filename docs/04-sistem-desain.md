@@ -139,6 +139,7 @@ Dibangun sebelum layar (tugas T02). Layar hanya merakit komponen ini. Membuat ko
 | `StatRow` | Tiga kolom dipisah garis vertikal `outlineVariant`; angka `headline`, keterangan `label` `inkMuted` |
 | `QuadrantGrid` | 2 x 2 untuk cepat atau lambat dan benar atau salah. Benar di `okContainer`, salah di `badContainer`, tiap sel punya ikon dan teks. Angka di atas, judul sel di bawahnya, agar angka sejajar walau judul turun baris |
 | `ChatBubble` | Pewawancara: `surfaceContainer`, batas `outlineVariant`, radius 12 dengan sudut kiri bawah 4. Pengguna: latar `ink`, teks terang, sudut kanan bawah 4 |
+| `CodeBlock` | Teks kode dengan `AppType.code` (IBM Plex Mono 14 / 20, Regular dan SemiBold, OFL; lisensi di `assets/fonts/IBMPlexMono-OFL.txt`). Indentasi awal dipertahankan, baris panjang dipatahkan di spasi dengan indentasi gantung 2 karakter. Tanpa latar atau bingkai. Dipakai untuk pseudocode IT-PSE; tabel IT-FLW dan IT-XLS memakai gaya yang sama lewat `FigureView(mono: true)` |
 | `EmptyView` | Judul `title`, satu kalimat penjelasan, satu tombol aksi (boleh tanpa tombol bila tidak ada yang bisa dilakukan, mis. "Tidak ada kartu jatuh tempo hari ini") |
 | `SkeletonList` | Baris abu `surfaceContainerHigh` berbentuk baris daftar asli. Bukan spinner di tengah layar |
 | `ErrorView` | Apa yang gagal, apa yang bisa dilakukan, tombol "Coba lagi" di tempatnya. Tidak pernah menampilkan teks exception |

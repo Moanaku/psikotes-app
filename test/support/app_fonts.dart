@@ -22,6 +22,14 @@ Future<void> loadAppFonts() async {
   }
   await loader.load();
 
+  final code = FontLoader(AppType.codeFamily);
+  for (final weight in const ['Regular', 'SemiBold']) {
+    final bytes =
+        File('assets/fonts/IBMPlexMono-$weight.ttf').readAsBytesSync();
+    code.addFont(Future.value(ByteData.sublistView(bytes)));
+  }
+  await code.load();
+
   // Ikon: tanpa ini ikon Material tampil sebagai kotak di golden.
   final root = Platform.environment['FLUTTER_ROOT'];
   if (root != null) {

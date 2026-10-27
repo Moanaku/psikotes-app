@@ -1,0 +1,579 @@
+{
+  "versi": 1,
+  "dibuat": "2026-10-27",
+  "jumlah": {
+    "VRB-RC": 30
+  },
+  "soal": [
+    {
+      "id": "VRB-RC-0001",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Tim Nusa Pesan beranggotakan lima orang dan bertugas menambahkan fitur pelacakan pesanan pada aplikasi pemesanan makanan. Pada minggu pertama, tim menyelesaikan rancangan tampilan. Minggu kedua dipakai untuk menulis kode, dan minggu ketiga untuk pengujian internal. Fitur ini awalnya dirilis hanya kepada sepuluh persen pengguna agar kesalahan yang muncul tidak memengaruhi semua orang. Jika dalam tiga hari tidak ada laporan gangguan serius, fitur dibuka bagi seluruh pengguna. Ketua tim, Rina, memutuskan menunda pengumuman resmi sampai rilis penuh selesai. Alasannya, tim ingin memastikan server mampu menahan lonjakan pesanan lebih dahulu.\n\nPernyataan: Server aplikasi pernah mengalami gangguan saat terjadi lonjakan pesanan sebelumnya.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut tim ingin memastikan server mampu menahan lonjakan, tanpa menyebut adanya gangguan di masa lalu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC001-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0002",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Tim Nusa Pesan beranggotakan lima orang dan bertugas menambahkan fitur pelacakan pesanan pada aplikasi pemesanan makanan. Pada minggu pertama, tim menyelesaikan rancangan tampilan. Minggu kedua dipakai untuk menulis kode, dan minggu ketiga untuk pengujian internal. Fitur ini awalnya dirilis hanya kepada sepuluh persen pengguna agar kesalahan yang muncul tidak memengaruhi semua orang. Jika dalam tiga hari tidak ada laporan gangguan serius, fitur dibuka bagi seluruh pengguna. Ketua tim, Rina, memutuskan menunda pengumuman resmi sampai rilis penuh selesai. Alasannya, tim ingin memastikan server mampu menahan lonjakan pesanan lebih dahulu.\n\nPernyataan: Tim yang mengerjakan fitur pelacakan pesanan terdiri dari lima orang.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Kalimat pertama menyatakan tim beranggotakan lima orang.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC001-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0003",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Tim Nusa Pesan beranggotakan lima orang dan bertugas menambahkan fitur pelacakan pesanan pada aplikasi pemesanan makanan. Pada minggu pertama, tim menyelesaikan rancangan tampilan. Minggu kedua dipakai untuk menulis kode, dan minggu ketiga untuk pengujian internal. Fitur ini awalnya dirilis hanya kepada sepuluh persen pengguna agar kesalahan yang muncul tidak memengaruhi semua orang. Jika dalam tiga hari tidak ada laporan gangguan serius, fitur dibuka bagi seluruh pengguna. Ketua tim, Rina, memutuskan menunda pengumuman resmi sampai rilis penuh selesai. Alasannya, tim ingin memastikan server mampu menahan lonjakan pesanan lebih dahulu.\n\nPernyataan: Pengerjaan fitur dari rancangan sampai pengujian internal memakan waktu empat minggu.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Rancangan, penulisan kode, dan pengujian internal masing-masing satu minggu, sehingga totalnya tiga minggu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC001-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0004",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Perusahaan Karya Data memindahkan data pelanggan dari sistem lama ke sistem baru dalam tiga tahap. Tahap pertama membersihkan data ganda; dari 48.000 catatan, sekitar 6.000 ternyata duplikat dan dihapus. Tahap kedua menyalin data ke sistem baru pada akhir pekan, saat jumlah transaksi paling rendah. Tahap ketiga mencocokkan jumlah catatan di kedua sistem. Sistem lama tidak boleh dimatikan sebelum hasil pencocokan dinyatakan sama oleh dua petugas berbeda. Aturan ini dibuat setelah migrasi sebelumnya kehilangan beberapa catatan tanpa disadari. Selama masa pencocokan, tim layanan pelanggan tetap memakai sistem lama untuk menjawab keluhan.\n\nPernyataan: Migrasi sebelumnya kehilangan lebih dari seribu catatan pelanggan.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut kehilangan beberapa catatan tanpa menyebut jumlah pastinya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC002-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0005",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Perusahaan Karya Data memindahkan data pelanggan dari sistem lama ke sistem baru dalam tiga tahap. Tahap pertama membersihkan data ganda; dari 48.000 catatan, sekitar 6.000 ternyata duplikat dan dihapus. Tahap kedua menyalin data ke sistem baru pada akhir pekan, saat jumlah transaksi paling rendah. Tahap ketiga mencocokkan jumlah catatan di kedua sistem. Sistem lama tidak boleh dimatikan sebelum hasil pencocokan dinyatakan sama oleh dua petugas berbeda. Aturan ini dibuat setelah migrasi sebelumnya kehilangan beberapa catatan tanpa disadari. Selama masa pencocokan, tim layanan pelanggan tetap memakai sistem lama untuk menjawab keluhan.\n\nPernyataan: Penyalinan data ke sistem baru dilakukan pada hari kerja ketika transaksi sedang ramai.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Penyalinan dilakukan pada akhir pekan, saat jumlah transaksi paling rendah.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC002-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0006",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Perusahaan Karya Data memindahkan data pelanggan dari sistem lama ke sistem baru dalam tiga tahap. Tahap pertama membersihkan data ganda; dari 48.000 catatan, sekitar 6.000 ternyata duplikat dan dihapus. Tahap kedua menyalin data ke sistem baru pada akhir pekan, saat jumlah transaksi paling rendah. Tahap ketiga mencocokkan jumlah catatan di kedua sistem. Sistem lama tidak boleh dimatikan sebelum hasil pencocokan dinyatakan sama oleh dua petugas berbeda. Aturan ini dibuat setelah migrasi sebelumnya kehilangan beberapa catatan tanpa disadari. Selama masa pencocokan, tim layanan pelanggan tetap memakai sistem lama untuk menjawab keluhan.\n\nPernyataan: Setelah pembersihan data ganda, sekitar 42.000 catatan pelanggan tersisa untuk dipindahkan.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Sekitar 6.000 duplikat dihapus dari 48.000 catatan, sehingga tersisa sekitar 42.000.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC002-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0007",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Sebelum rilis aplikasi versi 4, tim penguji menyusun jadwal lima hari. Senin dan Selasa dipakai untuk pengujian fungsi, yaitu memeriksa apakah setiap tombol bekerja sesuai rancangan. Rabu khusus untuk pengujian beban dengan dua ribu pengguna tiruan. Kamis dialokasikan bagi pengujian pada tiga jenis ponsel yang paling banyak dipakai pelanggan. Jumat dijadikan hari cadangan untuk memperbaiki temuan yang belum selesai. Rilis hanya boleh dilakukan jika tidak ada kesalahan berstatus kritis yang tersisa. Karena itu, jika pada Jumat sore masih ada kesalahan kritis, rilis ditunda ke minggu berikutnya.\n\nPernyataan: Pengujian beban dijadwalkan pada hari Rabu.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bacaan menyebut Rabu khusus untuk pengujian beban.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC003-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0008",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Sebelum rilis aplikasi versi 4, tim penguji menyusun jadwal lima hari. Senin dan Selasa dipakai untuk pengujian fungsi, yaitu memeriksa apakah setiap tombol bekerja sesuai rancangan. Rabu khusus untuk pengujian beban dengan dua ribu pengguna tiruan. Kamis dialokasikan bagi pengujian pada tiga jenis ponsel yang paling banyak dipakai pelanggan. Jumat dijadikan hari cadangan untuk memperbaiki temuan yang belum selesai. Rilis hanya boleh dilakukan jika tidak ada kesalahan berstatus kritis yang tersisa. Karena itu, jika pada Jumat sore masih ada kesalahan kritis, rilis ditunda ke minggu berikutnya.\n\nPernyataan: Waktu yang dijadwalkan untuk pengujian fungsi lebih singkat daripada waktu untuk pengujian pada ponsel.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pengujian fungsi memakai dua hari (Senin dan Selasa), sedangkan pengujian ponsel hanya satu hari (Kamis).",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC003-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0009",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Sebelum rilis aplikasi versi 4, tim penguji menyusun jadwal lima hari. Senin dan Selasa dipakai untuk pengujian fungsi, yaitu memeriksa apakah setiap tombol bekerja sesuai rancangan. Rabu khusus untuk pengujian beban dengan dua ribu pengguna tiruan. Kamis dialokasikan bagi pengujian pada tiga jenis ponsel yang paling banyak dipakai pelanggan. Jumat dijadikan hari cadangan untuk memperbaiki temuan yang belum selesai. Rilis hanya boleh dilakukan jika tidak ada kesalahan berstatus kritis yang tersisa. Karena itu, jika pada Jumat sore masih ada kesalahan kritis, rilis ditunda ke minggu berikutnya.\n\nPernyataan: Ketiga jenis ponsel yang diuji adalah ponsel keluaran terbaru.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut ponsel yang paling banyak dipakai pelanggan, bukan seberapa baru ponsel tersebut.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC003-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0010",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Kebijakan cadangan data di perusahaan Lintas Arsip berjalan setiap hari pukul 02.00, ketika penggunaan sistem paling sepi. Cadangan penuh dibuat pada hari Minggu, sedangkan pada hari lain hanya data yang berubah sejak cadangan terakhir yang disalin. Setiap salinan disimpan di dua lokasi, yaitu server kantor dan penyimpanan awan. Salinan dipertahankan selama 30 hari, lalu dihapus otomatis. Setiap Senin, seorang petugas mencoba memulihkan satu berkas acak dari cadangan untuk memastikan salinan dapat dipakai. Hasil uji dicatat dalam laporan mingguan. Kebijakan ini disusun agar kehilangan data maksimal hanya sehari kerja.\n\nPernyataan: Petugas yang menguji pemulihan berkas setiap Senin selalu orang yang sama.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut seorang petugas tanpa menjelaskan apakah orangnya tetap atau bergantian.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC004-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0011",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Kebijakan cadangan data di perusahaan Lintas Arsip berjalan setiap hari pukul 02.00, ketika penggunaan sistem paling sepi. Cadangan penuh dibuat pada hari Minggu, sedangkan pada hari lain hanya data yang berubah sejak cadangan terakhir yang disalin. Setiap salinan disimpan di dua lokasi, yaitu server kantor dan penyimpanan awan. Salinan dipertahankan selama 30 hari, lalu dihapus otomatis. Setiap Senin, seorang petugas mencoba memulihkan satu berkas acak dari cadangan untuk memastikan salinan dapat dipakai. Hasil uji dicatat dalam laporan mingguan. Kebijakan ini disusun agar kehilangan data maksimal hanya sehari kerja.\n\nPernyataan: Cadangan penuh dibuat setiap hari pada pukul 02.00.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Cadangan penuh hanya dibuat pada hari Minggu; hari lain hanya data yang berubah yang disalin.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC004-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0012",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Kebijakan cadangan data di perusahaan Lintas Arsip berjalan setiap hari pukul 02.00, ketika penggunaan sistem paling sepi. Cadangan penuh dibuat pada hari Minggu, sedangkan pada hari lain hanya data yang berubah sejak cadangan terakhir yang disalin. Setiap salinan disimpan di dua lokasi, yaitu server kantor dan penyimpanan awan. Salinan dipertahankan selama 30 hari, lalu dihapus otomatis. Setiap Senin, seorang petugas mencoba memulihkan satu berkas acak dari cadangan untuk memastikan salinan dapat dipakai. Hasil uji dicatat dalam laporan mingguan. Kebijakan ini disusun agar kehilangan data maksimal hanya sehari kerja.\n\nPernyataan: Pada hari Selasa, cadangan hanya berisi data yang berubah sejak cadangan sebelumnya.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Selain hari Minggu, hanya data yang berubah sejak cadangan terakhir yang disalin, dan Selasa bukan hari Minggu.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC004-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0013",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Tim Pengembang Lumbung menggelar rapat peninjauan kode setiap Kamis pukul 10.00 dan berlangsung maksimal 45 menit. Sebelum rapat, setiap pengembang wajib mengunggah perubahan kodenya paling lambat Rabu sore agar peserta punya waktu membaca. Dalam rapat, maksimal tiga perubahan kode dibahas, dipilih berdasarkan tingkat risikonya. Satu orang bertugas sebagai pemandu yang mengatur waktu, sedangkan satu orang lain mencatat keputusan. Pemandu diganti setiap minggu secara bergiliran. Komentar yang bersifat gaya penulisan tidak dibahas dalam rapat, melainkan diperiksa oleh alat otomatis. Jika sebuah perubahan belum disetujui, penulisnya harus memperbaikinya dalam dua hari kerja.\n\nPernyataan: Alat otomatis pemeriksa gaya penulisan dijalankan setiap Rabu sore.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut bahwa alat otomatis memeriksa gaya penulisan, tanpa menyebut jadwal penjalanannya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC005-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0014",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Tim Pengembang Lumbung menggelar rapat peninjauan kode setiap Kamis pukul 10.00 dan berlangsung maksimal 45 menit. Sebelum rapat, setiap pengembang wajib mengunggah perubahan kodenya paling lambat Rabu sore agar peserta punya waktu membaca. Dalam rapat, maksimal tiga perubahan kode dibahas, dipilih berdasarkan tingkat risikonya. Satu orang bertugas sebagai pemandu yang mengatur waktu, sedangkan satu orang lain mencatat keputusan. Pemandu diganti setiap minggu secara bergiliran. Komentar yang bersifat gaya penulisan tidak dibahas dalam rapat, melainkan diperiksa oleh alat otomatis. Jika sebuah perubahan belum disetujui, penulisnya harus memperbaikinya dalam dua hari kerja.\n\nPernyataan: Perubahan kode harus diunggah paling lambat Rabu sore sebelum rapat.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bacaan menyebut setiap pengembang wajib mengunggah perubahan kodenya paling lambat Rabu sore.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC005-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0015",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Tim Pengembang Lumbung menggelar rapat peninjauan kode setiap Kamis pukul 10.00 dan berlangsung maksimal 45 menit. Sebelum rapat, setiap pengembang wajib mengunggah perubahan kodenya paling lambat Rabu sore agar peserta punya waktu membaca. Dalam rapat, maksimal tiga perubahan kode dibahas, dipilih berdasarkan tingkat risikonya. Satu orang bertugas sebagai pemandu yang mengatur waktu, sedangkan satu orang lain mencatat keputusan. Pemandu diganti setiap minggu secara bergiliran. Komentar yang bersifat gaya penulisan tidak dibahas dalam rapat, melainkan diperiksa oleh alat otomatis. Jika sebuah perubahan belum disetujui, penulisnya harus memperbaikinya dalam dua hari kerja.\n\nPernyataan: Dalam satu rapat, orang yang mengatur waktu juga bertugas mencatat keputusan.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Pemandu mengatur waktu, sedangkan satu orang lain yang mencatat keputusan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC005-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0016",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Program pelatihan pengembang baru di Studio Cakrawala berlangsung selama enam minggu. Dua minggu pertama diisi pengenalan alur kerja dan lingkungan pengembangan, dengan setiap peserta didampingi satu mentor. Pada minggu ketiga dan keempat, peserta mengerjakan perbaikan galat kecil yang sudah dipilih oleh mentor. Dua minggu terakhir digunakan untuk proyek mini yang dikerjakan berpasangan. Peserta tidak diizinkan menggabungkan kodenya ke cabang utama sebelum program berakhir, karena studio ingin menghindari gangguan pada produk yang sedang berjalan. Di akhir program, peserta mempresentasikan proyek mininya selama 15 menit kepada seluruh tim.\n\nPernyataan: Peserta mengerjakan proyek mini pada dua minggu pertama program.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Dua minggu pertama diisi pengenalan alur kerja, sedangkan proyek mini dikerjakan pada dua minggu terakhir.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC006-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0017",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Program pelatihan pengembang baru di Studio Cakrawala berlangsung selama enam minggu. Dua minggu pertama diisi pengenalan alur kerja dan lingkungan pengembangan, dengan setiap peserta didampingi satu mentor. Pada minggu ketiga dan keempat, peserta mengerjakan perbaikan galat kecil yang sudah dipilih oleh mentor. Dua minggu terakhir digunakan untuk proyek mini yang dikerjakan berpasangan. Peserta tidak diizinkan menggabungkan kodenya ke cabang utama sebelum program berakhir, karena studio ingin menghindari gangguan pada produk yang sedang berjalan. Di akhir program, peserta mempresentasikan proyek mininya selama 15 menit kepada seluruh tim.\n\nPernyataan: Setiap mentor mendampingi lebih dari satu peserta.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut setiap peserta punya satu mentor, tanpa menyebut jumlah peserta per mentor.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC006-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0018",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Program pelatihan pengembang baru di Studio Cakrawala berlangsung selama enam minggu. Dua minggu pertama diisi pengenalan alur kerja dan lingkungan pengembangan, dengan setiap peserta didampingi satu mentor. Pada minggu ketiga dan keempat, peserta mengerjakan perbaikan galat kecil yang sudah dipilih oleh mentor. Dua minggu terakhir digunakan untuk proyek mini yang dikerjakan berpasangan. Peserta tidak diizinkan menggabungkan kodenya ke cabang utama sebelum program berakhir, karena studio ingin menghindari gangguan pada produk yang sedang berjalan. Di akhir program, peserta mempresentasikan proyek mininya selama 15 menit kepada seluruh tim.\n\nPernyataan: Peserta mengerjakan perbaikan galat kecil sebelum mulai mengerjakan proyek mini.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Perbaikan galat dikerjakan pada minggu ketiga dan keempat, sedangkan proyek mini pada dua minggu terakhir.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC006-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0019",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Tim Rantai Data memilih alat pelacak tugas baru karena alat lama sering lambat saat dibuka. Anggota tim menetapkan tiga kriteria: kemudahan penggunaan, kemampuan terhubung dengan repositori kode, dan biaya. Empat alat diuji selama dua minggu, dan setiap anggota memberi nilai 1 sampai 10 untuk tiap kriteria. Alat B mendapat nilai kemudahan tertinggi, tetapi tidak bisa terhubung dengan repositori kode. Alat C memiliki biaya terendah dan dapat terhubung dengan repositori. Karena kemampuan terhubung dengan repositori dianggap wajib, alat yang tidak memenuhinya disingkirkan. Akhirnya tim memilih Alat C, meskipun nilai kemudahannya lebih rendah daripada Alat B.\n\nPernyataan: Alat C mendapat nilai total tertinggi di antara semua alat yang diuji.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan tidak menyebut nilai total, dan tidak menjelaskan bagaimana Alat A dan Alat D dinilai.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC007-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0020",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Tim Rantai Data memilih alat pelacak tugas baru karena alat lama sering lambat saat dibuka. Anggota tim menetapkan tiga kriteria: kemudahan penggunaan, kemampuan terhubung dengan repositori kode, dan biaya. Empat alat diuji selama dua minggu, dan setiap anggota memberi nilai 1 sampai 10 untuk tiap kriteria. Alat B mendapat nilai kemudahan tertinggi, tetapi tidak bisa terhubung dengan repositori kode. Alat C memiliki biaya terendah dan dapat terhubung dengan repositori. Karena kemampuan terhubung dengan repositori dianggap wajib, alat yang tidak memenuhinya disingkirkan. Akhirnya tim memilih Alat C, meskipun nilai kemudahannya lebih rendah daripada Alat B.\n\nPernyataan: Tim menguji lima alat pelacak tugas selama dua minggu.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bacaan menyebut empat alat diuji selama dua minggu, bukan lima.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC007-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0021",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Tim Rantai Data memilih alat pelacak tugas baru karena alat lama sering lambat saat dibuka. Anggota tim menetapkan tiga kriteria: kemudahan penggunaan, kemampuan terhubung dengan repositori kode, dan biaya. Empat alat diuji selama dua minggu, dan setiap anggota memberi nilai 1 sampai 10 untuk tiap kriteria. Alat B mendapat nilai kemudahan tertinggi, tetapi tidak bisa terhubung dengan repositori kode. Alat C memiliki biaya terendah dan dapat terhubung dengan repositori. Karena kemampuan terhubung dengan repositori dianggap wajib, alat yang tidak memenuhinya disingkirkan. Akhirnya tim memilih Alat C, meskipun nilai kemudahannya lebih rendah daripada Alat B.\n\nPernyataan: Alat B tidak dipilih karena tidak memenuhi kriteria yang dianggap wajib.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Alat B tidak bisa terhubung dengan repositori kode, padahal kemampuan itu wajib sehingga alat yang tidak memenuhinya disingkirkan.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC007-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0022",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Tim infrastruktur akan mematikan server basis data utama pada Sabtu malam untuk pemeliharaan terjadwal. Pemadaman dimulai pukul 22.00 dan diperkirakan selesai pukul 04.00 hari Minggu. Selama enam jam itu, aplikasi penggajian dan portal pelanggan tidak dapat diakses, tetapi surel kantor tetap berjalan karena memakai server terpisah. Pekerjaan dibagi tiga tahap: pencadangan data, pembaruan perangkat lunak, dan pengujian akhir. Pencadangan dilakukan lebih dulu agar data aman bila pembaruan gagal. Akhir pekan dipilih karena jumlah pengguna paling sedikit. Karyawan diminta menyimpan pekerjaan sebelum pukul 21.30. Jika pengujian akhir gagal, pemadaman dapat diperpanjang paling lama dua jam, dan pengumuman akan dikirim lewat surel.\n\nPernyataan: Pemadaman bisa berlangsung sampai pukul 07.00 hari Minggu bila pengujian akhir gagal.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Perkiraan selesai pukul 04.00 dan perpanjangan paling lama dua jam, sehingga batas terlambatnya pukul 06.00, bukan 07.00.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC008-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0023",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Tim infrastruktur akan mematikan server basis data utama pada Sabtu malam untuk pemeliharaan terjadwal. Pemadaman dimulai pukul 22.00 dan diperkirakan selesai pukul 04.00 hari Minggu. Selama enam jam itu, aplikasi penggajian dan portal pelanggan tidak dapat diakses, tetapi surel kantor tetap berjalan karena memakai server terpisah. Pekerjaan dibagi tiga tahap: pencadangan data, pembaruan perangkat lunak, dan pengujian akhir. Pencadangan dilakukan lebih dulu agar data aman bila pembaruan gagal. Akhir pekan dipilih karena jumlah pengguna paling sedikit. Karyawan diminta menyimpan pekerjaan sebelum pukul 21.30. Jika pengujian akhir gagal, pemadaman dapat diperpanjang paling lama dua jam, dan pengumuman akan dikirim lewat surel.\n\nPernyataan: Tahap pengujian akhir memakan waktu lebih lama daripada tahap pencadangan data.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan menyebut urutan tahap, tetapi tidak menyebut durasi masing-masing tahap.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC008-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0024",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Tim infrastruktur akan mematikan server basis data utama pada Sabtu malam untuk pemeliharaan terjadwal. Pemadaman dimulai pukul 22.00 dan diperkirakan selesai pukul 04.00 hari Minggu. Selama enam jam itu, aplikasi penggajian dan portal pelanggan tidak dapat diakses, tetapi surel kantor tetap berjalan karena memakai server terpisah. Pekerjaan dibagi tiga tahap: pencadangan data, pembaruan perangkat lunak, dan pengujian akhir. Pencadangan dilakukan lebih dulu agar data aman bila pembaruan gagal. Akhir pekan dipilih karena jumlah pengguna paling sedikit. Karyawan diminta menyimpan pekerjaan sebelum pukul 21.30. Jika pengujian akhir gagal, pemadaman dapat diperpanjang paling lama dua jam, dan pengumuman akan dikirim lewat surel.\n\nPernyataan: Pencadangan data dilakukan sebelum pembaruan perangkat lunak.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bacaan menyatakan pencadangan dilakukan lebih dulu agar data aman bila pembaruan gagal.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC008-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0025",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Mulai awal bulan depan, pengajuan cuti di aplikasi internal tidak lagi melewati tiga tingkat persetujuan. Sebelumnya, setiap pengajuan harus disetujui atasan langsung, kepala divisi, lalu bagian SDM. Dalam alur baru, atasan langsung menjadi satu-satunya penyetuju untuk cuti hingga lima hari kerja. Pengajuan yang lebih dari lima hari kerja tetap diteruskan ke kepala divisi. Bagian SDM tidak lagi menyetujui, tetapi menerima pemberitahuan otomatis untuk mencatat sisa jatah cuti. Perubahan ini dibuat karena rata-rata pengajuan sebelumnya menunggu sembilan hari. Jika atasan tidak merespons dalam tiga hari kerja, aplikasi mengirim pengingat. Cuti sakit dengan surat dokter tidak terpengaruh oleh perubahan ini.\n\nPernyataan: Waktu tunggu rata-rata pengajuan cuti pada alur baru kurang dari sembilan hari.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Sembilan hari adalah rata-rata sebelum perubahan, dan bacaan tidak menyebut hasil pada alur baru.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC009-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0026",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Mulai awal bulan depan, pengajuan cuti di aplikasi internal tidak lagi melewati tiga tingkat persetujuan. Sebelumnya, setiap pengajuan harus disetujui atasan langsung, kepala divisi, lalu bagian SDM. Dalam alur baru, atasan langsung menjadi satu-satunya penyetuju untuk cuti hingga lima hari kerja. Pengajuan yang lebih dari lima hari kerja tetap diteruskan ke kepala divisi. Bagian SDM tidak lagi menyetujui, tetapi menerima pemberitahuan otomatis untuk mencatat sisa jatah cuti. Perubahan ini dibuat karena rata-rata pengajuan sebelumnya menunggu sembilan hari. Jika atasan tidak merespons dalam tiga hari kerja, aplikasi mengirim pengingat. Cuti sakit dengan surat dokter tidak terpengaruh oleh perubahan ini.\n\nPernyataan: Dalam alur baru, bagian SDM tetap menjadi penyetuju terakhir setiap pengajuan cuti.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Bacaan menyatakan bagian SDM tidak lagi menyetujui dan hanya menerima pemberitahuan otomatis.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC009-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0027",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Mulai awal bulan depan, pengajuan cuti di aplikasi internal tidak lagi melewati tiga tingkat persetujuan. Sebelumnya, setiap pengajuan harus disetujui atasan langsung, kepala divisi, lalu bagian SDM. Dalam alur baru, atasan langsung menjadi satu-satunya penyetuju untuk cuti hingga lima hari kerja. Pengajuan yang lebih dari lima hari kerja tetap diteruskan ke kepala divisi. Bagian SDM tidak lagi menyetujui, tetapi menerima pemberitahuan otomatis untuk mencatat sisa jatah cuti. Perubahan ini dibuat karena rata-rata pengajuan sebelumnya menunggu sembilan hari. Jika atasan tidak merespons dalam tiga hari kerja, aplikasi mengirim pengingat. Cuti sakit dengan surat dokter tidak terpengaruh oleh perubahan ini.\n\nPernyataan: Pengajuan cuti selama enam hari kerja tetap memerlukan persetujuan kepala divisi.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Pengajuan lebih dari lima hari kerja tetap diteruskan ke kepala divisi, sehingga enam hari termasuk di dalamnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC009-3"
+      }
+    },
+    {
+      "id": "VRB-RC-0028",
+      "type": "VRB-RC",
+      "difficulty": "hard",
+      "stem": "Tim keamanan informasi menyelesaikan audit kata sandi terhadap 480 akun karyawan selama dua minggu. Auditor memeriksa panjang, kemiripan dengan nama pengguna, dan apakah kata sandi muncul dalam daftar kata sandi bocor. Hasilnya, 62 akun memakai kata sandi yang ada dalam daftar bocor, dan 35 akun memakai kata sandi yang mirip nama penggunanya. Pemilik kedua kelompok akun itu wajib mengganti kata sandi dalam lima hari kerja. Auditor tidak melihat isi kata sandi asli, karena pemeriksaan dilakukan pada nilai hash. Akun yang belum diganti setelah batas waktu akan dikunci sementara. Tim juga mengusulkan batas panjang minimum dinaikkan dari delapan menjadi dua belas karakter, tetapi usulan itu masih menunggu keputusan pimpinan.\n\nPernyataan: Pimpinan akan menyetujui usulan batas panjang minimum kata sandi dua belas karakter.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 2,
+      "explanation": "Bacaan hanya menyebut usulan masih menunggu keputusan pimpinan, tanpa menyebut hasilnya.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC010-1"
+      }
+    },
+    {
+      "id": "VRB-RC-0029",
+      "type": "VRB-RC",
+      "difficulty": "medium",
+      "stem": "Tim keamanan informasi menyelesaikan audit kata sandi terhadap 480 akun karyawan selama dua minggu. Auditor memeriksa panjang, kemiripan dengan nama pengguna, dan apakah kata sandi muncul dalam daftar kata sandi bocor. Hasilnya, 62 akun memakai kata sandi yang ada dalam daftar bocor, dan 35 akun memakai kata sandi yang mirip nama penggunanya. Pemilik kedua kelompok akun itu wajib mengganti kata sandi dalam lima hari kerja. Auditor tidak melihat isi kata sandi asli, karena pemeriksaan dilakukan pada nilai hash. Akun yang belum diganti setelah batas waktu akan dikunci sementara. Tim juga mengusulkan batas panjang minimum dinaikkan dari delapan menjadi dua belas karakter, tetapi usulan itu masih menunggu keputusan pimpinan.\n\nPernyataan: Akun dengan kata sandi mirip nama pengguna lebih banyak daripada akun dengan kata sandi dalam daftar bocor.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 1,
+      "explanation": "Ada 35 akun dengan kata sandi mirip nama pengguna, lebih sedikit daripada 62 akun dengan kata sandi bocor.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC010-2"
+      }
+    },
+    {
+      "id": "VRB-RC-0030",
+      "type": "VRB-RC",
+      "difficulty": "easy",
+      "stem": "Tim keamanan informasi menyelesaikan audit kata sandi terhadap 480 akun karyawan selama dua minggu. Auditor memeriksa panjang, kemiripan dengan nama pengguna, dan apakah kata sandi muncul dalam daftar kata sandi bocor. Hasilnya, 62 akun memakai kata sandi yang ada dalam daftar bocor, dan 35 akun memakai kata sandi yang mirip nama penggunanya. Pemilik kedua kelompok akun itu wajib mengganti kata sandi dalam lima hari kerja. Auditor tidak melihat isi kata sandi asli, karena pemeriksaan dilakukan pada nilai hash. Akun yang belum diganti setelah batas waktu akan dikunci sementara. Tim juga mengusulkan batas panjang minimum dinaikkan dari delapan menjadi dua belas karakter, tetapi usulan itu masih menunggu keputusan pimpinan.\n\nPernyataan: Sebanyak 62 akun memakai kata sandi yang ada dalam daftar kata sandi bocor.",
+      "options": [
+        "Benar",
+        "Salah",
+        "Tidak dapat ditentukan"
+      ],
+      "correctIndex": 0,
+      "explanation": "Bacaan menyebut langsung bahwa 62 akun memakai kata sandi yang ada dalam daftar bocor.",
+      "needsReview": false,
+      "passes": {
+        "generate": "pass1",
+        "verify": "pass2-agree",
+        "kandidat": "RC010-3"
+      }
+    }
+  ]
+}

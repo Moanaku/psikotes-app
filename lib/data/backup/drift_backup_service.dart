@@ -24,6 +24,7 @@ class DriftBackupService implements BackupService {
         'session' => _db.sessionTable,
         'answer' => _db.answerTable,
         'mistake_card' => _db.mistakeCardTable,
+        'knowledge_progress' => _db.knowledgeProgressTable,
         'captured_question' => _db.capturedQuestionTable,
         'company_test_log' => _db.companyTestLogTable,
         'app_setting' => _db.appSettingTable,
@@ -42,7 +43,11 @@ class DriftBackupService implements BackupService {
         continue;
       }
       final names = [for (final c in cols) c.name];
-      final order = name == 'app_setting' ? 'key' : 'id';
+      final order = switch (name) {
+        'app_setting' => 'key',
+        'knowledge_progress' => 'butir_id',
+        _ => 'id',
+      };
       final rows = await _db.customSelect(
         'SELECT ${names.join(', ')} FROM $name ORDER BY $order',
         readsFrom: {_info(name)},
@@ -234,6 +239,7 @@ class DriftBackupService implements BackupService {
       'mistake_card',
       'session',
       'answer',
+      'knowledge_progress',
       'app_setting',
     ]) {
       if (BackupFormat.deferred.contains(name)) continue;
@@ -345,6 +351,18 @@ class DriftBackupService implements BackupService {
           // Id baru dibuat setelah semua id bawaan terpakai, supaya nomor
           // otomatis tidak menabrak id berikutnya dari berkas.
           t.inserts.addAll(withoutId);
+        case 'knowledge_progress':
+          // Kemajuan di perangkat ini tidak ditimpa; hanya butir yang belum
+          // pernah dinilai di sini yang masuk.
+          final known = {
+            for (final r in await _db
+                .customSelect('SELECT butir_id FROM knowledge_progress')
+                .get())
+              r.read<String>('butir_id'),
+          };
+          for (final r in rows) {
+            if (!known.contains(r['butir_id'])) t.inserts.add(r);
+          }
         case 'app_setting':
           final keys = {
             for (final r

@@ -5,6 +5,7 @@ import '../../core/theme/app_icons.dart';
 import '../../core/theme/app_tokens.dart';
 import '../../core/utils/time_format.dart';
 import '../../core/widgets/app_button.dart';
+import '../../core/widgets/code_block.dart';
 import '../../core/widgets/figure_view.dart';
 import '../../core/widgets/note_box.dart';
 import '../../core/widgets/number_bubble.dart';
@@ -56,7 +57,9 @@ class QuestionBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (text != null)
+          if (text != null && question.type == QuestionType.itPse)
+            CodeBlock(text: text)
+          else if (text != null)
             Semantics(
               container: true,
               child: Text(
@@ -74,8 +77,14 @@ class QuestionBody extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(AppSpace.s16),
-                child:
-                    Center(child: FigureView(figure: figure, maxExtent: 320)),
+                child: Center(
+                  child: FigureView(
+                    figure: figure,
+                    maxExtent: 320,
+                    mono: question.type == QuestionType.itFlw ||
+                        question.type == QuestionType.itXls,
+                  ),
+                ),
               ),
             ),
           ],

@@ -275,6 +275,17 @@ class _Group extends StatelessWidget {
         trailing: StatusTag(label: why.tag),
       );
     }
+    final role = e.knowledgeRole;
+    if (role != null) {
+      return Builder(
+        builder: (context) => ListRow(
+          title: e.label,
+          onTap: () => unawaited(
+            context.push(Routes.pengetahuanPath(role: role.code)),
+          ),
+        ),
+      );
+    }
     return ListRow(title: e.label, onTap: onOpen(e.type!));
   }
 }

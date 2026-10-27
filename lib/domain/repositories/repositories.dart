@@ -3,6 +3,7 @@
 library;
 
 import '../models/codes.dart';
+import '../models/knowledge.dart';
 import '../models/notebook.dart';
 import '../models/profile.dart';
 import '../models/session.dart';
@@ -73,6 +74,10 @@ abstract class AnswerRepository {
 
   /// Jawaban sejak [since], dari yang terbaru.
   Future<List<AnswerRecord>> since(DateTime since);
+
+  /// Jumlah soal yang dijawab (opsi terisi) pada [from] sampai sebelum [to],
+  /// dari semua sesi, selesai atau belum, semua profil.
+  Future<int> countAnswered(DateTime from, DateTime to);
 
   /// Semua jawaban dari sesi yang sudah selesai (statistik), urut id.
   Future<List<AnswerRecord>> forFinishedSessions();
@@ -146,4 +151,13 @@ abstract class SettingsRepository {
   Future<void> set(String key, String value);
   Future<ThemeSetting> theme();
   Future<void> setTheme(ThemeSetting theme);
+}
+
+/// Kemajuan bank pengetahuan role (F17, tabel `knowledge_progress`).
+abstract class KnowledgeRepository {
+  Stream<Map<String, KnowledgeProgress>> watchAll();
+  Future<Map<String, KnowledgeProgress>> all();
+
+  /// Menyimpan atau menggantikan kemajuan butir.
+  Future<void> save(KnowledgeProgress progress);
 }

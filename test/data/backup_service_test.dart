@@ -5,11 +5,13 @@ import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/data/backup/drift_backup_service.dart';
 import 'package:simulator_psikotes_it/data/db/app_database.dart';
 import 'package:simulator_psikotes_it/data/repositories/capture_repository.dart';
+import 'package:simulator_psikotes_it/data/repositories/knowledge_repository.dart';
 import 'package:simulator_psikotes_it/data/repositories/mistake_repository.dart';
 import 'package:simulator_psikotes_it/data/repositories/profile_repository.dart';
 import 'package:simulator_psikotes_it/data/repositories/session_repository.dart';
 import 'package:simulator_psikotes_it/data/repositories/settings_repository.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
+import 'package:simulator_psikotes_it/domain/models/knowledge.dart';
 import 'package:simulator_psikotes_it/domain/models/notebook.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
 import 'package:simulator_psikotes_it/domain/repositories/repositories.dart';
@@ -63,6 +65,7 @@ Future<void> seed(AppDatabase db) async {
         benar: benar,
         durasiMs: 30000,
         label: benar ? SpeedLabel.benarCepat : SpeedLabel.salahLambat,
+        dijawabPada: h.t0.add(Duration(minutes: posisi + 1)),
       );
   await sessions.recordAnswer(answer(0));
   final wrong = answer(1, benar: false);
@@ -89,6 +92,13 @@ Future<void> seed(AppDatabase db) async {
     ),
     h.t0,
   );
+
+  await DriftKnowledgeRepository(db).save(KnowledgeProgress(
+    butirId: 'KB-QA-D-001',
+    level: KnowledgeLevel.dasar,
+    terakhir: h.t0,
+    dikuasai: false,
+  ));
 
   final settings = DriftSettingsRepository(db);
   await settings.setTheme(ThemeSetting.gelap);
@@ -147,7 +157,8 @@ void main() {
       expect(tabel['mistake_card'], hasLength(2));
       expect(tabel['captured_question'], hasLength(1));
       expect(tabel['app_setting'], hasLength(3));
-      expect(tabel['knowledge_progress'], isEmpty);
+      expect(tabel['knowledge_progress'], hasLength(1));
+      expect((tabel['answer']!.first as Map)['dijawab'], isNotNull);
     });
 
     test('teks CV mentah tidak diekspor', () async {
@@ -817,21 +828,74 @@ void main() {
       expect(all.where((p) => p.aktif), hasLength(1));
     });
 
-    test('tabel pengetahuan v1.1 diterima tetapi belum dipakai', () async {
+    test(
+        'kemajuan pengetahuan: baru masuk, yang ada di perangkat tidak ditimpa',
+        () async {
+      final knowledge = DriftKnowledgeRepository(db);
+      await knowledge.save(KnowledgeProgress(
+        butirId: 'KB-QA-D-001',
+        level: KnowledgeLevel.dasar,
+        terakhir: h.t0,
+        dikuasai: true,
+      ));
       final root =
           jsonDecode(await service.export(now)) as Map<String, Object?>;
       final withKnowledge = exportedWith(root, (t) {
         t['knowledge_progress'] = [
           {
-            'butir_id': 'QA-001',
+            'butir_id': 'KB-QA-D-001',
             'level': 'dasar',
             'terakhir': 1,
+            'dikuasai': 0
+          },
+          {
+            'butir_id': 'KB-BA-M-002',
+            'level': 'menengah',
+            'terakhir': 2,
             'dikuasai': 1
           },
         ];
       });
       final summary = await service.import(jsonEncode(withKnowledge));
-      expect(summary.tabel.containsKey('knowledge_progress'), isFalse);
+      expect(summary.tabel['knowledge_progress']!.added, 1);
+      final all = await knowledge.all();
+      expect(all.keys, {'KB-QA-D-001', 'KB-BA-M-002'});
+      expect(all['KB-QA-D-001']!.dikuasai, isTrue,
+          reason: 'milik perangkat ini dipertahankan');
+    });
+
+    test('berkas dengan level pengetahuan salah ditolak', () async {
+      final root =
+          jsonDecode(await service.export(now)) as Map<String, Object?>;
+      final bad = exportedWith(root, (t) {
+        t['knowledge_progress'] = [
+          {
+            'butir_id': 'KB-QA-D-001',
+            'level': 'pakar',
+            'terakhir': 1,
+            'dikuasai': 1
+          },
+        ];
+      });
+      expect(() => service.import(jsonEncode(bad)),
+          throwsA(isA<BackupException>()));
+    });
+
+    test('berkas lama tanpa kolom dijawab tetap bisa diimpor', () async {
+      await seed(db);
+      final root =
+          jsonDecode(await service.export(now)) as Map<String, Object?>;
+      final old = exportedWith(root, (t) {
+        for (final r in t['answer']!) {
+          r.remove('dijawab');
+        }
+      });
+      final clean = h.memoryDb();
+      addTearDown(clean.close);
+      await DriftBackupService(clean).import(jsonEncode(old));
+      final rows = await clean.customSelect('SELECT dijawab FROM answer').get();
+      expect(rows, hasLength(3));
+      expect(rows.every((r) => r.readNullable<int>('dijawab') == null), isTrue);
     });
   });
 

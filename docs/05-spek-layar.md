@@ -65,13 +65,14 @@ Aturan umum:
 
 ### S04 Beranda (F03)
 - **Tujuan:** satu ketukan menuju latihan hari ini.
-- **Elemen:** "Halo, [nama]" dan ikon pengaturan; baris profil aktif dengan "[n] hari lagi"; panel "Latihan hari ini" (± menit, tiga butir rencana, tombol "Mulai"); "Kelemahan saat ini" dengan tiga `ScoreBar` dan tautan "Statistik"; empat pintasan (Katalog psikotes, Pengetahuan role, Capture soal, Buku kesalahan dengan "[n] jatuh tempo"); bottom nav.
-- **Data:** profil aktif, `DailyPlanner.plan()`, kelemahan (tiga tipe dengan skor tertinggi), jumlah kartu jatuh tempo.
+- **Elemen:** "Halo, [nama]" dan ikon pengaturan; baris profil aktif dengan "[n] hari lagi"; panel "Latihan hari ini" (± menit, tiga butir rencana, tombol "Mulai") dengan satu baris di bawahnya "Sudah dikerjakan hari ini: N soal" (A105); "Kelemahan saat ini" dengan tiga `ScoreBar` dan tautan "Statistik"; empat pintasan (Katalog psikotes, Pengetahuan role, Capture soal, Buku kesalahan dengan "[n] jatuh tempo"); bottom nav.
+- **Data:** profil aktif, `DailyPlanner.plan()`, kelemahan (tiga tipe dengan skor tertinggi), jumlah kartu jatuh tempo, jumlah soal dijawab hari ini (`AnsweredToday`, A105).
 - **Aksi:** "Mulai" ke S06 dengan sesi dari rencana; ikon pengaturan ke S18; pintasan ke S05, S19, S12, S10; "Statistik" ke S11.
 - **Kondisi:**
   - Kosong (belum ada riwayat): "Belum ada data kelemahan. Kerjakan diagnostik agar latihan hari ini bisa disusun." Tombol: "Mulai diagnostik". Panel latihan tetap ada dengan campuran sesuai bobot profil.
   - Memuat: skeleton untuk baris profil, panel, dan tiga baris kelemahan.
   - Galat: "Rencana latihan tidak bisa disusun. Data profil gagal dibaca." Tombol: "Coba lagi".
+  - Belum ada soal dijawab hari ini: baris di bawah panel berbunyi "Belum ada soal dikerjakan hari ini." (tanpa angka nol). Galat membaca jumlah memakai galat beranda di atas.
   - Tanpa tanggal tes: baris profil menampilkan "Tanggal tes belum diisi" dengan tautan ke S02.
 - **Selesai bila:** dari buka app sampai soal pertama tampil butuh satu ketukan; rencana memenuhi komposisi 50/30/20 di `03-data-model.md`.
 
@@ -182,15 +183,22 @@ Aturan umum:
 
 ### S19 Bank pengetahuan role (F17)
 - **Tujuan:** memilih role, level, dan topik.
-- **Elemen:** chip role (QA, Mobile Dev, IT BA, Umum); penjelasan; tiga baris level (Dasar, Menengah, Lanjut) dengan "[n] dari [n] dikuasai" dan bilah progres; chip topik; "Latihan 10 kartu"; bottom nav.
-- **Data:** `knowledge_bank.json`, `knowledge_progress`.
-- **Aksi:** baris level atau tombol ke S20.
-- **Kondisi:** topik tanpa butir: "Belum ada kartu untuk topik ini. Pilih topik lain." Tombol: "Tampilkan semua topik".
+- **Elemen:** chip role (QA, Mobile Dev, IT BA, Umum; awalnya role profil aktif, atau role dari baris katalog); penjelasan; chip topik ("Semua topik" dan topik role itu); tiga baris level (Dasar, Menengah, Lanjut) berupa `ScoreBar` "[n] dari [N]" yang bisa diketuk; "Latihan 10 kartu"; bottom nav (tab Psikotes aktif).
+- **Data:** `knowledge_bank.json` (dimuat saat layar dibuka), `knowledge_progress`, kartu buku kesalahan jatuh tempo.
+- **Aksi:** baris level atau tombol membuka sesi 10 kartu di S20 (A106).
+- **Kondisi:**
+  - Memuat: skeleton.
+  - Galat (berkas rusak atau tidak terbaca): "Bank pengetahuan tidak terbaca" dengan "Coba lagi". Kemajuan gagal dibaca: "Kemajuanmu tidak terbaca" dengan "Coba lagi".
+  - Kosong (bank belum berisi): "Belum ada kartu pengetahuan"; role tanpa butir: "Belum ada kartu untuk role ini".
+  - Filter kosong: "Belum ada kartu untuk topik ini. Pilih topik lain." Tombol: "Tampilkan semua topik". Level tanpa butir tidak bisa diketuk ("0 dari 0").
+  - Umum dan semua kartu level itu sudah dikuasai: "Semua kartu level [level] sudah kamu kuasai."
+  - Offline tidak berlaku: bank berjalan dari berkas bawaan.
 
 ### S20 Sesi kartu (F17)
 - **Tujuan:** menjawab, membuka jawaban model, menilai diri.
-- **Elemen:** "[role], level [level]" dan "Kartu [n] dari 10"; topik dan pertanyaan; isian jawaban (boleh dilewati); "Jawaban model"; "Poin kunci" dengan kotak centang; tombol "Belum paham" dan "Sudah paham".
-- **Perilaku:** jawaban model tertutup sampai pengguna menekan "Buka jawaban" (papan desain menampilkan keadaan terbuka); level Lanjut menilai dengan poin kunci yang dicentang; "Belum paham" membuat kartu buku kesalahan sumber `pengetahuan`.
+- **Elemen:** "[role], level [level]" dan "Kartu [n] dari [total]" dengan bilah; tag topik dan, bila perlu, "Perlu verifikasi"; pertanyaan; isian jawaban (boleh dikosongkan, tidak disimpan); "Buka jawaban"; "Jawaban model"; "Poin kunci" (level Lanjut: bisa dicentang lewat baris dengan tag "Ada" atau "Belum"; level lain: daftar baca saja); sumber, atau "Belum ada sumber. Periksa sendiri sebelum dipercaya."; tombol "Belum paham" dan "Sudah paham"; ringkasan "Sesi selesai" di akhir.
+- **Perilaku:** jawaban model tertutup sampai "Buka jawaban"; level Lanjut menilai dengan poin kunci yang dicentang ("Sudah paham" aktif bila paling sedikit dua pertiga poin dicentang); "Belum paham" membuat kartu buku kesalahan sumber `pengetahuan` (A107); setiap penilaian langsung tersimpan.
+- **Kondisi:** gagal menyimpan: "Penilaian belum tersimpan. Data di perangkat gagal ditulis. Ketuk sekali lagi." dan tetap di kartu itu; sesi tidak ada: "Sesi kartu tidak ditemukan" dengan "Ke bank pengetahuan".
 
 ---
 

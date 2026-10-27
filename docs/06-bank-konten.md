@@ -166,7 +166,7 @@ Skema:
   ]
 }
 ```
-Aturan: `role` bernilai `qa`, `mobile`, `ba`, atau `umum`; `level` bernilai `dasar`, `menengah`, `lanjut`; butir tanpa `sumber` ditandai `needsVerification: true` dan tampil dengan tag "perlu verifikasi" di app. Level Lanjut dinilai dengan `poinKunci`, bukan satu jawaban benar. Mode Umum memilih butir lintas role (`role` apa pun, kecuali yang sudah dikuasai).
+Aturan: `id` berbentuk `KB-{QA|MOB|BA|UM}-{D|M|L}-NNN` (role, level, nomor tiga angka atau lebih) dan harus cocok dengan `role` dan `level`; `topik` berupa slug huruf kecil dengan tanda hubung; `poinKunci` 2 sampai 8 butir; `role` bernilai `qa`, `mobile`, `ba`, atau `umum`; `level` bernilai `dasar`, `menengah`, `lanjut`; butir tanpa `sumber` ditandai `needsVerification: true` dan tampil dengan tag "perlu verifikasi" di app. Level Lanjut dinilai dengan `poinKunci`, bukan satu jawaban benar. Mode Umum memilih butir lintas role (`role` apa pun, kecuali yang sudah dikuasai).
 
 ## Pool kepribadian (F12)
 

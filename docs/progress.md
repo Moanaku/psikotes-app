@@ -32,8 +32,8 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [x] T22 Kepribadian Papi/DISC-style: S14 (Papi-style selesai, pool 12 per sifat menunggu pemeriksaan pemilik; DISC-style dan penyimpanan hasil menunggu Q13)
 - [x] T23 Kraepelin/Pauli penuh (penyimpanan hasil dan durasi asli menunggu Q14)
 - [x] T24 Modul IT: pseudocode, flowchart, Excel (engine, katalog, template Mobile Dev; tampilan monospasi menunggu Q11, QA menunggu Q12)
-- [ ] T25 Bank pengetahuan role: S19, S20
-- [ ] T26 Pembuatan isi bank pengetahuan dan bacaan
+- [x] T25 Bank pengetahuan role: S19, S20 (isi bank menunggu T26; aset sementara berisi nol butir)
+- [x] T26 Pembuatan isi bank pengetahuan dan bacaan (pengetahuan: 180 butir; bacaan: lihat catatan)
 
 ## v1.2
 
@@ -42,7 +42,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 
 ## v1.3
 
-- [ ] T29 UI wawancara dengan data contoh (boleh dikerjakan lebih awal)
+- [x] T29 UI wawancara dengan data contoh (boleh dikerjakan lebih awal)
 - [ ] T30 Antarmuka AiCoach, sanitasi CV, kartu template
 - [ ] T31 Coach LLM (Gemini atau Groq), penilai, dan evaluasi
 - [ ] T32 Suara di wawancara
@@ -63,12 +63,30 @@ Menunggu pemilik: checklist manual di HP, pemeriksaan 30 soal sampel bank verbal
 
 Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subtes mengecil dalam satu baris, gambar soal, test dengan font asli `test/support/app_fonts.dart`) lulus di test widget pada layar 360 x 800, tetapi **belum selesai dan belum diverifikasi di HP**. Yang masih harus diperiksa dan mungkin diperbaiki:
 
-- [ ] Navigasi bawah dan tombol terpotong di skala 1,3 dan 2,0.
-- [ ] Kepala S07 di skala 2,0 (masih memakan banyak tinggi layar).
-- [ ] Label sumbu grafik S11 di skala 2,0.
-- [ ] Tombol Back sistem di langkah 1 wizard tambah profil.
+- [x] Navigasi bawah dan tombol terpotong di skala 1,3 dan 2,0 (HP: 2,0 lulus; panel keluar diperbaiki).
+- [x] Kepala S07 di skala 2,0 (HP lulus).
+- [x] Label sumbu grafik S11 di skala 2,0 (HP lulus).
+- [x] Tombol Back sistem di langkah 1 wizard tambah profil (HP lulus).
+
+Dari T25 (belum dicoba di HP dan browser; bank bawaan kini 180 butir dari T26):
+
+- [ ] S19 dan S20 dengan bank kecil (isi `assets/knowledge_bank.json` sementara untuk uji) di skala 1,0, 1,3, 2,0; ketuk level, topik, "Latihan 10 kartu", "Buka jawaban", centang poin kunci Lanjut, ringkasan, tombol tutup, tombol Back sistem.
+- [ ] "Belum paham" muncul sebagai kartu "Pengetahuan QA, Dasar" di S10 dan dihitung di "jatuh tempo" beranda.
+- [ ] Upgrade dari APK lama (skema v2 ke v3) tidak menghapus riwayat; backup lalu impor membawa kemajuan pengetahuan.
+
+Dari T29 (belum dicoba di HP dan browser):
+
+- [ ] S15 sampai S17 di skala 1,0, 1,3, 2,0: pilih pewawancara, mulai, kirim jawaban sampai penutup, Akhiri, transkrip; judul S16 di 2,0; tombol Back sistem.
+
+Dari Tugas 4 (belum dicoba di HP dan browser):
+
+- [ ] Pseudocode IT-PSE memakai font monospasi dengan indentasi gantung di S06 dan S09 pada skala 1,0, 1,3, 2,0; tabel flowchart dan lembar kerja memakai font kode; font termuat di web.
 
 Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
+
+Dari Tugas 0 (belum dicoba di HP dan browser):
+
+- [ ] S04: baris "Sudah dikerjakan hari ini" naik setelah menjawab, tidak menghitung soal dilewati, kembali ke "Belum ada soal dikerjakan hari ini." setelah lewat tengah malam; dibaca di skala 1,0, 1,3, 2,0. Upgrade dari APK lama (skema v1 ke v2) tidak menghapus riwayat.
 
 Dari T24 (belum dicoba di HP dan browser):
 
@@ -90,6 +108,12 @@ Dari T23 (belum dicoba di HP dan browser):
 
 ## Catatan lanjut
 
+- Penutupan cabang: Q15 = tetap `StatusTag`, Q16 = topik S19 dilipat (A110), keduanya diputuskan pemilik. Uji HP putaran 2 selesai untuk semua butir di daftar (laporan lokal `uji-perangkat/LAPORAN-3.md`, bukti `uji-perangkat/r5/`). Gagal lalu diperbaiki: panel keluar S07, Kraepelin, dan Papi-style di skala 2,0 (bilah aksi naik ke 60% tinggi layar saat konfirmasi), tabel yang menggulir mendatar kini diberi petunjuk, judul S17 "HR". Sebab "perbaikan tidak terlihat di HP" ternyata cache Gradle: hapus `build/app/intermediates/flutter` dan `.dart_tool/flutter_build` sebelum `flutter build apk --debug`. Browser: belum diverifikasi (ekstensi Chrome tidak tersambung). Terbuka: S02 role Mobile Dev dan skala 1,3 untuk S14 hanya lewat test; Beranda 2,0 memecah baris "Deret angka, kategori terlemah"; `assets/reading_bank.json` terdaftar tetapi belum dipakai app.
+- T26: `assets/knowledge_bank.json` berisi 180 butir (qa, mobile, ba x dasar, menengah, lanjut x 20; 27 topik). 245 kandidat diperiksa pass 2 tanpa melihat kunci, 5 gugur. SEMUA butir bertanda perlu verifikasi: pass 1 dan 2 memakai model yang sama dan rujukan belum dicocokkan dengan teks aslinya. Sampel 18 butir di `docs/eval/knowledge_sample.md` menunggu pemeriksaan pemilik; id meragukan ditulis di `docs/eval/knowledge_flags.txt` lalu `python tool/pregenerate/gen_knowledge.py bundle`. Role Umum memakai butir lintas role (tanpa butir role `umum`). Lanjut bila perlu: `python tool/pregenerate/gen_knowledge.py all`.
+- Tugas 4 selesai: `AppType.code`, `CodeBlock`, IBM Plex Mono di `assets/fonts` (A109). Golden S06 teks dan tabel IT perlu dibuat ulang lewat WSL.
+- T29 selesai: S15 sampai S17 dengan `FakeCoach`, `ChatBubble`, semua kondisi (A108). Berikutnya: selesaikan T26 (`python tool/pregenerate/gen_knowledge.py all`, lalu `gen_reading.py all`), Tugas 4 (font kode), Tugas 5 (uji HP dan browser), golden lewat WSL, PR.
+- T25 selesai di cabang `fitur/fitur-inti-dan-uji-akhir`: `KnowledgeBank` (pemuat dengan kondisi galat seperti A100), `KnowledgeSelector`, `KnowledgeService` (penilaian diri, kemajuan, kartu SM-2), tabel `knowledge_progress` (skema v3 dengan test migrasi v2 ke v3), S19 dan S20 dengan semua kondisi, baris katalog dan pintasan beranda, backup ikut membawa `knowledge_progress` dan `answer.dijawab` (A106, A107). Terbuka: Q15 (`CheckRow`). Berikutnya: T26 (isi bank pengetahuan dan VRB-RC).
+- Tugas 0 (cabang `fitur/fitur-inti-dan-uji-akhir`) selesai: baris "Sudah dikerjakan hari ini: N soal" di bawah panel latihan S04 (A105). Skema naik ke v2 (`answer.dijawab`, migrasi dan test migrasi). Berikutnya: T25 (bank pengetahuan, S19, S20).
 - T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).
 - T22 selesai: pool 96 pernyataan (8 sifat x 12) lewat `claude -p` dengan penyaring istilah klinis, sampel di `docs/eval/personality_sample.md` menunggu pemeriksaan pemilik (catatan: PER-KRS-001 dan PER-PIM-001 mirip), S14 dengan empat kondisi dan review per role, baris Papi-style di katalog terbuka (A103). Terbuka: Q13 (simpan hasil, subtes Kepribadian di simulasi, DISC-style).
 - T23 selesai: `KrpSheet` dan `KrpScore` di engine (test tulisan tangan dan 10.000 seed), `KraepelinRun` dengan pergantian kolom otomatis dari jam monoton, layar dengan input angka cepat, hasil kecepatan, ketelitian, konsistensi, dan grafik `fl_chart`; baris katalog terbuka; QA menyalakan Kraepelin (A104). Ditemukan dan diperbaiki: mengganti role mematikan Kraepelin Bank-style; integration_test profil sampai statistik masih mencari teks S08 lama "Tidak dijawab: n soal" sejak A99, kini membaca baris "Soal tidak dijawab". Terbuka: Q14.

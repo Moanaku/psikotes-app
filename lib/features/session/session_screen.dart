@@ -204,6 +204,8 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
 
     return OnboardingFrame(
       scrollController: _scroll,
+      footerMaxShare:
+          _confirmExit ? confirmFooterMaxShare : defaultFooterMaxShare,
       header: AppTopBar(
         title: planItemName(item),
         onBack: _requestExit,
@@ -337,6 +339,8 @@ class _SessionScreenState extends ConsumerState<SessionScreen>
 
     return OnboardingFrame(
       scrollController: _scroll,
+      footerMaxShare:
+          _confirmExit ? confirmFooterMaxShare : defaultFooterMaxShare,
       header: AppTopBar(
         title: title,
         onBack: _requestExit,
