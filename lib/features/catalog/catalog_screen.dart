@@ -37,6 +37,23 @@ final catalogModeProvider = StateProvider<CatalogMode>(
 
 /// S05 Katalog psikotes (F04): memilih tipe soal untuk latihan, atau memulai
 /// simulasi penuh dari profil aktif.
+/// Tes Kraepelin dari katalog: kolom dan menit subtes Kraepelin profil bila
+/// aktif (mis. QA dan Bank-style), selain itu latihan 10 kolom x 30 detik
+/// (A104).
+String _kraepelinPath(TestProfile? profile, int seed) {
+  final spec = profile?.blueprint.subtes
+      .where((s) => s.kategori == 'kraepelin' && s.aktif)
+      .firstOrNull;
+  final config = spec == null
+      ? KrpConfig.practice
+      : KrpConfig.fromSubtest(columns: spec.jumlah, minutes: spec.menit);
+  return Routes.kraepelinPath(
+    seed,
+    columns: config.columns,
+    seconds: config.secondsPerColumn,
+  );
+}
+
 class CatalogScreen extends ConsumerStatefulWidget {
   const CatalogScreen({super.key});
 
@@ -140,27 +157,32 @@ class _CatalogScreenState extends ConsumerState<CatalogScreen> {
                       group: g,
                       available: available,
                       bankFailed: bankFailed,
-                      onOpen: (type) => type == QuestionType.perPapi
-                          // Papi-style punya layar sendiri (S14), tanpa
-                          // sesi di database (A103).
-                          ? () => unawaited(context.push(
-                                Routes.kepribadianPath(
-                                  SessionPlanBuilder.seedBase(clock.now()),
-                                ),
-                              ))
-                          : active == null || _starting
-                              ? null
-                              : () => _launch(
-                                    profile: active,
-                                    mode: SessionMode.latihan,
-                                    build: (avoid) =>
-                                        SessionPlanBuilder.practice(
-                                      type,
-                                      now: clock.now(),
-                                      avoid: avoid,
-                                      bank: bank,
+                      onOpen: (type) => type == QuestionType.krp
+                          ? () => unawaited(context.push(_kraepelinPath(
+                                active,
+                                SessionPlanBuilder.seedBase(clock.now()),
+                              )))
+                          : type == QuestionType.perPapi
+                              // Papi-style punya layar sendiri (S14), tanpa
+                              // sesi di database (A103).
+                              ? () => unawaited(context.push(
+                                    Routes.kepribadianPath(
+                                      SessionPlanBuilder.seedBase(clock.now()),
                                     ),
-                                  ),
+                                  ))
+                              : active == null || _starting
+                                  ? null
+                                  : () => _launch(
+                                        profile: active,
+                                        mode: SessionMode.latihan,
+                                        build: (avoid) =>
+                                            SessionPlanBuilder.practice(
+                                          type,
+                                          now: clock.now(),
+                                          avoid: avoid,
+                                          bank: bank,
+                                        ),
+                                      ),
                     ),
                   _PrivateBank(
                     onPractice: active == null || _starting
@@ -383,9 +405,16 @@ class _SimulationPreview extends ConsumerWidget {
             for (final s in p.blueprint.subtes)
               if (s.aktif) s,
           ];
+          // Kraepelin dan kepribadian punya layar sendiri (A103, A104) dan
+          // tidak masuk simulasi; tipe lain tanpa soal belum tersedia.
+          bool separate(String k) => k == 'kraepelin' || k == 'kepribadian';
           final skipped = [
             for (final s in subtests)
-              if (!_hasType(s.kategori)) s,
+              if (!_hasType(s.kategori) && !separate(s.kategori)) s,
+          ];
+          final apart = [
+            for (final s in subtests)
+              if (!_hasType(s.kategori) && separate(s.kategori)) s,
           ];
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -422,7 +451,11 @@ class _SimulationPreview extends ConsumerWidget {
                       '${s.menit} menit',
                   trailing: _hasType(s.kategori)
                       ? null
-                      : const StatusTag(label: 'Belum tersedia'),
+                      : StatusTag(
+                          label: separate(s.kategori)
+                              ? 'Tes terpisah'
+                              : 'Belum tersedia',
+                        ),
                 ),
               if (skipped.isNotEmpty)
                 const Padding(
@@ -435,6 +468,20 @@ class _SimulationPreview extends ConsumerWidget {
                   child: NoteBox(
                     text: 'Subtes yang belum tersedia dilewati saat simulasi '
                         'dimulai.',
+                  ),
+                ),
+              if (apart.isNotEmpty)
+                const Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    AppSpace.s16,
+                    AppSpace.s12,
+                    AppSpace.s16,
+                    0,
+                  ),
+                  child: NoteBox(
+                    text: 'Tes terpisah tidak masuk simulasi. Kerjakan dari '
+                        'mode Latihan, baris Kraepelin / Pauli atau '
+                        'Papi-style.',
                   ),
                 ),
             ],

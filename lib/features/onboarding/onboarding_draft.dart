@@ -88,18 +88,21 @@ class OnboardingDraftNotifier extends Notifier<OnboardingDraft> {
   void reset() => state = OnboardingDraft.initial();
 
   /// Mengganti role menyalakan atau mematikan subtes khusus role
-  /// ([ProfileTemplates.roleSubtests]); angka dan subtes lain tidak berubah.
+  /// ([ProfileTemplates.roleSubtests]) mengikuti template format plus role
+  /// baru; angka dan subtes lain tidak berubah.
   void selectRole(ProfileRole role) {
     final byRole = {
       for (final set in ProfileTemplates.roleSubtests.values) ...set,
     };
-    final mine = ProfileTemplates.roleSubtests[role] ?? const <String>{};
+    final want = {
+      for (final s in ProfileTemplates.subtests(state.format, role: role))
+        s.kategori: s.aktif,
+    };
     state = state.copyWith(
       role: role,
       subtests: [
         for (final s in state.subtests)
-          if (byRole.contains(s.kategori) &&
-              s.aktif != mine.contains(s.kategori))
+          if (byRole.contains(s.kategori) && s.aktif != want[s.kategori])
             _toggled(s)
           else
             s,

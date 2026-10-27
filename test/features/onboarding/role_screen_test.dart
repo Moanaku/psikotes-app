@@ -52,12 +52,13 @@ void main() {
 
   testWidgets('memilih role mengubah bobot yang tampil di S02', (tester) async {
     await pumpApp(tester);
-    // QA, CCAT-style: 0,30 / 0,30 / 0,20 x 1,5 / 0,20 dibagi 1,10:
-    // verbal, numerik, logika 27%, figural 18%.
+    // QA, CCAT-style plus Kraepelin (A104): 0,30 / 0,30 / 0,20 x 1,5 /
+    // 0,20 / Kraepelin 0,20 (bobot dasar terkecil) x 1,5, dibagi 1,40:
+    // verbal, numerik, logika, Kraepelin 21%, figural 14%.
     await tester.tap(find.text('Lanjut'));
     await tester.pumpAndSettle();
-    expect(find.text('Bobot 27% di latihan campuran'), findsNWidgets(3));
-    expect(find.text('Bobot 18% di latihan campuran'), findsOneWidget);
+    expect(find.text('Bobot 21% di latihan campuran'), findsNWidgets(4));
+    expect(find.text('Bobot 14% di latihan campuran'), findsOneWidget);
 
     await tester.tap(find.byTooltip('Kembali ke pilihan role'));
     await tester.pumpAndSettle();
@@ -96,6 +97,21 @@ void main() {
       ],
       ['verbal', 'numerik', 'figural', 'kraepelin', 'kepribadian'],
     );
+  });
+
+  test('QA menyalakan Kraepelin di CCAT-style; role lain tidak (A104)', () {
+    final c = ProviderContainer();
+    addTearDown(c.dispose);
+    final draft = c.read(onboardingDraftProvider.notifier);
+    List<String> active() => [
+          for (final s in c.read(onboardingDraftProvider).subtests)
+            if (s.aktif) s.kategori,
+        ];
+    expect(active(), ['verbal', 'numerik', 'logika', 'figural', 'kraepelin']);
+    draft.selectRole(ProfileRole.ba);
+    expect(active(), ['verbal', 'numerik', 'logika', 'figural']);
+    draft.selectRole(ProfileRole.qa);
+    expect(active(), ['verbal', 'numerik', 'logika', 'figural', 'kraepelin']);
   });
 
   testWidgets('pilihan role bertahan saat kembali dari S02', (tester) async {

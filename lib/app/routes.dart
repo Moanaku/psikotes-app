@@ -17,6 +17,7 @@ abstract final class Routes {
   static const catatanTes = '/catatan-tes'; // S13
   static const catatanTesBaru = '/catatan-tes/baru'; // formulir S13
   static const kepribadian = '/kepribadian/:id'; // S14 (v1.1)
+  static const kraepelin = '/kraepelin/:id'; // varian S06 (v1.1, T23)
   static const wawancara = '/wawancara'; // S15 (v1.3)
   static const wawancaraDialog = '/wawancara/:id'; // S16 (v1.3)
   static const wawancaraLaporan = '/wawancara/:id/laporan'; // S17 (v1.3)
@@ -29,6 +30,15 @@ abstract final class Routes {
 
   /// S14 dengan soal dari [seed].
   static String kepribadianPath(int seed) => '/kepribadian/$seed';
+
+  /// Tes Kraepelin dengan lembar dari [seed], [columns] kolom dan [seconds]
+  /// detik per kolom.
+  static String kraepelinPath(
+    int seed, {
+    required int columns,
+    required int seconds,
+  }) =>
+      '/kraepelin/$seed?kolom=$columns&detik=$seconds';
 
   /// S08 untuk sesi [id].
   static String hasilPath(int id) => '/hasil/$id';

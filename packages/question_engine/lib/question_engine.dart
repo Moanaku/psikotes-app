@@ -12,6 +12,7 @@ export 'src/generators/figural/fig_odd.dart';
 export 'src/generators/figural/fig_seq.dart';
 export 'src/generators/figural/fig_seq_solver.dart';
 export 'src/generators/figural/figure_text.dart';
+export 'src/generators/krp/krp.dart';
 export 'src/generators/it/it_flw.dart';
 export 'src/generators/it/it_pse.dart';
 export 'src/generators/it/it_xls.dart';

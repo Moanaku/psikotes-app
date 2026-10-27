@@ -121,7 +121,6 @@ void main() {
       await openCatalog(tester);
       for (final name in [
         'Bacaan',
-        'Kraepelin / Pauli',
         'DISC-style',
       ]) {
         await show(tester, name);
@@ -284,6 +283,11 @@ void main() {
       expect(find.text('10 soal, 3 menit'), findsOneWidget);
       // Verbal belum punya bank soal: ditandai dan dijelaskan.
       expect(find.text('Belum tersedia'), findsOneWidget);
+      // Kraepelin QA (A104) dikerjakan di layarnya sendiri.
+      expect(find.text('10 kolom, 10 menit'), findsOneWidget);
+      expect(find.text('Tes terpisah'), findsOneWidget);
+      expect(find.textContaining('Tes terpisah tidak masuk simulasi'),
+          findsOneWidget);
       expect(
         find.text('Subtes yang belum tersedia dilewati saat simulasi dimulai.'),
         findsOneWidget,

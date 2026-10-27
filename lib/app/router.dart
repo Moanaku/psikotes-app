@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:question_engine/question_engine.dart' show KrpConfig;
 
 import '../core/widgets/placeholder_screen.dart';
 import '../domain/providers.dart';
@@ -20,6 +21,7 @@ import '../features/settings/settings_screen.dart';
 import '../features/stats/stats_screen.dart';
 import '../features/review/review_screen.dart';
 import '../features/session/session_screen.dart';
+import '../features/kraepelin/kraepelin_screen.dart';
 import '../features/personality/personality_screen.dart';
 import 'routes.dart';
 import 'tab_shell.dart';
@@ -133,6 +135,27 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: Routes.catatanTesBaru,
         builder: (context, state) => const CompanyLogFormScreen(),
+      ),
+      GoRoute(
+        path: Routes.kraepelin,
+        builder: (context, state) {
+          final q = state.uri.queryParameters;
+          final columns = int.tryParse(q['kolom'] ?? '') ?? 0;
+          final seconds = int.tryParse(q['detik'] ?? '') ?? 0;
+          final config = KrpConfig.timed(
+            columns: columns,
+            secondsPerColumn: seconds,
+          );
+          return KraepelinScreen(
+            seed: int.tryParse(state.pathParameters['id'] ?? '') ?? 0,
+            // Isian rute di luar batas tidak dijepit diam-diam: layar
+            // menampilkan kondisi pengaturan tidak sah.
+            config:
+                config.columns == columns && config.secondsPerColumn == seconds
+                    ? config
+                    : const KrpConfig(columns: 0, secondsPerColumn: 0, rows: 0),
+          );
+        },
       ),
       GoRoute(
         path: Routes.kepribadian,

@@ -189,8 +189,9 @@ void main() {
     test('blueprint menyimpan subtes nonaktif dan bobot', () {
       final b = ProfileTemplates.blueprint(ProfileRole.qa, TestFormat.ccat);
       expect(b.subtes.length, 7);
+      // QA menyalakan Kraepelin di atas CCAT-style (A104).
       expect(b.subtes.where((s) => !s.aktif).map((s) => s.kategori),
-          ['kraepelin', 'kepribadian', 'it']);
+          ['kepribadian', 'it']);
       expect(sum(b.bobot), closeTo(1.0, 1e-9));
       // Bisa dibaca ulang oleh ProfileBlueprint.fromJson.
       final again = ProfileBlueprint.fromJson(b.toJson());

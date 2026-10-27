@@ -77,7 +77,9 @@ TestProfile existing({
 
 void main() {
   group('tampilan awal', () {
-    testWidgets('format CCAT-style dan empat subtes aktif', (tester) async {
+    testWidgets(
+        'format CCAT-style untuk QA: empat subtes kognitif dan Kraepelin',
+        (tester) async {
       await openS02(tester);
       expect(find.text('Profil tes target'), findsOneWidget);
       expect(find.text('2 / 3'), findsOneWidget);
@@ -85,7 +87,9 @@ void main() {
       expect(chipSelected(tester, 'Psikotes Bank-style'), isFalse);
       expect(chipSelected(tester, 'Verbal'), isTrue);
       expect(chipSelected(tester, 'Figural'), isTrue);
-      expect(chipSelected(tester, 'Kraepelin / Pauli'), isFalse);
+      // QA menyalakan Kraepelin di atas template format (A104).
+      expect(chipSelected(tester, 'Kraepelin / Pauli'), isTrue);
+      expect(chipSelected(tester, 'Kepribadian'), isFalse);
       expect(textOf(tester, 'jumlah-verbal'), '15');
       expect(textOf(tester, 'menit-verbal'), '4');
       expect(find.text('Simpan dan lanjut'), findsOneWidget);
@@ -108,17 +112,19 @@ void main() {
       await tapChip(tester, 'Kustom');
       expect(textOf(tester, 'jumlah-verbal'), '20');
       expect(textOf(tester, 'menit-verbal'), '8');
-      expect(find.text('Jumlah kolom'), findsNothing);
+      // Kepribadian dari Bank-style mati; Kraepelin tetap karena role QA.
+      expect(find.text('Jumlah item'), findsNothing);
+      expect(find.text('Jumlah kolom'), findsOneWidget);
     });
 
     testWidgets('menyalakan subtes tanpa angka mengisi angka awal',
         (tester) async {
       await openS02(tester);
-      await tapChip(tester, 'Kraepelin / Pauli');
-      expect(textOf(tester, 'jumlah-kraepelin'), '10');
-      expect(textOf(tester, 'menit-kraepelin'), '10');
-      await tapChip(tester, 'Kraepelin / Pauli');
-      expect(fieldIn('jumlah-kraepelin'), findsNothing);
+      await tapChip(tester, 'Kepribadian');
+      expect(textOf(tester, 'jumlah-kepribadian'), '30');
+      expect(textOf(tester, 'menit-kepribadian'), '10');
+      await tapChip(tester, 'Kepribadian');
+      expect(fieldIn('jumlah-kepribadian'), findsNothing);
     });
 
     testWidgets('mematikan lalu menyalakan subtes menjaga angka yang diubah',
@@ -145,7 +151,13 @@ void main() {
         (tester) async {
       final repo = FakeProfileRepository();
       await openS02(tester, profiles: repo);
-      for (final k in ['Verbal', 'Numerik', 'Logika', 'Figural']) {
+      for (final k in [
+        'Verbal',
+        'Numerik',
+        'Logika',
+        'Figural',
+        'Kraepelin / Pauli',
+      ]) {
         await tapChip(tester, k);
       }
       expect(
@@ -182,8 +194,8 @@ void main() {
     });
 
     testWidgets('satuan galat mengikuti subtes (kolom)', (tester) async {
+      // Kraepelin sudah menyala untuk QA (A104).
       await openS02(tester);
-      await tapChip(tester, 'Kraepelin / Pauli');
       await type(tester, 'jumlah-kraepelin', '');
       await tester.tap(find.text('Simpan dan lanjut'));
       await tester.pumpAndSettle();

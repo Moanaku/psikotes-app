@@ -65,8 +65,12 @@ final List<CatalogGroup> catalogGroups = [
   ]),
 ];
 
-/// Tipe yang punya layar sendiri, bukan sesi soal S06 (T22: S14).
-const Set<QuestionType> ownScreenTypes = {QuestionType.perPapi};
+/// Tipe yang punya layar sendiri, bukan sesi soal S06 (T22: S14; T23:
+/// Kraepelin).
+const Set<QuestionType> ownScreenTypes = {
+  QuestionType.perPapi,
+  QuestionType.krp,
+};
 
 /// Mengapa sebuah butir tidak bisa dibuka; null bila bisa.
 class CatalogAvailability {
@@ -103,7 +107,8 @@ class CatalogAvailability {
   }) {
     final type = entry.type;
     if (type != null && available.contains(type)) return null;
-    // Papi-style dibuka di S14 dari pool terbundel; galat pool tampil di S14.
+    // Papi-style (S14) dan Kraepelin punya layar sendiri; galatnya tampil di
+    // layar itu.
     if (type != null && ownScreenTypes.contains(type)) return null;
     if (type != null && bankFailed && VerbalBank.bankTypes.contains(type)) {
       return bankError;

@@ -187,7 +187,8 @@ void main() {
         now: now,
         available: registered,
       )!;
-      expect(sim.skipped, ['verbal']);
+      // Kraepelin aktif untuk QA (A104) dikerjakan di layarnya sendiri.
+      expect(sim.skipped, ['verbal', 'kraepelin']);
       expect([for (final s in sim.plan.subtes) s.kategori],
           ['numerik', 'logika', 'figural']);
       expect([for (final s in sim.plan.subtes) (s.jumlah, s.menit)],

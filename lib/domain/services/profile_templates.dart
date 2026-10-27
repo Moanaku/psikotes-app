@@ -18,9 +18,11 @@ abstract final class ProfileTemplates {
     'it',
   ];
 
-  /// Subtes yang dinyalakan role di atas template format (A101): Mobile Dev
-  /// memakai pseudocode (docs/06-bank-konten.md, "Blueprint tes per profil").
+  /// Subtes yang dinyalakan role di atas template format (A101, A104):
+  /// Mobile Dev memakai pseudocode, QA memakai Kraepelin
+  /// (docs/06-bank-konten.md, "Blueprint tes per profil").
   static const Map<ProfileRole, Set<String>> roleSubtests = {
+    ProfileRole.qa: {'kraepelin'},
     ProfileRole.mobile: {'it'},
   };
 
