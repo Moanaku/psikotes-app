@@ -557,6 +557,28 @@ void main() {
           reason: 'beranda dihitung ulang sesudah kembali');
     });
 
+    for (final scale in [1.0, 1.3, 2.0]) {
+      testWidgets(
+          'skala $scale: tiga pilihan keluar terlihat penuh tanpa '
+          'menggulir bilah', (tester) async {
+        await openSession(tester, SessionMode.latihan, latihanPlan(),
+            textScale: scale);
+        await tester.tap(find.bySemanticsLabel('Tutup sesi'));
+        await tester.pumpAndSettle();
+        final screen = tester.view.physicalSize / tester.view.devicePixelRatio;
+        for (final label in [
+          'Tetap mengerjakan',
+          'Lanjutkan nanti',
+          'Akhiri sesi'
+        ]) {
+          final r = tester.getRect(find.widgetWithText(AppButton, label));
+          expect(r.bottom, lessThanOrEqualTo(screen.height),
+              reason: '$label terpotong di skala $scale');
+          expect(r.top, greaterThanOrEqualTo(0));
+        }
+      });
+    }
+
     testWidgets('Tetap mengerjakan menutup konfirmasi', (tester) async {
       await openSession(tester, SessionMode.latihan, latihanPlan());
       await tester.tap(find.bySemanticsLabel('Tutup sesi'));

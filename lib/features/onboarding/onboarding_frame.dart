@@ -4,7 +4,10 @@ import '../../core/theme/app_tokens.dart';
 import '../../core/utils/text_scale.dart';
 
 /// Bagian tinggi layar yang paling banyak dipakai bilah aksi.
-const double _footerMaxShare = 0.4;
+const double defaultFooterMaxShare = 0.4;
+
+/// Bagian untuk panel konfirmasi (tiga pilihan, catatan, skala huruf besar).
+const double confirmFooterMaxShare = 0.6;
 
 /// Rangka layar onboarding: kepala tetap, badan yang bisa digulir, dan bilah
 /// aksi di bawah dengan garis `outlineVariant` di atasnya. Bilah aksi tidak
@@ -19,6 +22,7 @@ class OnboardingFrame extends StatelessWidget {
     required this.children,
     required this.footer,
     this.scrollController,
+    this.footerMaxShare = defaultFooterMaxShare,
   });
 
   final Widget header;
@@ -30,6 +34,10 @@ class OnboardingFrame extends StatelessWidget {
 
   /// Untuk menggulir badan kembali ke atas (layar sesi saat soal berganti).
   final ScrollController? scrollController;
+
+  /// Bagian tinggi layar untuk bilah aksi. Panel konfirmasi menaikkannya agar
+  /// ketiga pilihan terlihat tanpa menggulir bilah di skala huruf besar.
+  final double footerMaxShare;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +64,7 @@ class OnboardingFrame extends StatelessWidget {
               ),
               child: ConstrainedBox(
                 constraints: BoxConstraints(
-                  maxHeight:
-                      MediaQuery.sizeOf(context).height * _footerMaxShare,
+                  maxHeight: MediaQuery.sizeOf(context).height * footerMaxShare,
                 ),
                 child: ListView(
                   shrinkWrap: true,
