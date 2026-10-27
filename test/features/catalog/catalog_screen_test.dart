@@ -108,9 +108,6 @@ void main() {
         'Kraepelin / Pauli',
         'Papi-style',
         'DISC-style',
-        'Pseudocode',
-        'Flowchart',
-        'Excel',
       ]) {
         await show(tester, name);
         final r = row(tester, name);

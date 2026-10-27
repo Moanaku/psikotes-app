@@ -258,11 +258,12 @@ void main() {
       final verbal =
           p.blueprint.subtes.firstWhere((s) => s.kategori == 'verbal');
       expect((verbal.aktif, verbal.jumlah, verbal.menit), (true, 25, 4));
-      expect(p.blueprint.subtes.length, 6);
+      expect(p.blueprint.subtes.length, 7);
       expect(p.blueprint.bobot.values.fold<double>(0, (a, b) => a + b),
           closeTo(1.0, 1e-9));
+      // Mobile Dev menyalakan Modul IT di atas template CCAT-style (A101).
       expect(p.blueprint.bobot.keys.toSet(),
-          {'verbal', 'numerik', 'logika', 'figural'});
+          {'verbal', 'numerik', 'logika', 'figural', 'it'});
     });
 
     testWidgets('nama yang diisi dipakai apa adanya (dipangkas)',
@@ -390,7 +391,7 @@ void main() {
           p.blueprint.subtes.firstWhere((s) => s.kategori == 'verbal').jumlah,
           40);
       // Subtes nonaktif tetap tersimpan dengan angkanya.
-      expect(p.blueprint.subtes.length, 6);
+      expect(p.blueprint.subtes.length, 7);
       expect(app.location, isNot('/onboarding/diagnostik'));
     });
 

@@ -31,7 +31,7 @@ Centang saat tugas selesai dan lolos kriteria "Selesai bila" di `07-rencana-tuga
 - [ ] T21 Tema gelap
 - [ ] T22 Kepribadian Papi/DISC-style: S14
 - [ ] T23 Kraepelin/Pauli penuh
-- [ ] T24 Modul IT: pseudocode, flowchart, Excel
+- [x] T24 Modul IT: pseudocode, flowchart, Excel (engine, katalog, template Mobile Dev; tampilan monospasi menunggu Q11, QA menunggu Q12)
 - [ ] T25 Bank pengetahuan role: S19, S20
 - [ ] T26 Pembuatan isi bank pengetahuan dan bacaan
 
@@ -69,6 +69,17 @@ Perbaikan di cabang `fix/pemuat-verbal-dan-ui` (kepala S07 dipadatkan, nama subt
 - [ ] Tombol Back sistem di langkah 1 wizard tambah profil.
 
 Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
+
+Dari T24 (belum dicoba di HP dan browser):
+
+- [ ] S06 dengan soal Pseudocode, Flowchart, dan Excel di skala 1,0, 1,3, 2,0 (test widget 360 dp dengan font asli lulus). Perhatikan pseudocode yang baris panjangnya terlipat di 2,0: indentasi hilang di baris lanjutan (Q11).
+- [ ] Tabel flowchart dan lembar kerja di S06 dan S09 (TableFigure) di layar sempit.
+- [ ] S02 dengan baris "Modul IT" dan role Mobile Dev; simulasi berisi subtes Modul IT.
+
+## Catatan lanjut
+
+- T24 selesai di cabang `fix/pemuat-verbal-dan-ui`: IT-PSE (interpreter mini, 22 kasus tulisan tangan), IT-FLW dan IT-XLS (masing-masing dibandingkan dengan solver kedua independen pada 3.000 soal per kesulitan), property test 10.000 seed per tipe dan kesulitan, katalog terbuka, subtes Modul IT untuk Mobile Dev (A101, A102). Golden katalog, S02, tabel NUM-WORD, dan S08 diperbarui lewat WSL (sebagian tertinggal dari commit sebelumnya). Terbuka: Q11 (token monospasi), Q12 (QA dan IT).
+- Berikutnya: T22 Papi-style (pool lewat `claude -p`, S14), lalu T23 Kraepelin.
 
 ## Pertanyaan terbuka
 

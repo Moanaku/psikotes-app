@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:simulator_psikotes_it/core/widgets/choice_row.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
@@ -67,6 +68,34 @@ void main() {
     expect(find.text('Bobot 30% di latihan campuran'), findsNWidgets(2));
     expect(find.text('Bobot 20% di latihan campuran'), findsNWidgets(2));
     expect(find.text('Bobot 27% di latihan campuran'), findsNothing);
+  });
+
+  test('role Mobile Dev menyalakan Modul IT; role lain mematikannya (A101)',
+      () {
+    final c = ProviderContainer();
+    addTearDown(c.dispose);
+    final draft = c.read(onboardingDraftProvider.notifier);
+    bool it() => c
+        .read(onboardingDraftProvider)
+        .subtests
+        .firstWhere((s) => s.kategori == 'it')
+        .aktif;
+    expect(it(), isFalse);
+    draft.selectRole(ProfileRole.mobile);
+    expect(it(), isTrue);
+    // Ganti format tetap mempertahankan subtes khusus role.
+    draft.selectFormat(TestFormat.bank);
+    expect(it(), isTrue);
+    draft.selectRole(ProfileRole.ba);
+    expect(it(), isFalse);
+    // Subtes lain tidak ikut berubah.
+    expect(
+      [
+        for (final s in c.read(onboardingDraftProvider).subtests)
+          if (s.aktif) s.kategori,
+      ],
+      ['verbal', 'numerik', 'figural', 'kraepelin', 'kepribadian'],
+    );
   });
 
   testWidgets('pilihan role bertahan saat kembali dari S02', (tester) async {
