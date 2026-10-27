@@ -22,9 +22,13 @@ class FigureView extends StatelessWidget {
     required this.figure,
     this.maxExtent,
     this.semanticLabel,
+    this.mono = false,
   });
 
   final FigureSpec figure;
+
+  /// Isi tabel dengan font kode (lembar kerja dan flowchart IT).
+  final bool mono;
 
   /// Batas lebar gambar; null berarti selebar ruang yang tersedia.
   final double? maxExtent;
@@ -44,7 +48,7 @@ class FigureView extends StatelessWidget {
       return Semantics(
         container: true,
         label: label,
-        child: _FigureTable(table: spec),
+        child: _FigureTable(table: spec, mono: mono),
       );
     }
     final tokens = context.tokens.colors;
@@ -420,9 +424,10 @@ class FigurePainter extends CustomPainter {
 /// membungkus per kata. Bila kata-kata terpanjang pun tidak muat, tabel
 /// digulir mendatar, jadi tidak ada kata yang terpotong di tengah.
 class _FigureTable extends StatelessWidget {
-  const _FigureTable({required this.table});
+  const _FigureTable({required this.table, required this.mono});
 
   final TableFigure table;
+  final bool mono;
 
   static const double _cellPadding = AppSpace.s4;
 
@@ -454,7 +459,7 @@ class _FigureTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.tokens.colors;
     final head = AppType.label(c.ink).copyWith(fontWeight: FontWeight.w600);
-    final body = AppType.body(c.ink);
+    final body = mono ? AppType.code(c.ink) : AppType.body(c.ink);
     final scaler = MediaQuery.textScalerOf(context);
     // Teks sel digambar dengan `DefaultTextStyle` di bawahnya (mis. jarak
     // huruf dari tema); pengukuran harus memakai gaya gabungan yang sama.

@@ -124,6 +124,10 @@ abstract final class AppMotion {
 /// Skala tipografi: enam ukuran. Angka memakai tabular figures.
 abstract final class AppType {
   static const String family = 'InstrumentSans';
+
+  /// Font kode (pseudocode, rumus, tabel IT): IBM Plex Mono, hanya Regular
+  /// dan SemiBold (Q11).
+  static const String codeFamily = 'IBMPlexMono';
   static const List<FontFeature> tabular = [FontFeature.tabularFigures()];
 
   static TextStyle _s(double size, double height, FontWeight w, Color c) =>
@@ -134,6 +138,16 @@ abstract final class AppType {
         fontWeight: w,
         color: c,
         fontFeatures: tabular,
+      );
+
+  /// Kode: 14 / 20, tanpa tabular figures (monospasi sudah rata).
+  static TextStyle code(Color c, {FontWeight weight = FontWeight.w400}) =>
+      TextStyle(
+        fontFamily: codeFamily,
+        fontSize: 14,
+        height: 20 / 14,
+        fontWeight: weight,
+        color: c,
       );
 
   static TextStyle caption(Color c) => _s(12, 16, FontWeight.w600, c);

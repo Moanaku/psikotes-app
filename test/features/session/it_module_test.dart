@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:simulator_psikotes_it/core/widgets/code_block.dart';
 import 'package:question_engine/question_engine.dart';
 import 'package:simulator_psikotes_it/domain/models/codes.dart';
 import 'package:simulator_psikotes_it/domain/models/session.dart';
@@ -62,7 +63,15 @@ void main() {
         );
         final q = app.sessionState!.question!;
         expect(q.type, type);
-        expect(find.text(q.stem.text!), findsOneWidget);
+        if (type == QuestionType.itPse) {
+          expect(
+            find.byWidgetPredicate(
+                (w) => w is CodeBlock && w.text == q.stem.text),
+            findsOneWidget,
+          );
+        } else {
+          expect(find.text(q.stem.text!), findsOneWidget);
+        }
         expect(tester.takeException(), isNull);
         expectNoMidWordBreaks(tester, reason: '${type.code} soal');
 

@@ -78,6 +78,10 @@ Dari T29 (belum dicoba di HP dan browser):
 
 - [ ] S15 sampai S17 di skala 1,0, 1,3, 2,0: pilih pewawancara, mulai, kirim jawaban sampai penutup, Akhiri, transkrip; judul S16 di 2,0; tombol Back sistem.
 
+Dari Tugas 4 (belum dicoba di HP dan browser):
+
+- [ ] Pseudocode IT-PSE memakai font monospasi dengan indentasi gantung di S06 dan S09 pada skala 1,0, 1,3, 2,0; tabel flowchart dan lembar kerja memakai font kode; font termuat di web.
+
 Layar baru dari T22, T23, T24 ditambahkan ke daftar ini di catatan tugas masing-masing.
 
 Dari Tugas 0 (belum dicoba di HP dan browser):
@@ -104,6 +108,7 @@ Dari T23 (belum dicoba di HP dan browser):
 
 ## Catatan lanjut
 
+- Tugas 4 selesai: `AppType.code`, `CodeBlock`, IBM Plex Mono di `assets/fonts` (A109). Golden S06 teks dan tabel IT perlu dibuat ulang lewat WSL.
 - T29 selesai: S15 sampai S17 dengan `FakeCoach`, `ChatBubble`, semua kondisi (A108). Berikutnya: selesaikan T26 (`python tool/pregenerate/gen_knowledge.py all`, lalu `gen_reading.py all`), Tugas 4 (font kode), Tugas 5 (uji HP dan browser), golden lewat WSL, PR.
 - T25 selesai di cabang `fitur/fitur-inti-dan-uji-akhir`: `KnowledgeBank` (pemuat dengan kondisi galat seperti A100), `KnowledgeSelector`, `KnowledgeService` (penilaian diri, kemajuan, kartu SM-2), tabel `knowledge_progress` (skema v3 dengan test migrasi v2 ke v3), S19 dan S20 dengan semua kondisi, baris katalog dan pintasan beranda, backup ikut membawa `knowledge_progress` dan `answer.dijawab` (A106, A107). Terbuka: Q15 (`CheckRow`). Berikutnya: T26 (isi bank pengetahuan dan VRB-RC).
 - Tugas 0 (cabang `fitur/fitur-inti-dan-uji-akhir`) selesai: baris "Sudah dikerjakan hari ini: N soal" di bawah panel latihan S04 (A105). Skema naik ke v2 (`answer.dijawab`, migrasi dan test migrasi). Berikutnya: T25 (bank pengetahuan, S19, S20).
