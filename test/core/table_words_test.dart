@@ -73,5 +73,8 @@ void main() {
     // Boleh menggulir atau memuat; yang wajib: tidak ada luapan.
     expect(tester.takeException(), isNull);
     expect(scrollables.evaluate().length, lessThanOrEqualTo(1));
+    // Tabel yang menggulir wajib memberi tahu pembaca.
+    expect(find.textContaining('Geser tabel ke samping'),
+        scrollables.evaluate().isEmpty ? findsNothing : findsOneWidget);
   });
 }

@@ -536,9 +536,22 @@ class _FigureTable extends StatelessWidget {
           ],
         );
         if (needed <= available) return grid;
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: grid,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: grid,
+            ),
+            const SizedBox(height: AppSpace.s8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: _cellPadding),
+              child: Text(
+                'Geser tabel ke samping untuk melihat semua kolom.',
+                style: AppType.label(c.inkMuted),
+              ),
+            ),
+          ],
         );
       },
     );
