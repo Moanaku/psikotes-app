@@ -63,6 +63,9 @@ Future<void> tap(WidgetTester tester, Finder f) async {
 AppChip chip(WidgetTester tester, String label) =>
     tester.widget<AppChip>(find.widgetWithText(AppChip, label));
 
+Future<void> openTopics(WidgetTester tester) =>
+    tap(tester, find.widgetWithText(ListRow, 'Pilih topik'));
+
 Finder level(String name) => find.widgetWithText(ScoreBar, name);
 
 Future<void> startLevel(WidgetTester tester, String name) =>
@@ -85,6 +88,10 @@ void main() {
       expect(chip(tester, 'QA').selected, isTrue);
       expect(chip(tester, 'Umum').selected, isFalse);
       expect(find.textContaining('seputar QA'), findsOneWidget);
+      expect(find.widgetWithText(ListRow, 'Pilih topik'), findsOneWidget);
+      expect(find.text('Semua topik'), findsOneWidget);
+      expect(find.widgetWithText(AppChip, 'Test case'), findsNothing);
+      await openTopics(tester);
       expect(chip(tester, 'Semua topik').selected, isTrue);
       for (final t in [
         'Siklus bug',
@@ -119,13 +126,17 @@ void main() {
     testWidgets('ganti role mengganti topik dan hitungan; topik direset',
         (tester) async {
       await openS19(tester);
+      await openTopics(tester);
       await tap(tester, find.widgetWithText(AppChip, 'Test case'));
-      expect(chip(tester, 'Test case').selected, isTrue);
+      expect(find.widgetWithText(AppChip, 'Test case'), findsNothing,
+          reason: 'daftar menutup setelah memilih');
+      expect(find.text('Test case'), findsOneWidget);
       expect(tester.widget<ScoreBar>(level('Dasar')).valueLabel, '0 dari 1');
 
       await tap(tester, find.widgetWithText(AppChip, 'IT BA'));
+      expect(find.text('Test case'), findsNothing);
+      await openTopics(tester);
       expect(chip(tester, 'Semua topik').selected, isTrue);
-      expect(find.widgetWithText(AppChip, 'Test case'), findsNothing);
       expect(find.widgetWithText(AppChip, 'Requirement'), findsOneWidget);
       expect(tester.widget<ScoreBar>(level('Dasar')).valueLabel, '0 dari 2');
     });
@@ -302,6 +313,19 @@ void main() {
         expect(tester.takeException(), isNull);
         expectNoMidWordBreaks(tester);
         expectTouchTargets48(tester);
+      });
+
+      testWidgets('skala $scale: baris "Pilih topik" terbuka tanpa meluap',
+          (tester) async {
+        await openS19(tester, textScale: scale);
+        await openTopics(tester);
+        expect(tester.takeException(), isNull);
+        expectNoMidWordBreaks(tester);
+        expectTouchTargets48(tester);
+        await tap(tester, find.widgetWithText(AppChip, 'Test case'));
+        expect(tester.takeException(), isNull);
+        expectNoMidWordBreaks(tester);
+        expect(level('Dasar'), findsOneWidget);
       });
     }
   });

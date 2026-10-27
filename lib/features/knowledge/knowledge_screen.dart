@@ -11,6 +11,7 @@ import '../../core/widgets/app_chip.dart';
 import '../../core/widgets/app_top_bar.dart';
 import '../../core/widgets/empty_view.dart';
 import '../../core/widgets/error_view.dart';
+import '../../core/widgets/list_row.dart';
 import '../../core/widgets/note_box.dart';
 import '../../core/widgets/score_bar.dart';
 import '../../core/widgets/skeleton_list.dart';
@@ -45,6 +46,7 @@ class _KnowledgeScreenState extends ConsumerState<KnowledgeScreen> {
   KnowledgeRole? _role;
   String? _topik;
   bool _starting = false;
+  bool _topicsOpen = false;
   String? _note;
 
   KnowledgeRole _currentRole() {
@@ -220,6 +222,7 @@ class _KnowledgeScreenState extends ConsumerState<KnowledgeScreen> {
                     _role = r;
                     _topik = null;
                     _note = null;
+                    _topicsOpen = false;
                   }),
                 ),
             ],
@@ -246,40 +249,57 @@ class _KnowledgeScreenState extends ConsumerState<KnowledgeScreen> {
           )
         else ...[
           const SizedBox(height: AppSpace.s24),
-          Padding(
-            padding: _margin,
-            child: Semantics(
-              header: true,
-              child: Text('Topik', style: AppType.title(c.ink)),
+          Semantics(
+            expanded: _topicsOpen,
+            child: ListRow(
+              title: 'Pilih topik',
+              subtitle: _topik == null
+                  ? 'Semua topik'
+                  : KnowledgeItem.topicLabel(_topik!),
+              trailing: ExcludeSemantics(
+                child: RotatedBox(
+                  quarterTurns: _topicsOpen ? 2 : 0,
+                  child: Icon(
+                    AppIcons.down,
+                    size: AppSizes.iconBase,
+                    color: c.inkMuted,
+                  ),
+                ),
+              ),
+              onTap: () => setState(() => _topicsOpen = !_topicsOpen),
             ),
           ),
-          const SizedBox(height: AppSpace.s8),
-          Padding(
-            padding: _margin,
-            child: Wrap(
-              spacing: AppSpace.s8,
-              runSpacing: AppSpace.s8,
-              children: [
-                AppChip(
-                  label: 'Semua topik',
-                  selected: _topik == null,
-                  onTap: () => setState(() {
-                    _topik = null;
-                    _note = null;
-                  }),
-                ),
-                for (final t in topics)
+          if (_topicsOpen) ...[
+            const SizedBox(height: AppSpace.s12),
+            Padding(
+              padding: _margin,
+              child: Wrap(
+                spacing: AppSpace.s8,
+                runSpacing: AppSpace.s8,
+                children: [
                   AppChip(
-                    label: KnowledgeItem.topicLabel(t),
-                    selected: _topik == t,
+                    label: 'Semua topik',
+                    selected: _topik == null,
                     onTap: () => setState(() {
-                      _topik = t;
+                      _topik = null;
                       _note = null;
+                      _topicsOpen = false;
                     }),
                   ),
-              ],
+                  for (final t in topics)
+                    AppChip(
+                      label: KnowledgeItem.topicLabel(t),
+                      selected: _topik == t,
+                      onTap: () => setState(() {
+                        _topik = t;
+                        _note = null;
+                        _topicsOpen = false;
+                      }),
+                    ),
+                ],
+              ),
             ),
-          ),
+          ],
           if (nothingForTopic)
             EmptyView(
               title: 'Belum ada kartu untuk topik ini',
