@@ -2781,22 +2781,6 @@
       "needsVerification": true
     },
     {
-      "id": "KB-BA-L-013",
-      "role": "ba",
-      "level": "lanjut",
-      "topik": "trade-off",
-      "pertanyaan": "Bagaimana kamu menimbang otomatisasi penuh sebuah proses terhadap mempertahankan langkah persetujuan manual oleh manusia?",
-      "jawabanModel": "Saya menilai volume, tingkat kesalahan, dampak dari keputusan yang salah, serta kebutuhan kontrol dan audit. Proses berulang, berisiko rendah, dan berbasis aturan jelas cocok diotomatisasi penuh. Keputusan yang berdampak besar, ambigu, atau berkaitan dengan regulasi sebaiknya tetap melibatkan manusia, mungkin dengan otomatisasi parsial yang menangani kasus rutin dan meneruskan pengecualian.",
-      "poinKunci": [
-        "Otomatisasi paling cocok untuk proses bervolume tinggi, berulang, dan berbasis aturan jelas.",
-        "Dampak keputusan yang salah menentukan seberapa perlu pengawasan manusia.",
-        "Kebutuhan kontrol internal dan jejak audit dapat mempertahankan langkah manual.",
-        "Penanganan pengecualian secara terpisah memungkinkan otomatisasi parsial yang seimbang."
-      ],
-      "sumber": "Spesifikasi BPMN (OMG)",
-      "needsVerification": true
-    },
-    {
       "id": "KB-BA-L-014",
       "role": "ba",
       "level": "lanjut",
@@ -2842,6 +2826,22 @@
         "Perubahan dapat diakomodasi dengan menukar prioritas atau menyesuaikan sumber daya."
       ],
       "sumber": "BABOK Guide (IIBA)",
+      "needsVerification": true
+    },
+    {
+      "id": "KB-BA-L-017",
+      "role": "ba",
+      "level": "lanjut",
+      "topik": "trade-off",
+      "pertanyaan": "Bagaimana kamu menimbang kedalaman model proses bisnis terhadap keterbacaannya bagi audiens non-teknis?",
+      "jawabanModel": "Saya menyesuaikan tingkat detail dengan tujuan dan audiens, misalnya diagram tingkat tinggi untuk manajemen dan model rinci untuk tim implementasi. Model yang terlalu rinci membuat pembaca bisnis kehilangan gambaran besar, sedangkan yang terlalu ringkas tidak cukup untuk pengembangan. Menjaga konsistensi notasi dan menautkan tingkat abstraksi yang berbeda membuat keduanya tetap selaras.",
+      "poinKunci": [
+        "Tujuan dan audiens menentukan tingkat detail model.",
+        "Model berlapis memungkinkan ringkasan untuk manajemen dan detail untuk implementer.",
+        "Model yang terlalu rinci menyulitkan validasi oleh pihak bisnis.",
+        "Notasi yang konsisten menjaga keselarasan antar tingkat abstraksi."
+      ],
+      "sumber": "Spesifikasi BPMN (OMG)",
       "needsVerification": true
     },
     {
